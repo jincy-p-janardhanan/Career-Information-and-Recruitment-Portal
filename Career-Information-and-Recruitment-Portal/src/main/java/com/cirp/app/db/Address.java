@@ -56,6 +56,4 @@ class Address {
 	protected void setPincode(Long pincode) {
 		this.pincode = pincode;
 	}
-	
-	
 }
