@@ -10,12 +10,7 @@ package com.cirp.app.db;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@Document()
-@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class User {
 	
 	@Id
@@ -25,47 +20,97 @@ public abstract class User {
 	private String name;
 	private Address address;
 	private String mobile;
-	private Email email;
-	public ObjectId get_id() {
+	private String email;
+	private String profile_pic;
+	private int role;
+	private int status;
+	
+	public User() {
+		this.setRole(1); // 0 for admin, 1 for others
+		this.setStatus(-1); //-1 for pending, 0 for rejected, 1 for accepted
+	}
+	
+	//Getters
+	protected ObjectId get_id() {
 		return _id;
 	}
-	public void set_id(ObjectId _id) {
-		this._id = _id;
-	}
-	public String getUsername() {
+
+	protected String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
+
+	protected String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getName() {
+
+	protected String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Address getAddress() {
+
+	protected Address getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-	public String getMobile() {
+
+	protected String getMobile() {
 		return mobile;
 	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	public Email getEmail() {
+
+	protected String getEmail() {
 		return email;
 	}
-	public void setEmail(Email email) {
+
+	protected String getProfile_pic() {
+		return profile_pic;
+	}
+
+	protected int getRole() {
+		return role;
+	}
+
+	protected int getStatus() {
+		return status;
+	}
+
+	//Setters
+	protected void set_id(ObjectId _id) {
+		this._id = _id;
+	}
+
+	protected void setUsername(String username) {
+		this.username = username;
+	}
+
+	protected void setPassword(String password) {
+		this.password = password;
+	}
+
+	protected void setName(String name) {
+		this.name = name;
+	}
+
+	protected void setAddress(Address address) {
+		this.address = address;
+	}
+
+	protected void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	protected void setEmail(String email) {
 		this.email = email;
 	}
+
+	protected void setProfile_pic(String profile_pic) {
+		this.profile_pic = profile_pic;
+	}
+
+	protected void setRole(int role) {
+		this.role = role;
+	}
+
+	protected void setStatus(int status) {
+		this.status = status;
+	}
+	
+	
 }

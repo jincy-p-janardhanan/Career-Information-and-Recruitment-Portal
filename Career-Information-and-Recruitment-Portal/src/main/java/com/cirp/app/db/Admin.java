@@ -3,48 +3,46 @@
  */
 package com.cirp.app.db;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Jincy P Janardhanan
  *
  */
-@Document(collection="Admin")
-@JsonIgnoreProperties(ignoreUnknown=true)
+
 public class Admin extends User{
 	
-	private ArrayList<College> college_request_pending;
-	private ArrayList<ObjectId> college_approved;
-	private ArrayList<College> college_denied;
+	private List<ObjectId> college_request_pending;
+	private List<ObjectId> college_approved;
+	private List<ObjectId> college_denied;
 	
-	private ArrayList<Recruiter> recruiter_request_pending;
-	private ArrayList<ObjectId> recruiter_approved;
-	private ArrayList<Recruiter> recruiter_denied;
+	private List<ObjectId> recruiter_request_pending;
+	private List<ObjectId> recruiter_approved;
+	private List<ObjectId> recruiter_denied;
 	
-	//Receive College Registration Request
-	protected String receiveCollegeRegitrationRequest(College college) {
-		String msg;
-		try {
-			this.college_request_pending.add(college);
-			if(this.college_request_pending.contains(college)) {
-				msg = "Registration request created successfully!";
-			}
-			else {
-				msg = "Registration request was unsuccessful, please try again!";
-			}
-		}
-		catch (Exception e) {
-			msg  = "Registration request was unsuccessful, please try again! \nError: " + e.toString();
-		}
-		return msg;		
+	public Admin() {
+		this.setRole(0);
+		this.setStatus(1);
 	}
-
 	
-	//Getters and Setters
-	
+	protected List<ObjectId> getCollege_request_pending() {
+		return college_request_pending;
+	}
+	protected List<ObjectId> getCollege_approved() {
+		return college_approved;
+	}
+	protected List<ObjectId> getCollege_denied() {
+		return college_denied;
+	}
+	protected List<ObjectId> getRecruiter_request_pending() {
+		return recruiter_request_pending;
+	}
+	protected List<ObjectId> getRecruiter_approved() {
+		return recruiter_approved;
+	}
+	protected List<ObjectId> getRecruiter_denied() {
+		return recruiter_denied;
+	}
 }

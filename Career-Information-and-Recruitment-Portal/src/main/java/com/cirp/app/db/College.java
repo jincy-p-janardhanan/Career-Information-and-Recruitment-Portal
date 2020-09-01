@@ -1,26 +1,24 @@
 package com.cirp.app.db;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.types.ObjectId;
 
 /**
  * @author Jincy P Janardhanan
  *
  */
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@Document(collection="College")
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class College extends User {
 	
 	private String affiliated_univ;
 	private long college_landph;
-	private Email college_public_email;			//email used by public for support, enquires, etc
+	private String college_public_email;			//email used by public for support, enquires, etc
 	
-	private ArrayList<Student> students;
-	private ArrayList<Alumnus> alumni;
+	private List<ObjectId> students;
+	private List<ObjectId> alumni_pending;
+	private List<ObjectId> alumni;
+	
 	
 	//Getters and Setters
 	protected String getAffiliated_univ() {
@@ -35,10 +33,20 @@ public class College extends User {
 	protected void setCollege_landph(long college_landph) {
 		this.college_landph = college_landph;
 	}
-	protected Email getCollege_public_email() {
+	protected String getCollege_public_email() {
 		return college_public_email;
 	}
-	protected void setCollege_public_email(Email college_public_email) {
+	protected void setCollege_public_email(String college_public_email) {
 		this.college_public_email = college_public_email;
 	}
+	public List<ObjectId> getStudents() {
+		return students;
+	}
+	public List<ObjectId> getAlumni_pending() {
+		return alumni_pending;
+	}
+	public List<ObjectId> getAlumni() {
+		return alumni;
+	}
+	
 }
