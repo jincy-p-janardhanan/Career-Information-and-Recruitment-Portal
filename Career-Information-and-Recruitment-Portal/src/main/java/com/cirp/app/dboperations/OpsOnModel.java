@@ -81,8 +81,9 @@ public interface OpsOnModel {
 	void viewAllApplications(Recruiter recruiter);
 	List<Application> searchApplications(String search_text);
 	
-	void requestRecommendation(Student student); //Can be used for both student and alumni
-	void recommend(Student student); //Can be used for both student and alumni
+	void requestRecommendation(ObjectId requester_id, ObjectId recommender_id);
+	void recommend(Recommendation reccomendation);
+	void rejectRecommendationRequest(Recommendation reccomendation);
 	
 	List<ObjectId> search(String search_text);
 	List<ObjectId> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'

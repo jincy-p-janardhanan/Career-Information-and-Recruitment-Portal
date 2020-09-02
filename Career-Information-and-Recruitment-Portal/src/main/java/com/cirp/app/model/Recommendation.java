@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
  *
  */
 
-class Recommendation {
+public class Recommendation {
 	@Id
 	private ObjectId _id;
 	private ObjectId requester_id;
