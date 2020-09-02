@@ -3,6 +3,8 @@
  */
 package com.cirp.app.model;
 
+import java.util.Date;
+
 import org.bson.types.ObjectId;
 
 /**
@@ -17,9 +19,9 @@ public class Alumnus extends Student{
 	private ObjectId recc_rejected; //Recommendation requests rejected by this user
 	
 	public Alumnus(String username, String password, String name, Address address, String mobile, String email,
-			String reg_no, String course, String branch, int sem, int st_year, int end_year, ObjectId college) {
-		super(username, password, name, address, mobile, email, reg_no, course, branch, sem, st_year, end_year, college);
-		this.setStatus(0);
+			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, ObjectId college) {
+		super(username, password, name, address, mobile, email, reg_no, course, branch, sem, st_date, end_date,
+				college);
 	}
 	
 	protected ObjectId getRecc_req_recvd() {

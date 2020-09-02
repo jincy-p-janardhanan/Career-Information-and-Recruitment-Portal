@@ -3,6 +3,7 @@
  */
 package com.cirp.app.model;
 
+import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -12,14 +13,14 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  * @author Jincy P Janardhanan
  *
  */
-class Student extends NonAdmin{
+public class Student extends NonAdmin{
 
 	private String reg_no;
 	private String course;
 	private String branch;
 	private int sem;
-	private int st_year;
-	private int end_year;
+	private Date st_date;
+	private Date end_date;
 	private String mobile2;
 	private float sgpa;
 	private float cgpa;
@@ -32,19 +33,22 @@ class Student extends NonAdmin{
 	private List<String> orgs; //Communities and organizations the student is involved in
 	private List<Project> project;
 	
-	private List<ObjectId> recommend_req; //List of recommendation requests; Setter should be added (use query)
-	private List<ObjectId> recommendations; //List of recommendations received; Setter should be added (use query)
+	//Setters needed
+	private List<ObjectId> recommend_req; //List of recommendation requests
+	private List<ObjectId> recommendations; //List of recommendations received
 
 	public Student(String username, String password, String name, Address address, String mobile, String email,
-			String reg_no, String course, String branch, int sem, int st_year, int end_year, ObjectId college) {
+			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, ObjectId college) {
 		super(username, password, name, address, mobile, email);
 		this.reg_no = reg_no;
 		this.course = course;
 		this.branch = branch;
 		this.sem = sem;
-		this.st_year = st_year;
-		this.end_year = end_year;
+		this.st_date = st_date;
+		this.end_date = end_date;
 		this.college = college;
+		this.setStatus(1);
+		this.setStatus_changed(new Date()); //Sets current date value to status changed
 	}
 
 	protected String getReg_no() {
@@ -79,22 +83,7 @@ class Student extends NonAdmin{
 		this.sem = sem;
 	}
 
-	protected int getSt_year() {
-		return st_year;
-	}
-
-	protected void setSt_year(int st_year) {
-		this.st_year = st_year;
-	}
-
-	protected int getEnd_year() {
-		return end_year;
-	}
-
-	protected void setEnd_year(int end_year) {
-		this.end_year = end_year;
-	}
-
+	
 	protected String getMobile2() {
 		return mobile2;
 	}
@@ -174,5 +163,21 @@ class Student extends NonAdmin{
 
 	protected List<ObjectId> getRecommendations() {
 		return recommendations;
+	}
+
+	protected Date getSt_date() {
+		return st_date;
+	}
+
+	protected void setSt_date(Date st_date) {
+		this.st_date = st_date;
+	}
+
+	protected Date getEnd_date() {
+		return end_date;
+	}
+
+	protected void setEnd_date(Date end_date) {
+		this.end_date = end_date;
 	}	
 }

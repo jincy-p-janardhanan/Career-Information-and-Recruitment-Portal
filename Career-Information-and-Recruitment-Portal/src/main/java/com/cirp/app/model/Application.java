@@ -11,11 +11,11 @@ import org.bson.types.ObjectId;
  * @author Jincy P Janardhanan
  *
  */
-class Applications {
+public class Application {
 	private ObjectId applicant_id;
 	private List<String> answers;
 	
-	public Applications(ObjectId applicant_id) {
+	public Application(ObjectId applicant_id) {
 		this.applicant_id = applicant_id;
 	}
 

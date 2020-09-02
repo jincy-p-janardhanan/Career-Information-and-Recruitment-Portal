@@ -3,6 +3,8 @@
  */
 package com.cirp.app.model;
 
+import java.util.Date;
+
 /**
  * @author Jincy P Janardhanan
  *
@@ -13,7 +15,7 @@ public abstract class NonAdmin extends User {
 	private String bg_img; //background image
 	private int approval_count; /*Incremented each time when an admin approves registration request
 	User.status changed to approved (1) when all admins approve */
-	
+	private Date status_changed; //Date when the user's account was approved or rejected
 	
 	public NonAdmin(String username, String password, String name, Address address, String mobile, String email) {
 		this.setUsername(username);
@@ -48,5 +50,13 @@ public abstract class NonAdmin extends User {
 	}
 	public void incApproval_count() {
 		this.approval_count += 1;
+	}
+
+	public Date getStatus_changed() {
+		return status_changed;
+	}
+
+	public void setStatus_changed(Date status_changed) {
+		this.status_changed = status_changed;
 	}
 }

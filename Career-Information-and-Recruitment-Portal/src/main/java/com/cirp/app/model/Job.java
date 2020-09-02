@@ -14,8 +14,9 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  * @author Jincy P Janardhanan
  *
  */
-class Job {
+public class Job {
 	private ObjectId recruiter_id;
+	private String job_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
 	@TextIndexed
 	private String title;
 	private String desc;
@@ -26,7 +27,7 @@ class Job {
 	@Indexed
 	private Date last_date;
 	private List<String> questions;
-	private List<Applications> applicants;
+	private List<Application> applicants;
 	
 	@TextIndexed
 	private List<String> skills; //job tags
@@ -41,6 +42,13 @@ class Job {
 		this.stipend = stipend;
 		this.last_date = last_date;
 		this.skills = skills;
+		
+		/* 
+		 * if (Query to get recruiter's profile picture)
+		 * null if non-existent
+		 * this.job_pic = query result
+		 * 
+		 */
 	}
 
 	protected String getTitle() {
@@ -99,11 +107,11 @@ class Job {
 		this.questions = questions;
 	}
 
-	protected List<Applications> getApplicants() {
+	protected List<Application> getApplicants() {
 		return applicants;
 	}
 
-	protected void setApplicants(List<Applications> applicants) {
+	protected void setApplicants(List<Application> applicants) {
 		this.applicants = applicants;
 	}
 
@@ -117,5 +125,9 @@ class Job {
 
 	public ObjectId getRecruiter_id() {
 		return recruiter_id;
+	}
+
+	public String getJob_pic() {
+		return job_pic;
 	}	
 }
