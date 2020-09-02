@@ -1,5 +1,8 @@
 /**
- * reference: https://www.appsdeveloperblog.com/spring-boot-and-mongotemplate-tutorial-with-mongodb/
+ * references: 
+ * 		https://www.appsdeveloperblog.com/spring-boot-and-mongotemplate-tutorial-with-mongodb/4
+ * 		https://docs.spring.io/spring-data/mongodb/docs/current-SNAPSHOT/reference/html/#mongo-template.save-update-remove
+ * 
  */
 package com.cirp.app.dboperations;
 
