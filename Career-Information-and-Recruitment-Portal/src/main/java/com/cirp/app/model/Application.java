@@ -11,6 +11,7 @@ import org.bson.types.ObjectId;
  * @author Jincy P Janardhanan
  *
  */
+
 public class Application {
 	private ObjectId applicant_id;
 	private List<String> answers;

@@ -1,5 +1,5 @@
 /**
- * 
+ * reference: https://www.appsdeveloperblog.com/spring-boot-and-mongotemplate-tutorial-with-mongodb/
  */
 package com.cirp.app.dboperations;
 
@@ -124,12 +124,6 @@ public class DbOperations implements OpsOnModel{
 	}
 
 	@Override
-	public void viewProfile(Alumnus alumnus) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void editProfile(College college) {
 		// TODO Auto-generated method stub
 		
@@ -143,12 +137,6 @@ public class DbOperations implements OpsOnModel{
 
 	@Override
 	public void editProfile(Student student) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void editProfile(Alumnus alumnus) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -262,12 +250,6 @@ public class DbOperations implements OpsOnModel{
 	}
 
 	@Override
-	public <T> Class<T> findById(ObjectId id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void requestRecommendation(Student student) {
 		// TODO Auto-generated method stub
 		
@@ -277,6 +259,18 @@ public class DbOperations implements OpsOnModel{
 	public void recommend(Student student) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<ObjectId> search(String search_text, String filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T findById(ObjectId id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

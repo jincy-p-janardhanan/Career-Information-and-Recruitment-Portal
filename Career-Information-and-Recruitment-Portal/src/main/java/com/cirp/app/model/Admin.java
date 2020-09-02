@@ -6,12 +6,17 @@ package com.cirp.app.model;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Jincy P Janardhanan
  *
  */
 
+@Document(collection="admin")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Admin extends User{
 	
 	private List<ObjectId> college_pending;

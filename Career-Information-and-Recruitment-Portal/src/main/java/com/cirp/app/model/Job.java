@@ -9,11 +9,17 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Jincy P Janardhanan
  *
  */
+
+@Document(collection="job")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Job {
 	private ObjectId recruiter_id;
 	private String job_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)

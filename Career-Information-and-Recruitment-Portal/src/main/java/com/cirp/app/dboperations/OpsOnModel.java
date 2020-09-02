@@ -15,10 +15,16 @@ import com.cirp.app.model.*;
  *
  */
 public interface OpsOnModel {
-	
-	//passwords are stored in bcrypt encrypted format, in the database
-	//passwords in function calls are also encrypted
-	//Reference(in SQL): https://www.devglan.com/spring-security/spring-boot-security-password-encoding-bcrypt-encoder
+	/*
+	 * passwords are stored in bcrypt encrypted format, in the database
+	 * passwords in function calls are also encrypted
+	 * Bcrypt usage reference: https://dzone.com/articles/storing-passwords-securely-with-bcrypt-and-java
+	 * Reference(in SQL): https://www.devglan.com/spring-security/spring-boot-security-password-encoding-bcrypt-encoder
+	 * 
+	 * 
+	 * Pending methods: Chat, Notifications
+	 * 
+	 */
 	
 	void register(College college); //request to server admin
 	void register(Recruiter recruiter); //request to admin
@@ -45,14 +51,12 @@ public interface OpsOnModel {
 	//Profile includes data displayed on the user's home page only
 	void viewProfile(College college);
 	void viewProfile(Recruiter recruiter);
-	void viewProfile(Student student);
-	void viewProfile(Alumnus alumnus);
+	void viewProfile(Student student); //Can be used for both student and alumni; NB: Super class object reference can hold object of sub class	
 	
 	void editProfile(College college);
 	void editProfile(Recruiter recruiter);
-	void editProfile(Student student);
-	void editProfile(Alumnus alumnus);
-	
+	void editProfile(Student student); //Can be used for both student and alumni
+
 	void optoutRequest(College college); //sends confirmation mail for opt out
 	void optoutRequest(Recruiter recruiter); //sends confirmation mail for opt out
 	void optoutRequest(Alumnus alumnus); //sends confirmation mail for opt out
@@ -79,10 +83,10 @@ public interface OpsOnModel {
 	
 	void requestRecommendation(Student student); //Can be used for both student and alumni
 	void recommend(Student student); //Can be used for both student and alumni
-	//NB: Super class object reference can hold object of sub class	
 	
 	List<ObjectId> search(String search_text);
+	List<ObjectId> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
 	
-	<T> Class<T> findById(ObjectId id); //Can return object from any collection (class)
+	<T> T findById(ObjectId id); //Can return object from any collection (class)
 	
 }

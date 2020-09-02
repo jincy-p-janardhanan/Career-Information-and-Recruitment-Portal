@@ -6,11 +6,16 @@ package com.cirp.app.model;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Jincy P Janardhanan
  *
  */
+@Document(collection="alumnus")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Alumnus extends Student{
 
 	//Setters needed

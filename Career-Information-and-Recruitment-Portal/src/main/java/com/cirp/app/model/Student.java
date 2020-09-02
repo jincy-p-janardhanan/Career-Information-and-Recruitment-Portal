@@ -8,11 +8,17 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Jincy P Janardhanan
  *
  */
+
+@Document(collection="student")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Student extends NonAdmin{
 
 	private String reg_no;

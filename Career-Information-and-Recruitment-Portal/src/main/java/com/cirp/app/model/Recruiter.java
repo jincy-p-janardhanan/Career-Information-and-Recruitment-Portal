@@ -3,12 +3,17 @@ package com.cirp.app.model;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Jincy P Janardhanan
  *
  */
 
+@Document(collection="recruiter")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Recruiter extends NonAdmin {
 	
 	public Recruiter(String username, String password, String name, Address address, String mobile, String email, String license_no, String landph, String public_email) {
