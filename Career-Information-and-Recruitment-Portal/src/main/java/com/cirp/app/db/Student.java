@@ -8,5 +8,5 @@ package com.cirp.app.db;
  *
  */
 class Student {
-
+	
 }

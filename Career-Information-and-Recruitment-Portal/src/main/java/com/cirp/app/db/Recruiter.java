@@ -1,39 +1,50 @@
 package com.cirp.app.db;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
+
 /**
  * @author Jincy P Janardhanan
  *
  */
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@Document(collection="Recruiter")
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class Recruiter extends User {
+public class Recruiter extends NonAdmin {
 	
-	String recruiter_license_no;
-	long recruiter_landph;
-	Email recruiter_public_email;
+	public Recruiter(String username, String password, String name, Address address, String mobile, String email, String license_no, String landph, String public_email) {
+		super(username, password, name, address, mobile, email);
+		this.setLicense_no(license_no);
+		this.setLandph(landph);
+		this.setPublic_email(public_email);
+	}
+	private String license_no;
+	private String landph;
+	private String public_email;
+	private List<ObjectId> jobs;
 	
-	protected String getRecruiter_license_no() {
-		return recruiter_license_no;
+	
+	protected String getLicense_no() {
+		return license_no;
 	}
-	protected void setRecruiter_license_no(String recruiter_license_no) {
-		this.recruiter_license_no = recruiter_license_no;
+	protected void setLicense_no(String license_no) {
+		this.license_no = license_no;
 	}
-	protected long getRecruiter_landph() {
-		return recruiter_landph;
+	protected String getLandph() {
+		return landph;
 	}
-	protected void setRecruiter_landph(long recruiter_landph) {
-		this.recruiter_landph = recruiter_landph;
+	protected void setLandph(String landph) {
+		this.landph = landph;
 	}
-	protected Email getRecruiter_public_email() {
-		return recruiter_public_email;
+	protected String getPublic_email() {
+		return public_email;
 	}
-	protected void setRecruiter_public_email(Email recruiter_public_email) {
-		this.recruiter_public_email = recruiter_public_email;
+	protected void setPublic_email(String public_email) {
+		this.public_email = public_email;
 	}
-
+	protected List<ObjectId> getJobs() {
+		return jobs;
+	}
+	protected void setJobs(List<ObjectId> jobs) {
+		this.jobs = jobs;
+	}	
 }

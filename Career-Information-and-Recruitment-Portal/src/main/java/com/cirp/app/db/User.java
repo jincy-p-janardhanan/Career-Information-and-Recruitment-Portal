@@ -10,12 +10,7 @@ package com.cirp.app.db;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@Document()
-@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class User {
 	
 	@Id
@@ -25,47 +20,94 @@ public abstract class User {
 	private String name;
 	private Address address;
 	private String mobile;
-	private Email email;
-	public ObjectId get_id() {
+	private String email;	
+	private Boolean admin; //false, by default (not admin); true for admin users
+	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
+	
+	public User() {
+		this.setAdmin(false);
+		this.setStatus(0);
+	}
+
+	protected ObjectId get_id() {
 		return _id;
 	}
-	public void set_id(ObjectId _id) {
+
+	protected void set_id(ObjectId _id) {
 		this._id = _id;
 	}
-	public String getUsername() {
+
+	protected String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
+
+	protected void setUsername(String username) {
 		this.username = username;
 	}
-	public String getPassword() {
+
+	protected String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
+
+	protected void setPassword(String password) {
 		this.password = password;
 	}
-	public String getName() {
+
+	protected String getName() {
 		return name;
 	}
-	public void setName(String name) {
+
+	protected void setName(String name) {
 		this.name = name;
 	}
-	public Address getAddress() {
+
+	protected Address getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
+
+	protected void setAddress(Address address) {
 		this.address = address;
 	}
-	public String getMobile() {
+
+	protected String getMobile() {
 		return mobile;
 	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+
+	protected void setMobile(String mobile) {
+		//Checking whether its a valid international mobile number
+		if(mobile.matches("^\\+(?:[0-9] ?){6,14}[0-9]$"))
+			this.mobile = mobile;
 	}
-	public Email getEmail() {
+
+	protected String getEmail() {
 		return email;
 	}
-	public void setEmail(Email email) {
-		this.email = email;
+
+	protected void setEmail(String email) {
+		//Checking whether its a valid email
+		if(email.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+			this.email = email;
+
 	}
+
+	protected Boolean getAdmin() {
+		return admin;
+	}
+
+	protected void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+	protected int getStatus() {
+		return status;
+	}
+
+	protected void setStatus(int status) {
+		//value of status should be either -1, 0 or 1
+		if(status >= -1 && status <= 1)
+			this.status = status;
+	}
+	
+	
+	
 }
