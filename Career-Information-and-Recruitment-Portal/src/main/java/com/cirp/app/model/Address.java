@@ -1,4 +1,6 @@
-package com.cirp.app.db;
+package com.cirp.app.model;
+
+import org.springframework.data.mongodb.core.index.TextIndexed;
 
 /**
  * @author Jincy P Janardhanan
@@ -6,13 +8,28 @@ package com.cirp.app.db;
  */
 
 class Address {
-	String address_line1;
-	String address_line2;
-	String city_or_town;
-	String district;
-	String state;
-	String country;
-	Long pincode;
+	private String address_line1;
+	private String address_line2;
+	@TextIndexed
+	private String city_or_town;
+	@TextIndexed
+	private String district;
+	@TextIndexed
+	private String state;
+	@TextIndexed
+	private String country;
+	private Long pincode;
+	
+	public Address(String address_line1, String address_line2, String city_or_town, String district, String state,
+			String country, Long pincode) {
+		this.address_line1 = address_line1;
+		this.address_line2 = address_line2;
+		this.city_or_town = city_or_town;
+		this.district = district;
+		this.state = state;
+		this.country = country;
+		this.pincode = pincode;
+	}
 	
 	protected String getAddress_line1() {
 		return address_line1;

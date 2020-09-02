@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cirp.app.db;
+package com.cirp.app.model;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
  *
  */
 
-public class Admin extends User{
+public final class Admin extends User{
 	
 	private List<ObjectId> college_pending;
 	private List<ObjectId> college_approved;

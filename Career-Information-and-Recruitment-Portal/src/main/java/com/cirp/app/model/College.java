@@ -1,4 +1,4 @@
-package com.cirp.app.db;
+package com.cirp.app.model;
 
 import java.util.List;
 
@@ -9,22 +9,27 @@ import org.bson.types.ObjectId;
  *
  */
 
-public class College extends NonAdmin {
+public final class College extends NonAdmin {
 	
 	private String affil_univ;
 	private String landph;
 	private String public_email;			//email used by public for support, enquires, etc
 	
+	//Setters needed for below members (using query)
 	private List<ObjectId> students;
 	private List<ObjectId> alumni_pending;
 	private List<ObjectId> alumni_rejected;
 	private List<ObjectId> alumni;
+	private ObjectId recc_req_recvd; //Recommendation requests received
+	private ObjectId reccommeded; //Recommendations made by this user
+	private ObjectId recc_rejected; //Recommendation requets rejected by this user
 	
-	public College(String username, String password, String name, Address address, String mobile, String email, String affil_univ, String landph, String public_email) {
+	public College(String username, String password, String name, Address address, String mobile, String email,
+			String affil_univ, String landph, String public_email) {
 		super(username, password, name, address, mobile, email);
-		this.setAffil_univ(affil_univ);
-		this.setLandph(landph);
-		this.setPublic_email(public_email);
+		this.affil_univ = affil_univ;
+		this.landph = landph;
+		this.public_email = public_email;
 	}
 	
 	protected String getAffil_univ() {
@@ -43,7 +48,8 @@ public class College extends NonAdmin {
 		return public_email;
 	}
 	protected void setPublic_email(String public_email) {
-		this.public_email = public_email;
+		if(public_email.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+			this.public_email = public_email;
 	}
 	protected List<ObjectId> getStudents() {
 		return students;
@@ -61,7 +67,16 @@ public class College extends NonAdmin {
 	protected List<ObjectId> getAlumni() {
 		return alumni;
 	}
-	
-	
 
+	public ObjectId getRecc_req_recvd() {
+		return recc_req_recvd;
+	}
+
+	public ObjectId getReccommeded() {
+		return reccommeded;
+	}
+
+	public ObjectId getRecc_rejected() {
+		return recc_rejected;
+	}
 }

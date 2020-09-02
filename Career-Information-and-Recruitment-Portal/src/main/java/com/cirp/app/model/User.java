@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cirp.app.db;
+package com.cirp.app.model;
 
 /**
  * @author Jincy P Janardhanan
@@ -10,6 +10,7 @@ package com.cirp.app.db;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 
 public abstract class User {
 	
@@ -17,10 +18,11 @@ public abstract class User {
 	private ObjectId _id;
 	private String username;
 	private String password;
+	@TextIndexed
 	private String name;
 	private Address address;
 	private String mobile;
-	private String email;	
+	private String email;
 	private Boolean admin; //false, by default (not admin); true for admin users
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
 	

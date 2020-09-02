@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cirp.app.db;
+package com.cirp.app.model;
 
 /**
  * @author Jincy P Janardhanan
