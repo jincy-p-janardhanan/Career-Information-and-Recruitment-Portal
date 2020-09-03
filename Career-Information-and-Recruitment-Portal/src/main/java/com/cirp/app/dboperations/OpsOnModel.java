@@ -30,17 +30,12 @@ public interface OpsOnModel {
 	void register(Alumnus alumnus); //request to college
 	void register(Student student);
 	
-	void confirmRegistration(College college);
-	void confirmRegistration(Recruiter recruiter);
-	void confirmRegistration(Alumnus alumnus);
-	
-	void rejectRegistration(College college);
-	void rejectRegistration(Recruiter college);
-	void rejectRegistration(Alumnus alumnus);
+	void confirmRegistration(User user);
+	void rejectRegistration(User user);
 	
 	//Send email after confirmation or rejection of registration
 	
-	void deleteRejectedRegistrations(Date today); //Scheduled to run everyday, removes registrations which were rejected two weeks before the current date 
+	void deleteRejectedRegistrations(); //Scheduled to run everyday, removes registrations which were rejected two weeks before the current date 
 	
 	void login(String username_or_email, String password);
 	void logout(String username);

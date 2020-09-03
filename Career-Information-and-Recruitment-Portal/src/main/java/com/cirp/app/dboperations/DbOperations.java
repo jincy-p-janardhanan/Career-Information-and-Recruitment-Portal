@@ -18,6 +18,7 @@ import com.cirp.app.model.Job;
 import com.cirp.app.model.Recommendation;
 import com.cirp.app.model.Recruiter;
 import com.cirp.app.model.Student;
+import com.cirp.app.model.User;
 
 /**
  * @author Jincy P Janardhanan
@@ -45,48 +46,6 @@ public class DbOperations implements OpsOnModel{
 
 	@Override
 	public void register(Student student) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void confirmRegistration(College college) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void confirmRegistration(Recruiter recruiter) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void confirmRegistration(Alumnus alumnus) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rejectRegistration(College college) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rejectRegistration(Recruiter college) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rejectRegistration(Alumnus alumnus) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteRejectedRegistrations(Date today) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -287,6 +246,24 @@ public class DbOperations implements OpsOnModel{
 	public <T> T findById(ObjectId id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void confirmRegistration(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rejectRegistration(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteRejectedRegistrations() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
