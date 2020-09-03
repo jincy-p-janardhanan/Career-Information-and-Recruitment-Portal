@@ -4,7 +4,8 @@
  * 		https://docs.spring.io/spring-data/mongodb/docs/current-SNAPSHOT/reference/html/#mongo-template.save-update-remove
  * 
  */
-package com.cirp.app.dboperations;
+
+package com.cirp.app.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ import com.cirp.app.model.User;
  * @author Jincy P Janardhanan
  *
  */
-public class DbOperations implements OpsOnModel{
+public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public void register(College college) {
@@ -265,6 +266,4 @@ public class DbOperations implements OpsOnModel{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 }

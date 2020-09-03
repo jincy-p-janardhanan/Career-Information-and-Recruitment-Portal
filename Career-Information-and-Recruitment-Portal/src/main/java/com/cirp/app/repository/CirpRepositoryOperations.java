@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cirp.app.dboperations;
+package com.cirp.app.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,7 @@ import com.cirp.app.model.*;
  * @author Jincy P Janardhanan
  *
  */
-public interface OpsOnModel {
+public interface CirpRepositoryOperations {
 	/*
 	 * passwords are stored in bcrypt encrypted format, in the database
 	 * passwords in function calls are also encrypted
