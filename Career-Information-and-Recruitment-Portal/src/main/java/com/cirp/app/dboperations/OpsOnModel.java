@@ -21,7 +21,6 @@ public interface OpsOnModel {
 	 * Bcrypt usage reference: https://dzone.com/articles/storing-passwords-securely-with-bcrypt-and-java
 	 * Reference(in SQL): https://www.devglan.com/spring-security/spring-boot-security-password-encoding-bcrypt-encoder
 	 * 
-	 * 
 	 * Pending methods: Chat, Notifications
 	 * 
 	 */
@@ -44,6 +43,7 @@ public interface OpsOnModel {
 	void deleteRejectedRegistrations(Date today); //Scheduled to run everyday, removes registrations which were rejected two weeks before the current date 
 	
 	void login(String username_or_email, String password);
+	void logout(String username);
 	
 	void resetPassword(String username_or_email); //Send password reset link to email
 	void updatePassword(String username_or_email, String new_password);
