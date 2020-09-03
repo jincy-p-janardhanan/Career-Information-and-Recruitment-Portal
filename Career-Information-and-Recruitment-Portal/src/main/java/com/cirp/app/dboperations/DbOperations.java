@@ -15,6 +15,7 @@ import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.Application;
 import com.cirp.app.model.College;
 import com.cirp.app.model.Job;
+import com.cirp.app.model.Recommendation;
 import com.cirp.app.model.Recruiter;
 import com.cirp.app.model.Student;
 
@@ -253,18 +254,6 @@ public class DbOperations implements OpsOnModel{
 	}
 
 	@Override
-	public void requestRecommendation(Student student) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void recommend(Student student) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<ObjectId> search(String search_text, String filter) {
 		// TODO Auto-generated method stub
 		return null;
@@ -274,6 +263,24 @@ public class DbOperations implements OpsOnModel{
 	public <T> T findById(ObjectId id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void requestRecommendation(ObjectId requester_id, ObjectId recommender_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void recommend(Recommendation reccomendation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rejectRecommendationRequest(Recommendation reccomendation) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
