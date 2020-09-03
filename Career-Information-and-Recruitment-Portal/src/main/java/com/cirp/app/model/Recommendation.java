@@ -1,6 +1,6 @@
 package com.cirp.app.model;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 /**
  * @author Jincy P Janardhanan
@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
  */
 
 public class Recommendation {
-	@Id
+	@MongoId
 	private ObjectId _id;
 	private ObjectId requester_id;
 	private ObjectId recommender_id;

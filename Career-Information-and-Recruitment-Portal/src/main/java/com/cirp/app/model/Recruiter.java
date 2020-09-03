@@ -27,9 +27,9 @@ public final class Recruiter extends NonAdmin {
 	private String public_email;
 	//Setter needed (using query)
 	private List<ObjectId> jobs;
-	private ObjectId recc_req_recvd; //Recommendation requests received
-	private ObjectId reccommeded; //Recommendations made by this user
-	private ObjectId recc_rejected; //Recommendation requests rejected by this user
+	private List<ObjectId> recc_req_recvd; //Recommendation requests received
+	private List<ObjectId> reccommeded; //Recommendations made by this user
+	private List<ObjectId> recc_rejected; //Recommendation requests rejected by this user
 	
 	
 	protected String getLicense_no() {
@@ -54,22 +54,13 @@ public final class Recruiter extends NonAdmin {
 	protected List<ObjectId> getJobs() {
 		return jobs;
 	}
-	protected ObjectId getRecc_req_recvd() {
+	protected List<ObjectId> getRecc_req_recvd() {
 		return recc_req_recvd;
 	}
-	protected void setRecc_req_recvd(ObjectId recc_req_recvd) {
-		this.recc_req_recvd = recc_req_recvd;
-	}
-	protected ObjectId getReccommeded() {
+	protected List<ObjectId> getReccommeded() {
 		return reccommeded;
 	}
-	protected void setReccommeded(ObjectId reccommeded) {
-		this.reccommeded = reccommeded;
-	}
-	protected ObjectId getRecc_rejected() {
+	protected List<ObjectId> getRecc_rejected() {
 		return recc_rejected;
-	}
-	protected void setRecc_rejected(ObjectId recc_rejected) {
-		this.recc_rejected = recc_rejected;
 	}
 }

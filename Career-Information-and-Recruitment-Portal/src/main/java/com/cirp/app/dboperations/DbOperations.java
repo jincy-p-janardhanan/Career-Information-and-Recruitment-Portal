@@ -98,6 +98,12 @@ public class DbOperations implements OpsOnModel{
 	}
 
 	@Override
+	public void logout(String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void resetPassword(String username_or_email) {
 		// TODO Auto-generated method stub
 		
@@ -248,6 +254,24 @@ public class DbOperations implements OpsOnModel{
 	}
 
 	@Override
+	public void requestRecommendation(ObjectId requester_id, ObjectId recommender_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void recommend(Recommendation reccomendation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rejectRecommendationRequest(Recommendation reccomendation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public List<ObjectId> search(String search_text) {
 		// TODO Auto-generated method stub
 		return null;
@@ -265,22 +289,5 @@ public class DbOperations implements OpsOnModel{
 		return null;
 	}
 
-	@Override
-	public void requestRecommendation(ObjectId requester_id, ObjectId recommender_id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void recommend(Recommendation reccomendation) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rejectRecommendationRequest(Recommendation reccomendation) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

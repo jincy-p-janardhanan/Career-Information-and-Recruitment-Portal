@@ -25,9 +25,9 @@ public final class College extends NonAdmin {
 	private List<ObjectId> alumni_pending;
 	private List<ObjectId> alumni_rejected;
 	private List<ObjectId> alumni;
-	private ObjectId recc_req_recvd; //Recommendation requests received
-	private ObjectId reccommeded; //Recommendations made by this user
-	private ObjectId recc_rejected; //Recommendation requets rejected by this user
+	private List<ObjectId> recc_req_recvd; //Recommendation requests received
+	private List<ObjectId> reccommeded; //Recommendations made by this user
+	private List<ObjectId> recc_rejected; //Recommendation requets rejected by this user
 	
 	public College(String username, String password, String name, Address address, String mobile, String email,
 			String affil_univ, String landph, String public_email) {
@@ -73,15 +73,15 @@ public final class College extends NonAdmin {
 		return alumni;
 	}
 
-	public ObjectId getRecc_req_recvd() {
+	public List<ObjectId> getRecc_req_recvd() {
 		return recc_req_recvd;
 	}
 
-	public ObjectId getReccommeded() {
+	public List<ObjectId> getReccommeded() {
 		return reccommeded;
 	}
 
-	public ObjectId getRecc_rejected() {
+	public List<ObjectId> getRecc_rejected() {
 		return recc_rejected;
 	}
 }
