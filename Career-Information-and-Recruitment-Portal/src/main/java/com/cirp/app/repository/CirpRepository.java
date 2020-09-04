@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
@@ -35,6 +35,7 @@ import com.cirp.app.model.User;
 @Repository
 public class CirpRepository implements CirpRepositoryOperations{
 	
+	@Autowired
 	MongoOperations mongoOps;
 
 	@Override
@@ -242,10 +243,23 @@ public class CirpRepository implements CirpRepositoryOperations{
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<ObjectId> search(String search_text, String filter) {
-		Query query =  TextQuery.query(new TextCriteria().matchingAny(search_text.split(" ")));
-		return mongoOps.find(query, null, filter);
+	public <T> List<T> search(String search_text, String filter) {
+		Query query =  TextQuery.queryText(new TextCriteria().matchingAny(search_text.split(" "))).sortByScore();
+
+		if(filter.equals("college"))		
+			return (List<T>) mongoOps.find(query, College.class, filter);
+		else if(filter.equals("recruiter"))		
+			return (List<T>) mongoOps.find(query, Recruiter.class, filter);
+		else if(filter.equals("student"))		
+			return (List<T>) mongoOps.find(query, Student.class, filter);
+		else if(filter.equals("alumnus"))		
+			return (List<T>) mongoOps.find(query, Alumnus.class, filter);
+		else if(filter.equals("job"))		
+			return (List<T>) mongoOps.find(query, College.class, filter);
+		else
+			return null;
 	}
 
 	@SuppressWarnings("unchecked")
