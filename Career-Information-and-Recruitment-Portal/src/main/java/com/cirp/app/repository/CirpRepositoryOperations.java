@@ -80,7 +80,7 @@ public interface CirpRepositoryOperations {
 	void recommend(Recommendation reccomendation);
 	void rejectRecommendationRequest(Recommendation reccomendation);
 	
-	List<ObjectId> search(String search_text);
+	<T> List<List<T>> search(String search_text);
 	<T> List<T> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
 	
 	<T> T findById(ObjectId id); //Can return object from any collection (class)

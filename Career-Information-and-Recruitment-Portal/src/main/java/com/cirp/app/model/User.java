@@ -9,19 +9,20 @@ package com.cirp.app.model;
  */
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 public abstract class User {
 	
 	@MongoId
-	private ObjectId _id;
 	private String username;
 	private String password;
 	@TextIndexed
 	private String name;
 	private Address address;
 	private String mobile;
+	@Indexed(unique = true)
 	private String email;
 	private Boolean admin; //false, by default (not admin); true for admin users
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
@@ -30,15 +31,6 @@ public abstract class User {
 		this.setAdmin(false);
 		this.setStatus(0);
 	}
-
-	public ObjectId get_id() {
-		return _id;
-	}
-
-	protected void set_id(ObjectId _id) {
-		this._id = _id;
-	}
-
 	protected String getUsername() {
 		return username;
 	}
