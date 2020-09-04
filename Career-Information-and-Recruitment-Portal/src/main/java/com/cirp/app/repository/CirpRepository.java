@@ -13,7 +13,10 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Repository;
 
 import com.cirp.app.model.Alumnus;
@@ -101,7 +104,7 @@ public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public void editProfile(College college) {
-		mongoOps.save(college);	//Update or upsert
+		mongoOps.update(College.class).matching(Criteria.where("_id").is(college.get_id())).replaceWith(college);
 	}
 
 	@Override
@@ -124,8 +127,7 @@ public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public void optoutRequest(Recruiter recruiter) {
-		// TODO Auto-generated method stub
-		
+			
 	}
 
 	@Override
@@ -172,14 +174,13 @@ public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public void createJob(Job job) {
-		// TODO Auto-generated method stub
+		mongoOps.insert(job);
 		
 	}
 
 	@Override
-	public void viewJob(Job job) {
-		// TODO Auto-generated method stub
-		
+	public Job viewJob(ObjectId id) {
+		return mongoOps.findById(id, Job.class);		
 	}
 
 	@Override
@@ -201,9 +202,8 @@ public class CirpRepository implements CirpRepositoryOperations{
 	}
 
 	@Override
-	public void viewJobApplications(Job job) {
-		// TODO Auto-generated method stub
-		
+	public List<Application> viewJobApplications(ObjectId job_id) {
+		return mongoOps.findById(job_id, Job.class).getApplicants();		
 	}
 
 	@Override
@@ -244,14 +244,25 @@ public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public List<ObjectId> search(String search_text, String filter) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query =  TextQuery.query(new TextCriteria().matchingAny(search_text.split(" ")));
+		return mongoOps.find(query, null, filter);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T findById(ObjectId id) {
-		// TODO Auto-generated method stub
-		return null;
+		if(mongoOps.findById(id, College.class) != null)
+			return (T) mongoOps.findById(id, College.class);
+		else if(mongoOps.findById(id, Recruiter.class) != null)
+			return (T) mongoOps.findById(id, Recruiter.class);
+		else if(mongoOps.findById(id, Student.class) != null)
+			return (T) mongoOps.findById(id, Student.class);
+		else if(mongoOps.findById(id, Alumnus.class) != null)
+			return (T) mongoOps.findById(id, Alumnus.class);
+		else if(mongoOps.findById(id, Job.class) != null)
+			return (T) mongoOps.findById(id, Job.class);
+		else
+			return null;
 	}
 
 	@Override

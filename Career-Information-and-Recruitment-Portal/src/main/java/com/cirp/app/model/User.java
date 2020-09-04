@@ -31,7 +31,7 @@ public abstract class User {
 		this.setStatus(0);
 	}
 
-	protected ObjectId get_id() {
+	public ObjectId get_id() {
 		return _id;
 	}
 

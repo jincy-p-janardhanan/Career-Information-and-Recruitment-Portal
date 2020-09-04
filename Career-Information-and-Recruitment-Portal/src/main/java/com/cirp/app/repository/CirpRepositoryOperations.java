@@ -66,13 +66,13 @@ public interface CirpRepositoryOperations {
 	void changeStudentsToAlumni(Date end_date); //should be scheduled to check daily or weekly
 	
 	void createJob(Job job);
-	void viewJob(Job job);
+	Job viewJob(ObjectId id);
 	void deleteJob(Job job);
 	
 	void applyJob(Application application);
 	void viewApplication(Application application);
 	
-	void viewJobApplications(Job job);
+	List<Application> viewJobApplications(ObjectId job_id);
 	void viewAllApplications(Recruiter recruiter);
 	List<Application> searchApplications(String search_text);
 	
