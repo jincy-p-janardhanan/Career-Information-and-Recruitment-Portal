@@ -11,6 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.Application;
@@ -25,7 +29,10 @@ import com.cirp.app.model.User;
  * @author Jincy P Janardhanan
  *
  */
+@Repository
 public class CirpRepository implements CirpRepositoryOperations{
+	
+	MongoOperations mongoOps;
 
 	@Override
 	public void register(College college) {
@@ -47,8 +54,7 @@ public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public void register(Student student) {
-		// TODO Auto-generated method stub
-		
+		mongoOps.insert(student);
 	}
 
 	@Override
@@ -95,8 +101,7 @@ public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public void editProfile(College college) {
-		// TODO Auto-generated method stub
-		
+		mongoOps.save(college);	//Update or upsert
 	}
 
 	@Override
@@ -137,7 +142,7 @@ public class CirpRepository implements CirpRepositoryOperations{
 
 	@Override
 	public void deleteUser(Recruiter recruiter) {
-		// TODO Auto-generated method stub
+		mongoOps.remove(recruiter);
 		
 	}
 
