@@ -8,7 +8,6 @@ package com.cirp.app.model;
  *
  */
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -31,7 +30,7 @@ public abstract class User {
 		this.setAdmin(false);
 		this.setStatus(0);
 	}
-	protected String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -73,7 +72,7 @@ public abstract class User {
 			this.mobile = mobile;
 	}
 
-	protected String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 

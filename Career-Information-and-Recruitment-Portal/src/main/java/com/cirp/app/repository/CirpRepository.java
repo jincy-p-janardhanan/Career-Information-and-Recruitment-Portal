@@ -7,26 +7,32 @@
 
 package com.cirp.app.repository;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
-import com.cirp.app.model.Alumnus;
-import com.cirp.app.model.Application;
-import com.cirp.app.model.College;
-import com.cirp.app.model.Job;
-import com.cirp.app.model.Recommendation;
-import com.cirp.app.model.Recruiter;
-import com.cirp.app.model.Student;
-import com.cirp.app.model.User;
+import com.cirp.app.model.*;
 
 /**
  * @author Jincy P Janardhanan
@@ -37,11 +43,18 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Autowired
 	MongoTemplate mongoOps;
+	@Autowired
+	JavaMailSender send_email;
 
 	@Override
 	public void register(College college) {
-		// TODO Auto-generated method stub
+		mongoOps.insert(college);
 
+		//controller ilnn college nte ella properties um user ntelnn API vazhi vaanghanam
+		//ennit ath vech college nte object undaaki register method call cheyya
+		
+		// ath kazhinj college nte user name ella admins nte college pending list il add <-- ith koode cheyyan nd
+		/// cheyya (update)
 	}
 
 	@Override
@@ -70,13 +83,16 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void logout(String username) {
+		
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void resetPassword(String username_or_email) {
-		changeUserPassword("username or");
+
+		mongoOps.changeUserPassword("username or email", passwordPrompt());
+		mongOps.changeUserPassword();
 
 	}
 
@@ -106,7 +122,8 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void editProfile(College college) {
-		mongoOps.update(College.class).matching(Criteria.where("_id").is(college.get_id())).replaceWith(college);
+		mongoOps.update(College.class).matching(Criteria.where("username").is(college.getUsername()))
+				.replaceWith(college);
 	}
 
 	@Override
@@ -130,6 +147,20 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@Override
 	public void optoutRequest(Recruiter recruiter) {
 
+		try {
+			MimeMessage msg = send_email.createMimeMessage();
+			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(recruiter.getEmail()));
+			msg.setSubject("CIRP | Opt Out");
+			msg.setContent("<p>Hi,</p>" + "<p></p>"
+					+ "<p>To opt out from Career Information and Recruitment Portal, click <a href=\"localhost:8080/optout.html\">here</a>.</p>"
+					+ "<p>If you didn't request for opt out, it's possible that your account security is breached.</p>"
+					+ "Change your password immediately to secure your account." + "<p></p>" + "<p>Regards,</p>"
+					+ "<p>Team CIRP</p>", "text/html");
+			send_email.send(msg);
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -222,7 +253,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void requestRecommendation(ObjectId requester_id, ObjectId recommender_id) {
+	public void requestRecommendation(String requester_id, String recommender_id) {
 		// TODO Auto-generated method stub
 
 	}
@@ -245,7 +276,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 		// ee null n pakaram ntha kodukkande nn search cheyth nokk tto
 		// enghaneyaa initialise cheyya nn
 
-		List<List<T>> l = null;
+		List<List<T>> l = mongoOps.collection.find();
 		l.add(search(search_text, "college"));
 		l.add(search(search_text, "student"));
 		l.add(search(search_text, "alumnus"));
@@ -286,7 +317,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T findById(ObjectId id) {
+	public <T> T findById(String id) { // id refers to username
 		if (mongoOps.findById(id, College.class) != null)
 			return (T) mongoOps.findById(id, College.class);
 		else if (mongoOps.findById(id, Recruiter.class) != null)
@@ -312,10 +343,14 @@ public class CirpRepository implements CirpRepositoryOperations {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
+	@Scheduled(cron = "0 0 12 * * ?")		//Scheduled to run 12 PM everyday
 	public void deleteRejectedRegistrations() {
-		// TODO Auto-generated method stub
-
+		Calendar calender = Calendar.getInstance();
+	    calender.setTime(new Date());
+	    calender.add(Calendar.DATE, -14);
+		mongoOps.findAllAndRemove(new Query(where("status_changed").is(calender.getTime())), User.class);
+		
 	}
 }

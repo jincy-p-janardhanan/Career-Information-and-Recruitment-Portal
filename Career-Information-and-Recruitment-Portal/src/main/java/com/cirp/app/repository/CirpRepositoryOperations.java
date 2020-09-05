@@ -34,9 +34,7 @@ public interface CirpRepositoryOperations {
 	void rejectRegistration(User user);
 	
 	//Send email after confirmation or rejection of registration
-	
-	void deleteRejectedRegistrations(); //Scheduled to run everyday, removes registrations which were rejected two weeks before the current date 
-	
+		
 	void login(String username_or_email, String password);
 	void logout(String username);
 	
@@ -76,13 +74,14 @@ public interface CirpRepositoryOperations {
 	void viewAllApplications(Recruiter recruiter);
 	List<Application> searchApplications(String search_text);
 	
-	void requestRecommendation(ObjectId requester_id, ObjectId recommender_id);
+	void requestRecommendation(String requester_id, String recommender_id);
 	void recommend(Recommendation reccomendation);
 	void rejectRecommendationRequest(Recommendation reccomendation);
 	
 	<T> List<List<T>> search(String search_text);
 	<T> List<T> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
 	
-	<T> T findById(ObjectId id); //Can return object from any collection (class)
+	<T> T findById(String id); //Can return object from any collection (class)
 	
+	void deleteRejectedRegistrations();
 }
