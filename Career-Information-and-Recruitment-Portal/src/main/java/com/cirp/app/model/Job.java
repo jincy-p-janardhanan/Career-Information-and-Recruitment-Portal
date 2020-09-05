@@ -113,7 +113,7 @@ public class Job {
 		this.questions = questions;
 	}
 
-	protected List<Application> getApplicants() {
+	public List<Application> getApplicants() {
 		return applicants;
 	}
 
