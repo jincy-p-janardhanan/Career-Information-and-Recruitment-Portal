@@ -15,18 +15,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 
-@Document(collection="admin")
+@Document(collection = "admin")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class Admin extends User{
-	
+public final class Admin extends User {
+
 	private List<ObjectId> college_pending;
 	private List<ObjectId> college_approved;
 	private List<ObjectId> college_denied;
-	
+
 	private List<ObjectId> recruiter_pending;
 	private List<ObjectId> recruiter_approved;
 	private List<ObjectId> recruiter_denied;
-	
+
 	public Admin(String username, String password, String name, Address address, String mobile, String email) {
 		this.setUsername(username);
 		this.setPassword(password);
@@ -34,6 +34,7 @@ public final class Admin extends User{
 		this.setAddress(address);
 		this.setMobile(mobile);
 		this.setEmail(email);
+		this.setAdmin(true);
 	}
 
 	protected List<ObjectId> getCollege_pending() {
@@ -59,7 +60,5 @@ public final class Admin extends User{
 	protected List<ObjectId> getRecruiter_denied() {
 		return recruiter_denied;
 	}
-	
-	
-	
+
 }

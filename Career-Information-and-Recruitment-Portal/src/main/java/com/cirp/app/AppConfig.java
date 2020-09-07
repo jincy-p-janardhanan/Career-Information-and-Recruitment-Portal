@@ -25,3 +25,4 @@ public class AppConfig {
 		return new MongoTemplate(mongoClient(), "cirp"); //Database for Career Information and Recruitment Portal (CIRP)
 	}
 }
+

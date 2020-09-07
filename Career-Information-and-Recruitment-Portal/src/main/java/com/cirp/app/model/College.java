@@ -21,10 +21,10 @@ public final class College extends NonAdmin {
 	private String public_email;			//email used by public for support, enquires, etc
 	
 	//Setters needed for below members (using query)
-	private List<ObjectId> students;
-	private List<ObjectId> alumni_pending;
-	private List<ObjectId> alumni_rejected;
-	private List<ObjectId> alumni;
+	private List<String> students; 
+	private List<String> alumni_pending;
+	private List<String> alumni_rejected;
+	private List<String> alumni;
 	private List<ObjectId> recc_req_recvd; //Recommendation requests received
 	private List<ObjectId> reccommeded; //Recommendations made by this user
 	private List<ObjectId> recc_rejected; //Recommendation requets rejected by this user
@@ -56,20 +56,20 @@ public final class College extends NonAdmin {
 		if(public_email.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
 			this.public_email = public_email;
 	}
-	protected List<ObjectId> getStudents() {
+	protected List<String> getStudents() {
 		return students;
 	}
-	protected void setStudents(List<ObjectId> students) {
+	protected void setStudents(List<String> students) {
 		this.students = students;
 	}
 	
-	protected List<ObjectId> getAlumni_pending() {
+	protected List<String> getAlumni_pending() {
 		return alumni_pending;
 	}
-	protected List<ObjectId> getAlumni_rejected() {
+	protected List<String> getAlumni_rejected() {
 		return alumni_rejected;
 	}
-	protected List<ObjectId> getAlumni() {
+	protected List<String> getAlumni() {
 		return alumni;
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  *
  */
 
-class Address {
+public class Address {
 	private String address_line1;
 	private String address_line2;
 	@TextIndexed

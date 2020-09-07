@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cirp.app.dboperations;
+package com.cirp.app.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,7 @@ import com.cirp.app.model.*;
  * @author Jincy P Janardhanan
  *
  */
-public interface OpsOnModel {
+public interface CirpRepositoryOperations {
 	/*
 	 * passwords are stored in bcrypt encrypted format, in the database
 	 * passwords in function calls are also encrypted
@@ -30,18 +30,11 @@ public interface OpsOnModel {
 	void register(Alumnus alumnus); //request to college
 	void register(Student student);
 	
-	void confirmRegistration(College college);
-	void confirmRegistration(Recruiter recruiter);
-	void confirmRegistration(Alumnus alumnus);
-	
-	void rejectRegistration(College college);
-	void rejectRegistration(Recruiter college);
-	void rejectRegistration(Alumnus alumnus);
+	void confirmRegistration(User user);
+	void rejectRegistration(User user);
 	
 	//Send email after confirmation or rejection of registration
-	
-	void deleteRejectedRegistrations(Date today); //Scheduled to run everyday, removes registrations which were rejected two weeks before the current date 
-	
+		
 	void login(String username_or_email, String password);
 	void logout(String username);
 	
@@ -71,23 +64,24 @@ public interface OpsOnModel {
 	void changeStudentsToAlumni(Date end_date); //should be scheduled to check daily or weekly
 	
 	void createJob(Job job);
-	void viewJob(Job job);
+	Job viewJob(ObjectId id);
 	void deleteJob(Job job);
 	
 	void applyJob(Application application);
 	void viewApplication(Application application);
 	
-	void viewJobApplications(Job job);
+	List<Application> viewJobApplications(ObjectId job_id);
 	void viewAllApplications(Recruiter recruiter);
 	List<Application> searchApplications(String search_text);
 	
-	void requestRecommendation(ObjectId requester_id, ObjectId recommender_id);
+	void requestRecommendation(String requester_id, String recommender_id);
 	void recommend(Recommendation reccomendation);
 	void rejectRecommendationRequest(Recommendation reccomendation);
 	
-	List<ObjectId> search(String search_text);
-	List<ObjectId> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
+	<T> List<List<T>> search(String search_text);
+	<T> List<T> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
 	
-	<T> T findById(ObjectId id); //Can return object from any collection (class)
+	<T> T findById(String id); //Can return object from any collection (class)
 	
+	void deleteRejectedRegistrations();
 }
