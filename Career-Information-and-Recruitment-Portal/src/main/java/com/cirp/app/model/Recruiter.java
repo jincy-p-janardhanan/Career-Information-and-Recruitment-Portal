@@ -16,16 +16,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class Recruiter extends NonAdmin {
 	
-	public Recruiter(String username, String password, String name, Address address, String mobile, String email, String license_no, String landph, String public_email) {
+	public Recruiter(String username, String password, String name, Address address, String mobile, String email, String license_no) {
 		super(username, password, name, address, mobile, email);
 		this.setLicense_no(license_no);
-		this.setLandph(landph);
-		this.setPublic_email(public_email);
 	}
 	private String license_no;
-	private String landph;
-	private String public_email;
-	//Setter needed (using query)
+	private ContactInfo contact;
 	private List<ObjectId> jobs;
 	private List<ObjectId> recc_req_recvd; //Recommendation requests received
 	private List<ObjectId> reccommeded; //Recommendations made by this user
@@ -38,21 +34,29 @@ public final class Recruiter extends NonAdmin {
 	protected void setLicense_no(String license_no) {
 		this.license_no = license_no;
 	}
-	protected String getLandph() {
-		return landph;
+	
+	protected ContactInfo getContact() {
+		return contact;
 	}
-	protected void setLandph(String landph) {
-		this.landph = landph;
+	
+	protected void setContact(ContactInfo contact) {
+		this.contact = contact;
 	}
-	protected String getPublic_email() {
-		return public_email;
-	}
-	protected void setPublic_email(String public_email) {
-		if(public_email.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
-			this.public_email = public_email;
-	}
+	
 	protected List<ObjectId> getJobs() {
 		return jobs;
+	}
+	protected void setJobs(List<ObjectId> jobs) {
+		this.jobs = jobs;
+	}
+	protected void setRecc_req_recvd(List<ObjectId> recc_req_recvd) {
+		this.recc_req_recvd = recc_req_recvd;
+	}
+	protected void setReccommeded(List<ObjectId> reccommeded) {
+		this.reccommeded = reccommeded;
+	}
+	protected void setRecc_rejected(List<ObjectId> recc_rejected) {
+		this.recc_rejected = recc_rejected;
 	}
 	protected List<ObjectId> getRecc_req_recvd() {
 		return recc_req_recvd;

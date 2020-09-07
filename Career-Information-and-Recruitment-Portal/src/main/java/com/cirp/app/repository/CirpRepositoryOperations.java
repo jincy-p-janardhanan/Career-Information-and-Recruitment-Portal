@@ -28,7 +28,7 @@ public interface CirpRepositoryOperations {
 	void register(College college); //request to server admin
 	void register(Recruiter recruiter); //request to admin
 	void register(Alumnus alumnus); //request to college
-	void register(Student student);
+	Student register(Student student);
 	
 	void confirmRegistration(User user);
 	void rejectRegistration(User user);
@@ -42,22 +42,13 @@ public interface CirpRepositoryOperations {
 	void updatePassword(String username_or_email, String new_password);
 	
 	//Profile includes data displayed on the user's home page only
-	void viewProfile(College college);
-	void viewProfile(Recruiter recruiter);
+	College viewProfile(College college);
+	Recruiter viewProfile(Recruiter recruiter);
 	void viewProfile(Student student); //Can be used for both student and alumni; NB: Super class object reference can hold object of sub class	
 	
-	void editProfile(College college);
-	void editProfile(Recruiter recruiter);
-	void editProfile(Student student); //Can be used for both student and alumni
-
-	void optoutRequest(College college); //sends confirmation mail for opt out
-	void optoutRequest(Recruiter recruiter); //sends confirmation mail for opt out
-	void optoutRequest(Alumnus alumnus); //sends confirmation mail for opt out
+	void optoutRequest(String username); //sends confirmation mail for opt out
 	
-	void deleteUser(College college);
-	void deleteUser(Recruiter recruiter);
-	void deleteUser(Student student);
-	void deleteUser(Alumnus alumnus);
+	void deleteUser(String username);
 	
 	void sessionTimeout(); //After 20 minutes of inactivity, login session for the user is closed automatically
 	
@@ -84,4 +75,10 @@ public interface CirpRepositoryOperations {
 	<T> T findById(String id); //Can return object from any collection (class)
 	
 	void deleteRejectedRegistrations();
+	
+	void updateProfilePic(String profile_pic, String username);
+	void updateBgImg(String bg_img, String username);
+	void updateDesc(String desc, String username);
+	void updateContact(ContactInfo contact, String username);
+	void updatePersonalisation(Personalisation personalisation, String username);
 }

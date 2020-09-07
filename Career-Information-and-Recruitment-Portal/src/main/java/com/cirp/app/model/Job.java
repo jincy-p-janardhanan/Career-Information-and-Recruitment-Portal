@@ -6,7 +6,6 @@ package com.cirp.app.model;
 import java.util.Date;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Document(collection="job")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Job {
-	private ObjectId recruiter_id;
+	private String recruiter_id;
 	private String job_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
 	@TextIndexed
 	private String title;
@@ -37,8 +36,8 @@ public class Job {
 	
 	@TextIndexed
 	private List<String> skills; //job tags
-
-	public Job(ObjectId recruiter_id, String title, String desc, String location, String duration, float stipend, Date last_date,
+	
+	public Job(String recruiter_id, String recruiter_pic,  String title, String desc, String location, String duration, float stipend, Date last_date,
 			List<String> skills) {
 		this.recruiter_id = recruiter_id;
 		this.title = title;
@@ -48,13 +47,7 @@ public class Job {
 		this.stipend = stipend;
 		this.last_date = last_date;
 		this.skills = skills;
-		
-		/* 
-		 * if (Query to get recruiter's profile picture)
-		 * null if non-existent
-		 * this.job_pic = query result
-		 * 
-		 */
+		this.job_pic = recruiter_pic;
 	}
 
 	protected String getTitle() {
@@ -129,7 +122,7 @@ public class Job {
 		this.skills = skills;
 	}
 
-	public ObjectId getRecruiter_id() {
+	public String getRecruiter_id() {
 		return recruiter_id;
 	}
 

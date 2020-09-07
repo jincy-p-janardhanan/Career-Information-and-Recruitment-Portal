@@ -10,12 +10,12 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class Recommendation {
 	@MongoId
 	private ObjectId _id;
-	private ObjectId requester_id;
-	private ObjectId recommender_id;
+	private String requester_id;
+	private String recommender_id;
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
 	private String recc_msg; //Recommendation message
 	
-	public Recommendation(ObjectId requester_id, ObjectId recommender_id) {
+	public Recommendation(String requester_id, String recommender_id) {
 		this.requester_id = requester_id;
 		this.recommender_id = recommender_id;
 		if(requester_id != recommender_id) {
@@ -25,22 +25,16 @@ public class Recommendation {
 			this.status = -1;
 		}
 	}
-
-	protected ObjectId getRequester_id() {
+	
+	protected String getRequester_id() {
 		return requester_id;
 	}
 
-	protected void setRequester_id(ObjectId requester_id) {
-		this.requester_id = requester_id;
-	}
 
-	protected ObjectId getRecommender_id() {
+	protected String getRecommender_id() {
 		return recommender_id;
 	}
 
-	protected void setRecommender_id(ObjectId recommender_id) {
-		this.recommender_id = recommender_id;
-	}
 
 	protected int getStatus() {
 		return status;
