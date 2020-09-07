@@ -22,7 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Student extends NonAdmin{
 
 	private String reg_no;
+	@TextIndexed
 	private String course;
+	@TextIndexed
 	private String branch;
 	private int sem;
 	private Date st_date;
@@ -30,21 +32,13 @@ public class Student extends NonAdmin{
 	private String mobile2;
 	private float sgpa;
 	private float cgpa;
-	private ObjectId college;
-	private List<Education> education;
-	private List<WorkExperience> work;
-	@TextIndexed
-	private List<String> skills;
-	@TextIndexed
-	private List<String> orgs; //Communities and organizations the student is involved in
-	private List<Project> project;
-	
-	//Setters needed
+	private String college_id;
+	private Personalisation personalisation;
 	private List<ObjectId> recommend_req; //List of recommendation requests
 	private List<ObjectId> recommendations; //List of recommendations received
 
 	public Student(String username, String password, String name, Address address, String mobile, String email,
-			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, ObjectId college) {
+			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, String college_id) {
 		super(username, password, name, address, mobile, email);
 		this.reg_no = reg_no;
 		this.course = course;
@@ -52,7 +46,7 @@ public class Student extends NonAdmin{
 		this.sem = sem;
 		this.st_date = st_date;
 		this.end_date = end_date;
-		this.college = college;
+		this.college_id = college_id;
 		this.setStatus(1);
 		this.setStatus_changed(new Date()); //Sets current date value to status changed
 	}
@@ -115,60 +109,12 @@ public class Student extends NonAdmin{
 		this.cgpa = cgpa;
 	}
 
-	protected ObjectId getCollege() {
-		return college;
+	protected String getCollege_id() {
+		return college_id;
 	}
 
-	protected void setCollege(ObjectId college) {
-		this.college = college;
-	}
-
-	protected List<Education> getEducation() {
-		return education;
-	}
-
-	protected void setEducation(List<Education> education) {
-		this.education = education;
-	}
-
-	protected List<WorkExperience> getWork() {
-		return work;
-	}
-
-	protected void setWork(List<WorkExperience> work) {
-		this.work = work;
-	}
-
-	protected List<String> getSkills() {
-		return skills;
-	}
-
-	protected void setSkills(List<String> skills) {
-		this.skills = skills;
-	}
-
-	protected List<String> getOrgs() {
-		return orgs;
-	}
-
-	protected void setOrgs(List<String> orgs) {
-		this.orgs = orgs;
-	}
-
-	protected List<Project> getProject() {
-		return project;
-	}
-
-	protected void setProject(List<Project> project) {
-		this.project = project;
-	}
-
-	protected List<ObjectId> getRecommend_req() {
-		return recommend_req;
-	}
-
-	protected List<ObjectId> getRecommendations() {
-		return recommendations;
+	protected void setCollege_id(String college_id) {
+		this.college_id = college_id;
 	}
 
 	protected Date getSt_date() {
@@ -185,5 +131,29 @@ public class Student extends NonAdmin{
 
 	protected void setEnd_date(Date end_date) {
 		this.end_date = end_date;
+	}
+
+	protected Personalisation getPersonalisation() {
+		return personalisation;
+	}
+
+	protected void setPersonalisation(Personalisation personalisation) {
+		this.personalisation = personalisation;
+	}
+
+	protected List<ObjectId> getRecommend_req() {
+		return recommend_req;
+	}
+
+	protected void setRecommend_req(List<ObjectId> recommend_req) {
+		this.recommend_req = recommend_req;
+	}
+
+	protected List<ObjectId> getRecommendations() {
+		return recommendations;
+	}
+
+	protected void setRecommendations(List<ObjectId> recommendations) {
+		this.recommendations = recommendations;
 	}	
 }

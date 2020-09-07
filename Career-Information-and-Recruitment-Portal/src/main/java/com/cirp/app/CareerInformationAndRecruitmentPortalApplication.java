@@ -1,10 +1,11 @@
 package com.cirp.app;
 
-import java.util.List;
+/*import java.util.List;
 
-import org.bson.types.ObjectId;
+import org.bson.types.ObjectId;*/
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+/*
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,14 +19,17 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+*/
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class CareerInformationAndRecruitmentPortalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CareerInformationAndRecruitmentPortalApplication.class, args);
 	}
 
+/*	
 	@Configuration
 	public static class WebAppConfig extends WebMvcConfigurationSupport {
 
@@ -61,7 +65,12 @@ public class CareerInformationAndRecruitmentPortalApplication {
 		final FilterRegistrationBean registration_bean = new FilterRegistrationBean();
 		registration_bean.setFilter(new JwtFilter());
 		
+		registration_bean.addUrlPatterns("/*");
+		
+		
 		return registration_bean;
 		
 	}
+	
+*/
 }
