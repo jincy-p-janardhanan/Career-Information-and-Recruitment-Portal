@@ -34,9 +34,10 @@ public final class Admin extends User {
 		this.setMobile(mobile);
 		this.setEmail(email);
 		this.setAdmin(true);
+		this.setRole("admin");
 	}
 
-	protected List<String> getCollege_pending() {
+	public List<String> getCollege_pending() {
 		return college_pending;
 	}
 
@@ -60,7 +61,7 @@ public final class Admin extends User {
 		this.college_denied = college_denied;
 	}
 
-	protected List<String> getRecruiter_pending() {
+	public List<String> getRecruiter_pending() {
 		return recruiter_pending;
 	}
 

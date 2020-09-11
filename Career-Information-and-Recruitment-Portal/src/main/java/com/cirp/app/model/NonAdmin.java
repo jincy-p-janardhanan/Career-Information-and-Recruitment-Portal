@@ -56,7 +56,7 @@ public abstract class NonAdmin extends User {
 		return status_changed;
 	}
 
-	public void setStatus_changed(Date status_changed) {
-		this.status_changed = status_changed;
+	public void setStatus_changed() {
+		this.status_changed = new Date();
 	}
 }

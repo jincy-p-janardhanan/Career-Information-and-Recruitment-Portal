@@ -6,6 +6,8 @@ package com.cirp.app.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,18 +22,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Document(collection="student")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Student extends NonAdmin{
-
+	
+	@NotBlank
 	private String reg_no;
+	@NotBlank
 	@TextIndexed
 	private String course;
+	@NotBlank
 	@TextIndexed
 	private String branch;
+	@NotBlank
 	private int sem;
 	private Date st_date;
 	private Date end_date;
 	private String mobile2;
 	private float sgpa;
 	private float cgpa;
+	@NotBlank
 	private String college_id;
 	private Personalisation personalisation;
 	private List<ObjectId> recommend_req; //List of recommendation requests
@@ -48,7 +55,6 @@ public class Student extends NonAdmin{
 		this.end_date = end_date;
 		this.college_id = college_id;
 		this.setStatus(1);
-		this.setStatus_changed(new Date()); //Sets current date value to status changed
 	}
 
 	protected String getReg_no() {
@@ -109,11 +115,11 @@ public class Student extends NonAdmin{
 		this.cgpa = cgpa;
 	}
 
-	protected String getCollege_id() {
+	public String getCollege_id() {
 		return college_id;
 	}
 
-	protected void setCollege_id(String college_id) {
+	public void setCollege_id(String college_id) {
 		this.college_id = college_id;
 	}
 

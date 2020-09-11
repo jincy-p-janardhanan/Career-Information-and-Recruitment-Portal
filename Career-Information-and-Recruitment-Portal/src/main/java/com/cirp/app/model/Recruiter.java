@@ -2,6 +2,9 @@ package com.cirp.app.model;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,7 +23,9 @@ public final class Recruiter extends NonAdmin {
 		super(username, password, name, address, mobile, email);
 		this.setLicense_no(license_no);
 	}
+	@NotBlank
 	private String license_no;
+	@NotNull
 	private ContactInfo contact;
 	private List<ObjectId> jobs;
 	private List<ObjectId> recc_req_recvd; //Recommendation requests received
@@ -43,7 +48,7 @@ public final class Recruiter extends NonAdmin {
 		this.contact = contact;
 	}
 	
-	protected List<ObjectId> getJobs() {
+	public List<ObjectId> getJobs() {
 		return jobs;
 	}
 	protected void setJobs(List<ObjectId> jobs) {

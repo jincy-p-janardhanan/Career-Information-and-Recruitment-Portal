@@ -30,8 +30,8 @@ public interface CirpRepositoryOperations {
 	void register(Alumnus alumnus); //request to college
 	Student register(Student student);
 	
-	void confirmRegistration(User user);
-	void rejectRegistration(User user);
+	void confirmRegistration(String username);
+	void rejectRegistration(String username);
 	
 	//Send email after confirmation or rejection of registration
 		
@@ -42,9 +42,7 @@ public interface CirpRepositoryOperations {
 	void updatePassword(String username_or_email, String new_password);
 	
 	//Profile includes data displayed on the user's home page only
-	College viewProfile(College college);
-	Recruiter viewProfile(Recruiter recruiter);
-	void viewProfile(Student student); //Can be used for both student and alumni; NB: Super class object reference can hold object of sub class	
+	<T> T viewProfile(String username);	
 	
 	void optoutRequest(String username); //sends confirmation mail for opt out
 	
@@ -58,15 +56,15 @@ public interface CirpRepositoryOperations {
 	Job viewJob(ObjectId id);
 	void deleteJob(Job job);
 	
-	void applyJob(Application application);
+	void applyJob(Application application, ObjectId job_id);
 	void viewApplication(Application application);
 	
 	List<Application> viewJobApplications(ObjectId job_id);
-	void viewAllApplications(Recruiter recruiter);
+	List<Application> viewAllApplications(String recruiter_id);
 	List<Application> searchApplications(String search_text);
 	
 	void requestRecommendation(String requester_id, String recommender_id);
-	void recommend(Recommendation reccomendation);
+	void recommend(ObjectId reccomendation_id, String recc_msg);
 	void rejectRecommendationRequest(Recommendation reccomendation);
 	
 	<T> List<List<T>> search(String search_text);

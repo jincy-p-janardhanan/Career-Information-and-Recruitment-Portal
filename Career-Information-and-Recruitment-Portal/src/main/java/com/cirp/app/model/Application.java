@@ -5,6 +5,8 @@ package com.cirp.app.model;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Jincy P Janardhanan
  *
@@ -12,6 +14,7 @@ import java.util.List;
 
 public class Application {
 	
+	@NotNull
 	private String applicant_id;
 	private List<String> answers;
 	

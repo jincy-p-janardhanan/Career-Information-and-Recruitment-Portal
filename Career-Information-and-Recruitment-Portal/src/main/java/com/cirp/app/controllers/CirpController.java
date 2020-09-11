@@ -1,6 +1,15 @@
 package com.cirp.app.controllers;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +22,13 @@ import com.cirp.app.model.*;
 
 import com.cirp.app.repository.CirpRepository;
 
+/**
+ * @author Jincy P Janardhanan
+ * @author Alka Bhagavaldas
+ * @author Aleena Sunny
+ * @author Ameena Shirin
+ */
+
 @CrossOrigin
 @RestController
 @RequestMapping("/cirp")
@@ -22,11 +38,9 @@ public class CirpController {
 	private CirpRepository repo;
 
 	@RequestMapping("/registerCollege")
-	public void create(@RequestParam String affil_univ, @RequestParam String landph, @RequestParam String public_email,
-			@RequestParam String name, @RequestParam String username, @RequestParam String password,
-			@RequestParam Address address, @RequestParam String mobile, @RequestParam String email) {
-
-		College college = new College(affil_univ, landph, public_email, address, password, name, username);
+	public void registerCollege(@RequestBody College college) {
+		String password = new BCryptPasswordEncoder().encode(college.getPassword());
+		college.setPassword(password);
 		repo.register(college);
 	}
 
@@ -70,14 +84,72 @@ public class CirpController {
 	}
 
 	@RequestMapping("/optout-request")
-	public void optoutRequests(String username) {
+	public void optoutRequests(@RequestParam String username) {
 		repo.optoutRequest(username);
 	}
 	
 	@RequestMapping("/deactivate-user")
-	public void deactivateUser(String username) {
+	public void deactivateUser(@RequestParam String username) {
 		repo.deleteUser(username);
 	}
 	
+	@RequestMapping("/createJob")
+	public void createJob(@RequestBody Job job) {
+		repo.createJob(job);
+	}
 	
+	@RequestMapping("/viewJob")
+	public void viewJob(@RequestParam ObjectId job_id) {
+		repo.viewJob(job_id);
+	}
+	
+	@RequestMapping("/view-job-applications")
+	public void viewJobApplications(@RequestParam ObjectId job_id) {
+		repo.viewJobApplications(job_id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/filtered-search")
+	public <T> List<T> Search(@RequestParam String search_text, @RequestParam String filter) {
+		return repo.search(search_text, filter);
+	}
+	
+	@RequestMapping("/applyJob")
+	public void applyJob(@RequestBody Application application,@RequestParam ObjectId job_id) {
+		repo.applyJob(application,job_id);
+	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/viewAllApplications")
+	public List<Application> viewAllApplications(@RequestParam String recruiter_id) {
+		return repo.viewAllApplications(recruiter_id);
+	}
+	
+	@RequestMapping("/recommend")
+	public void recommend(@RequestParam ObjectId reccomendation_id,@RequestParam String recc_msg) {
+
+		repo.recommend(recommendation_id, recc_msg);
+
+	}
+	@RequestMapping("/deleteJob")
+	public void deleteJob(Job job) {
+		repo.deleteJob(job);
+	}
+	@RequestMapping("/updateDesc")
+	public void updateDesc(@RequestParam String desc, @RequestParam String username) {
+		repo.updateProfilePic(desc, username);
+	}
+	@RequestMapping
+	public <T> T viewProfile(@RequestParam String username) {
+		repo.viewProfile(username);
+		
+	}
+	@RequestMapping("/sessionTimeout")
+	public void sessionTimeout() {
+		repo.sessionTimeout();
+
+	}
+	@RequestMapping("/confirmRegistration")
+	public void confirmRegistration(@RequestBody User user,@RequestParam Boolean admin ) {
+		repo.confirmRegistration(user);
+	}
 }
