@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cirp.app.security;
+package com.cirp.app.config.security;
 
 import java.io.IOException;
 

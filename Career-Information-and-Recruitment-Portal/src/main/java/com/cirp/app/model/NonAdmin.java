@@ -51,6 +51,10 @@ public abstract class NonAdmin extends User {
 	public void incApproval_count() {
 		this.approval_count += 1;
 	}
+	
+	public void decApproval_count() {
+		this.approval_count -= 1;
+	}
 
 	public Date getStatus_changed() {
 		return status_changed;

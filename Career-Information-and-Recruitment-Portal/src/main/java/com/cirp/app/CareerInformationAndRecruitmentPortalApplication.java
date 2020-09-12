@@ -18,7 +18,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import com.cirp.app.security.JwtFilter;
+import com.cirp.app.config.security.JwtFilter;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -30,48 +30,20 @@ public class CareerInformationAndRecruitmentPortalApplication {
 		SpringApplication.run(CareerInformationAndRecruitmentPortalApplication.class, args);
 	}
 	
-	@Configuration
-	public static class WebAppConfig extends WebMvcConfigurationSupport {
-
-		public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-			Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-			builder.serializerByType(ObjectId.class, new ToStringSerializer());
-			MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(builder.build());
-			converters.add(converter);
-		}
-
-	}
-	
-	@Bean
-	public ViewResolver ResolveViews() {
-		
-		ClassLoaderTemplateResolver template_resolver = new ClassLoaderTemplateResolver();
-		template_resolver.setTemplateMode("HTML");
-		template_resolver.setPrefix("templates/");
-		template_resolver.setSuffix(".html");
-		
-		SpringTemplateEngine engine = new SpringTemplateEngine();
-		engine.setTemplateResolver(template_resolver);
-		
-		ThymeleafViewResolver view_resolver = new ThymeleafViewResolver();
-		view_resolver.setTemplateEngine(engine);
-		
-		return view_resolver;
-	}
-	
+	/*
 	@Bean
 	public FilterRegistrationBean JwtFiltering() {
 		
 		final FilterRegistrationBean registration_bean = new FilterRegistrationBean();
 		registration_bean.setFilter(new JwtFilter());
 		
-		registration_bean.addUrlPatterns("/*");
+		registration_bean.addUrlPatterns("/index");
 		
 		
 		return registration_bean;
 		
 	}
-	
+	*/
 	
 	
 }

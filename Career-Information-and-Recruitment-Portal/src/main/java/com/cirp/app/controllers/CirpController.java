@@ -2,16 +2,27 @@ package com.cirp.app.controllers;
 
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,12 +39,12 @@ import com.cirp.app.repository.CirpRepository;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/cirp")
-public class CirpController {
+@RequestMapping("/")
+public class CirpController implements ErrorController {
 
 	@Autowired
 	private CirpRepository repo;
-
+	
 	@RequestMapping("/register_college")
 	public void registerCollege(@RequestBody College college) {
 		String password = new BCryptPasswordEncoder().encode(college.getPassword());
@@ -57,8 +68,7 @@ public class CirpController {
 
 	@RequestMapping(value = { "/home_college", "/home_recruiter", "/home_alumnus",
 			"/home_student" }, method = RequestMethod.POST)
-	public void editProfile(@RequestParam String method, @RequestParam String input,
-			@RequestParam String username) {
+	public void editProfile(@RequestParam String method, @RequestParam String input, @RequestParam String username) {
 		if (method == "profile-pic") {
 			repo.updateProfilePic(input, username);
 		} else if (method == "bg-img") {
@@ -146,28 +156,34 @@ public class CirpController {
 	public void confirmRegistration(@RequestParam String username) {
 		repo.confirmRegistration(username);
 	}
-
-	@RequestMapping(value = { "/", "/index" })
-	public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("home");
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("login");
-		return modelAndView;
-	}
 	
-	@RequestMapping(value = "/home_college", method = RequestMethod.GET)
-	public ModelAndView HomeCollege() {
-	    ModelAndView modelAndView = new ModelAndView();
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    College college = repo.findById(auth.getName());
-	    modelAndView.addObject("currentUser", college);
-	    modelAndView.setViewName("home_college");
-	    return modelAndView;
+	@RequestMapping("/rejectRegistration")
+	public void rejectRegistration(@RequestParam String username) {
+		repo.rejectRegistration(username);
+	}	
+
+	@Override
+	public String getErrorPath() {
+		return "/error";
+	}
+
+	@RequestMapping("/error")
+	public String handleError(HttpServletRequest request) {
+
+		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
+		if (status != null) {
+			int statusCode = Integer.parseInt(status.toString());
+
+			if (statusCode == HttpStatus.NOT_FOUND.value()) {
+				return "404";
+			} else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+				return "500";
+			} else if (statusCode == HttpStatus.FORBIDDEN.value()) {
+				return "403";
+			}
+		}
+
+		return "error";
 	}
 }

@@ -1,7 +1,7 @@
 /**
- * Referece: https://docs.spring.io/spring-data/mongodb/docs/current-SNAPSHOT/reference/html/#mongo-template.instantiating
+ * Reference: https://docs.spring.io/spring-data/mongodb/docs/current-SNAPSHOT/reference/html/#mongo-template.instantiating
  */
-package com.cirp.app;
+package com.cirp.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import com.mongodb.client.MongoClients;
  *
  */
 @Configuration
-public class AppConfig {
+public class MongoConfig {
 
 	public @Bean MongoClient mongoClient() {
 	      return MongoClients.create("mongodb://localhost:27017");

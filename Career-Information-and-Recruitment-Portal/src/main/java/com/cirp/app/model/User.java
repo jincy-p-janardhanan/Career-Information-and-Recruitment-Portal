@@ -38,7 +38,6 @@ public abstract class User {
 	private String email;
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
 	
-	@DBRef
 	private Set<Role> roles = new HashSet<>();
 	
 	public User() {
