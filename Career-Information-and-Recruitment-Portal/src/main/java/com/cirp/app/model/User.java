@@ -3,6 +3,9 @@
  */
 package com.cirp.app.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,16 +36,13 @@ public abstract class User {
 	@NotBlank
 	@Indexed(unique = true)
 	private String email;
-	private Boolean admin; //false, by default (not admin); true for admin users
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
 	
 	@DBRef
-	private String role;
+	private Set<Role> roles = new HashSet<>();
 	
 	public User() {
-		this.setAdmin(false);
 		this.setStatus(0);
-		this.setRole("Unauthorized");
 	}
 	public String getUsername() {
 		return username;
@@ -97,14 +97,6 @@ public abstract class User {
 
 	}
 
-	protected Boolean getAdmin() {
-		return admin;
-	}
-
-	protected void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
 	protected int getStatus() {
 		return status;
 	}
@@ -115,11 +107,13 @@ public abstract class User {
 			this.status = status;
 	}
 	
-	protected String getRole() {
-		return role;
+	public Set<Role> getRoles() {
+		return roles;
 	}
-	public void setRole(String role) {
-		this.role = role;
-	}
+	
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}	
+	
 	
 }

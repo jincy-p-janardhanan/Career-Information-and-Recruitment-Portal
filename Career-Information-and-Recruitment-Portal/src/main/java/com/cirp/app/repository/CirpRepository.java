@@ -7,25 +7,17 @@
 
 package com.cirp.app.repository;
 
-import java.time.LocalDate;
-
-import java.time.chrono.ChronoLocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.ExecutableUpdateOperation.TerminatingUpdate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -33,10 +25,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.cirp.app.model.*;
@@ -96,18 +86,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@Override
 	public Student register(Student student) {
 		return mongoTemplate.insert(student);
-	}
-
-	@Override
-	public void login(String username_or_email, String password) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void logout(String username) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -198,7 +176,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public Job viewJob(ObjectId id) {
-
 		return mongoTemplate.findById(new Query(where("_id").is(id)).fields().exclude("applicants"), Job.class);
 	}
 
@@ -315,7 +292,9 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void confirmRegistration(String username) {
-
+		
+		Boolean approved = false;
+		
 		if (findById(username) instanceof College) {
 
 			College college = findById(username);
@@ -323,7 +302,8 @@ public class CirpRepository implements CirpRepositoryOperations {
 			if (college.getApproval_count() == mongoTemplate.count(new Query(), Admin.class)) {
 				college.setStatus(1);
 				college.setStatus_changed();
-				college.setRole("college");
+				
+				approved = true;
 			}
 			mongoTemplate.save(college);
 
@@ -334,7 +314,8 @@ public class CirpRepository implements CirpRepositoryOperations {
 			if (recruiter.getApproval_count() == mongoTemplate.count(new Query(), Admin.class)) {
 				recruiter.setStatus(1);
 				recruiter.setStatus_changed();
-				recruiter.setRole("recruiter");
+				
+				approved = true;
 			}
 			mongoTemplate.save(recruiter);
 
@@ -346,12 +327,29 @@ public class CirpRepository implements CirpRepositoryOperations {
 				alumnus.incApproval_count();
 				alumnus.setStatus(1);
 				alumnus.setStatus_changed();
-				alumnus.setRole("recruiter");
+				
 				mongoTemplate.save(alumnus);
+				approved = true;
+			}
+		}
+
+		if(approved == true) {
+			try {
+				User user = findById(username);
+				MimeMessage msg = send_email.createMimeMessage();
+				msg.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+				msg.setSubject("CIRP | Registration Approved");
+				msg.setContent(
+						"<p>Hi,</p>" + "<p> </p>" + "<p>We are glad to inform you that your account has been approved.</p>"
+								+ "<p>Regards,</p>" + "<p>Team CIRP</p>",
+						"text/html");
+				send_email.send(msg);
+			} catch (Exception e) {
+				System.out.println(e);
+				e.printStackTrace();
 			}
 
 		}
-
 	}
 
 	@Override
@@ -418,6 +416,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void updateContact(ContactInfo contact, String username) {
+
 		if (findById(username) instanceof College) {
 			mongoTemplate.update(College.class).matching(new Query(where("username").is(username)))
 					.apply(new Update().set("contact", contact));
@@ -465,6 +464,12 @@ public class CirpRepository implements CirpRepositoryOperations {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public Role findRole(ERole name) {
+		// TODO Auto-generated method stub
+		return mongoTemplate.findOne(new Query(Criteria.where("name").is(name)), Role.class);
 	}
 
 }

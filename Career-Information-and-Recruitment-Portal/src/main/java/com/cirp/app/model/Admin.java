@@ -3,6 +3,8 @@
  */
 package com.cirp.app.model;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -33,8 +35,7 @@ public final class Admin extends User {
 		this.setAddress(address);
 		this.setMobile(mobile);
 		this.setEmail(email);
-		this.setAdmin(true);
-		this.setRole("admin");
+		this.setRoles(new HashSet<>(Arrays.asList(new Role(ERole.ROLE_ADMIN))));
 	}
 
 	public List<String> getCollege_pending() {

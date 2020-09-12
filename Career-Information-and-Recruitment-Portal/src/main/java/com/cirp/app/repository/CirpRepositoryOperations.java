@@ -5,6 +5,7 @@ package com.cirp.app.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.bson.types.ObjectId;
 
@@ -30,14 +31,10 @@ public interface CirpRepositoryOperations {
 	void register(Alumnus alumnus); //request to college
 	Student register(Student student);
 	
+	//Send email after confirmation or rejection of registration
 	void confirmRegistration(String username);
 	void rejectRegistration(String username);
-	
-	//Send email after confirmation or rejection of registration
 		
-	void login(String username_or_email, String password);
-	void logout(String username);
-	
 	void resetPassword(String username_or_email); //Send password reset link to email
 	void updatePassword(String username_or_email, String new_password);
 	
@@ -47,8 +44,6 @@ public interface CirpRepositoryOperations {
 	void optoutRequest(String username); //sends confirmation mail for opt out
 	
 	void deleteUser(String username);
-	
-	void sessionTimeout(); //After 20 minutes of inactivity, login session for the user is closed automatically
 	
 	void changeStudentsToAlumni(Date end_date); //should be scheduled to check daily or weekly
 	
@@ -79,4 +74,6 @@ public interface CirpRepositoryOperations {
 	void updateDesc(String desc, String username);
 	void updateContact(ContactInfo contact, String username);
 	void updatePersonalisation(Personalisation personalisation, String username);
+	
+	Role findRole(ERole name);
 }
