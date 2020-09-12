@@ -6,6 +6,8 @@ package com.cirp.app.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.data.mongodb.core.index.TextIndexed;
 
 /**
@@ -13,8 +15,10 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  *
  */
 class WorkExperience {
+	@NotBlank
 	@TextIndexed
 	private String job;
+	@NotBlank
 	@TextIndexed
 	private String company;
 	@TextIndexed

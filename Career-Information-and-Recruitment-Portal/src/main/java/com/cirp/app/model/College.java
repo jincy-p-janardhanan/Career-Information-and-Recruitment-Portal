@@ -2,6 +2,9 @@ package com.cirp.app.model;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,8 +19,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class College extends NonAdmin {
 	
+	@NotBlank
 	private String affil_univ;
 	
+	@NotNull
 	private ContactInfo contact;
 	
 	private List<String> students; 
@@ -49,7 +54,7 @@ public final class College extends NonAdmin {
 		this.students = students;
 	}
 
-	protected List<String> getAlumni_pending() {
+	public List<String> getAlumni_pending() {
 		return alumni_pending;
 	}
 

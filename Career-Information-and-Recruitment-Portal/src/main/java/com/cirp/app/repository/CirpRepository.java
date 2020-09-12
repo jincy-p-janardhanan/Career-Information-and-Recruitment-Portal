@@ -7,19 +7,15 @@
 
 package com.cirp.app.repository;
 
-import java.time.LocalDate;
-
-import java.time.chrono.ChronoLocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -29,16 +25,17 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.cirp.app.model.*;
 
 /**
  * @author Jincy P Janardhanan
+ * @author Aleena Sunny
+ * @author Alka Bhagavaldas K
+ * @author Ameena Shirin
  *
  */
 @Repository
@@ -52,17 +49,38 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@Override
 	public void register(College college) {
 		mongoTemplate.insert(college);
+		List<Admin> admins = mongoTemplate.findAll(Admin.class);
+		for (int i = 0; i < admins.size(); i++) {
+			Admin admin = admins.get(i);
+			List<String> college_pending = admin.getCollege_pending();
+			college_pending.add(college.getUsername());
+			mongoTemplate.save(admin);
+		}
 	}
 
 	@Override
 	public void register(Recruiter recruiter) {
 		mongoTemplate.insert(recruiter);
+		List<Admin> admins = mongoTemplate.findAll(Admin.class);
+		for (int i = 0; i < admins.size(); i++) {
+			Admin admin = admins.get(i);
+			List<String> recruiter_pending = admin.getRecruiter_pending();
+			recruiter_pending.add(recruiter.getUsername());
+			mongoTemplate.save(admin);
+		}
 	}
 
 	@Override
 	public void register(Alumnus alumnus) {
-		// TODO Auto-generated method stub
 
+		College college = mongoTemplate.findOne(new Query(Criteria.where("name").is(alumnus.getCollege_id())),
+				College.class);
+		alumnus.setCollege_id(college.getUsername());
+		mongoTemplate.insert(alumnus);
+
+		List<String> alumni_pending = college.getAlumni_pending();
+		alumni_pending.add(alumnus.getUsername());
+		mongoTemplate.save(alumnus);
 	}
 
 	@Override
@@ -71,22 +89,8 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void login(String username_or_email, String password) {
+	public void resetPassword(String username_or_email) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void logout(String username) {
-		mongoTemplate.getSiblingDB(user);
-		mongoTemplate.logout();
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resetPassword(String username_or_email) 
-			
 	}
 
 	@Override
@@ -99,21 +103,21 @@ public class CirpRepository implements CirpRepositoryOperations {
 		}
 		if (findById(username_or_email) instanceof Recruiter) {
 			mongoTemplate.update(Recruiter.class)
-			.matching(new Query(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
-					Criteria.where("username").is(username_or_email))))
-			.apply(new Update().set("password", new_password));
+					.matching(new Query(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
+							Criteria.where("username").is(username_or_email))))
+					.apply(new Update().set("password", new_password));
 		}
 		if (findById(username_or_email) instanceof Student) {
 			mongoTemplate.update(Student.class)
-			.matching(new Query(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
-					Criteria.where("username").is(username_or_email))))
-			.apply(new Update().set("password", new_password));
+					.matching(new Query(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
+							Criteria.where("username").is(username_or_email))))
+					.apply(new Update().set("password", new_password));
 		}
 		if (findById(username_or_email) instanceof Alumnus) {
 			mongoTemplate.update(Alumnus.class)
-			.matching(new Query(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
-					Criteria.where("username").is(username_or_email))))
-			.apply(new Update().set("password", new_password));
+					.matching(new Query(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
+							Criteria.where("username").is(username_or_email))))
+					.apply(new Update().set("password", new_password));
 		}
 	}
 
@@ -139,31 +143,22 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void deleteUser(String username) {
-		
+
 		if (findById(username) instanceof College) {
 			College college = findById(username);
 			mongoTemplate.remove(college);
-		}
-		else if (findById(username) instanceof Recruiter) {
+		} else if (findById(username) instanceof Recruiter) {
 			Recruiter recruiter = findById(username);
 			mongoTemplate.remove(recruiter);
-		}
-		else if (findById(username) instanceof Student) {
+		} else if (findById(username) instanceof Student) {
 			Student student = findById(username);
 			mongoTemplate.remove(student);
-		}
-		else { 
+		} else {
 			if (findById(username) instanceof Alumnus) {
 				Alumnus alumnus = findById(username);
 				mongoTemplate.remove(alumnus);
 			}
-		}	
-
-	}
-
-	@Override
-	public void sessionTimeout() {
-		// TODO Auto-generated method stub
+		}
 
 	}
 
@@ -181,20 +176,20 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public Job viewJob(ObjectId id) {
-		return mongoTemplate.findById(id, Job.class);
+		return mongoTemplate.findById(new Query(where("_id").is(id)).fields().exclude("applicants"), Job.class);
 	}
 
 	@Override
 	public void deleteJob(Job job) {
 		mongoTemplate.remove(job);
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public void applyJob(Application application) {
-		// TODO Auto-generated method stub
-
+	public void applyJob(Application application, ObjectId job_id) {
+		Job job = mongoTemplate.findById(job_id, Job.class);
+		List<Application> applications = job.getApplicants();
+		applications.add(application);
+		mongoTemplate.save(job);
 	}
 
 	@Override
@@ -209,8 +204,15 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public List<Application> viewAllApplications(Recruiter recruiter) {
-		return mongoTemplate.findById(applicant_id, Application.class).getApplicant_id();
+	public List<Application> viewAllApplications(String recruiter_id) {
+		Recruiter recruiter = mongoTemplate.findById(recruiter_id, Recruiter.class);
+		List<ObjectId> job_list = recruiter.getJobs();
+		List<Application> all_applications = new ArrayList<Application>();
+		for (int i = 0; i < job_list.size(); i++) {
+			Job job = mongoTemplate.findById(job_list.get(i), Job.class);
+			all_applications.addAll(job.getApplicants());
+		}
+		return all_applications;
 	}
 
 	@Override
@@ -221,13 +223,15 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void requestRecommendation(String requester_id, String recommender_id) {
-		// TODO Auto-generated method stub
 
+		mongoTemplate.insert(new Recommendation(requester_id, recommender_id));
 	}
 
 	@Override
-	public void recommend(Recommendation reccomendation) {
-		// TODO Auto-generated method stub
+	public void recommend(ObjectId reccomendation_id, String recc_msg) {
+
+		mongoTemplate.update(Recommendation.class).matching(new Query(where("_id").is(reccomendation_id)))
+				.apply(new Update().set("status", "1").set("recc_msg", recc_msg));
 
 	}
 
@@ -237,19 +241,17 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<List<T>> search(String search_text) {
 		Query query = TextQuery.queryText(new TextCriteria().matchingAny(search_text.split(" ")));
-		
-		return null;
-
-		/*
-		 * List<List<T>> l = mongoTemplate.collection.find(); l.add(search(search_text,
-		 * "college")); l.add(search(search_text, "student")); l.add(search(search_text,
-		 * "alumnus")); l.add(search(search_text, "recruiter"));
-		 * l.add(search(search_text, "job")); return (l); Commented out because of
-		 * errors
-		 */
+		List<List<T>> list = new ArrayList<List<T>>();
+		list.add((List<T>) mongoTemplate.find(query, College.class));
+		list.add((List<T>) mongoTemplate.find(query, Recruiter.class));
+		list.add((List<T>) mongoTemplate.find(query, Student.class));
+		list.add((List<T>) mongoTemplate.find(query, Alumnus.class));
+		list.add((List<T>) mongoTemplate.find(query, Job.class));
+		return list;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -289,14 +291,69 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void confirmRegistration(User user) {
-		// TODO Auto-generated method stub
+	public void confirmRegistration(String username) {
+		
+		Boolean approved = false;
+		
+		if (findById(username) instanceof College) {
 
+			College college = findById(username);
+			college.incApproval_count();
+			if (college.getApproval_count() == mongoTemplate.count(new Query(), Admin.class)) {
+				college.setStatus(1);
+				college.setStatus_changed();
+				
+				approved = true;
+			}
+			mongoTemplate.save(college);
+
+		} else if (findById(username) instanceof Recruiter) {
+
+			Recruiter recruiter = findById(username);
+			recruiter.incApproval_count();
+			if (recruiter.getApproval_count() == mongoTemplate.count(new Query(), Admin.class)) {
+				recruiter.setStatus(1);
+				recruiter.setStatus_changed();
+				
+				approved = true;
+			}
+			mongoTemplate.save(recruiter);
+
+		} else {
+
+			if (findById(username) instanceof Alumnus) {
+
+				Alumnus alumnus = findById(username);
+				alumnus.incApproval_count();
+				alumnus.setStatus(1);
+				alumnus.setStatus_changed();
+				
+				mongoTemplate.save(alumnus);
+				approved = true;
+			}
+		}
+
+		if(approved == true) {
+			try {
+				User user = findById(username);
+				MimeMessage msg = send_email.createMimeMessage();
+				msg.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+				msg.setSubject("CIRP | Registration Approved");
+				msg.setContent(
+						"<p>Hi,</p>" + "<p> </p>" + "<p>We are glad to inform you that your account has been approved.</p>"
+								+ "<p>Regards,</p>" + "<p>Team CIRP</p>",
+						"text/html");
+				send_email.send(msg);
+			} catch (Exception e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 	@Override
-	public void rejectRegistration(User user) {
-		// TODO Auto-generated method stub
+	public void rejectRegistration(String username) {
 
 	}
 
@@ -307,18 +364,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 		calender.setTime(new Date());
 		calender.add(Calendar.DATE, -14);
 		mongoTemplate.findAllAndRemove(new Query(where("status_changed").is(calender.getTime())), User.class);
-
-	}
-
-	@Override
-	public Recruiter viewProfile(Recruiter recruiter) {
-		return mongoTemplate.findById("_id", Recruiter.class);
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void viewProfile(Student student) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -350,12 +395,28 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void updateDesc(String desc, String username) {
-		// TODO Auto-generated method stub
+
+		if (findById(username) instanceof College) {
+			mongoTemplate.update(College.class).matching(new Query(where("username").is(username)))
+					.apply(new Update().set("desc", desc));
+		} else if (findById(username) instanceof Recruiter) {
+			mongoTemplate.update(Recruiter.class).matching(new Query(where("username").is(username)))
+					.apply(new Update().set("desc", desc));
+		} else if (findById(username) instanceof Student) {
+			mongoTemplate.update(Student.class).matching(new Query(where("username").is(username)))
+					.apply(new Update().set("desc", desc));
+		} else {
+			if (findById(username) instanceof Alumnus) {
+				mongoTemplate.update(Alumnus.class).matching(new Query(where("username").is(username)))
+						.apply(new Update().set("desc", desc));
+			}
+		}
 
 	}
 
 	@Override
 	public void updateContact(ContactInfo contact, String username) {
+
 		if (findById(username) instanceof College) {
 			mongoTemplate.update(College.class).matching(new Query(where("username").is(username)))
 					.apply(new Update().set("contact", contact));
@@ -372,7 +433,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 			mongoTemplate.update(Alumnus.class).matching(new Query(where("username").is(username)))
 					.apply(new Update().set("contact", contact));
 		}
-			
+
 	}
 
 	@Override
@@ -387,17 +448,28 @@ public class CirpRepository implements CirpRepositoryOperations {
 						.apply(new Update().set("personalisation", personalisation));
 			}
 		}
-
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T viewProfile(String username) {
+
+		if (findById(username) instanceof College) {
+			return (T) mongoTemplate.findById(new Query(where("_id").is(username)).fields().include("name")
+					.include("affil_univ").include("contact"), College.class);
+		} else {
+			if (findById(username) instanceof Recruiter) {
+				return (T) mongoTemplate.findById(new Query(where("_id").is(username)).fields().include("name")
+						.include("license_no").include("contact"), Recruiter.class);
+			}
+		}
+		return null;
+	}
 
 	@Override
-	public College viewProfile(College college) {
-		Query query=new Query ();
-		query.fields().include("username").include("name").include("address").include("mobile").include("email");
-		List<College> college1 = mongoTemplate.find(query,College.class);
+	public Role findRole(ERole name) {
+		// TODO Auto-generated method stub
+		return mongoTemplate.findOne(new Query(Criteria.where("name").is(name)), Role.class);
 	}
-	}
-	
-	
 
+}

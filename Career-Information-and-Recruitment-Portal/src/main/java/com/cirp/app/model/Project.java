@@ -5,6 +5,8 @@ package com.cirp.app.model;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.data.mongodb.core.index.TextIndexed;
 
 /**
@@ -12,7 +14,9 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  *
  */
 class Project {
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String desc;
 	@TextIndexed
 	private List<String> tech; //Technologies used for developing the project

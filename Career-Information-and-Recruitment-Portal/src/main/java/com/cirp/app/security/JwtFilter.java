@@ -1,7 +1,7 @@
 /**
  * 
- 
-package com.cirp.app;
+ */
+package com.cirp.app.security;
 
 import java.io.IOException;
 
@@ -23,7 +23,7 @@ import io.jsonwebtoken.SignatureException;
 /**
  * @author Jincy P Janardhanan
  *
- 
+ */
 public class JwtFilter implements Filter {
 
 	@Override
@@ -80,4 +80,4 @@ public class JwtFilter implements Filter {
 	}
 
 }
-*/
+

@@ -1,4 +1,6 @@
 package com.cirp.app.model;
+import javax.validation.constraints.NotBlank;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -10,11 +12,13 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class Recommendation {
 	@MongoId
 	private ObjectId _id;
+	@NotBlank
 	private String requester_id;
+	@NotBlank
 	private String recommender_id;
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
-	private String recc_msg; //Recommendation message
-	
+	private String recc_msg; //Recommendation message 
+
 	public Recommendation(String requester_id, String recommender_id) {
 		this.requester_id = requester_id;
 		this.recommender_id = recommender_id;

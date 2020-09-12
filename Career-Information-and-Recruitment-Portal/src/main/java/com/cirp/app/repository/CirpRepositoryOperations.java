@@ -5,6 +5,7 @@ package com.cirp.app.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.bson.types.ObjectId;
 
@@ -30,27 +31,19 @@ public interface CirpRepositoryOperations {
 	void register(Alumnus alumnus); //request to college
 	Student register(Student student);
 	
-	void confirmRegistration(User user);
-	void rejectRegistration(User user);
-	
 	//Send email after confirmation or rejection of registration
+	void confirmRegistration(String username);
+	void rejectRegistration(String username);
 		
-	void login(String username_or_email, String password);
-	void logout(String username);
-	
 	void resetPassword(String username_or_email); //Send password reset link to email
 	void updatePassword(String username_or_email, String new_password);
 	
 	//Profile includes data displayed on the user's home page only
-	College viewProfile(College college);
-	Recruiter viewProfile(Recruiter recruiter);
-	void viewProfile(Student student); //Can be used for both student and alumni; NB: Super class object reference can hold object of sub class	
+	<T> T viewProfile(String username);	
 	
 	void optoutRequest(String username); //sends confirmation mail for opt out
 	
 	void deleteUser(String username);
-	
-	void sessionTimeout(); //After 20 minutes of inactivity, login session for the user is closed automatically
 	
 	void changeStudentsToAlumni(Date end_date); //should be scheduled to check daily or weekly
 	
@@ -58,15 +51,15 @@ public interface CirpRepositoryOperations {
 	Job viewJob(ObjectId id);
 	void deleteJob(Job job);
 	
-	void applyJob(Application application);
+	void applyJob(Application application, ObjectId job_id);
 	void viewApplication(Application application);
 	
 	List<Application> viewJobApplications(ObjectId job_id);
-	void viewAllApplications(Recruiter recruiter);
+	List<Application> viewAllApplications(String recruiter_id);
 	List<Application> searchApplications(String search_text);
 	
 	void requestRecommendation(String requester_id, String recommender_id);
-	void recommend(Recommendation reccomendation);
+	void recommend(ObjectId reccomendation_id, String recc_msg);
 	void rejectRecommendationRequest(Recommendation reccomendation);
 	
 	<T> List<List<T>> search(String search_text);
@@ -81,4 +74,6 @@ public interface CirpRepositoryOperations {
 	void updateDesc(String desc, String username);
 	void updateContact(ContactInfo contact, String username);
 	void updatePersonalisation(Personalisation personalisation, String username);
+	
+	Role findRole(ERole name);
 }

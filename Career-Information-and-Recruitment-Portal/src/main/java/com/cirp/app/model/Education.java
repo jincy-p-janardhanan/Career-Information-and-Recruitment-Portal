@@ -1,7 +1,11 @@
 package com.cirp.app.model;
 
+import javax.validation.constraints.NotBlank;
+
 class Education {
+	@NotBlank
 	private String course;
+	@NotBlank
 	private String institute; //school or college
 	private String board; //board or university
 	private float marks; //marks, grade value or percentage

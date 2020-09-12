@@ -3,6 +3,13 @@
  */
 package com.cirp.app.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * @author Jincy P Janardhanan
  *
@@ -10,24 +17,31 @@ package com.cirp.app.model;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 public abstract class User {
 	
 	@MongoId
 	private String username;
+	@NotBlank
+	@Size(min = 6, max = 24)
 	private String password;
 	@TextIndexed
 	private String name;
+	@NotNull
 	private Address address;
+	@NotBlank
 	private String mobile;
+	@NotBlank
 	@Indexed(unique = true)
 	private String email;
-	private Boolean admin; //false, by default (not admin); true for admin users
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
 	
+	@DBRef
+	private Set<Role> roles = new HashSet<>();
+	
 	public User() {
-		this.setAdmin(false);
 		this.setStatus(0);
 	}
 	public String getUsername() {
@@ -83,24 +97,23 @@ public abstract class User {
 
 	}
 
-	protected Boolean getAdmin() {
-		return admin;
-	}
-
-	protected void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
 	protected int getStatus() {
 		return status;
 	}
 
-	protected void setStatus(int status) {
+	public void setStatus(int status) {
 		//value of status should be either -1, 0 or 1
 		if(status >= -1 && status <= 1)
 			this.status = status;
 	}
 	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}	
 	
 	
 }

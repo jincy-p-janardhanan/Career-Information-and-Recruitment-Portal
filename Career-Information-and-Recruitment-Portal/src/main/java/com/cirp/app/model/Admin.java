@@ -3,6 +3,8 @@
  */
 package com.cirp.app.model;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -33,10 +35,10 @@ public final class Admin extends User {
 		this.setAddress(address);
 		this.setMobile(mobile);
 		this.setEmail(email);
-		this.setAdmin(true);
+		this.setRoles(new HashSet<>(Arrays.asList(new Role(ERole.ROLE_ADMIN))));
 	}
 
-	protected List<String> getCollege_pending() {
+	public List<String> getCollege_pending() {
 		return college_pending;
 	}
 
@@ -60,7 +62,7 @@ public final class Admin extends User {
 		this.college_denied = college_denied;
 	}
 
-	protected List<String> getRecruiter_pending() {
+	public List<String> getRecruiter_pending() {
 		return recruiter_pending;
 	}
 
