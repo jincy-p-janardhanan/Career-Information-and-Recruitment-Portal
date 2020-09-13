@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="RocketCake">
+<title>Login | Career Information and Recruitment Portal</title>
+<link rel="stylesheet" type="text/css" href="css/login_html.css">
+</head>
+<body>
+	<div class="textstyle1">
+		<div id="container_3e5c814">
+			<div id="container_3e5c814_padding">
+				<div class="textstyle1">
+					<img src="css/assets/web___graphic___right_flip.png"
+						id="img_883c02f" alt="" title="" />
+					<div id="text_6e3a76ce">
+						<div class="textstyle1">
+							<span class="textstyle2"><a href="index.html"
+								class="wsp508c6e15">HOME</a></span>
+						</div>
+					</div>
+					<div id="text_1e714477">
+						<div class="textstyle1">
+							<span class="textstyle2"><a href="index.html#OurSolutions"
+								class="wsp508c6e15">OUR SERVICES</a></span>
+						</div>
+					</div>
+				</div>
+				<div style="clear: both"></</div>
+			</div>
+			<div id="container_744bd6fd">
+				<div id="container_744bd6fd_padding">
+					<div class="textstyle1">
+						<form name="form-login" th:action="@{/login}" method="POST"
+							id="form_5640478c">
+							<div id="form_5640478c_padding">
+								<div class="textstyle1">
+									<div id="text_27858737">
+										<div class="textstyle3">
+											<span class="textstyle4">Welcome back!</span>
+										</div>
+
+										<div th:if="${param.error}" class="error">Invalid
+											username or password.</div>
+										<div th:if="${param.logout}" class="error">You have been
+											logged out.</div>
+									</div>
+									<input type="text" value="" title="" name="username"
+										placeholder="Username" id="edit_11e60731"> <input
+										type="password" value="" title="" name="password"
+										placeholder="Password" id="edit_478d810d"> <input
+										name="Button1" type="submit" value="LOGIN" title=""
+										id="button_61d4c6b3">
+									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+									<div id="text_e35a6f1">
+										<div class="textstyle1">
+											<span class="textstyle5"><a
+												href="forgot_password.html" class="wsp2e18e390">Forgot
+													password?</a></span>
+										</div>
+									</div>
+									<div id="text_f13da55">
+										<div class="textstyle1">
+											<span class="textstyle5"><a href="register.html"
+												class="wsp2e18e390">Not a member yet?</a></span>
+										</div>
+									</div>
+								</div>
+								<div style="clear: both"></div>
+							</div>
+						</form>
+					</div>
+					<div style="clear: both"></div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

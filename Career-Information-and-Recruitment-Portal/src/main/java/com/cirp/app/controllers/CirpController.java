@@ -2,32 +2,16 @@ package com.cirp.app.controllers;
 
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.cirp.app.model.*;
-
 import com.cirp.app.repository.CirpRepository;
 
 /**
@@ -40,34 +24,39 @@ import com.cirp.app.repository.CirpRepository;
 @CrossOrigin
 @RestController
 @RequestMapping("/")
-public class CirpController implements ErrorController {
+public class CirpController {
 
 	@Autowired
 	private CirpRepository repo;
 	
-	@RequestMapping("/register_college")
-	public void registerCollege(@RequestBody College college) {
-		String password = new BCryptPasswordEncoder().encode(college.getPassword());
-		college.setPassword(password);
-		repo.register(college);
+	@Autowired
+	PasswordEncoder passwordEncoder;		//Bean for PasswordEncoder set in config.security package (using BcryptPasswordEncoder)
+	
+	@RequestMapping("/register-college")
+	public void registerCollege(@RequestBody(required = false) College college) {
+		if(college != null) {
+			String password = passwordEncoder.encode(college.getPassword());
+			college.setPassword(password);
+			repo.register(college);
+		}
 	}
 
-	@RequestMapping("/register_student")
+	@RequestMapping("/add-student")
 	public void registerStudent(@RequestBody Student student) {
-		String password = new BCryptPasswordEncoder().encode(student.getPassword());
+		String password = passwordEncoder.encode(student.getPassword());
 		student.setPassword(password);
 		repo.register(student);
 	}
 
-	@RequestMapping("/register_recruiter")
+	@RequestMapping("/register-recruiter")
 	public void registerRecruiter(@RequestBody Recruiter recruiter) {
-		String password = new BCryptPasswordEncoder().encode(recruiter.getPassword());
+		String password = passwordEncoder.encode(recruiter.getPassword());
 		recruiter.setPassword(password);
 		repo.register(recruiter);
 	}
 
-	@RequestMapping(value = { "/home_college", "/home_recruiter", "/home_alumnus",
-			"/home_student" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/college/home", "/recruiter/home", "/alumnus/home",
+			"/student/home" }, method = RequestMethod.POST)
 	public void editProfile(@RequestParam String method, @RequestParam String input, @RequestParam String username) {
 		if (method == "profile-pic") {
 			repo.updateProfilePic(input, username);
@@ -78,24 +67,14 @@ public class CirpController implements ErrorController {
 		}
 	}
 
-	@RequestMapping(value = { "/home_college", "/home_recruiter" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/college/home", "/recruiter/home" }, method = RequestMethod.POST)
 	public void updateContact(@RequestBody ContactInfo contact, @RequestParam String username) {
 		repo.updateContact(contact, username);
 	}
 
-	@RequestMapping(value = { "/home_alumnus", "/home_student" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/alumnus/home", "/student/home" }, method = RequestMethod.POST)
 	public void updatePersonalisation(@RequestBody Personalisation personalisation, @RequestParam String username) {
 		repo.updatePersonalisation(personalisation, username);
-	}
-
-	@RequestMapping("/optout-request")
-	public void optoutRequests(@RequestParam String username) {
-		repo.optoutRequest(username);
-	}
-
-	@RequestMapping("/deactivate-user")
-	public void deactivateUser(@RequestParam String username) {
-		repo.deleteUser(username);
 	}
 
 	@RequestMapping("/createJob")
@@ -156,34 +135,19 @@ public class CirpController implements ErrorController {
 	public void confirmRegistration(@RequestParam String username) {
 		repo.confirmRegistration(username);
 	}
-	
+
 	@RequestMapping("/rejectRegistration")
 	public void rejectRegistration(@RequestParam String username) {
 		repo.rejectRegistration(username);
-	}	
-
-	@Override
-	public String getErrorPath() {
-		return "/error";
+	}
+	
+	@RequestMapping("/optout-request")
+	public void optoutRequests(@RequestParam String username) {
+		repo.optoutRequest(username);
 	}
 
-	@RequestMapping("/error")
-	public String handleError(HttpServletRequest request) {
-
-		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
-		if (status != null) {
-			int statusCode = Integer.parseInt(status.toString());
-
-			if (statusCode == HttpStatus.NOT_FOUND.value()) {
-				return "404";
-			} else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-				return "500";
-			} else if (statusCode == HttpStatus.FORBIDDEN.value()) {
-				return "403";
-			}
-		}
-
-		return "error";
+	@RequestMapping("/deactivate-user")
+	public void deactivateUser(@RequestParam String username) {
+		repo.deleteUser(username);
 	}
 }

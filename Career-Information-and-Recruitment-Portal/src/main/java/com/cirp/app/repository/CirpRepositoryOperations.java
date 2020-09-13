@@ -5,7 +5,7 @@ package com.cirp.app.repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.bson.types.ObjectId;
 
@@ -74,6 +74,4 @@ public interface CirpRepositoryOperations {
 	void updateDesc(String desc, String username);
 	void updateContact(ContactInfo contact, String username);
 	void updatePersonalisation(Personalisation personalisation, String username);
-	
-	Role findRole(ERole name);
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.model;
 
 import java.util.HashSet;
@@ -9,16 +6,15 @@ import java.util.Set;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
 
 /**
  * @author Jincy P Janardhanan
  *
  */
-
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.index.TextIndexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 public abstract class User {
 	
@@ -38,7 +34,7 @@ public abstract class User {
 	private String email;
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
 	
-	private Set<Role> roles = new HashSet<>();
+	private String role;
 	
 	public User() {
 		this.setStatus(0);
@@ -105,14 +101,11 @@ public abstract class User {
 		if(status >= -1 && status <= 1)
 			this.status = status;
 	}
-	
-	public Set<Role> getRoles() {
-		return roles;
+	public String getRole() {
+		return role;
 	}
-	
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(String role) {
+		this.role = role;
 	}	
-	
 	
 }

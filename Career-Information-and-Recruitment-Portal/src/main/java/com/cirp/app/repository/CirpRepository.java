@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -25,15 +23,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-import org.springframework.data.mongodb.repository.Tailable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import com.cirp.app.model.*;
-
-import reactor.core.publisher.Flux;
 
 /**
  * @author Jincy P Janardhanan
@@ -279,15 +273,23 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T findById(String id) { // id refers to username
-		if (mongoTemplate.findById(id, College.class) != null)
+	public <T> T findById(String id) {
+		
+		if (mongoTemplate.findById(id, Admin.class) != null)
+			return (T) mongoTemplate.findById(id, Admin.class);
+		
+		else if (mongoTemplate.findById(id, College.class) != null)
 			return (T) mongoTemplate.findById(id, College.class);
+		
 		else if (mongoTemplate.findById(id, Recruiter.class) != null)
 			return (T) mongoTemplate.findById(id, Recruiter.class);
+		
 		else if (mongoTemplate.findById(id, Student.class) != null)
 			return (T) mongoTemplate.findById(id, Student.class);
+		
 		else if (mongoTemplate.findById(id, Alumnus.class) != null)
 			return (T) mongoTemplate.findById(id, Alumnus.class);
+		
 		else if (mongoTemplate.findById(id, Job.class) != null)
 			return (T) mongoTemplate.findById(id, Job.class);
 		else
@@ -425,7 +427,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 		calender.setTime(new Date());
 		calender.add(Calendar.DATE, -14);
 		mongoTemplate.findAllAndRemove(new Query(where("status_changed").is(calender.getTime())), User.class);
-
 	}
 
 	@Override
@@ -526,11 +527,4 @@ public class CirpRepository implements CirpRepositoryOperations {
 		}
 		return null;
 	}
-
-	@Override
-	public Role findRole(ERole name) {
-		return mongoTemplate.findOne(new Query(Criteria.where("name").is(name)), Role.class);
-	}
-	 
-
 }

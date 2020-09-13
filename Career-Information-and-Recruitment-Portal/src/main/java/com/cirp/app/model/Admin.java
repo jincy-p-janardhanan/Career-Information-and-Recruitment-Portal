@@ -35,8 +35,16 @@ public final class Admin extends User {
 		this.setAddress(address);
 		this.setMobile(mobile);
 		this.setEmail(email);
-		this.setRoles(new HashSet<>(Arrays.asList(new Role(ERole.ROLE_ADMIN))));
+		this.setRole("ROLE_ADMIN");
 	}
+	
+	
+	
+	public Admin() {
+		
+	}
+
+
 
 	public List<String> getCollege_pending() {
 		return college_pending;
