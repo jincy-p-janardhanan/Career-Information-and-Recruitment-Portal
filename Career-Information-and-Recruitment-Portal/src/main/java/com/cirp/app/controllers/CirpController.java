@@ -1,3 +1,7 @@
+/**
+ * This class defines all the view controllers used.
+ */
+
 package com.cirp.app.controllers;
 
 import java.util.List;
@@ -30,7 +34,7 @@ public class CirpController {
 	private CirpRepository repo;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;		//Bean for PasswordEncoder set in config.security package (using BcryptPasswordEncoder)
+	PasswordEncoder passwordEncoder;
 	
 	@RequestMapping("/register-college")
 	public void registerCollege(@RequestBody(required = false) College college) {

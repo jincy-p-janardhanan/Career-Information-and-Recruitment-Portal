@@ -56,6 +56,14 @@ public class Student extends NonAdmin{
 		this.college_id = college_id;
 		this.setStatus(1);
 	}
+	
+	public Student() {
+		super();
+	}
+
+	public Student(String username, String password, String name, Address address, String mobile, String email) {
+		super(username, password, name, address, mobile, email);
+	}
 
 	protected String getReg_no() {
 		return reg_no;

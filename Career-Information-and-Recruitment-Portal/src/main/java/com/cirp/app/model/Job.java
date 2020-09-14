@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.model;
 
 import java.util.Date;
@@ -22,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Document(collection="job")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Job {
+	
 	@NotBlank
 	private String recruiter_id;
 	private String job_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
@@ -37,7 +35,7 @@ public class Job {
 	@NotBlank
 	@Indexed
 	private Date last_date;
-	private List<String> questions;//
+	private List<String> questions;
 	private List<Application> applicants;
 	
 	@TextIndexed

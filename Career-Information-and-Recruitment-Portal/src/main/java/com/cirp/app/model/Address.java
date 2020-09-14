@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  */
 
 public class Address {
+	
 	@NotBlank
 	private String address_line1;
 	private String address_line2;
@@ -38,7 +39,7 @@ public class Address {
 		this.country = country;
 		this.pincode = pincode;
 	}
-
+	
 	protected String getAddress_line1() {
 		return address_line1;
 	}

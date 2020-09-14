@@ -1,7 +1,7 @@
 /**
- * 
+ * This class creates (or updates) four admins, generates a random password for them and sends it to their respective emails.
  */
-package com.cirp.app;
+package com.cirp.app.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cirp.app.model.Address;
@@ -34,6 +34,9 @@ public class AdminInitializer {
 	
 	@Autowired
 	MongoTemplate template;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@PostConstruct
 	public void init() {
@@ -63,32 +66,30 @@ public class AdminInitializer {
 		}
 
 		try {
-			// Creating 4 admins, BCryptPasswordEncoder() used for encrypting the password
+			// Creating 4 admins, passwordEncoder.encode() used for encrypting the password
 			// before storing to database
 			Admin[] admins = {
-					new Admin("admin1", new BCryptPasswordEncoder().encode(passwords.get(0)), "Jincy",
+					new Admin("admin1", passwordEncoder.encode(passwords.get(0)), "Jincy",
 							new Address("line1", "line2", "city", "dist", "Kerala", "India", (long) 679522),
 							"9400546404", "jincyp7@gmail.com"),
 
-					new Admin("admin2", new BCryptPasswordEncoder().encode(passwords.get(1)), "Aleena",
+					new Admin("admin2", passwordEncoder.encode(passwords.get(1)), "Aleena",
 							new Address("line1", "line2", "city", "dist", "Kerala", "India", (long) 679522),
 							"9400546404", "aleenatreasa90@gmail.com"),
 
-					new Admin("admin3", new BCryptPasswordEncoder().encode(passwords.get(2)), "Ameena",
+					new Admin("admin3", passwordEncoder.encode(passwords.get(2)), "Ameena",
 							new Address("line1", "line2", "city", "dist", "Kerala", "India", (long) 679522),
 							"9400546404", "ameenaamiaan@gmail.com"),
 
-					new Admin("admin4", new BCryptPasswordEncoder().encode(passwords.get(3)), "Alka",
+					new Admin("admin4", passwordEncoder.encode(passwords.get(3)), "Alka",
 							new Address("line1", "line2", "city", "dist", "Kerala", "India", (long) 679522),
 							"9400546404", "alkabhagavaldas000@gmail.com") };
-
-			// Setting up mongodb connection
-			//MongoTemplate template = new MongoTemplate(MongoClients.create("mongodb://localhost:27017"), "cirp");
-			// Saving all admins
+			
 			for (int i = 0; i < 4; i++) {
 				template.save(admins[i]);
 			}
 		} catch (Exception e) {
+			//used to debug only
 			System.out.println("\n\n--------------------------------------------------------------------\n" + e + "\n");
 			e.printStackTrace();
 			System.out.println("--------------------------------------------------------------------\n");

@@ -1,3 +1,7 @@
+/**
+ * This configuration class registers APIs (Views) for all the HTML pages used. 
+ */
+
 package com.cirp.app.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +17,11 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
+		
+		/*
+		 * addviewController creates API name, setViewName sets which HTML page to use.
+		 * The default root folder for HTML pages is src/main/resources/templates
+		 */
 		
 	    registry.addViewController("/home").setViewName("index");
 	    registry.addViewController("/").setViewName("index");

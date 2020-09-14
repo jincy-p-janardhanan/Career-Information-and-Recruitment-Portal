@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.model;
 
 import java.util.List;
@@ -36,13 +33,10 @@ public final class Admin extends User {
 		this.setRole("ROLE_ADMIN");
 	}
 	
-	
-	
+	//Default constructor is required for authentication purposes (in UserDetailsService).
 	public Admin() {
 		
 	}
-
-
 
 	public List<String> getCollege_pending() {
 		return college_pending;

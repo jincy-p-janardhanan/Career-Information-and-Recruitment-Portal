@@ -39,6 +39,15 @@ public final class College extends NonAdmin {
 		this.affil_univ = affil_univ;
 	}
 	
+	public College() {
+		super();
+	}
+
+	public College(String username, String password, String name, Address address, String mobile, String email) {
+		super(username, password, name, address, mobile, email);
+	
+	}
+
 	protected String getAffil_univ() {
 		return affil_univ;
 	}

@@ -1,5 +1,5 @@
 /**
- * 
+ * This class allows users to be redirected to their respective home (or admin panel) after successful authentication.
  */
 package com.cirp.app.config.security;
 
@@ -21,31 +21,43 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
+public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
+		//Stores granted authorities of the authenticated user into auth.
+		//Note: This is not a MongoDB collection, but the Java collection class.
+		
 		Collection<? extends GrantedAuthority> auth = authentication.getAuthorities();
 
-		for (GrantedAuthority grantedAuthority : auth)  {
-	        if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-	            response.sendRedirect("/admin-panel");
-	        }
-	        else if (grantedAuthority.getAuthority().equals("ROLE_COLLEGE")) {
-	            response.sendRedirect("/college-home");
-	        }
-	        else if (grantedAuthority.getAuthority().equals("ROLE_RECRUITER")) {
-	            response.sendRedirect("/recruiter-home");
-	        }
-	        else if (grantedAuthority.getAuthority().equals("ROLE_ALUMNUS")) {
-	            response.sendRedirect("/alumnus-home");
-	        }
-	        else if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
-	            response.sendRedirect("/student-home");
-	        }
-	    }
+		//Loops through each of the authorities and redirect the user to their respective home pages.
 		
+		for (GrantedAuthority grantedAuthority : auth) {
+			
+			if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+				
+				response.sendRedirect("/admin-panel");
+				
+			} else if (grantedAuthority.getAuthority().equals("ROLE_COLLEGE")) {
+				
+				response.sendRedirect("/college-home");
+				
+			} else if (grantedAuthority.getAuthority().equals("ROLE_RECRUITER")) {
+				
+				response.sendRedirect("/recruiter-home");
+				
+			} else if (grantedAuthority.getAuthority().equals("ROLE_ALUMNUS")) {
+				
+				response.sendRedirect("/alumnus-home");
+				
+			} else if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
+				
+				response.sendRedirect("/student-home");
+				
+			}
+		}
+
 	}
 }

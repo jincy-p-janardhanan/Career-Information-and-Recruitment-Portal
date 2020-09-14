@@ -1,4 +1,8 @@
-package com.cirp.app.config.security.service;
+/**
+ * This class helps Spring to identify a user and his role in our database.
+ */
+
+package com.cirp.app.service.security;
 
 import java.util.Arrays;
 
@@ -27,11 +31,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
+		//Here we check whether the user exists in our database, if not the UserNameNotFoundException is thrown.
 		User user = cirpRepository.findById(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found");
 		}
-
+		
+		//This statement creates and returns a User as identifiable by Spring security.
+		//The user returned is initialized with username, password, and the roles of the user (in a list ).
 		return new org.springframework.security.core.userdetails.User(
 				user.getUsername(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
 	}

@@ -27,6 +27,11 @@ public abstract class NonAdmin extends User {
 		this.approval_count = 0;
 	}
 	
+	
+	public NonAdmin() {
+		super();	
+	}
+
 	protected String getProfile_pic() {
 		return profile_pic;
 	}

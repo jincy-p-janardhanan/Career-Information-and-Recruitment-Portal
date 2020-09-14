@@ -16,15 +16,6 @@ import com.cirp.app.model.*;
  *
  */
 public interface CirpRepositoryOperations {
-	/*
-	 * passwords are stored in bcrypt encrypted format, in the database
-	 * passwords in function calls are also encrypted
-	 * Bcrypt usage reference: https://dzone.com/articles/storing-passwords-securely-with-bcrypt-and-java
-	 * Reference(in SQL): https://www.devglan.com/spring-security/spring-boot-security-password-encoding-bcrypt-encoder
-	 * 
-	 * Pending methods: Chat, Notifications
-	 * 
-	 */
 	
 	void register(College college); //request to server admin
 	void register(Recruiter recruiter); //request to admin

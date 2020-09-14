@@ -1,4 +1,6 @@
 /**
+ * This class configures MongoDB port and database to be used.
+ * 
  * Reference: https://docs.spring.io/spring-data/mongodb/docs/current-SNAPSHOT/reference/html/#mongo-template.instantiating
  */
 package com.cirp.app.config;
@@ -16,13 +18,17 @@ import com.mongodb.client.MongoClients;
  */
 @Configuration
 public class MongoConfig {
-
-	public @Bean MongoClient mongoClient() {
-	      return MongoClients.create("mongodb://localhost:27017");
+	
+	@Bean
+	public MongoClient mongoClient() {
+		//Create a MongoDB client on localhost port 27017
+	    return MongoClients.create("mongodb://localhost:27017");
 	}
-
-	public @Bean MongoTemplate mongoTemplate() {
-		return new MongoTemplate(mongoClient(), "cirp"); //Database for Career Information and Recruitment Portal (CIRP)
+	
+	@Bean
+	public MongoTemplate mongoTemplate() {
+		//This bean allows MongoTemplate to automatically connect to the database for Career Information and Recruitment Portal (cirp)
+		return new MongoTemplate(mongoClient(), "cirp");
 	}
 }
 

@@ -11,22 +11,5 @@ public class CareerInformationAndRecruitmentPortalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CareerInformationAndRecruitmentPortalApplication.class, args);
-	}
-	
-	/*
-	@Bean
-	public FilterRegistrationBean JwtFiltering() {
-		
-		final FilterRegistrationBean registration_bean = new FilterRegistrationBean();
-		registration_bean.setFilter(new JwtFilter());
-		
-		registration_bean.addUrlPatterns("/index");
-		
-		
-		return registration_bean;
-		
-	}
-	*/
-	
-	
+	}	
 }

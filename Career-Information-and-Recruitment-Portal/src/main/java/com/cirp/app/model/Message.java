@@ -1,4 +1,3 @@
-
 package com.cirp.app.model;
 
 import org.springframework.data.annotation.Id;
@@ -14,12 +13,14 @@ public class Message {
 	private String sender;
 	private String sendee;
 	private String channelId;
+	
 	public Message( String message, String sender, String sendee, String channelId) {
 		this.message = message;
 		this.sender = sender;
 		this.sendee = sendee;
 		this.channelId = channelId;
 	}
+	
 	public String getId() {
 		return id;
 	}
