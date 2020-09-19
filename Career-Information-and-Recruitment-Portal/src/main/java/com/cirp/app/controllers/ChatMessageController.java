@@ -20,10 +20,6 @@ import com.cirp.app.repository.ChatMessageRepo;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
 public class ChatMessageController {
 	
 	@Autowired

@@ -12,31 +12,24 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import com.cirp.app.model.Address;
 import com.cirp.app.model.Admin;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
-
-@Component
+@Service
 public class AdminInitializer {
-	
-	@Autowired
-	JavaMailSender send_email;
-	
+
 	@Autowired
 	MongoTemplate template;
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	SendEmail sendmails;
 
 	@PostConstruct
 	public void init() {
@@ -44,21 +37,19 @@ public class AdminInitializer {
 		// Emails of admins added to a List<String>
 		List<String> emails = new ArrayList<String>(Arrays.asList("jincyp7@gmail.com", "aleenatreasa90@gmail.com",
 				"ameenaamiaan@gmail.com", "alkabhagavaldas000@gmail.com"));
-		
+
 		ArrayList<String> passwords = new ArrayList<String>();
-		
-		SimpleMailMessage msg = new SimpleMailMessage();
 		try {
 			for (int i = 0; i < 4; i++) {
 				// Generate a random password for each admin
 				passwords.add(RandomStringUtils.randomAlphanumeric(6, 12));
 
 				// Send email to each admin's email account
-				msg.setTo(emails.get(i));
-				msg.setSubject("CIRP Login Credentials - "
-						+ LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-				msg.setText("Password: " + passwords.get(i));
-				send_email.send(msg);
+				String to = emails.get(i);
+				String sub = "CIRP Login Credentials - "
+						+ LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+				String content = "<p> Password: " + passwords.get(i)+"</p>";
+				sendmails.sendEmail(to, sub, content);
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -84,12 +75,11 @@ public class AdminInitializer {
 					new Admin("admin4", passwordEncoder.encode(passwords.get(3)), "Alka",
 							new Address("line1", "line2", "city", "dist", "Kerala", "India", (long) 679522),
 							"9400546404", "alkabhagavaldas000@gmail.com") };
-			
+
 			for (int i = 0; i < 4; i++) {
 				template.save(admins[i]);
 			}
 		} catch (Exception e) {
-			//used to debug only
 			System.out.println("\n\n--------------------------------------------------------------------\n" + e + "\n");
 			e.printStackTrace();
 			System.out.println("--------------------------------------------------------------------\n");

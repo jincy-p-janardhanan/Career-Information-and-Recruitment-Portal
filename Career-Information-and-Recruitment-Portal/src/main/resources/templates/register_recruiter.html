@@ -1,9 +1,8 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="RocketCake">
 <title>Register | Recruiter | Career Information and Recruitment
 	Portal</title>
 <link rel="stylesheet" type="text/css"
@@ -11,9 +10,35 @@
 </head>
 <body>
 	<div class="textstyle1">
+	<span class="textstyle4">z</span>
+		<div id="container_6d6e5d70">
+			<div class="textstyle5">
+				<div id="container_6b605b84">
+					<div id="container_6b605b84_padding">
+						<div class="textstyle1"></div>
+						<div class="textstyle5">
+							<span class="textstyle6"><a href="index.html"
+								class="wsp508c6e15">HOME</a></span>
+						</div>
+					</div>
+				</div>
+				<div id="container_1bd488e7">
+					<div id="container_1bd488e7_padding">
+						<div class="textstyle1"></div>
+						<div class="textstyle5">
+							<span class="textstyle6"><a href="" class="wsp508c6e15">OUR
+									SERVICES</a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="textstyle1"></div>
+		</div>
+		<img src="css/assets/web___graphic___right_flip.png" id="img_15f3b2f5"
+			alt="" title="" />
 		<div id="container_dd9bc10">
 			<div class="textstyle1">
-				<form action="" enctype="application/x-www-form-urlencoded"
+				<form action="@{/register-recruiter}" th:Object="${recruiter}" enctype="application/x-www-form-urlencoded"
 					method="POST" id="form_5145a595">
 					<div class="textstyle1">
 						<div id="text_72f5f190">
@@ -177,32 +202,6 @@
 				</form>
 			</div>
 		</div>
-		<span class="textstyle4">z</span>
-		<div id="container_6d6e5d70">
-			<div class="textstyle5">
-				<div id="container_6b605b84">
-					<div id="container_6b605b84_padding">
-						<div class="textstyle1"></div>
-						<div class="textstyle5">
-							<span class="textstyle6"><a href="index.html"
-								class="wsp508c6e15">HOME</a></span>
-						</div>
-					</div>
-				</div>
-				<div id="container_1bd488e7">
-					<div id="container_1bd488e7_padding">
-						<div class="textstyle1"></div>
-						<div class="textstyle5">
-							<span class="textstyle6"><a href="" class="wsp508c6e15">OUR
-									SERVICES</a></span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="textstyle1"></div>
-		</div>
-		<img src="css/assets/web___graphic___right_flip.png" id="img_15f3b2f5"
-			alt="" title="" />
 	</div>
 </body>
 </html>

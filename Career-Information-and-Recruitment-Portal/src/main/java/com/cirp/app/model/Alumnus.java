@@ -24,10 +24,12 @@ public class Alumnus extends Student{
 			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, String college_id) {
 		super(username, password, name, address, mobile, email, reg_no, course, branch, sem, st_date, end_date,
 				college_id);
+		this.setRole("ROLE_PENDING");
 	}
 
 	public Alumnus() {
 		super();
+		this.setRole("ROLE_PENDING");
 	}
 
 	public Alumnus(String username, String password, String name, Address address, String mobile, String email) {

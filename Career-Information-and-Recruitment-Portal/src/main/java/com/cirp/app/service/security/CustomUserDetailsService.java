@@ -29,16 +29,21 @@ public class CustomUserDetailsService implements UserDetailsService {
 	PasswordEncoder passwordEncoder;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username_or_email) throws UsernameNotFoundException {
 		
 		//Here we check whether the user exists in our database, if not the UserNameNotFoundException is thrown.
-		User user = cirpRepository.findById(username);
+		User user = cirpRepository.findById(username_or_email);
+		if (user == null) {
+			user = cirpRepository.findByEmail(username_or_email);
+		}
+		
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found");
 		}
 		
 		//This statement creates and returns a User as identifiable by Spring security.
 		//The user returned is initialized with username, password, and the roles of the user (in a list ).
+		System.out.println(user.getRole());
 		return new org.springframework.security.core.userdetails.User(
 				user.getUsername(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
 	}

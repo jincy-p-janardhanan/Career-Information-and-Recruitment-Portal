@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Job {
 	
+	@MongoId
+	ObjectId Id;
 	@NotBlank
 	private String recruiter_id;
 	private String job_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
@@ -54,59 +58,83 @@ public class Job {
 		this.job_pic = recruiter_pic;
 	}
 
-	protected String getTitle() {
+	public ObjectId getId() {
+		return Id;
+	}
+
+	public void setId(ObjectId id) {
+		Id = id;
+	}
+
+	public String getRecruiter_id() {
+		return recruiter_id;
+	}
+
+	public void setRecruiter_id(String recruiter_id) {
+		this.recruiter_id = recruiter_id;
+	}
+
+	public String getJob_pic() {
+		return job_pic;
+	}
+
+	public void setJob_pic(String job_pic) {
+		this.job_pic = job_pic;
+	}
+
+	public String getTitle() {
 		return title;
 	}
 
-	protected void setTitle(String title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	protected String getDesc() {
+	public String getDesc() {
 		return desc;
 	}
 
-	protected void setDesc(String desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 
-	protected String getLocation() {
+	public String getLocation() {
 		return location;
 	}
 
-	protected void setLocation(String location) {
+	public void setLocation(String location) {
 		this.location = location;
 	}
 
-	protected String getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	protected void setDuration(String duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
-	protected float getStipend() {
+	public float getStipend() {
 		return stipend;
 	}
 
-	protected void setStipend(float stipend) {
+	public void setStipend(float stipend) {
 		this.stipend = stipend;
 	}
 
-	protected Date getLast_date() {
+	public Date getLast_date() {
 		return last_date;
 	}
 
-	protected void setLast_date(Date last_date) {
+	public void setLast_date(Date last_date) {
 		this.last_date = last_date;
 	}
 
-	protected List<String> getQuestions() {
+	public List<String> getQuestions() {
 		return questions;
 	}
 
-	protected void setQuestions(List<String> questions) {
+	public void setQuestions(List<String> questions) {
 		this.questions = questions;
 	}
 
@@ -114,23 +142,15 @@ public class Job {
 		return applicants;
 	}
 
-	protected void setApplicants(List<Application> applicants) {
+	public void setApplicants(List<Application> applicants) {
 		this.applicants = applicants;
 	}
 
-	protected List<String> getSkills() {
+	public List<String> getSkills() {
 		return skills;
 	}
 
-	protected void setSkills(List<String> skills) {
+	public void setSkills(List<String> skills) {
 		this.skills = skills;
 	}
-
-	public String getRecruiter_id() {
-		return recruiter_id;
-	}
-
-	public String getJob_pic() {
-		return job_pic;
-	}	
 }

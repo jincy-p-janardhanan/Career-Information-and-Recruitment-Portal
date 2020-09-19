@@ -30,6 +30,7 @@ public final class Admin extends User {
 		this.setAddress(address);
 		this.setMobile(mobile);
 		this.setEmail(email);
+		this.setStatus(1);
 		this.setRole("ROLE_ADMIN");
 	}
 	

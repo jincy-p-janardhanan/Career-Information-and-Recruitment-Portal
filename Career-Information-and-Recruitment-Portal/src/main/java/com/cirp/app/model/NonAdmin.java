@@ -27,45 +27,57 @@ public abstract class NonAdmin extends User {
 		this.approval_count = 0;
 	}
 	
+	public NonAdmin(String username, String password, String name, String mobile, String email) {
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setName(name);
+		this.setMobile(mobile);
+		this.setEmail(email);
+		this.approval_count = 0;
+	}
 	
 	public NonAdmin() {
-		super();	
+		super();
+		this.approval_count = 0;
 	}
 
-	protected String getProfile_pic() {
+	public String getProfile_pic() {
 		return profile_pic;
 	}
-	protected String getDesc() {
+
+	public void setProfile_pic(String profile_pic) {
+		this.profile_pic = profile_pic;
+	}
+
+	public String getDesc() {
 		return desc;
 	}
-	protected String getBg_img() {
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public String getBg_img() {
 		return bg_img;
 	}
+
+	public void setBg_img(String bg_img) {
+		this.bg_img = bg_img;
+	}
+
 	public int getApproval_count() {
 		return approval_count;
 	}
-	protected void setProfile_pic(String profile_pic) {
-		this.profile_pic = profile_pic;
-	}
-	protected void setDesc(String desc) {
-		this.desc = desc;
-	}
-	protected void setBg_img(String bg_img) {
-		this.bg_img = bg_img;
-	}
-	public void incApproval_count() {
-		this.approval_count += 1;
-	}
-	
-	public void decApproval_count() {
-		this.approval_count -= 1;
+
+	public void setApproval_count(int approval_count) {
+		this.approval_count = approval_count;
 	}
 
 	public Date getStatus_changed() {
 		return status_changed;
 	}
 
-	public void setStatus_changed() {
-		this.status_changed = new Date();
+	public void setStatus_changed(Date status_changed) {
+		this.status_changed = status_changed;
 	}
 }

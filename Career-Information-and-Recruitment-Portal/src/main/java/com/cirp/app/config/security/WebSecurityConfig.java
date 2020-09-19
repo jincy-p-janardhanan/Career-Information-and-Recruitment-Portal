@@ -19,12 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.cirp.app.service.security.CustomUserDetailsService;
 
-
-/**
- * @author Jincy P Janardhanan
- *
- */
-
 @Configuration
 @EnableConfigurationProperties
 @EnableWebSecurity
@@ -84,6 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	       	.antMatchers("/recruiter-home", "/create-job", "manage-job", "job-applications").hasRole("RECRUITER")
 	       	.antMatchers("/student-home").hasRole("STUDENT")
 	       	.antMatchers("/alumnus-home").hasRole("ALUMNUS")
+	       	.antMatchers("/pending-approval").hasRole("PENDING")
 	       	
 	       	//Specifies any request to the apis (other than those specified with permitAll() ) should be authenticated
 	        .anyRequest().authenticated()
@@ -98,14 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	            
 	         .and() 
 	         	//Specifies to use http basic authorization header
-	          	.httpBasic() 
-	          	
-	         .and()  
-	           	.logout()
-	           	.logoutUrl("/logout")  
-	           	.logoutSuccessUrl("/login?logout").permitAll()
-	         .and()
-	         	.exceptionHandling();
+	          	.httpBasic();
 	}
 	
 	@Override

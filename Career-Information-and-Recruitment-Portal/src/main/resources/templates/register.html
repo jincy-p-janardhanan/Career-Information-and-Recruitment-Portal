@@ -1,14 +1,25 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="RocketCake">
 <title>Register | Career Information and Recruitment Portal</title>
 <link rel="stylesheet" type="text/css" href="css/register_html.css">
 </head>
 <body>
 	<div class="textstyle1">
+	<div id="text_cdeb920">
+			<div class="textstyle1">
+				<span class="textstyle8"><a th:href="@{/index}"
+					class="wsp508c6e15">HOME</a></span>
+			</div>
+		</div>
+		<div id="text_4dabfc47">
+			<div class="textstyle1">
+				<span class="textstyle8"><a th:href="@{/index#OurSolutions}"
+					class="wsp508c6e15">OUR SERVICES</a></span>
+			</div>
+		</div>
 		<div id="container_22f72509">
 			<div id="container_22f72509_padding">
 				<div class="textstyle1">
@@ -19,7 +30,20 @@
 							<span class="textstyle2">Let's Connect!</span>
 						</div>
 					</div>
-					<div id="button_3c79d059">
+					<div>
+					<a id="button_6380ab8d" th:href="@{/register-college}" style="text-decoration: none">
+						<div class="vcenterstyle1">
+							<div class="vcenterstyle2">
+								<div class="textstyle3">
+									<span class="textstyle4">REGISTER AS COLLEGE</span>
+								</div>
+								<div class="textstyle1"></div>
+							</div>
+						</div>
+					</a>
+					</div>
+					<div>
+					<a th:href="@{/register-recruiter}" style="text-decoration: none" id="button_3c79d059" >
 						<div class="vcenterstyle1">
 							<div class="vcenterstyle2">
 								<div class="textstyle3">
@@ -28,6 +52,19 @@
 								<div class="textstyle1"></div>
 							</div>
 						</div>
+					</a>
+					</div>
+					<div>
+					<a id="button_6d1ec1f3" th:href="@{/register-alumnus}" style="text-decoration: none">
+						<div class="vcenterstyle1">
+							<div class="vcenterstyle2">
+								<div class="textstyle3">
+									<span class="textstyle4">REGISTER AS ALUMNI</span>
+								</div>
+								<div class="textstyle1"></div>
+							</div>
+						</div>
+					</a>
 					</div>
 					<div id="text_3aee8af7">
 						<div class="textstyle3">
@@ -41,40 +78,8 @@
 						</div>
 						<div class="textstyle1"></div>
 					</div>
-					<div id="button_6380ab8d">
-						<div class="vcenterstyle1">
-							<div class="vcenterstyle2">
-								<div class="textstyle3">
-									<span class="textstyle4">REGISTER AS COLLEGE</span>
-								</div>
-								<div class="textstyle1"></div>
-							</div>
-						</div>
-					</div>
-					<div id="button_6d1ec1f3">
-						<div class="vcenterstyle1">
-							<div class="vcenterstyle2">
-								<div class="textstyle3">
-									<span class="textstyle4">REGISTER AS ALUMNI</span>
-								</div>
-								<div class="textstyle1"></div>
-							</div>
-						</div>
-					</div>
 				</div>
 				<div style="clear: both"></div>
-			</div>
-		</div>
-		<div id="text_cdeb920">
-			<div class="textstyle1">
-				<span class="textstyle8"><a href="index.html"
-					class="wsp508c6e15">HOME</a></span>
-			</div>
-		</div>
-		<div id="text_4dabfc47">
-			<div class="textstyle1">
-				<span class="textstyle8"><a href="index.html#OurSolutions"
-					class="wsp508c6e15">OUR SERVICES</a></span>
 			</div>
 		</div>
 	</div>

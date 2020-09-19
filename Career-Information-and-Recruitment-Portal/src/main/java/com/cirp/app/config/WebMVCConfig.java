@@ -44,6 +44,8 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	    
 	    registry.addViewController("/create-job").setViewName("recruiter/create_job");
 	    registry.addViewController("/job-applications").setViewName("recruiter/job_applications");
-	    registry.addViewController("/manage-job").setViewName("recruiter/manage_job");	    
+	    registry.addViewController("/manage-job").setViewName("recruiter/manage_job");
+	    
+	    registry.addViewController("/pending-approval").setViewName("common/registration_pending");
 	}
 }

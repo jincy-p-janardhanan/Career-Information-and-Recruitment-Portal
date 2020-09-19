@@ -28,56 +28,63 @@ public final class Recruiter extends NonAdmin {
 	private List<ObjectId> reccommeded; //Recommendations made by this user
 	private List<ObjectId> recc_rejected; //Recommendation requests rejected by this user
 	
-	public Recruiter(String username, String password, String name, Address address, String mobile, String email, String license_no) {
-		super(username, password, name, address, mobile, email);
+	public Recruiter(String username, String password, String name, ContactInfo contact, String mobile, String email, String license_no) {
+		super(username, password, name, mobile, email);
 		this.setLicense_no(license_no);
+		this.setContact(contact);
+		this.setRole("ROLE_PENDING");
 	}
 		
 	public Recruiter() {
 		super();
+		this.setRole("ROLE_PENDING");
 	}
 
-	public Recruiter(String username, String password, String name, Address address, String mobile, String email) {
-		super(username, password, name, address, mobile, email);
-	}
-
-	protected String getLicense_no() {
+	public String getLicense_no() {
 		return license_no;
 	}
-	protected void setLicense_no(String license_no) {
+
+	public void setLicense_no(String license_no) {
 		this.license_no = license_no;
 	}
-	
-	protected ContactInfo getContact() {
+
+	public ContactInfo getContact() {
 		return contact;
 	}
-	
-	protected void setContact(ContactInfo contact) {
+
+	public void setContact(ContactInfo contact) {
 		this.contact = contact;
 	}
-	
+
 	public List<ObjectId> getJobs() {
 		return jobs;
 	}
-	protected void setJobs(List<ObjectId> jobs) {
+
+	public void setJobs(List<ObjectId> jobs) {
 		this.jobs = jobs;
 	}
-	protected void setRecc_req_recvd(List<ObjectId> recc_req_recvd) {
-		this.recc_req_recvd = recc_req_recvd;
-	}
-	protected void setReccommeded(List<ObjectId> reccommeded) {
-		this.reccommeded = reccommeded;
-	}
-	protected void setRecc_rejected(List<ObjectId> recc_rejected) {
-		this.recc_rejected = recc_rejected;
-	}
-	protected List<ObjectId> getRecc_req_recvd() {
+
+	public List<ObjectId> getRecc_req_recvd() {
 		return recc_req_recvd;
 	}
-	protected List<ObjectId> getReccommeded() {
+
+	public void setRecc_req_recvd(List<ObjectId> recc_req_recvd) {
+		this.recc_req_recvd = recc_req_recvd;
+	}
+
+	public List<ObjectId> getReccommeded() {
 		return reccommeded;
 	}
-	protected List<ObjectId> getRecc_rejected() {
+
+	public void setReccommeded(List<ObjectId> reccommeded) {
+		this.reccommeded = reccommeded;
+	}
+
+	public List<ObjectId> getRecc_rejected() {
 		return recc_rejected;
+	}
+
+	public void setRecc_rejected(List<ObjectId> recc_rejected) {
+		this.recc_rejected = recc_rejected;
 	}
 }
