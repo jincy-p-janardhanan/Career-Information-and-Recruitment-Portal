@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.ExecutableUpdateOperation.TerminatingUpdate;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -15,6 +16,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.cirp.app.model.*;
+import com.mongodb.client.result.UpdateResult;
 
 @Repository
 public class CirpRepository implements CirpRepositoryOperations {
@@ -57,10 +59,10 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void updatePassword(String username_or_email, String new_password, Class<?> user_class) {
-		mongoTemplate.update(user_class)
-				.matching(new Query(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
-						Criteria.where("username").is(username_or_email))))
-				.apply(new Update().set("password", new_password));
+		Query query =  new Query();
+		query.addCriteria(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
+				Criteria.where("username").is(username_or_email)));
+		mongoTemplate.updateFirst(query, new Update().set("password", new_password), user_class);
 	}
 
 	@Override
@@ -216,21 +218,24 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T findByEmail(String email) {
+		
+		Query query = new Query();
+		query.addCriteria(where("email").is(email));
+		
+		if (mongoTemplate.findOne(query, Admin.class) != null)
+			return (T) mongoTemplate.findOne(query, Admin.class);
 
-		if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Admin.class) != null)
-			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Admin.class);
+		else if (mongoTemplate.findOne(query, College.class) != null)
+			return (T) mongoTemplate.findOne(query, College.class);
 
-		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), College.class) != null)
-			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), College.class);
+		else if (mongoTemplate.findOne(query, Recruiter.class) != null)
+			return (T) mongoTemplate.findOne(query, Recruiter.class);
 
-		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Recruiter.class) != null)
-			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Recruiter.class);
+		else if (mongoTemplate.findOne(query, Student.class) != null)
+			return (T) mongoTemplate.findOne(query, Student.class);
 
-		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Student.class) != null)
-			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Student.class);
-
-		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Alumnus.class) != null)
-			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Alumnus.class);
+		else if (mongoTemplate.findOne(query, Alumnus.class) != null)
+			return (T) mongoTemplate.findOne(query, Alumnus.class);
 
 		else
 			return null;
@@ -291,7 +296,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void updateUserStatus(String username, int counter, Class<?> user_class) {
-		mongoTemplate.updateFirst(new Query(where("username").is(username)),
+		mongoTemplate.updateFirst(new Query(where("_id").is(username)),
 				new Update().set("status", counter).set("status_changed", new Date()), user_class);
 	}
 
@@ -312,34 +317,38 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void setToken(String token, String username, Class<?> user_class) {
-		mongoTemplate.update(user_class).matching(new Query(where("username").is(username)))
-				.apply(new Update().set("token", token));
+		Query query = new Query();
+		query.addCriteria(where("username").is(username));
+		mongoTemplate.updateFirst(query, new Update().set("token", token), user_class);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T findByToken(String token) {
-		if (mongoTemplate.findOne(new Query(where("token").is(token)), College.class) != null) {
+		Query query = new Query();
+		query.addCriteria(where("token").is(token));
+		
+		if (mongoTemplate.findOne(query, College.class) != null) {
 
-			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), College.class);
+			return (T) mongoTemplate.findOne(query, College.class);
 
-		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Recruiter.class) != null) {
+		} else if (mongoTemplate.findOne(query, Recruiter.class) != null) {
 
-			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Recruiter.class);
+			return (T) mongoTemplate.findOne(query, Recruiter.class);
 
-		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Student.class) != null) {
+		} else if (mongoTemplate.findOne(query, Student.class) != null) {
 
-			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Student.class);
+			return (T) mongoTemplate.findOne(query, Student.class);
 
-		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Alumnus.class) != null) {
+		} else if (mongoTemplate.findOne(query, Alumnus.class) != null) {
 
-			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Alumnus.class);
+			return (T) mongoTemplate.findOne(query, Alumnus.class);
 
-		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Admin.class) != null) {
+		} else if (mongoTemplate.findOne(query, Admin.class) != null) {
 
-			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Alumnus.class);
+			return (T) mongoTemplate.findOne(query, Admin.class);
 		}
-
+		
 		return null;
 	}
 }

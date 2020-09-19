@@ -31,7 +31,7 @@ public class FindClass {
 		else if(repo.findById(id) instanceof Alumnus || repo.findByEmail(id) instanceof Alumnus) {
 			return Alumnus.class;
 		}
-		else if(repo.findById(id) instanceof Admin) {
+		else if(repo.findById(id) instanceof Admin || repo.findByEmail(id) instanceof Admin) {
 			return Admin.class;
 		} else if(repo.findById(id) instanceof Job) {
 			return Job.class;

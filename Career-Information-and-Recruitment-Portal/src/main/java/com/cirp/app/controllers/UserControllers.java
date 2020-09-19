@@ -3,9 +3,9 @@ package com.cirp.app.controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +17,7 @@ import com.cirp.app.service.AcceptReject;
 import com.cirp.app.service.FindClass;
 import com.cirp.app.service.OptoutRequest;
 import com.cirp.app.service.ResetPassword;
+import com.cirp.app.service.StringVal;
 
 @Controller
 public class UserControllers {
@@ -58,36 +59,52 @@ public class UserControllers {
 
 	@GetMapping("/reset-password-request")
 	public String resetPassword(Model model) {
-		String username_or_email = new String();
+		StringVal username_or_email = new StringVal();
 		model.addAttribute("username_or_email", username_or_email);
 		return "reset_password_request";
 	}
 
-	@PostMapping("/reset-password-request")
-	public String resetPassword(String username_or_email, HttpServletRequest request,
+	@PostMapping(value = "/reset-password-request", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
+			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public String resetPassword(StringVal username_or_email, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
-		reset.resetPasswordRequest(username_or_email, request);
-		redirectAttributes.addFlashAttribute("message", "A link to reset your password has been sent to your email.");
+		if (reset.resetPasswordRequest(username_or_email.getValue(), request) == "Invalid username or email!") {
+			redirectAttributes.addFlashAttribute("message", "Invalid username or email!");
+		} else {
+			redirectAttributes.addFlashAttribute("message", "A link to reset your password has been sent to your email.");
+		}
 		return "redirect:/login";
 	}
 
 	@GetMapping("/update-password")
-	public String resetPassword(@RequestParam("token") String token, RedirectAttributes redirectAttributes) {
+	public String resetPassword(@RequestParam("token") String token, Model model, RedirectAttributes redirectAttributes) {
+		System.out.println(token);
 		User user = repo.findByToken(token);
 		if (user == null) {
 			redirectAttributes.addFlashAttribute("message", "Invalid Request!");
 			return "redirect:/login";
 		} else {
-			redirectAttributes.addAttribute("username", user.getUsername());
-			redirectAttributes.addAttribute("password");
-			return "redirect:/reset-password";
+			StringVal password = new StringVal();
+			model.addAttribute("username", user.getUsername());
+			model.addAttribute("token", token);
+			model.addAttribute("password", password);
+			return "common/reset_password";
 		}
 	}
 
-	@PostMapping("/update-password")
-	public String resetPassword(String password, String username, RedirectAttributes redirectAttributes) {
-		reset.resetPassword(username, password);
-		redirectAttributes.addFlashAttribute("message", "You've successfully reset your password!");
-		return "redirect:/login";
+	@PostMapping(value = "/update-password", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
+			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public String resetPassword(@RequestParam("token") String token, @RequestParam("username") String username,
+			StringVal password, RedirectAttributes redirectAttributes) {
+		User user = repo.findByToken(token);
+		System.out.println(token);
+		if (user == null) {
+			redirectAttributes.addFlashAttribute("message", "Invalid Request!");
+			return "redirect:/login";
+		} else {
+			reset.resetPassword(username, password.getValue());
+			redirectAttributes.addFlashAttribute("message", "You've successfully reset your password!");
+			return "redirect:/login";
+		}
 	}
 }
