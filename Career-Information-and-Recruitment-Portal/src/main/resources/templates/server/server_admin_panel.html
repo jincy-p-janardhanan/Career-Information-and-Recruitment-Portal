@@ -1,5 +1,5 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,8 +7,88 @@
 <title>Admin Panel | College</title>
 <link rel="stylesheet" type="text/css"
 	href="css/server_admin_panel_html.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.navbar {
+	overflow: hidden;
+	background-color: #0f0f0f;
+}
+
+.navbar a {
+	float: right;
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.dropdown {
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	float: right;
+	overflow: hidden;
+}
+
+.dropdown .dropbtn {
+	font-size: 11pt;
+	color: #B2B2B2;
+	border: none;
+	outline: none;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+	background-color: rgb(46, 44, 44);
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+</style>
 </head>
 <body>
+	<div class="navbar">
+		<div class="dropdown" sec:authorize="isAuthenticated()">
+			<button class="dropbtn">
+				Welcome <span sec:authentication="name">!</span>
+				<i class="fa fa-fw fa-user"></i>
+			</button>
+			<div class="dropdown-content">
+				<a th:href="@{/logout}">Logout</a>
+				<a th:href="@{/reset-password}">Logout</a>
+			</div>
+			<a th:href="@{/admin-panel}">Admin Panel</a>
+		</div>
+	</div>
 	<div class="textstyle1">
 		<div id="container_2cf5d08d">
 			<div id="container_2cf5d08d_padding">

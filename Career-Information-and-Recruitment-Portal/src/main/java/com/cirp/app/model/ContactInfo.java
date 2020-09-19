@@ -1,6 +1,8 @@
 
 package com.cirp.app.model;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * @author Jincy P Janardhanan
  *
@@ -9,6 +11,7 @@ public class ContactInfo extends Address{
 	
 	private String website;
 	private String landph;
+	@Pattern(regexp = "/^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$/")
 	private String public_email;			//email used by public for support, enquires, etc
 	
 	public ContactInfo(String address_line1, String address_line2, String city_or_town, String district, String state,

@@ -45,6 +45,7 @@
 											username or password.</div>
 										<div th:if="${param.logout}" class="error">You have been
 											logged out.</div>
+										<div th:if="${message}" class="error" th:text="${message}"></div>
 									</div>
 									<input type="text" value="" title="" name="username"
 										placeholder="Username" id="edit_11e60731"> <input
@@ -56,7 +57,7 @@
 									<div id="text_e35a6f1">
 										<div class="textstyle1">
 											<span class="textstyle5"><a
-												href="forgot_password.html" class="wsp2e18e390">Forgot
+												th:href="@{/reset-password-request}" class="wsp2e18e390">Forgot
 													password?</a></span>
 										</div>
 									</div>

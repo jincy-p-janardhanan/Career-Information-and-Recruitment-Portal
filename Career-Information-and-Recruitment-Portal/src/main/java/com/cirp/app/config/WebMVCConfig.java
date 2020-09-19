@@ -31,6 +31,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	    registry.addViewController("/register-recruiter").setViewName("register_recruiter");
 	    registry.addViewController("/register-alumnus").setViewName("register_alumnus");
 	    registry.addViewController("/login").setViewName("login");
+	    registry.addViewController("/reset-password-request").setViewName("reset_password_request");
 	    registry.addViewController("/terms-and-conditions").setViewName("terms_and_conditions");
 	    registry.addViewController("/error").setViewName("error");
 	    
@@ -47,5 +48,6 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	    registry.addViewController("/manage-job").setViewName("recruiter/manage_job");
 	    
 	    registry.addViewController("/pending-approval").setViewName("common/registration_pending");
+	    registry.addViewController("/update-password").setViewName("common/reset_password");
 	}
 }

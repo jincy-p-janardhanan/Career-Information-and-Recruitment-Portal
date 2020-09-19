@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.controllers;
 
 import javax.servlet.http.HttpServletRequest;

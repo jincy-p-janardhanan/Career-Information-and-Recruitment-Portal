@@ -62,4 +62,6 @@ public interface CirpRepositoryOperations {
 	void removeUserFromList(String username, String pending_list, Class<?> admin_class, Query query);
 	void addUserToList(String username, String approve_reject_list, Class<?> admin_class, Query query);
 	long getAdminCount();
+	void setToken(String token, String username, Class<?> user_class);
+	<T> T findByToken(String token);
 }

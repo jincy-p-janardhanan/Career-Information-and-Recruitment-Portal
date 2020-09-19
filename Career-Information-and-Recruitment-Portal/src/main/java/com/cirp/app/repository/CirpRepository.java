@@ -242,11 +242,11 @@ public class CirpRepository implements CirpRepositoryOperations {
 				.apply(new Update().set("profile_pic", profile_pic));
 
 	}
-	
+
 	@Override
 	public void updateBgImg(String bg_img, String username, Class<?> user_class) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -308,5 +308,38 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@Override
 	public long getAdminCount() {
 		return mongoTemplate.count(new Query(), Admin.class);
+	}
+
+	@Override
+	public void setToken(String token, String username, Class<?> user_class) {
+		mongoTemplate.update(user_class).matching(new Query(where("username").is(username)))
+				.apply(new Update().set("token", token));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T findByToken(String token) {
+		if (mongoTemplate.findOne(new Query(where("token").is(token)), College.class) != null) {
+
+			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), College.class);
+
+		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Recruiter.class) != null) {
+
+			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Recruiter.class);
+
+		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Student.class) != null) {
+
+			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Student.class);
+
+		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Alumnus.class) != null) {
+
+			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Alumnus.class);
+
+		} else if (mongoTemplate.findOne(new Query(where("token").is(token)), Admin.class) != null) {
+
+			return (T) mongoTemplate.findOne(new Query(where("token").is(token)), Alumnus.class);
+		}
+
+		return null;
 	}
 }
