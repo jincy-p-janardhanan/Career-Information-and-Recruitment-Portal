@@ -205,11 +205,11 @@ td {
 						th:href="@{/reset-password-request}">Reset Password</a>
 				</div>
 			</div>
-			<a th:href="@{/admin-panel}">Admin Panel</a>
+			<a th:href="@{/admin/admin-panel}">Admin Panel</a>
 			<div id="mySidebar" class="sidebar">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
 				<a href=#>Welcome <span sec:authentication="name">!</span> <i
-					class="fa fa-fw fa-user"></i></a> <a th:href="@{/admin-panel}"><span>Admin
+					class="fa fa-fw fa-user"></i></a> <a th:href="@{/admin/admin-panel}"><span>Admin
 						Panel</span></a> <a th:href="@{/logout}"><span>Logout</span></a> <a
 					th:href="@{/reset-password-request}"><span>Reset
 						Password</span></a>
@@ -217,7 +217,7 @@ td {
 			<button class="openbtn" onclick="openNav()">☰</button>
 		</div>
 		<form action="" enctype="application/x-www-form-urlencoded"
-			method="GET" id="form_11381a91">
+			method="POST" id="form_11381a91">
 			<div class="textstyle1">
 				<input type="text" value="" title="" name="nav_search"
 					placeholder="Search recruiters, jobs, students, alumni or colleges"

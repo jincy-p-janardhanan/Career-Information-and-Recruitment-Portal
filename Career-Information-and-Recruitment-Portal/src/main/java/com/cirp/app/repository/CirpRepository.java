@@ -241,33 +241,39 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void updateProfilePic(String profile_pic, String username, Class<?> user_class) {
-		mongoTemplate.update(user_class).matching(new Query(where("username").is(username)))
-				.apply(new Update().set("profile_pic", profile_pic));
+		Query query = new Query();
+		query.addCriteria(where("username").is(username));
+		mongoTemplate.updateFirst(query, new Update().set("profile_pic", profile_pic), user_class);
 
 	}
 
 	@Override
 	public void updateBgImg(String bg_img, String username, Class<?> user_class) {
-		// TODO Auto-generated method stub
+		Query query = new Query();
+		query.addCriteria(where("username").is(username));
+		mongoTemplate.updateFirst(query, new Update().set("bg_img", bg_img), user_class);
 
 	}
 
 	@Override
 	public void updateDesc(String desc, String username, Class<?> user_class) {
-		mongoTemplate.update(user_class).matching(new Query(where("username").is(username)))
-				.apply(new Update().set("desc", desc));
+		Query query = new Query();
+		query.addCriteria(where("username").is(username));
+		mongoTemplate.updateFirst(query, new Update().set("desc", desc), user_class);
 	}
 
 	@Override
 	public void updateContact(ContactInfo contact, String username, Class<?> user_class) {
-		mongoTemplate.update(user_class).matching(new Query(where("username").is(username)))
-				.apply(new Update().set("contact", contact));
+		Query query = new Query();
+		query.addCriteria(where("username").is(username));
+		mongoTemplate.updateFirst(query, new Update().set("contact", contact), user_class);
 	}
 
 	@Override
 	public void updatePersonalisation(Personalisation personalisation, final String username, Class<?> user_class) {
-		mongoTemplate.update(user_class).matching(new Query(where("username").is(username)))
-				.apply(new Update().set("personalisation", personalisation));
+		Query query = new Query();
+		query.addCriteria(where("username").is(username));
+		mongoTemplate.updateFirst(query, new Update().set("personalisation", personalisation), user_class);
 	}
 
 	@SuppressWarnings("unchecked")

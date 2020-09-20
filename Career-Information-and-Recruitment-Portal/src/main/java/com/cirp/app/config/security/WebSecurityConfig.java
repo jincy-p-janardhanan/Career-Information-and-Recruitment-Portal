@@ -73,12 +73,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	       	
 	       	//hasRole() allows to authorize users to access specific apis only
 	       	//Note: ROLE_ is not required while specifying the associated roles, when we use hasRole()
-	       	.antMatchers("/admin-panel").hasRole("ADMIN")
-	       	.antMatchers("/college-home", "/college-admin-panel").hasRole("COLLEGE")
-	       	.antMatchers("/recruiter-home", "/create-job", "manage-job", "job-applications").hasRole("RECRUITER")
-	       	.antMatchers("/student-home").hasRole("STUDENT")
-	       	.antMatchers("/alumnus-home").hasRole("ALUMNUS")
+	       	.antMatchers("/admin/**").hasRole("ADMIN")
+	       	.antMatchers("/college/**").hasRole("COLLEGE")
+	       	.antMatchers("/recruiter/**").hasRole("RECRUITER")
+	       	.antMatchers("/student/**").hasRole("STUDENT")
+	       	.antMatchers("/alumnus/**").hasRole("ALUMNUS")
 	       	.antMatchers("/pending-approval").hasRole("PENDING")
+	       	.antMatchers("/common/**").hasAnyRole("ADMIN", "COLLEGE", "STUDENT", "RECRUITER", "ALUMNUS")
 	       	
 	       	//Specifies any request to the apis (other than those specified with permitAll() ) should be authenticated
 	        .anyRequest().authenticated()

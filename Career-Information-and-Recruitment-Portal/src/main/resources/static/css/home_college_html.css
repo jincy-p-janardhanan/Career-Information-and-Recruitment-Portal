@@ -88,12 +88,12 @@ body {
 #form_29acdad9 {
 	border-radius: 15px;
 	position: absolute;
-	left: 5%;
-	top: 22%;
+	left: 5%; top : 2%;
 	width: 30%;
 	min-height: 30px;
 	min-width: 310px;
 	background-color: #272727;
+	top: 2%;
 }
 
 #edit_6804da94 {
@@ -617,8 +617,8 @@ body {
 @media only screen and (max-width: 1212px) {
 	#form_29acdad9 {
 		width: 80%;
-		left: 15%;
-		top: 22%;
+		left: 5%;
+		top: 2%;
 	}
 	#text_2d0064e5 {
 		display: none;

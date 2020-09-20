@@ -33,20 +33,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	    registry.addViewController("/login").setViewName("login");
 	    registry.addViewController("/reset-password-request").setViewName("reset_password_request");
 	    registry.addViewController("/terms-and-conditions").setViewName("terms_and_conditions");
-	    registry.addViewController("/error").setViewName("error");
-	    
-	    //registry.addViewController("/admin/admin-panel").setViewName("admin/server_admin_panel");
-	    registry.addViewController("/college-admin-panel").setViewName("college/college_admin_panel");
-	    
-	    registry.addViewController("/college-home").setViewName("college/home_college");
-	    registry.addViewController("/recruiter-home").setViewName("recruiter/home_recruiter");
-	    registry.addViewController("/student-home").setViewName("student/home_student");
-	    registry.addViewController("/alumnus-home").setViewName("alumnus/home_alumnus");
-	    
-	    registry.addViewController("/create-job").setViewName("recruiter/create_job");
-	    registry.addViewController("/job-applications").setViewName("recruiter/job_applications");
-	    registry.addViewController("/manage-job").setViewName("recruiter/manage_job");
-	    
+	    registry.addViewController("/error").setViewName("error");	    
 	    registry.addViewController("/pending-approval").setViewName("common/registration_pending");
 	    registry.addViewController("/update-password").setViewName("common/reset_password");
 	}

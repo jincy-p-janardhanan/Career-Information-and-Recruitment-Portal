@@ -57,8 +57,8 @@ public class AdminController {
 	}
 	
 	@PostMapping(value="/reject-user")
-	public String rejectRegistration(@RequestParam String username, RedirectAttributes redirectAttributes) {
-		
+	public String rejectRegistration(@RequestParam String username, Authentication authentication, RedirectAttributes redirectAttributes) {
+		accept_reject.acceptRejectRegistration(username, "confirm", authentication.getName());
 		return "redirect:/admin/admin-panel";
 	}
 }

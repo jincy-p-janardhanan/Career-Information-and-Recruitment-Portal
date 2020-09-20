@@ -26,17 +26,17 @@ public class EditProfile {
 	}
 
 	public void updateDesc(String desc, String username) {
-		Class<?> user_class = repo.findById(username);
+		Class<?> user_class = repo.findById(username).getClass();
 		repo.updateDesc(desc, username, user_class);
 	}
 	
 	public void updateContact(ContactInfo contact, String username) {
-		Class<?> user_class = repo.findById(username);
+		Class<?> user_class = repo.findById(username).getClass();
 		repo.updateContact(contact, username, user_class);
 	}
 	
 	public void updatePersonalisation(Personalisation personalisation, String username) {
-		Class<?> user_class = repo.findById(username);
+		Class<?> user_class = repo.findById(username).getClass();
 		repo.updatePersonalisation(personalisation, username, user_class);
 	}
 }
