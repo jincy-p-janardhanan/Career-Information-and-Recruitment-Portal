@@ -5,26 +5,26 @@ package com.cirp.app.repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.bson.types.ObjectId;
 
-import com.cirp.app.model.*;
+import com.cirp.app.model.Alumnus;
+import com.cirp.app.model.Application;
+import com.cirp.app.model.College;
+import com.cirp.app.model.ContactInfo;
+import com.cirp.app.model.Job;
+import com.cirp.app.model.Personalisation;
+import com.cirp.app.model.Recommendation;
+import com.cirp.app.model.Recruiter;
+import com.cirp.app.model.Student;
+
 
 /**
  * @author Jincy P Janardhanan
  *
  */
 public interface CirpRepositoryOperations {
-	/*
-	 * passwords are stored in bcrypt encrypted format, in the database
-	 * passwords in function calls are also encrypted
-	 * Bcrypt usage reference: https://dzone.com/articles/storing-passwords-securely-with-bcrypt-and-java
-	 * Reference(in SQL): https://www.devglan.com/spring-security/spring-boot-security-password-encoding-bcrypt-encoder
-	 * 
-	 * Pending methods: Chat, Notifications
-	 * 
-	 */
 	
 	void register(College college); //request to server admin
 	void register(Recruiter recruiter); //request to admin
@@ -47,7 +47,7 @@ public interface CirpRepositoryOperations {
 	
 	void changeStudentsToAlumni(Date end_date); //should be scheduled to check daily or weekly
 	
-	void createJob(Job job);
+	void createJob(Job job, String username);
 	Job viewJob(ObjectId id);
 	void deleteJob(Job job);
 	
@@ -62,7 +62,7 @@ public interface CirpRepositoryOperations {
 	void recommend(ObjectId reccomendation_id, String recc_msg);
 	void rejectRecommendationRequest(Recommendation reccomendation);
 	
-	<T> List<List<T>> search(String search_text);
+	List<Object> search(String search_text);
 	<T> List<T> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
 	
 	<T> T findById(String id); //Can return object from any collection (class)
@@ -74,6 +74,5 @@ public interface CirpRepositoryOperations {
 	void updateDesc(String desc, String username);
 	void updateContact(ContactInfo contact, String username);
 	void updatePersonalisation(Personalisation personalisation, String username);
-	
-	Role findRole(ERole name);
+	<T> T findByEmail(String email);
 }

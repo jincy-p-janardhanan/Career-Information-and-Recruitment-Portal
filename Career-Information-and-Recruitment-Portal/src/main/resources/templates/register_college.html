@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register | College | Career Information and Recruitment
+	Portal</title>
+<link rel="stylesheet" type="text/css"
+	href="css/register_college_html.css">
+</head>
+<script type="text/javascript">
+	var validate_both_passwords = function() {
+	//ivde aan aa function ezhuthiyitt ulle.. 2 password um match allenki border color red, aanenki green athre ullu
+	// ee function um onnu copy paste cheyyane
+	//ennitee element Id undallo, ath maati kodukkanam
+	//password enter cheyyunnathinte avde ulla same id kodukkanam id= paranj ezhuthi ndaavum
+	//okay aano?  ok ini cheyyatte
+	//Okay... pinne ee oronn inteyum order correct allenki onn athinte starting div thott cut and paste cheyth ready aakkane
+	//state, district country okke option select cheyyunnath ettavum last aan kond ittit ulle thonn nd
+	//name mele yum nd ath ready aakiya mathi
+	//ee comments okke onn delete aakkanam tto ok nna  ok
+		if (document.getElementById('edit_55e0ae66').value != document
+				.getElementById('edit_1bb98962').value) {
+			document.getElementById('edit_1bb98962').style.borderColor = 'red';
+		} else {
+			document.getElementById('edit_55e0ae66').style.borderColor = 'green';
+			document.getElementById('edit_1bb98962').style.borderColor = 'green';
+		}
+	}
+</script>
+<body>
+	<div class="textstyle1">
+		<div id="container_18ca6a3a">
+			<div class="textstyle1">
+				<form th:action="@{/register-college}" th:Object="${college}"
+					method="POST" id="form_e9afcc9"> //th:action paranja sthalath api nte name aan inghane okke aan koduthitt ulle
+					<div class="textstyle1">
+						<div id="container_3fd33163">
+							<div class="textstyle1">
+								<h1 id="heading_2e13438e">
+									<span class="textstyle1"> <span class="textstyle3">Register
+											as College</span>
+									</span>
+								</h1>
+							</div>
+						</div>
+						<div th:if="${message}" th:text="${message}" class="message"></div> 
+
+						<div id="text_13cea19f">
+							<div class="textstyle1">
+								<span class="textstyle2">NAME OF INSTITUITION</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="Name"
+							id="edit_1cca7d69" th:field="*{name}" required>	 //input field okke edit cheyth th:field paranj values kodukkanam
+						<div id="text_6a891bd4">		//required nn venam thonnunna sthalath athum kodutha
+							<div class="textstyle1">	//field nte value nn vecha ithil college class ndallo athile variables aan
+														//college, user, okke nokkandi varum
+											
+								<span class="textstyle2">AFFILIATED UNIVERSITY</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="TextEdit2"
+							th:field="*{affil_univ}" id="edit_2f541dfa" required>
+						<div id="text_6e608de">
+							<div class="textstyle1">
+								<span class="textstyle2">ADDRESS LINE 1</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="address1"
+							th:field="*{contact.address_line1}" id="edit_4511cf93" required>
+						<div id="text_5369feb9">
+							<div class="textstyle1">
+								<span class="textstyle2">ADDRESS LINE 2</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="address2"
+							th:field="*{contact.address_line2}" id="edit_592109aa">
+						<div id="text_57dfc946">
+							<div class="textstyle1">
+								<span class="textstyle2">CITY/TOWN</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="city"
+							th:field="*{contact.city_or_town}" id="edit_ebb3a9e" required>
+						<div id="text_18b32d8b">
+							<div class="textstyle1">
+								<span class="textstyle2">COUNTRY</span>
+							</div>
+						</div>
+						<select name="country" title="" id="combo_2a621666"
+							th:field="*{contact.country}" required>
+							<option value="India" selected="selected">India</option>
+						</select>
+						<div id="text_17f0b7bc">
+							<div class="textstyle1">
+								<span class="textstyle2">STATE</span>
+							</div>
+						</div>
+						<select name="state" title="" id="combo_6f837dd1"
+							th:field="*{contact.state}" required>	//ContactInfo paranja class nte object aan contact
+							//athukond aan contact.state tto
+							<option value="Kerala" selected="selected">Kerala</option>
+						</select>
+						<div id="text_35bddbaf">
+							<div class="textstyle1">
+								<span class="textstyle2">DISTRICT</span>
+							</div>
+						</div>
+						<select name="district" title="" id="combo_718199de"
+							th:field="*{contact.district}" required>
+							<option value="Alappuzha">Alappuzha</option>
+							<option value="Kollam">Kollam</option>
+							<option value="Thiruvananthapuram">Thiruvananthapuram</option>
+							<option value="Kasaragod">Kasaragod</option>
+							<option value="Kannur">Kannur</option>
+							<option value="Malappuram">Malappuram</option>
+							<option value="Thrissur">Thrissur</option>
+							<option value="Palakkad">Palakkad</option>
+							<option value="Ernakulam">Ernakulam</option>
+							<option value="Kottayam">Kottayam</option>
+							<option value="Pathanamthitta">Pathanamthitta</option>
+							<option value="Kozhikode">Kozhikode</option>
+							<option value="Wayanad">Wayanad</option>
+							<option value="Idukki">Idukki</option>
+						</select>
+
+						<div id="text_1323de88">
+							<div class="textstyle1">
+								<span class="textstyle2">ZIP/PIN CODE</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="pincode"
+							th:field="*{contact.pincode}" id="edit_46634e3a" required>
+						<div id="text_61435f70">
+							<div class="textstyle1">
+								<span class="textstyle2">USERNAME</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="username"
+							th:field="*{username}" id="edit_34a9c70e" required>
+						<div id="text_7aebf895">
+							<div class="textstyle1">
+								<span class="textstyle2">PASSWORD</span>
+							</div>
+						</div>
+						<input type="password" value="" title="" name="password"
+							th:field="*{password}" id="edit_55e0ae66" required
+							onkeyup='validate_both_passwords();'>
+						<div id="text_630e7b5">
+							<div class="textstyle1">
+								<span class="textstyle2">RE-ENTER PASSWORD</span>
+							</div>
+						</div>
+						<input type="password" value="" title="" name="re-password"
+							id="edit_1bb98962" required onkeyup='validate_both_passwords();'>	//edit_ ath ntha
+							//passwords nte field undallo, ath 2 um match aavande athinaan ee function
+						<div id="text_6fc2e96d">
+							<div class="textstyle1">
+								<span class="textstyle2">LOGIN E-MAIL ADDRESS </span>
+							</div>
+						</div>
+
+						<input type="email" value="" title="" name="login-email"
+							th:field="*{email}" id="edit_7cd23f45" required>
+						<div id="text_3c07a7bd">
+							<div class="textstyle1">
+								<span class="textstyle2">PUBLIC E-MAIL ADDRESS</span>
+							</div>
+						</div>
+						<input type="email" value="" title="" name="public-email"
+							id="edit_7cd34dc0" th:field="*{contact.public_email}" required>
+						<div id="text_63f95ff2">
+							<div class="textstyle1">
+								<span class="textstyle2">WEBSITE</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="website"
+							th:field="*{contact.website}" id="edit_71f6730b">
+						<div id="text_3a7016d9">
+							<div class="textstyle1">
+								<span class="textstyle2">OFFICE PHONE</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="office-phone"
+							id="edit_29ca379c" th:field="*{contact.landph}" required>
+						<div id="text_2341c26d">
+							<div class="textstyle1">
+								<span class="textstyle2">MOBILE NUMBER</span>
+							</div>
+						</div>
+						<input type="text" value="" title="" name="mobile-number"
+							th:field="*{mobile}" required id="edit_5a1d0866">
+						<div id="text_4f47cce7"></div>
+						<div id="container_2f96561f">
+							<div class="textstyle1">
+								<input name="CheckBox1" type="checkbox" value="" title=""
+									checked="checked" id="checkbox_24aab1e4" required>
+								<div id="text_4ca88e98">
+									<div class="textstyle1">
+										<span class="textstyle2">By clicking register, you
+											accept our </span> <span class="textstyle2"><a
+											th:href="@{/terms_and_conditions}">terms and conditions</a></span><span
+											class="textstyle2">.</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input name="Button1" type="submit" value="REGISTER" title=""
+							id="button_6145a007">
+
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div id="container_3f41c9e8">
+			<div class="textstyle5">
+				<div id="container_659e0845">
+					<div id="container_659e0845_padding">
+						<div class="textstyle1"></div>
+						<div class="textstyle5">
+							<span class="textstyle6"><a href="index.html"
+								class="wsp508c6e15">HOME</a></span>
+						</div>
+					</div>
+				</div>
+				<div id="container_184032b">
+					<div id="container_184032b_padding">
+						<div class="textstyle1"></div>
+						<div class="textstyle5">
+							<span class="textstyle6"><a
+								th:href="@{/index#OurSolutions}" class="wsp508c6e15">OUR
+									SERVICES</a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="textstyle1"></div>
+		</div>
+		<img src="css/assets/web___graphic___right_flip.png" id="img_1c2a0526"
+			alt="" title="" />
+	</div>
+</body>
+</html>

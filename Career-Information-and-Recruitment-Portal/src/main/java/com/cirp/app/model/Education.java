@@ -3,6 +3,7 @@ package com.cirp.app.model;
 import javax.validation.constraints.NotBlank;
 
 class Education {
+	
 	@NotBlank
 	private String course;
 	@NotBlank

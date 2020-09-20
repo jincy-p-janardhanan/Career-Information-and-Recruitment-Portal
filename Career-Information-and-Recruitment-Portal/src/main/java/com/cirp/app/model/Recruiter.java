@@ -19,10 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class Recruiter extends NonAdmin {
 	
-	public Recruiter(String username, String password, String name, Address address, String mobile, String email, String license_no) {
-		super(username, password, name, address, mobile, email);
-		this.setLicense_no(license_no);
-	}
 	@NotBlank
 	private String license_no;
 	@NotNull
@@ -32,7 +28,19 @@ public final class Recruiter extends NonAdmin {
 	private List<ObjectId> reccommeded; //Recommendations made by this user
 	private List<ObjectId> recc_rejected; //Recommendation requests rejected by this user
 	
-	
+	public Recruiter(String username, String password, String name, Address address, String mobile, String email, String license_no) {
+		super(username, password, name, address, mobile, email);
+		this.setLicense_no(license_no);
+	}
+		
+	public Recruiter() {
+		super();
+	}
+
+	public Recruiter(String username, String password, String name, Address address, String mobile, String email) {
+		super(username, password, name, address, mobile, email);
+	}
+
 	protected String getLicense_no() {
 		return license_no;
 	}

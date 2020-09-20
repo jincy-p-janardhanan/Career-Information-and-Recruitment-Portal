@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
  */
 
 public class Recommendation {
+	
 	@MongoId
 	private ObjectId _id;
 	@NotBlank
@@ -34,11 +35,9 @@ public class Recommendation {
 		return requester_id;
 	}
 
-
 	protected String getRecommender_id() {
 		return recommender_id;
 	}
-
 
 	protected int getStatus() {
 		return status;

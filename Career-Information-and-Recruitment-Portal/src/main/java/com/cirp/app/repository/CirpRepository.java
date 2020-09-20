@@ -9,15 +9,15 @@ package com.cirp.app.repository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -29,7 +29,18 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
-import com.cirp.app.model.*;
+import com.cirp.app.model.Admin;
+import com.cirp.app.model.Alumnus;
+import com.cirp.app.model.Application;
+import com.cirp.app.model.College;
+import com.cirp.app.model.ContactInfo;
+import com.cirp.app.model.Job;
+import com.cirp.app.model.Personalisation;
+import com.cirp.app.model.Recommendation;
+import com.cirp.app.model.Recruiter;
+import com.cirp.app.model.Student;
+import com.cirp.app.model.User;
+
 
 /**
  * @author Jincy P Janardhanan
@@ -38,6 +49,7 @@ import com.cirp.app.model.*;
  * @author Ameena Shirin
  *
  */
+
 @Repository
 public class CirpRepository implements CirpRepositoryOperations {
 
@@ -53,6 +65,9 @@ public class CirpRepository implements CirpRepositoryOperations {
 		for (int i = 0; i < admins.size(); i++) {
 			Admin admin = admins.get(i);
 			List<String> college_pending = admin.getCollege_pending();
+			if(college_pending == null) {
+				college_pending = new ArrayList<String>();
+			}
 			college_pending.add(college.getUsername());
 			mongoTemplate.save(admin);
 		}
@@ -169,7 +184,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void createJob(Job job) {
+	public void createJob(Job job, String username) {
 		mongoTemplate.insert(job);
 
 	}
@@ -241,16 +256,16 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public <T> List<List<T>> search(String search_text) {
-		Query query = TextQuery.queryText(new TextCriteria().matchingAny(search_text.split(" ")));
-		List<List<T>> list = new ArrayList<List<T>>();
-		list.add((List<T>) mongoTemplate.find(query, College.class));
-		list.add((List<T>) mongoTemplate.find(query, Recruiter.class));
-		list.add((List<T>) mongoTemplate.find(query, Student.class));
-		list.add((List<T>) mongoTemplate.find(query, Alumnus.class));
-		list.add((List<T>) mongoTemplate.find(query, Job.class));
+	public List<Object> search(String search_text) {
+		Query query = TextQuery.queryText(new TextCriteria().matchingAny(search_text.split(" "))).sortByScore().includeScore("score");
+		List<Object> list = new ArrayList<Object>();
+		list.add(mongoTemplate.find(query, College.class));
+		list.add(mongoTemplate.find(query, Recruiter.class));
+		list.add(mongoTemplate.find(query, Student.class));
+		list.add(mongoTemplate.find(query, Alumnus.class));
+		list.add(mongoTemplate.find(query, Job.class));
+		//list.sort(new Comparator<? super Object>());
 		return list;
 	}
 
@@ -275,26 +290,57 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T findById(String id) { // id refers to username
-		if (mongoTemplate.findById(id, College.class) != null)
+	public <T> T findById(String id) {
+		
+		if (mongoTemplate.findById(id, Admin.class) != null)
+			return (T) mongoTemplate.findById(id, Admin.class);
+		
+		else if (mongoTemplate.findById(id, College.class) != null)
 			return (T) mongoTemplate.findById(id, College.class);
+		
 		else if (mongoTemplate.findById(id, Recruiter.class) != null)
 			return (T) mongoTemplate.findById(id, Recruiter.class);
+		
 		else if (mongoTemplate.findById(id, Student.class) != null)
 			return (T) mongoTemplate.findById(id, Student.class);
+		
 		else if (mongoTemplate.findById(id, Alumnus.class) != null)
 			return (T) mongoTemplate.findById(id, Alumnus.class);
+		
 		else if (mongoTemplate.findById(id, Job.class) != null)
 			return (T) mongoTemplate.findById(id, Job.class);
+		else
+			return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T findByEmail(String email) {
+		
+		if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Admin.class) != null)
+			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Admin.class);
+		
+		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), College.class) != null)
+			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), College.class);
+		
+		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Recruiter.class) != null)
+			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Recruiter.class);
+		
+		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Student.class) != null)
+			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Student.class);
+		
+		else if (mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Alumnus.class) != null)
+			return (T) mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), Alumnus.class);
+		
 		else
 			return null;
 	}
 
 	@Override
 	public void confirmRegistration(String username) {
-		
+
 		Boolean approved = false;
-		
+
 		if (findById(username) instanceof College) {
 
 			College college = findById(username);
@@ -302,7 +348,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 			if (college.getApproval_count() == mongoTemplate.count(new Query(), Admin.class)) {
 				college.setStatus(1);
 				college.setStatus_changed();
-				
+
 				approved = true;
 			}
 			mongoTemplate.save(college);
@@ -314,7 +360,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 			if (recruiter.getApproval_count() == mongoTemplate.count(new Query(), Admin.class)) {
 				recruiter.setStatus(1);
 				recruiter.setStatus_changed();
-				
+
 				approved = true;
 			}
 			mongoTemplate.save(recruiter);
@@ -327,22 +373,21 @@ public class CirpRepository implements CirpRepositoryOperations {
 				alumnus.incApproval_count();
 				alumnus.setStatus(1);
 				alumnus.setStatus_changed();
-				
+
 				mongoTemplate.save(alumnus);
 				approved = true;
 			}
 		}
 
-		if(approved == true) {
+		if (approved == true) {
 			try {
 				User user = findById(username);
 				MimeMessage msg = send_email.createMimeMessage();
 				msg.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
 				msg.setSubject("CIRP | Registration Approved");
-				msg.setContent(
-						"<p>Hi,</p>" + "<p> </p>" + "<p>We are glad to inform you that your account has been approved.</p>"
-								+ "<p>Regards,</p>" + "<p>Team CIRP</p>",
-						"text/html");
+				msg.setContent("<p>Hi,</p>" + "<p> </p>"
+						+ "<p>We are glad to inform you that your account has been approved.</p>" + "<p>Regards,</p>"
+						+ "<p>Team CIRP</p>", "text/html");
 				send_email.send(msg);
 			} catch (Exception e) {
 				System.out.println(e);
@@ -355,6 +400,64 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@Override
 	public void rejectRegistration(String username) {
 
+		Boolean approved = true;
+
+		if (findById(username) instanceof College) {
+
+			College college = findById(username);
+			college.decApproval_count();
+			if (Math.abs(college.getApproval_count()) == mongoTemplate.count(new Query(), Admin.class)) {
+				college.setStatus(-1);
+				college.setStatus_changed();
+
+				approved = false;
+			}
+
+		}
+
+		else if (findById(username) instanceof Recruiter) {
+
+			Recruiter recruiter = findById(username);
+			recruiter.decApproval_count();
+			if (Math.abs(recruiter.getApproval_count()) == mongoTemplate.count(new Query(), Admin.class)) {
+				recruiter.setStatus(-1);
+				recruiter.setStatus_changed();
+
+				approved = false;
+			}
+		} else {
+
+			if (findById(username) instanceof Alumnus) {
+
+				Alumnus alumnus = findById(username);
+				alumnus.decApproval_count();
+				if (Math.abs(alumnus.getApproval_count()) == mongoTemplate.count(new Query(), Admin.class)) {
+					alumnus.setStatus(-1);
+					alumnus.setStatus_changed();
+
+					approved = false;
+				}
+			}
+		}
+		
+		if(approved == false) {
+			try {
+				User user = findById(username);
+				MimeMessage msg = send_email.createMimeMessage();
+				msg.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+				msg.setSubject("CIRP | Registration Approved");
+				msg.setContent(
+						"<p>Hi,</p>" + "<p> </p>" + "<p>We are sorry to inform you that your registration has been rejected.</p>"
+								+ "<p>Regards,</p>" + "<p>Team CIRP</p>",
+						"text/html");
+				send_email.send(msg);
+			} catch (Exception e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+
+		}
+		
 	}
 
 	@Override
@@ -364,7 +467,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 		calender.setTime(new Date());
 		calender.add(Calendar.DATE, -14);
 		mongoTemplate.findAllAndRemove(new Query(where("status_changed").is(calender.getTime())), User.class);
-
 	}
 
 	@Override
@@ -465,11 +567,4 @@ public class CirpRepository implements CirpRepositoryOperations {
 		}
 		return null;
 	}
-
-	@Override
-	public Role findRole(ERole name) {
-		// TODO Auto-generated method stub
-		return mongoTemplate.findOne(new Query(Criteria.where("name").is(name)), Role.class);
-	}
-
 }

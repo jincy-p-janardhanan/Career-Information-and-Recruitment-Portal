@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.model;
 
 import java.util.Date;
@@ -18,8 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Document(collection="alumnus")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Alumnus extends Student{
-
-	//Setters needed
+	
 	private List<ObjectId> recc_req_recvd; //Recommendation requests received
 	private List<ObjectId> reccommeded; //Recommendations made by this user
 	private List<ObjectId> recc_rejected; //Recommendation requests rejected by this user
@@ -28,6 +24,14 @@ public class Alumnus extends Student{
 			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, String college_id) {
 		super(username, password, name, address, mobile, email, reg_no, course, branch, sem, st_date, end_date,
 				college_id);
+	}
+
+	public Alumnus() {
+		super();
+	}
+
+	public Alumnus(String username, String password, String name, Address address, String mobile, String email) {
+		super(username, password, name, address, mobile, email);
 	}
 
 	protected List<ObjectId> getRecc_req_recvd() {

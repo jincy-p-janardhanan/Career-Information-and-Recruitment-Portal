@@ -1,10 +1,5 @@
-/**
- * 
- */
 package com.cirp.app.model;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,7 +30,12 @@ public final class Admin extends User {
 		this.setAddress(address);
 		this.setMobile(mobile);
 		this.setEmail(email);
-		this.setRoles(new HashSet<>(Arrays.asList(new Role(ERole.ROLE_ADMIN))));
+		this.setRole("ROLE_ADMIN");
+	}
+	
+	//Default constructor is required for authentication purposes (in UserDetailsService).
+	public Admin() {
+		
 	}
 
 	public List<String> getCollege_pending() {

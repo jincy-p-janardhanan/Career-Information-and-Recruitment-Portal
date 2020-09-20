@@ -27,6 +27,19 @@ public abstract class NonAdmin extends User {
 		this.approval_count = 0;
 	}
 	
+	public NonAdmin(String username, String password, String name, String mobile, String email) {
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setName(name);
+		this.setMobile(mobile);
+		this.setEmail(email);
+		this.approval_count = 0;
+	}
+	
+	public NonAdmin() {
+		super();	
+	}
+
 	protected String getProfile_pic() {
 		return profile_pic;
 	}
@@ -50,6 +63,10 @@ public abstract class NonAdmin extends User {
 	}
 	public void incApproval_count() {
 		this.approval_count += 1;
+	}
+	
+	public void decApproval_count() {
+		this.approval_count -= 1;
 	}
 
 	public Date getStatus_changed() {

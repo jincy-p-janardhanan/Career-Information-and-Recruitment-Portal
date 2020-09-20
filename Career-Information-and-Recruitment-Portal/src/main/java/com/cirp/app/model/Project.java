@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.model;
 
 import java.util.List;
@@ -14,6 +11,7 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  *
  */
 class Project {
+	
 	@NotBlank
 	private String name;
 	@NotBlank
