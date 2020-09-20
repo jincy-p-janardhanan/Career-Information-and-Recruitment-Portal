@@ -35,7 +35,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	    registry.addViewController("/terms-and-conditions").setViewName("terms_and_conditions");
 	    registry.addViewController("/error").setViewName("error");
 	    
-	    registry.addViewController("/admin-panel").setViewName("server/server_admin_panel");
+	    //registry.addViewController("/admin/admin-panel").setViewName("admin/server_admin_panel");
 	    registry.addViewController("/college-admin-panel").setViewName("college/college_admin_panel");
 	    
 	    registry.addViewController("/college-home").setViewName("college/home_college");

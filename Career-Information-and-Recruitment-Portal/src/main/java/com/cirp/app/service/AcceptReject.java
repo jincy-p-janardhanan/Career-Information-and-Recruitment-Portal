@@ -1,9 +1,6 @@
 package com.cirp.app.service;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.cirp.app.model.Admin;
@@ -25,7 +22,7 @@ public class AcceptReject {
 	@Autowired
 	FindClass find = new FindClass();
 
-	public void acceptRejectRegistration(String username, String choice) {
+	public void acceptRejectRegistration(String username, String choice, String admin_username) {
 
 		// Increment or decrement counter
 		int counter;
@@ -48,12 +45,53 @@ public class AcceptReject {
 		} else {
 			return;
 		}
-
 		// Get class of user
 		Class<?> user_class = find.findClass(username);
 
 		// Increment or decrement approval count of the user
 		repo.updateApprovalCount(username, counter, user_class);
+
+		// Update pending list and approved or rejected list in admin
+		String pending_list;
+		String approve_reject_list;
+		Class<?> admin_class = Admin.class;
+		String role;
+
+		// Choose the lists to update
+		if (user_class == College.class) {
+			role = "ROLE_COLLEGE";
+			pending_list = "college_pending";
+			if (choice == "confirm") {
+				approve_reject_list = "college_approved";
+			} else {
+				approve_reject_list = "college_denied";
+			}
+
+		} else if (user_class == Recruiter.class) {
+			role = "ROLE_RECRUITER";
+			pending_list = "recruiter_pending";
+			if (choice == "confirm") {
+				approve_reject_list = "recruiter_approved";
+			} else {
+				approve_reject_list = "recruiter_denied";
+			}
+		} else {
+			role = "ROLE_ALUMNUS";
+			pending_list = "alumni_pending";
+			if (choice == "confirm") {
+				approve_reject_list = "alumni";
+			} else {
+				approve_reject_list = "alumni_rejected";
+			}
+			// Change admin class to college
+			admin_class = College.class;
+		}
+
+		// Remove username from pending list
+		repo.removeUserFromList(username, pending_list, admin_class, admin_username);
+
+		// Add username to updated or rejected list
+		repo.addUserToList(username, approve_reject_list, admin_class, admin_username);
 
 		// Get total number of admins and absolute value (positive) of approval count
 		NonAdmin user = repo.findById(username);
@@ -68,50 +106,7 @@ public class AcceptReject {
 
 			// Change status of user
 			repo.updateUserStatus(username, counter, user_class);
-
-			// Update pending list and approved or rejected list in admins
-			String pending_list;
-			String approve_reject_list;
-			Class<?> admin_class = Admin.class;
-
-			// Default query to get list of all admins
-			Query query = new Query();
-
-			// Choose the lists to update
-			if (user_class == College.class) {
-				pending_list = "college_pending";
-				if (choice == "confirm") {
-					approve_reject_list = "college_approved";
-				} else {
-					approve_reject_list = "college_denied";
-				}
-
-			} else if (user_class == Recruiter.class) {
-				pending_list = "recruiter_pending";
-				if (choice == "confirm") {
-					approve_reject_list = "recruiter_approved";
-				} else {
-					approve_reject_list = "recruiter_denied";
-				}
-			} else {
-				pending_list = "alumni_pending";
-				if (choice == "confirm") {
-					approve_reject_list = "alumni";
-				} else {
-					approve_reject_list = "alumni_rejected";
-				}
-				// Change admin class to college
-				admin_class = College.class;
-				// Change query to find the college of the alumnus
-				query = new Query(where("name").is(((Alumnus) repo.findById(username)).getCollege_id()));
-			}
-
-			// Remove username from pending list
-			repo.removeUserFromList(username, pending_list, admin_class, query);
-
-			// Add username to updated or rejected list
-			repo.addUserToList(username, approve_reject_list, admin_class, query);
-
+			repo.updateUserRole(username, role, user_class);
 			// Send email to the user regarding approval or rejection
 			String to = user.getEmail();
 			sendmails.sendEmail(to, sub, content);

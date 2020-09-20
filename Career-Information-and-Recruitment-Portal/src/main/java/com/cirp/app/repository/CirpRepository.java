@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.ExecutableUpdateOperation.TerminatingUpdate;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -16,7 +15,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.cirp.app.model.*;
-import com.mongodb.client.result.UpdateResult;
 
 @Repository
 public class CirpRepository implements CirpRepositoryOperations {
@@ -301,13 +299,18 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void removeUserFromList(String username, String pending_list, Class<?> admin_class, Query query) {
-		mongoTemplate.updateMulti(query, new Update().pull(pending_list, username), admin_class);
+	public void removeUserFromList(String username, String pending_list, Class<?> admin_class, String admin_username) {
+		Query query = new Query();
+		query.addCriteria(where("username").is(admin_username));
+		mongoTemplate.updateFirst(query, new Update().pull(pending_list, username), admin_class);
+		
 	}
 
 	@Override
-	public void addUserToList(String username, String approve_reject_list, Class<?> admin_class, Query query) {
-		mongoTemplate.updateMulti(query, new Update().push(approve_reject_list, username), admin_class);
+	public void addUserToList(String username, String approve_reject_list, Class<?> admin_class, String admin_username) {
+		Query query = new Query();
+		query.addCriteria(where("username").is(admin_username));
+		mongoTemplate.updateFirst(query, new Update().push(approve_reject_list, username), admin_class);
 	}
 
 	@Override
@@ -350,5 +353,13 @@ public class CirpRepository implements CirpRepositoryOperations {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public void updateUserRole(String username, String role, Class<?> user_class) {
+		Query query = new Query();
+		query.addCriteria(where("username").is(username));
+		mongoTemplate.updateFirst(query, new Update().set("role", role), user_class);
+		
 	}
 }

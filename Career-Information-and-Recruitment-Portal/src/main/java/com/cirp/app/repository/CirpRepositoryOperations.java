@@ -1,10 +1,7 @@
 package com.cirp.app.repository;
 
 import java.util.List;
-
-
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.query.Query;
 
 import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.Application;
@@ -59,9 +56,10 @@ public interface CirpRepositoryOperations {
 	
 	void updateApprovalCount(String username, int counter, Class<?> user_class);
 	void updateUserStatus(String username, int counter, Class<?> user_class);
-	void removeUserFromList(String username, String pending_list, Class<?> admin_class, Query query);
-	void addUserToList(String username, String approve_reject_list, Class<?> admin_class, Query query);
+	void removeUserFromList(String username, String pending_list, Class<?> admin_class, String admin_username);
+	void addUserToList(String username, String approve_reject_list, Class<?> admin_class, String admin_username);
 	long getAdminCount();
 	void setToken(String token, String username, Class<?> user_class);
 	<T> T findByToken(String token);
+	void updateUserRole(String username, String role, Class<?> user_class);
 }

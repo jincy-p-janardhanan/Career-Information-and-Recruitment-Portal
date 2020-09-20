@@ -1,15 +1,15 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
 <title>Error | Career Information and Recruitment Portal</title>
-<link rel="stylesheet" type="text/css" href="css/error_page_html.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/error_page_html.css}">
 </head>
 <body>
 	<div class="textstyle1">
-		<img src="css/assets/crash.png" id="img_2c2aa590" alt="" title="" />
+		<img src="/css/assets/crash.png" id="img_2c2aa590" alt="" title="" />
 		<div id="text_6b0a0558">
 			<div class="textstyle1">
 				<span class="textstyle2">OOPS! </span> <span class="textstyle3">
@@ -27,7 +27,6 @@
 				</span>
 			</div>
 		</div>
-		<span class="textstyle6">f</span>
 		<div id="text_3bca5026">
 			<div class="textstyle1">
 				<span class="textstyle7"><a th:href="@{index}"

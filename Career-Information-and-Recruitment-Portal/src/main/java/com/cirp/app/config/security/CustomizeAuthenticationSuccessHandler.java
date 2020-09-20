@@ -34,7 +34,7 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
 			if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
 
-				response.sendRedirect("/admin-panel");
+				response.sendRedirect("/admin/admin-panel");
 
 			} else if (grantedAuthority.getAuthority().equals("ROLE_COLLEGE")) {
 

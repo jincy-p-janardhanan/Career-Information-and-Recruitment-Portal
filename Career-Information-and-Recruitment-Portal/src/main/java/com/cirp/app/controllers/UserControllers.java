@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,13 +39,13 @@ public class UserControllers {
 	FindClass find = new FindClass();
 
 	@GetMapping("/confirmRegistration")
-	public void confirmRegistration(@RequestParam String username) {
-		acceptReject.acceptRejectRegistration(username, "confirm");
+	public void confirmRegistration(@RequestParam String username, Authentication authentication) {
+		acceptReject.acceptRejectRegistration(username, "confirm", authentication.getName());
 	}
 
 	@GetMapping("/rejectRegistration")
-	public void rejectRegistration(@RequestParam String username) {
-		acceptReject.acceptRejectRegistration(username, "reject");
+	public void rejectRegistration(@RequestParam String username, Authentication authentication) {
+		acceptReject.acceptRejectRegistration(username, "reject", authentication.getName());
 	}
 
 	@GetMapping("/optout-request")
@@ -74,22 +75,6 @@ public class UserControllers {
 			redirectAttributes.addFlashAttribute("message", "A link to reset your password has been sent to your email.");
 		}
 		return "redirect:/login";
-	}
-
-	@GetMapping("/update-password")
-	public String resetPassword(@RequestParam("token") String token, Model model, RedirectAttributes redirectAttributes) {
-		System.out.println(token);
-		User user = repo.findByToken(token);
-		if (user == null) {
-			redirectAttributes.addFlashAttribute("message", "Invalid Request!");
-			return "redirect:/login";
-		} else {
-			StringVal password = new StringVal();
-			model.addAttribute("username", user.getUsername());
-			model.addAttribute("token", token);
-			model.addAttribute("password", password);
-			return "common/reset_password";
-		}
 	}
 
 	@PostMapping(value = "/update-password", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {

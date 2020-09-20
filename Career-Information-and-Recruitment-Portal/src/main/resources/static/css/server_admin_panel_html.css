@@ -81,13 +81,13 @@ body {
 
 #form_11381a91 {
 	border-radius: 15px;
-	position: absolute;
-	left: 5%;
-	top: 22%;
+	position: absolute; left : 5%;
+	top: 2%;
 	width: 30%;
 	min-height: 30px;
 	min-width: 310px;
 	background-color: #272727;
+	left: 5%;
 }
 
 #edit_9f39c86 {
@@ -649,8 +649,9 @@ body {
 @media only screen and (max-width: 1212px) {
 	#form_11381a91 {
 		width: 80%;
-		left: 15%;
-		top: 22%;
+		position: absolute;
+		left: 5%;
+		top: 2%;
 	}
 	#container_72c14026 {
 		display: none;
