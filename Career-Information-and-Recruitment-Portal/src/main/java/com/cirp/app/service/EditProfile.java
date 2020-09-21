@@ -16,12 +16,12 @@ public class EditProfile {
 	FindClass find = new FindClass();
 
 	public void updateProfilePic(String profile_pic, String username) {
-		Class<?> user_class = repo.findById(username);
+		Class<?> user_class = repo.findById(username).getClass();
 		repo.updateProfilePic(profile_pic, username, user_class);		
 	}
 
 	public void updateBgImg(String bg_img, String username) {
-		Class<?> user_class = repo.findById(username);
+		Class<?> user_class = repo.findById(username).getClass();
 		repo.updateBgImg(bg_img, username, user_class);
 	}
 

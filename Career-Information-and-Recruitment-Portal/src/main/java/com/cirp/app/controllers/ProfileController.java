@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,11 +52,12 @@ public class ProfileController {
 			return getRedirectUrl(username);
         }
 
-		final String upload_path = "/css/assets/profile-pictures";
-		String filename = "profile_"+username;
+		final String upload_path = "/css/assets/profile-pictures/";
+		String filename = StringUtils.cleanPath(image.getOriginalFilename());;
 		try {
             Path path = Paths.get(upload_path + filename);
             Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("REACHED HERE");
         } catch (IOException e) {
             e.printStackTrace();
         }
