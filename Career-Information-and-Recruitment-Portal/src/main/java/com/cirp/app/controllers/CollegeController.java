@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cirp.app.model.College;
+import com.cirp.app.model.ContactInfo;
 import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.StringVal;
 
@@ -22,8 +23,16 @@ public class CollegeController {
 		College college = repo.findById(authentication.getName());
 		StringVal desc = new StringVal();
 		desc.setValue(college.getDesc());
+		String profile_pic = college.getProfile_pic();
+		String bg_img = college.getBg_img();
+		
 		if(desc.getValue() == "" || desc.getValue() == null)
 			desc.setValue("Add your profile description here... ");
+		if(profile_pic == null)
+			profile_pic = "default_college.png";
+		
+		model.addAttribute("profile_pic", profile_pic);
+		model.addAttribute("bg_img", bg_img);
 		model.addAttribute("desc", desc);
 		model.addAttribute("name", college.getName().toUpperCase());
 		model.addAttribute("univ", college.getAffil_univ().toUpperCase());
@@ -37,4 +46,6 @@ public class CollegeController {
 		
 		return "college/college_admin_panel";
 	}
+	
+	
 }

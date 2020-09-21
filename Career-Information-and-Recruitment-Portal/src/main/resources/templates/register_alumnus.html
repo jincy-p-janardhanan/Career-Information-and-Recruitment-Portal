@@ -21,12 +21,12 @@
 							<span class="textstyle2">Register as Alumnus</span>
 						</div>
 					</div>
-					<form action="" enctype="application/x-www-form-urlencoded"
+					<form th:action="" enctype="application/x-www-form-urlencoded"
 						method="POST" id="form_1452d9e0">
 						<div id="form_1452d9e0_padding">
 							<div class="textstyle1">
 								<input type="text" value="" title="" name="full_name"
-									id="edit_18875d5">
+									th:field="*{name}" id="edit_18875d5" required>
 								<div id="text_56509de4">
 									<div class="textstyle1">
 										<span class="textstyle3">Full Name</span>

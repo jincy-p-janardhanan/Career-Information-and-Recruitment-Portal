@@ -45,6 +45,7 @@ public class AdminController {
 				recruiter_pending.add(repo.findById(recruiter));
 		}
 		
+		model.addAttribute("profile_pic", "default_user.png");
 		model.addAttribute("college_pending", college_pending);
 		model.addAttribute("recruiter_pending", recruiter_pending);
 		return "admin/server_admin_panel";
@@ -58,7 +59,7 @@ public class AdminController {
 	
 	@PostMapping(value="/reject-user")
 	public String rejectRegistration(@RequestParam String username, Authentication authentication, RedirectAttributes redirectAttributes) {
-		accept_reject.acceptRejectRegistration(username, "confirm", authentication.getName());
+		accept_reject.acceptRejectRegistration(username, "reject", authentication.getName());
 		return "redirect:/admin/admin-panel";
 	}
 }

@@ -72,4 +72,10 @@ public class GetMappings {
 			return "common/reset_password";
 		}
 	}
+	
+	@GetMapping("/pending-approval")
+	public String pendingApproval(Model model) {
+		model.addAttribute("profile_pic", "default_user.png");
+		return "common/registration_pending";
+	}
 }

@@ -12,12 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-/**
- * @author Jincy P Janardhanan
- *
- */
-
 @Document(collection="job")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Job {

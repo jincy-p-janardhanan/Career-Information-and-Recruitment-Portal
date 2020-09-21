@@ -40,17 +40,16 @@ public class ResetPassword {
 		Class<?> user_class = find.findClass(username_or_email);
 		repo.setToken(token, user.getUsername(), user_class);
 		
-		String resetUrl = request.getScheme() + "://" + request.getServerName()+"/update-password?token=" + token;
+		String resetUrl = request.getScheme() + "://" + request.getServerName()+":8080/update-password?token=" + token;
 		String to = user.getEmail();
 		String sub = "CIRP | Reset Password";
 		String content = "<p>Hi,</p>" + "<p> </p>"
 				+ "<p>To reset your password, click the following link: </p>"+ 
-				"<a href = resetUrl>here</a>"+"</p>"
-				+ "<p>If you didn't request to reset password, your account." + "<p></p>" + "<p>Regards,</p>"
+				"<a href = "+ resetUrl + ">here</a>"+"</p>"
+				+ "<p>If you didn't request to reset password, you can safely ignore this email." + "<p></p>" + "<p>Regards,</p>"
 				+ "<p>Team CIRP</p>";
 		
 		sendmails.sendEmail(to, sub, content);
-		System.out.println(resetUrl);
 		return "";
 	}
 
