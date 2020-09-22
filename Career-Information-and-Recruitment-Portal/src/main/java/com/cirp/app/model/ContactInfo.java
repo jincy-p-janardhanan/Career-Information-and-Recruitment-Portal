@@ -3,10 +3,6 @@ package com.cirp.app.model;
 
 import javax.validation.constraints.Pattern;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
 public class ContactInfo extends Address{
 	
 	private String website;

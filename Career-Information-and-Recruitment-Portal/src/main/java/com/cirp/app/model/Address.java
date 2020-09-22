@@ -4,11 +4,6 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.mongodb.core.index.TextIndexed;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
-
 public class Address {
 	
 	@NotBlank

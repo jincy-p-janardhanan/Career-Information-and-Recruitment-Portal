@@ -11,5 +11,5 @@ public class CareerInformationAndRecruitmentPortalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CareerInformationAndRecruitmentPortalApplication.class, args);
-	}	
+	}
 }

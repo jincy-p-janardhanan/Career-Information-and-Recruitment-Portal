@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cirp.app.model.College;
-import com.cirp.app.model.ContactInfo;
 import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.StringVal;
 
@@ -30,6 +29,9 @@ public class CollegeController {
 			desc.setValue("Add your profile description here... ");
 		if(profile_pic == null)
 			profile_pic = "default_college.png";
+		if(bg_img == null) {
+			bg_img = "default_background.png";
+		}
 		
 		model.addAttribute("profile_pic", profile_pic);
 		model.addAttribute("bg_img", bg_img);

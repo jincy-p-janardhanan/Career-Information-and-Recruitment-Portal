@@ -7,10 +7,6 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.index.TextIndexed;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
 public class Personalisation {
 
 	private List<Education> education;
