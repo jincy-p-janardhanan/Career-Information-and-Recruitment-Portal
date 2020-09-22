@@ -10,11 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
-
 @Document(collection="recruiter")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class Recruiter extends NonAdmin {

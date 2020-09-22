@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.repository;
 
 import javax.validation.Valid;
@@ -13,11 +10,6 @@ import com.cirp.app.model.Message;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-/**
- * 
- *
- */
 
 @Repository
 public interface ChatMessageRepo extends ReactiveMongoRepository<Message, String> {

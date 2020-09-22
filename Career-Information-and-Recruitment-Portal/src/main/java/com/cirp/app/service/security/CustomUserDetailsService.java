@@ -16,10 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.cirp.app.model.User;
 import com.cirp.app.repository.CirpRepository;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
@@ -43,7 +39,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		//This statement creates and returns a User as identifiable by Spring security.
 		//The user returned is initialized with username, password, and the roles of the user (in a list ).
-		System.out.println(user.getRole());
 		return new org.springframework.security.core.userdetails.User(
 				user.getUsername(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
 	}

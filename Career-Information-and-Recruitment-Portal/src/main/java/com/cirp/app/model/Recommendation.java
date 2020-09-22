@@ -4,11 +4,6 @@ import javax.validation.constraints.NotBlank;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
-
 public class Recommendation {
 	
 	@MongoId

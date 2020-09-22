@@ -5,10 +5,6 @@ package com.cirp.app.model;
 
 import java.util.Date;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
 public abstract class NonAdmin extends User {
 	private String profile_pic;
 	private String desc;

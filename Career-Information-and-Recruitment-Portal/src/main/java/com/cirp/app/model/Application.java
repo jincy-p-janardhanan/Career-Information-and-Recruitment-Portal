@@ -4,11 +4,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
-
 public class Application {
 	
 	@NotNull

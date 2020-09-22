@@ -8,9 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,7 +50,6 @@ public class FileStorage {
 		try {
 			Path path = Paths.get(UPLOAD_PATH + foldername + filename);		
 			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			System.out.println("REACHED HERE");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

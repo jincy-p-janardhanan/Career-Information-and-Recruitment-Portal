@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.controllers;
 
 import java.util.List;
@@ -11,10 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cirp.app.repository.CirpRepository;
 
-/**
- * @author Jincy P Janardhanan
- *
- */
 public class SearchControllers {
 
 	@Autowired
