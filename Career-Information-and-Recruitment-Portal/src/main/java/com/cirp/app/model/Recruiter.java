@@ -28,11 +28,13 @@ public final class Recruiter extends NonAdmin {
 		this.setLicense_no(license_no);
 		this.setContact(contact);
 		this.setRole("ROLE_PENDING");
+		this.setProfile_pic("default_recruiter.png");
 	}
 		
 	public Recruiter() {
 		super();
 		this.setRole("ROLE_PENDING");
+		this.setProfile_pic("default_recruiter.png");
 	}
 
 	public String getLicense_no() {

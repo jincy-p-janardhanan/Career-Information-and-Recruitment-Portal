@@ -456,17 +456,6 @@ body {
 	margin: 10px;
 	display: block;
 }
-
-#container_7044920a {
-	box-sizing: border-box;
-	vertical-align: top;
-	position: relative;
-	display: inline-block;
-	width: 100%;
-	background: none;
-	border: 1px solid #DDDDDD;
-}
-
 #container_7044920a_padding {
 	margin: 10px;
 	display: block;
@@ -710,7 +699,7 @@ body {
 }
 
 #container_31eea8b3_padding {
-	margin: 10px;
+	padding: 25px;
 	display: block;
 }
 
@@ -743,13 +732,7 @@ body {
 	display: block;
 }
 
-#img_10415c01 {
-	vertical-align: bottom;
-	position: relative;
-	display: inline-block;
-	width: 100%;
-	background: none;
-}
+
 
 #text_5527f0ab {
 	vertical-align: top;
@@ -777,7 +760,7 @@ body {
 	border-bottom: none;
 }
 
-#button_6a43a786 {
+#viewprofilebutton {
 	box-sizing: border-box;
 	border-radius: 9px;
 	position: absolute;

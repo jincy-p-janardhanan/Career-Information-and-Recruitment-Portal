@@ -61,7 +61,7 @@ public class EnsureIndexes {
 				.build();
 		
 		TextIndexDefinition job_index = new TextIndexDefinitionBuilder()
-				.onField("title", (float) 5)
+				.onField("name", (float) 5)
 				.onField("location", (float) 4)
 				.build();
 		try {

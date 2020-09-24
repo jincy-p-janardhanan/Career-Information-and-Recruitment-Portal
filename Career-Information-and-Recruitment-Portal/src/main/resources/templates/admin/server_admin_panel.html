@@ -200,7 +200,7 @@ td {
 
 </head>
 <body>
-	<div class="navbar">
+	<div class="navbar" th:fragment="navbar-admin">
 		<div id="nav_options">
 			<div class="dropdown" sec:authorize="isAuthenticated()">
 				<button class="dropbtn">

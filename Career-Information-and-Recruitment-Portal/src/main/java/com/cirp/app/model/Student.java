@@ -49,12 +49,14 @@ public class Student extends NonAdmin {
 		this.college_id = college_id;
 		this.setStatus(1);
 		this.setRole("ROLE_STUDENT");
+		this.setProfile_pic("default_student.png");
 	}
 
 	public Student() {
 		super();
 		this.setStatus(1);
 		this.setRole("ROLE_STUDENT");
+		this.setProfile_pic("default_student.png");
 	}
 
 	public Student(String username, String password, String name, Address address, String mobile, String email) {

@@ -6,9 +6,72 @@
 <meta name="generator" content="RocketCake">
 <title></title>
 <link rel="stylesheet" type="text/css" href="css/search_html.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+#viewprofilebutton {
+	box-sizing: border-box;
+	border-radius: 9px;
+	width: 150px;
+	height: 40px;
+	background-color: #F23D3E;
+	border: 0px solid #404040;
+	box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078);
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+	background-color: #F23D3E;
+	vertical-align: top;
+}
+
+#profile_image {
+	margin: auto;
+	min-width: 150px;
+	min-height: 150px;
+	max-height: 200px;
+	max-width: 200px;
+	box-sizing: border-box;
+	border-radius: 100px;
+}
+
+#title {
+	text-align: center;
+	width: 70%;
+	padding: 10px;
+	border-bottom: solid 2px #dddddd;
+}
+
+#box {
+	box-sizing: border-box;
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	background: none;
+	border: 1px solid #DDDDDD;
+}
+
+#buttoncell {
+	position: relative;
+	text-align: center;
+	min-width: 200px;
+	min-height: 50px; margin : 0px;
+	padding: 20px;
+	margin: 0px;
+}
+
+table {
+	padding: 25px;
+}
+
+#resultcontainer {
+	margin: 10px 10px 20px 10px;
+	display: block;
+}
+</style>
 </head>
 <body>
-	<div class="textstyle1">
+	<div class="textstyle1" th:fragment="nav-search-results">
 		<div id="container_27317a9a">
 			<div id="container_27317a9a_padding">
 				<div class="textstyle1">
@@ -24,355 +87,83 @@
 														<img src="css/assets/search___large.png" id="img_424e875"
 															alt="" title="" /> <span class="textstyle3"> <br />
 														</span> <span class="textstyle4">Search Results<br /></span>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-										</div>										
-									</div>
-								</div>
-								<div>
-									<div id="form_441edaf_padding">
-										<div class="textstyle1">
-											<form action="" enctype="application/x-www-form-urlencoded"
-												method="POST" id="form_17498188">
-												<div id="form_17498188_padding">
-													<div class="textstyle1">
-														<div id="container_101d8633">
-															<div id="container_101d8633_padding">
-																<div class="textstyle1">
-																	<input type="text" value="" title="" name="TextEdit1"
-																		placeholder="Search for job listing to view applications"
-																		id="edit_150ad987"> <input name="Search"
-																		type="submit" value="" title="" id="button_40b210c5">
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-														<div id="container_4b7457a3">
-															<div id="container_4b7457a3_padding">
-																<div class="textstyle1">
-																	<select name="ComboBox1" title="" id="combo_39554477">
-																		<option value="Student" selected="selected">Student</option>
-																		<option value="Alumni">Alumni</option>
-																		<option value="College">College</option>
-																		<option value="Recruiter">Recruiter</option>
-																		<option value="Jobs">Jobs</option>
-																	</select>
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</form>
-										</div>
-										<div style="clear: both"></div>
-									</div>
-								</div>
-								<div>
-									<div id="form_16ead408_padding" th:each="result:${results}">
-										<div class="textstyle1">
-											<div id="container_2fc1947f" th:if="${result._class == 'com.cirp.app.model.Student'}">
-												<div id="container_2fc1947f_padding">
-													<div class="textstyle1">
-														<div id="container_7044920a">
-															<div id="container_7044920a_padding">
-																<div class="textstyle1">
-																	<div id="container_44f6dd16">
-																		<div id="container_44f6dd16_padding">
-																			<div class="textstyle1">
-																				<span class="textstyle3"> </span>
-																				<div id="container_8b58ecd">
-																					<div id="container_8b58ecd_padding">
-																						<div class="textstyle1">
-																							<img src="css/assets/students.png"
-																								id="img_3525b0a0" alt="" title="" />
-																						</div>																						
-																					</div>
-																				</div>
-																				<div id="text_1421f90c">
-																					<div id="text_1421f90c_padding">
-																						<div class="textstyle1">
-																							<span class="textstyle4">Name of Student </span>
-																							<div id="text_5e28f376">
-																								<div class="textstyle1">
-																									<span class="textstyle5"><br />Profile
-																										description<br />Lorem ipsum dolor sit amet,
-																										consectetuer adipiscing elit. Aenean commodo
-																										ligula eget dolor. Aenean massa<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br /></span> <input name="Button1" type="submit"
-																										value="           VIEW PROFILE" title=""
-																										id="button_af57f34"> <img
-																										src="css/assets/view___white.png"
-																										id="img_6193692a" alt="" title="" />
-																								</div>
-																							</div>
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																			</div>
-																			<div style="clear: both"></div>
-																		</div>
-																	</div>
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<div id="container_2f3b2685" th:if="${result._class == 'com.cirp.app.model.Alumnus'}">
-												<div id="container_2f3b2685_padding">
-													<div class="textstyle1">
-														<span class="textstyle3"><br /></span>
-														<div id="container_65fd933">
-															<div id="container_65fd933_padding">
-																<div class="textstyle1">
-																	<div id="container_2204ab5f">
-																		<div id="container_2204ab5f_padding">
-																			<div class="textstyle1">
-																				<span class="textstyle3"> </span>
-																				<div id="container_1c0b5f75">
-																					<div id="container_1c0b5f75_padding">
-																						<div class="textstyle1">
-																							<img src="css/assets/students.png"
-																								id="img_3fe310bf" alt="" title="" />
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																				<div id="text_90f02b2">
-																					<div id="text_90f02b2_padding">
-																						<div class="textstyle1">
-																							<span class="textstyle4">Name of Alumnus </span>
-																							<div id="text_4faa410a">
-																								<div class="textstyle1">
-																									<span class="textstyle5"><br />Profile
-																										description<br />Lorem ipsum dolor sit amet,
-																										consectetuer adipiscing elit. Aenean commodo
-																										ligula eget dolor. Aenean massa<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br /></span> <input name="Button1" type="submit"
-																										value="           VIEW PROFILE" title=""
-																										id="button_4e40bfb1"> <img
-																										src="css/assets/picture17.png"
-																										id="img_c647779" alt="" title="" />
-																								</div>
-																							</div>
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																			</div>
-																			<div style="clear: both"></div>
-																		</div>
-																	</div>
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<span class="textstyle3"><br /></span>
-											<div id="container_44f2ffff" th:if="${result._class == 'com.cirp.app.model.College'}" th:object="${result}">
-												<div id="container_44f2ffff_padding">
-													<div class="textstyle1">
-														<div id="container_31eea8b3">
-															<div id="container_31eea8b3_padding">
-																<div class="textstyle1">
-																	<div id="container_b921321">
-																		<div id="container_b921321_padding">
-																			<div class="textstyle1">
-																				<span class="textstyle3"> </span>
-																				<div id="container_50645b19">
-																					<div id="container_50645b19_padding">
-																						<div class="textstyle1">
-																							<img src="css/assets/college.png"
-																								id="img_10415c01" alt="" title="" />
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																				<div id="text_5527f0ab">
-																					<div id="text_5527f0ab_padding">
-																						<div class="textstyle1">
-																							<span class="textstyle4" th:text="*{name}"></span>
-																							<div id="text_4f5e97b4">
-																								<div class="textstyle1">
-																									<div th:if="*{desc}">
-																										<span class="textstyle5" th:text="*{desc}"><br /></span>
-																									</div>																									 
-																									<input name="Button1" type="submit"
-																										value="           VIEW PROFILE" title=""
-																										id="button_6a43a786"> 
-																									<img src="css/assets/picture17.png" id="img_a60b9fe" alt="" title="" />
-																								</div>
-																							</div>
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																			</div>
-																			<div style="clear: both"></div>
-																		</div>
-																	</div>
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<span class="textstyle3"><br /></span>
-											<div id="container_23874065" th:if="${result._class == 'com.cirp.app.model.Recruiter'}">
-												<div id="container_23874065_padding">
-													<div class="textstyle1">
-														<div id="container_3f9132f1">
-															<div id="container_3f9132f1_padding">
-																<div class="textstyle1">
-																	<div id="container_6499d2e3">
-																		<div id="container_6499d2e3_padding">
-																			<div class="textstyle1">
-																				<span class="textstyle3"> </span>
-																				<div id="container_7ce4efdb">
-																					<div id="container_7ce4efdb_padding">
-																						<div class="textstyle1">
-																							<img src="css/assets/company.png"
-																								id="img_56d4a114" alt="" title="" />
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																				<div id="text_7e7cbf4b">
-																					<div id="text_7e7cbf4b_padding">
-																						<div class="textstyle1">
-																							<span class="textstyle4">Name of Company</span>
-																							<div id="text_6d0d0d92">
-																								<div class="textstyle1">
-																									<span class="textstyle5"><br />Profile
-																										description<br />Lorem ipsum dolor sit amet,
-																										consectetuer adipiscing elit. Aenean commodo
-																										ligula eget dolor. Aenean massa<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />.</span> <input name="Button1" type="submit"
-																										value="           VIEW PROFILE" title=""
-																										id="button_2d435663"> <img
-																										src="css/assets/picture17.png"
-																										id="img_33b61be9" alt="" title="" />
-																								</div>
-																							</div>
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																			</div>
-																			<div style="clear: both"></div>
-																		</div>
-																	</div>
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<span class="textstyle3"><br /></span>
-											<div id="container_e48d002" th:if="${result._class == 'com.cirp.app.model.Job'}">
-												<div id="container_e48d002_padding">
-													<div class="textstyle1">
-														<div id="container_dd8bebd">
-															<div id="container_dd8bebd_padding">
-																<div class="textstyle1">
-																	<div id="container_797a7183">
-																		<div id="container_797a7183_padding">
-																			<div class="textstyle1">
-																				<span class="textstyle3"> </span>
-																				<div id="container_7db3f04b">
-																					<div id="container_7db3f04b_padding">
-																						<div class="textstyle1">
-																							<img src="css/assets/jobs.png" id="img_5e6725cd"
-																								alt="" title="" />
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																				<div id="text_241693c7">
-																					<div id="text_241693c7_padding">
-																						<div class="textstyle1">
-																							<span class="textstyle4">Job Title </span>
-																							<div id="text_708f1473">
-																								<div class="textstyle1">
-																									<span class="textstyle5"><br />Job
-																										description<br />Lorem ipsum dolor sit amet,
-																										consectetuer adipiscing elit. Aenean commodo
-																										ligula eget dolor. Aenean massa<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />.</span> <input name="Button1" type="button"
-																										value="           VIEW JOB" title=""
-																										id="button_5714742b"> <img
-																										src="css/assets/picture17.png"
-																										id="img_1f9a7107" alt="" title="" />
-																								</div>
-																							</div>
-																						</div>
-																						<div style="clear: both"></div>
-																					</div>
-																				</div>
-																			</div>
-																			<div style="clear: both"></div>
-																		</div>
-																	</div>
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-													</div>
-													<div style="clear: both"></div>
+													</div>													
 												</div>
 											</div>
 										</div>
-										<div style="clear: both"></div>
 									</div>
 								</div>
-								<span class="textstyle3"><br />
-								<br />
-								<br />
-								<br /></span>
+								<div id="form_441edaf_padding">
+									<div class="textstyle1">
+										<form th:action="@{/filtered-search}" enctype="application/x-www-form-urlencoded"
+											method="GET" id="form_17498188">
+											<div id="form_17498188_padding">
+												<div class="textstyle1">
+													<div id="container_101d8633">
+														<div id="container_101d8633_padding">
+															<div class="textstyle1">
+																<input type="text" value="" title="" name="TextEdit1"
+																	placeholder="Search for job listing to view applications"
+																	id="edit_150ad987"> <input name="Search"
+																	type="submit" value="" title="" id="button_40b210c5">
+															</div>
+															<div style="clear: both"></div>
+														</div>
+													</div>
+													<div id="container_4b7457a3">
+														<div id="container_4b7457a3_padding">
+															<div class="textstyle1">
+																<select name="ComboBox1" title="" id="combo_39554477">
+																	<option value="Student" selected="selected">Student</option>
+																	<option value="Alumni">Alumni</option>
+																	<option value="College">College</option>
+																	<option value="Recruiter">Recruiter</option>
+																	<option value="Jobs">Jobs</option>
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div id="resultcontainer" th:each="result:${results}">
+									<div id="container_31eea8b3_padding">
+										<div id="box">
+											<table style="width: 95%">
+												<tr>
+													<td></td>
+													<td th:text="${result.name}" class="textstyle4" id="title"></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td style="padding: 20px;"><img
+														th:src="@{'/view-profile-pic/' + ${result.profile_pic}}"
+														id="profile_image" /></td>
+													<td th:text="${result.desc}" class="textstyle5" style="padding: 25px;"></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>
+														<div id="buttoncell">
+															<button id="viewprofilebutton">
+																<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW
+																PROFILE
+															</button>
+														</div>
+													</td>
+													<td></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div style="clear: both"></div>
 						</div>
 					</div>
 				</div>
-				<div style="clear: both"></div>
 			</div>
 		</div>
 	</div>

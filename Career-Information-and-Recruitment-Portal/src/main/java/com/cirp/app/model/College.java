@@ -34,11 +34,13 @@ public final class College extends NonAdmin {
 		this.affil_univ = affil_univ;
 		this.contact = contact;
 		this.setRole("ROLE_PENDING");
+		this.setProfile_pic("default_college.png");
 	}
 
 	public College() {
 		super();
 		this.setRole("ROLE_PENDING");
+		this.setProfile_pic("default_college.png");
 	}
 
 	public String getAffil_univ() {

@@ -29,16 +29,15 @@ public class SearchAll {
 
 		Bson fulltextsearch = Aggregates.match(Filters.text(search_text));
 		Bson exclude_pending = Aggregates.match(Filters.ne("role", "ROLE_PENDING"));
-		Bson exclude_fields_users = Aggregates.project(Projections
-				.fields(Projections.exclude("approval_count", "password", "mobile", "email", "status", "role")));
-		Bson exclude_fields_job = Aggregates.project(Projections
-				.fields(Projections.exclude("applicants")));
+		Bson include_fields = Aggregates.project(Projections
+				.fields(Projections.include("_id", "name", "desc", "profile_pic")));
 		
-		List<Bson> pipeline_user = Arrays.asList(fulltextsearch, exclude_pending, exclude_fields_users);
-		List<Bson> pipeline_job = Arrays.asList(fulltextsearch, exclude_fields_job);
+		List<Bson> pipeline_user = Arrays.asList(fulltextsearch, exclude_pending, include_fields);
+		List<Bson> pipeline_job = Arrays.asList(fulltextsearch, include_fields);
 		
 		AggregateIterable<Document> search_iterator = college.aggregate(
-				Arrays.asList(fulltextsearch, exclude_pending, exclude_fields_users, Aggregates.unionWith("recruiter", pipeline_user),
+				Arrays.asList(fulltextsearch, exclude_pending, include_fields, 
+						Aggregates.unionWith("recruiter", pipeline_user),
 						Aggregates.unionWith("student", pipeline_user),
 						Aggregates.unionWith("alumnus", pipeline_user),
 						Aggregates.unionWith("job", pipeline_job),
@@ -49,6 +48,9 @@ public class SearchAll {
 		while (iterator.hasNext()) {
 			result_documents.add(iterator.next());
 		}
+		
+		System.out.println(result_documents);
+		
 		return result_documents;
 	}
 

@@ -19,9 +19,9 @@ public class Job {
 	ObjectId Id;
 	@NotBlank
 	private String recruiter_id;
-	private String job_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
+	private String profile_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
 	@NotBlank
-	private String title;
+	private String name;
 	@NotBlank
 	private String desc;
 	private String location;
@@ -33,17 +33,22 @@ public class Job {
 	private List<Application> applicants;
 	private List<String> skills; //job tags
 	
-	public Job(String recruiter_id, String recruiter_pic,  String title, String desc, String location, String duration, float stipend, Date last_date,
+	public Job(String recruiter_id, String recruiter_pic,  String name, String desc, String location, String duration, float stipend, Date last_date,
 			List<String> skills) {
 		this.recruiter_id = recruiter_id;
-		this.title = title;
+		this.name = name;
 		this.desc = desc;
 		this.location = location;
 		this.duration = duration;
 		this.stipend = stipend;
 		this.last_date = last_date;
 		this.skills = skills;
-		this.job_pic = recruiter_pic;
+		if(recruiter_pic != "default_recruiter.png") {
+			this.profile_pic = recruiter_pic;
+		} else {
+			this.profile_pic = "default_job.png";
+		}
+		
 	}
 
 	public ObjectId getId() {
@@ -62,20 +67,22 @@ public class Job {
 		this.recruiter_id = recruiter_id;
 	}
 
-	public String getJob_pic() {
-		return job_pic;
+	public String getProfile_pic() {
+		return profile_pic;
 	}
 
-	public void setJob_pic(String job_pic) {
-		this.job_pic = job_pic;
+	public void setProfile_pic(String profile_pic) {
+		this.profile_pic = profile_pic;
 	}
 
-	public String getTitle() {
-		return title;
+	
+
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDesc() {

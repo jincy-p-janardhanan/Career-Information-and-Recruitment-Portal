@@ -27,13 +27,13 @@ public class FileStorage {
 			}
 		}
 		
-		String source_filename[] = {"college.png", "company.png", "students.png", "default_background.png"};
-		String dest_filename[] = {"default_college.png", "default_recruiter.png", "default_student.png", "default_background.png"};
+		String source_filename[] = {"college.png", "company.png", "students.png", "jobs.png", "default_background.png"};
+		String dest_filename[] = {"default_college.png", "default_recruiter.png", "default_student.png", "default_job.png", "default_background.png"};
 		
-		for(int i = 0; i<4; i++) {
+		for(int i = 0; i<5; i++) {
 			Path sourcepath = Paths.get(ClassLoader.getSystemResource("static/css/assets/" + source_filename[i]).toURI());
 			Path destinationpath;
-			if(i != 3) {
+			if(i != 4) {
 				destinationpath = Paths.get(UPLOAD_PATH + picsfolder[0] + dest_filename[i]);
 			} else {
 				destinationpath = Paths.get(UPLOAD_PATH + picsfolder[1] + dest_filename[i]);
