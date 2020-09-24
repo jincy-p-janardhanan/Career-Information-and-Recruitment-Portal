@@ -1,5 +1,5 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,74 +9,6 @@
 </head>
 <body>
 	<div class="textstyle1">
-		<div id="container_4d8b545c">
-			<div id="container_4d8b545c_padding">
-				<div class="textstyle1">
-					<form action="" enctype="application/x-www-form-urlencoded"
-						method="GET" id="form_673ad8a3">
-						<div class="textstyle1">
-							<input type="text" value="" title="" name="nav_search"
-								placeholder="Search recruiters, jobs, students, alumni or colleges"
-								id="edit_3647c505"> <input name="Search" type="submit"
-								value="" title="" id="button_8426eec">
-						</div>
-					</form>
-					<div id="text_7b786532">
-						<div class="textstyle1">
-							<span class="textstyle2">Profile</span>
-						</div>
-					</div>
-					<div id="text_423e072a">
-						<div class="textstyle1">
-							<span class="textstyle2">Applications</span>
-						</div>
-					</div>
-					<div id="text_21c593aa">
-						<div class="textstyle1">
-							<span class="textstyle2">Manage Jobs</span>
-						</div>
-					</div>
-					<div id="text_4d10e638">
-						<div class="textstyle1">
-							<span class="textstyle2">Admin Panel</span>
-						</div>
-					</div>
-					<div id="container_1f0f9a1a">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_67d4aae8">
-								<option value="Notifications" selected="selected">Notifications</option>
-							</select> <img src="css/assets/notification.png" id="img_38ab7e90" alt=""
-								title="" />
-						</div>
-					</div>
-					<div id="container_7766e258">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_4e5243f6">
-								<option value="Welcome Username" selected="selected">Welcome
-									Username</option>
-								<option value="Logout">Logout</option>
-								<option value="Reset Password">Reset Password</option>
-							</select> <img src="css/assets/user.png" id="img_6cb933aa" alt="" title="" />
-						</div>
-					</div>
-					<div id="container_5772fcb4">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_51f99368">
-								<option value="Profile">Profile</option>
-								<option value="Applications">Applications</option>
-								<option value="Manage Jobs">Manage Jobs</option>
-								<option value="Admin Panel">Admin Panel</option>
-								<option value="Notifications">Notifications</option>
-								<option value="Welcome Username">Welcome Username</option>
-								<option value="Logout">Logout</option>
-								<option value="Reset Password">Reset Password</option>
-							</select> <img src="css/assets/menu.png" id="img_2b3db28c" alt="" title="" />
-						</div>
-					</div>
-				</div>
-				<div style="clear: both"></div>
-			</div>
-		</div>
 		<div id="container_27317a9a">
 			<div id="container_27317a9a_padding">
 				<div class="textstyle1">
@@ -96,12 +28,10 @@
 													<div style="clear: both"></div>
 												</div>
 											</div>
-										</div>
-										<div style="clear: both"></div>
+										</div>										
 									</div>
 								</div>
-								<form action="" enctype="application/x-www-form-urlencoded"
-									method="POST" id="form_441edaf">
+								<div>
 									<div id="form_441edaf_padding">
 										<div class="textstyle1">
 											<form action="" enctype="application/x-www-form-urlencoded"
@@ -140,12 +70,11 @@
 										</div>
 										<div style="clear: both"></div>
 									</div>
-								</form>
-								<form action="" enctype="application/x-www-form-urlencoded"
-									method="POST" id="form_16ead408">
-									<div id="form_16ead408_padding">
+								</div>
+								<div>
+									<div id="form_16ead408_padding" th:each="result:${results}">
 										<div class="textstyle1">
-											<div id="container_2fc1947f">
+											<div id="container_2fc1947f" th:if="${result._class == 'com.cirp.app.model.Student'}">
 												<div id="container_2fc1947f_padding">
 													<div class="textstyle1">
 														<div id="container_7044920a">
@@ -160,8 +89,7 @@
 																						<div class="textstyle1">
 																							<img src="css/assets/students.png"
 																								id="img_3525b0a0" alt="" title="" />
-																						</div>
-																						<div style="clear: both"></div>
+																						</div>																						
 																					</div>
 																				</div>
 																				<div id="text_1421f90c">
@@ -203,7 +131,7 @@
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<div id="container_2f3b2685">
+											<div id="container_2f3b2685" th:if="${result._class == 'com.cirp.app.model.Alumnus'}">
 												<div id="container_2f3b2685_padding">
 													<div class="textstyle1">
 														<span class="textstyle3"><br /></span>
@@ -263,7 +191,7 @@
 												</div>
 											</div>
 											<span class="textstyle3"><br /></span>
-											<div id="container_44f2ffff">
+											<div id="container_44f2ffff" th:if="${result._class == 'com.cirp.app.model.College'}" th:object="${result}">
 												<div id="container_44f2ffff_padding">
 													<div class="textstyle1">
 														<div id="container_31eea8b3">
@@ -285,23 +213,16 @@
 																				<div id="text_5527f0ab">
 																					<div id="text_5527f0ab_padding">
 																						<div class="textstyle1">
-																							<span class="textstyle4">Name of College </span>
+																							<span class="textstyle4" th:text="*{name}"></span>
 																							<div id="text_4f5e97b4">
 																								<div class="textstyle1">
-																									<span class="textstyle5"><br />Profile
-																										description<br />Lorem ipsum dolor sit amet,
-																										consectetuer adipiscing elit. Aenean commodo
-																										ligula eget dolor. Aenean massa<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />
-																									<br />.</span> <input name="Button1" type="submit"
+																									<div th:if="*{desc}">
+																										<span class="textstyle5" th:text="*{desc}"><br /></span>
+																									</div>																									 
+																									<input name="Button1" type="submit"
 																										value="           VIEW PROFILE" title=""
-																										id="button_6a43a786"> <img
-																										src="css/assets/picture17.png"
-																										id="img_a60b9fe" alt="" title="" />
+																										id="button_6a43a786"> 
+																									<img src="css/assets/picture17.png" id="img_a60b9fe" alt="" title="" />
 																								</div>
 																							</div>
 																						</div>
@@ -321,7 +242,7 @@
 												</div>
 											</div>
 											<span class="textstyle3"><br /></span>
-											<div id="container_23874065">
+											<div id="container_23874065" th:if="${result._class == 'com.cirp.app.model.Recruiter'}">
 												<div id="container_23874065_padding">
 													<div class="textstyle1">
 														<div id="container_3f9132f1">
@@ -379,9 +300,8 @@
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<span class="textstyle3"><br />
-											<br /></span>
-											<div id="container_e48d002">
+											<span class="textstyle3"><br /></span>
+											<div id="container_e48d002" th:if="${result._class == 'com.cirp.app.model.Job'}">
 												<div id="container_e48d002_padding">
 													<div class="textstyle1">
 														<div id="container_dd8bebd">
@@ -442,7 +362,7 @@
 										</div>
 										<div style="clear: both"></div>
 									</div>
-								</form>
+								</div>
 								<span class="textstyle3"><br />
 								<br />
 								<br />

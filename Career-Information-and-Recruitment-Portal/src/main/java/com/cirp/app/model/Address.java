@@ -2,27 +2,15 @@ package com.cirp.app.model;
 
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.data.mongodb.core.index.TextIndexed;
-
 public class Address {
 	
-	@NotBlank
-	private String address_line1;
+	@NotBlank private String address_line1;
 	private String address_line2;
-	@NotBlank
-	@TextIndexed
-	private String city_or_town;
-	@NotBlank
-	@TextIndexed
-	private String district;
-	@NotBlank
-	@TextIndexed
-	private String state;
-	@NotBlank
-	@TextIndexed
-	private String country;
-	@NotBlank
-	private Long pincode;
+	@NotBlank private String city_or_town;
+	@NotBlank private String district;
+	@NotBlank private String state;
+	@NotBlank private String country;
+	@NotBlank private Long pincode;
 	
 	public Address(String address_line1, String address_line2, String city_or_town, String district, String state,
 			String country, Long pincode) {

@@ -1,5 +1,7 @@
 package com.cirp.app.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +29,7 @@ public class RegisterControllers {
 
 	@PostMapping(value = "/register-college", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerCollege(College college, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerCollege(@Valid College college, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(college.getUsername());
 		User email_exists = repo.findByEmail(college.getEmail());
@@ -43,7 +45,7 @@ public class RegisterControllers {
 	
 	@PostMapping(value = "/register-recruiter", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerRecruiter(Recruiter recruiter, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerRecruiter(@Valid Recruiter recruiter, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(recruiter.getUsername());
 		User email_exists = repo.findByEmail(recruiter.getEmail());
@@ -60,7 +62,7 @@ public class RegisterControllers {
 	
 	@PostMapping(value = "/register-alumnus", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerAlumnus(Alumnus alumnus, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerAlumnus(@Valid Alumnus alumnus, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(alumnus.getUsername());
 		User email_exists = repo.findByEmail(alumnus.getEmail());
@@ -77,7 +79,7 @@ public class RegisterControllers {
 	
 	@PostMapping(value = "/register-student", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerStudent(Student student, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerStudent(@Valid Student student, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(student.getUsername());
 		User email_exists = repo.findByEmail(student.getEmail());

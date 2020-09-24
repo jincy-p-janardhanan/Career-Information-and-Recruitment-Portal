@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,10 +17,8 @@ public class Student extends NonAdmin {
 	@NotBlank
 	private String reg_no;
 	@NotBlank
-	@TextIndexed
 	private String course;
 	@NotBlank
-	@TextIndexed
 	private String branch;
 	@NotBlank
 	private int sem;

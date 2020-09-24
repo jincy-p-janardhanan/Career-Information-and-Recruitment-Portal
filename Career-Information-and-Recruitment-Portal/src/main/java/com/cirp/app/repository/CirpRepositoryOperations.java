@@ -1,6 +1,7 @@
 package com.cirp.app.repository;
 
 import java.util.List;
+
 import org.bson.types.ObjectId;
 
 import com.cirp.app.model.Alumnus;
@@ -42,7 +43,6 @@ public interface CirpRepositoryOperations {
 	void recommend(ObjectId reccomendation_id, String recc_msg);
 	void rejectRecommendationRequest(Recommendation reccomendation);
 	
-	List<Object> search(String search_text);
 	<T> List<T> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
 	
 	<T> T findById(String id); //Can return object from any collection (class)

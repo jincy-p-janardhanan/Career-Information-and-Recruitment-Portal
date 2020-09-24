@@ -57,7 +57,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void updatePassword(String username_or_email, String new_password, Class<?> user_class) {
-		Query query =  new Query();
+		Query query = new Query();
 		query.addCriteria(new Criteria().orOperator(Criteria.where("email").is(username_or_email),
 				Criteria.where("username").is(username_or_email)));
 		mongoTemplate.updateFirst(query, new Update().set("password", new_password), user_class);
@@ -151,20 +151,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	}
 
-	@Override
-	public List<Object> search(String search_text) {
-		Query query = TextQuery.queryText(new TextCriteria().matchingAny(search_text.split(" "))).sortByScore()
-				.includeScore("score");
-		List<Object> list = new ArrayList<Object>();
-		list.add(mongoTemplate.find(query, College.class));
-		list.add(mongoTemplate.find(query, Recruiter.class));
-		list.add(mongoTemplate.find(query, Student.class));
-		list.add(mongoTemplate.find(query, Alumnus.class));
-		list.add(mongoTemplate.find(query, Job.class));
-		// list.sort(new Comparator<? super Object>());
-		return list;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> search(String search_text, String filter) {
@@ -216,10 +202,10 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T findByEmail(String email) {
-		
+
 		Query query = new Query();
 		query.addCriteria(where("email").is(email));
-		
+
 		if (mongoTemplate.findOne(query, Admin.class) != null)
 			return (T) mongoTemplate.findOne(query, Admin.class);
 
@@ -309,11 +295,12 @@ public class CirpRepository implements CirpRepositoryOperations {
 		Query query = new Query();
 		query.addCriteria(where("username").is(admin_username));
 		mongoTemplate.updateFirst(query, new Update().pull(pending_list, username), admin_class);
-		
+
 	}
 
 	@Override
-	public void addUserToList(String username, String approve_reject_list, Class<?> admin_class, String admin_username) {
+	public void addUserToList(String username, String approve_reject_list, Class<?> admin_class,
+			String admin_username) {
 		Query query = new Query();
 		query.addCriteria(where("username").is(admin_username));
 		mongoTemplate.updateFirst(query, new Update().push(approve_reject_list, username), admin_class);
@@ -336,7 +323,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 	public <T> T findByToken(String token) {
 		Query query = new Query();
 		query.addCriteria(where("token").is(token));
-		
+
 		if (mongoTemplate.findOne(query, College.class) != null) {
 
 			return (T) mongoTemplate.findOne(query, College.class);
@@ -357,7 +344,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 			return (T) mongoTemplate.findOne(query, Admin.class);
 		}
-		
+
 		return null;
 	}
 
@@ -366,6 +353,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 		Query query = new Query();
 		query.addCriteria(where("username").is(username));
 		mongoTemplate.updateFirst(query, new Update().set("role", role), user_class);
-		
+
 	}
 }

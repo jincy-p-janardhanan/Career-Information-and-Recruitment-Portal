@@ -1,6 +1,7 @@
 package com.cirp.app.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -68,7 +69,7 @@ public class UserControllers {
 	@PostMapping(value = "/reset-password-request", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public String resetPassword(StringVal username_or_email, HttpServletRequest request,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, HttpSession session) {
 		if (reset.resetPasswordRequest(username_or_email.getValue(), request) == "Invalid username or email!") {
 			redirectAttributes.addFlashAttribute("message", "Invalid username or email!");
 		} else {

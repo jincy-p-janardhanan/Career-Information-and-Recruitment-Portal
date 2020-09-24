@@ -3,8 +3,8 @@ package com.cirp.app.model;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 public abstract class User {
@@ -14,19 +14,18 @@ public abstract class User {
 	@NotBlank
 	@Size(min = 6, max = 24)
 	private String password;
-	@TextIndexed
+	@NotBlank
 	private String name;
-	
+	@NotBlank
 	private Address address;
-	
 	@Pattern(regexp = "^\\+(?:[0-9] ?){6,14}[0-9]$")
 	private String mobile;
 	@NotBlank
 	@Indexed(unique = true)
-	@Pattern(regexp = "/^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$/")
+	@Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$.")
 	private String email;
 	private int status; //-1 for rejected, 0 for pending (default), 1 for accepted
-	
+	@NotBlank
 	private String role;
 	
 	private String token; //used for deactivation, reset password and any kind of confirmation

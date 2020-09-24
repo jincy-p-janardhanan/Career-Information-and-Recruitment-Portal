@@ -207,7 +207,7 @@ td {
 					Welcome <span sec:authentication="name"></span> <span></span> <img
 						class="img-circle"
 						style="display: table-cell; vertical-align: middle; text-align: center"
-						th:src="@{'/css/assets/profile-pictures/'+ ${profile_pic}}"
+						th:src="@{/css/assets/user.png}"
 						height="28" width="28" />
 				</button>
 				<div class="dropdown-content">
@@ -222,7 +222,7 @@ td {
 					sec:authentication="name"></span> <span></span> <img
 					class="img-circle"
 					style="display: table-cell; vertical-align: middle; text-align: center"
-					th:src="@{'/css/assets/profile-pictures/'+ ${profile_pic}}"
+					th:src="@{/css/assets/user.png}"
 					height="28" width="28" /></a> <a th:href="@{/admin/admin-panel}"><span>Admin
 						Panel</span></a> <a th:href="@{/logout}"><span>Logout</span></a> <a
 					th:href="@{/reset-password-request}"><span>Reset
@@ -230,13 +230,13 @@ td {
 			</div>
 			<button class="openbtn" onclick="openNav()">☰</button>
 		</div>
-		<form action="" enctype="application/x-www-form-urlencoded"
-			method="POST" id="form_11381a91">
+		<form th:action="@{/search}" enctype="application/x-www-form-urlencoded"
+			method="GET" id="form_11381a91">
 			<div class="textstyle1">
-				<input type="text" value="" title="" name="nav_search"
+				<input type="text" value="" title="" name="search_text"
 					placeholder="Search recruiters, jobs, students, alumni or colleges"
-					id="edit_9f39c86"> <input name="Search" type="submit"
-					value="" title="" id="button_56d7e83b">
+					id="edit_9f39c86"> <input type="submit"
+					value="" id="button_56d7e83b">
 			</div>
 		</form>
 	</div>

@@ -10,32 +10,32 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Document(collection="college")
+@Document(collection = "college")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class College extends NonAdmin {
-	
+
 	@NotBlank
 	private String affil_univ;
-	
+
 	@NotNull
 	private ContactInfo contact;
-	
-	private List<String> students; 
+
+	private List<String> students;
 	private List<String> alumni_pending;
 	private List<String> alumni_rejected;
 	private List<String> alumni;
-	private List<ObjectId> recc_req_recvd; //Recommendation requests received
-	private List<ObjectId> reccommeded; //Recommendations made by this user
-	private List<ObjectId> recc_rejected; //Recommendation requests rejected by this user
-	
-	public College(String username, String password, String name, String mobile, String email,
-			String affil_univ, ContactInfo contact) {
+	private List<ObjectId> recc_req_recvd; // Recommendation requests received
+	private List<ObjectId> reccommeded; // Recommendations made by this user
+	private List<ObjectId> recc_rejected; // Recommendation requests rejected by this user
+
+	public College(String username, String password, String name, String mobile, String email, String affil_univ,
+			ContactInfo contact) {
 		super(username, password, name, mobile, email);
 		this.affil_univ = affil_univ;
 		this.contact = contact;
 		this.setRole("ROLE_PENDING");
 	}
-	
+
 	public College() {
 		super();
 		this.setRole("ROLE_PENDING");

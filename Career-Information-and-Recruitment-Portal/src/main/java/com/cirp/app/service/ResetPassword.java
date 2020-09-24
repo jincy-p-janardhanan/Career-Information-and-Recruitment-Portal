@@ -36,7 +36,8 @@ public class ResetPassword {
 			return "Invalid username or email!";
 		}
 		
-		String token = token = UUID.randomUUID().toString();
+		String token = UUID.randomUUID().toString();
+		
 		Class<?> user_class = find.findClass(username_or_email);
 		repo.setToken(token, user.getUsername(), user_class);
 		

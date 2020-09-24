@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cirp.app.model;
 
 import java.util.Date;
@@ -8,18 +5,14 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.data.mongodb.core.index.TextIndexed;
-
 class WorkExperience {
 	@NotBlank
-	@TextIndexed
 	private String job;
 	@NotBlank
-	@TextIndexed
 	private String company;
-	@TextIndexed
 	private List<String> skills;
 	private String desc;
+	@NotBlank
 	private Date st_date;
 	private Date end_date;
 	private String status; //"current" or "former" employment
@@ -87,6 +80,14 @@ class WorkExperience {
 
 	protected void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List<String> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<String> skills) {
+		this.skills = skills;
 	}
 	
 	

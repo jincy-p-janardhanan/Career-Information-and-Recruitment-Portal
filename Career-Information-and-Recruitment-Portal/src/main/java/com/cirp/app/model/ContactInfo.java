@@ -3,6 +3,9 @@ package com.cirp.app.model;
 
 import javax.validation.constraints.Pattern;
 
+//import org.springframework.data.mongodb.core.mapping.Document;
+//
+//@Document
 public class ContactInfo extends Address{
 	
 	private String website;

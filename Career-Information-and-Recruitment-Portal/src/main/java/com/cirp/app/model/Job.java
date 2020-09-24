@@ -6,12 +6,11 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Document(collection="job")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Job {
@@ -22,21 +21,16 @@ public class Job {
 	private String recruiter_id;
 	private String job_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
 	@NotBlank
-	@TextIndexed
 	private String title;
 	@NotBlank
 	private String desc;
-	@TextIndexed
 	private String location;
 	private String duration;
 	private float stipend;
 	@NotBlank
-	@Indexed
 	private Date last_date;
 	private List<String> questions;
 	private List<Application> applicants;
-	
-	@TextIndexed
 	private List<String> skills; //job tags
 	
 	public Job(String recruiter_id, String recruiter_pic,  String title, String desc, String location, String duration, float stipend, Date last_date,

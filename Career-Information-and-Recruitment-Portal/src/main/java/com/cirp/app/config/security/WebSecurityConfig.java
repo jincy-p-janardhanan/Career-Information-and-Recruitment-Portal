@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import com.cirp.app.service.security.CustomUserDetailsService;
 
@@ -102,4 +103,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//Specifies spring security to ignore security anything in - src/main/resources/static/css
         web.ignoring().antMatchers("/css/**");
     }
+	
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher() {
+	    return new HttpSessionEventPublisher();
+	}
 }
