@@ -203,7 +203,7 @@ td {
 	width: 200px;
 	height: 200px;
 	background-color: #061332;
-	background-image: url([[@{'/view-profile-pic/' + ${profile_pic}}]]);
+	background-image: url("@{'/view-profile-pic/' + ${profile_pic}}");
 	background-position: center left;	
 	background-size:cover;	
 	border: 0px;
@@ -221,7 +221,7 @@ td {
 #backgroundimage {
 	display: block;
 	margin:0px;
-	background-image: url([[@{'/view-bg-img/' + ${bg_img}}]]);
+	background-image: url("@{'/view-bg-img/' + ${bg_img}}");
 	background-size:cover;
 }
 </style>

@@ -202,7 +202,7 @@ td {
 	width: 200px;
 	height: 200px;
 	background-color: #061332;
-	background-image: url([[@{'/view-profile-pic/' + ${profile_pic}}]]);
+	background-image: url("@{'/view-profile-pic/' + ${profile_pic}}");
 	background-position: center left;	
 	background-size:cover;	
 	border: 0px;
@@ -220,7 +220,7 @@ td {
 #backgroundimage {
 	display: block;
 	margin:0px;
-	background-image: url([[@{'/view-bg-img/' + ${bg_img}}]]);
+	background-image: "@{'/view-bg-img/' + ${bg_img}})";
 	background-size:cover;
 }
 </style>
@@ -285,8 +285,8 @@ td {
 					
 						<div id="form_a3b7a75_padding">
 							<div class="textstyle1">
-								<div id=container_4e574861">
-									<div id="container_4e574861_padding">
+								<div id="container_76514898">
+									<div id="container_76514898_padding">
 										<div class="textstyle4">
 										<form method="post" th:action="@{/update-profile-pic}"
 						enctype="multipart/form-data" id="form_8b61b39">
@@ -297,20 +297,20 @@ td {
 										</div>
 									</div>
 								</div>
-								<div id="container_222db1fd">
-									<div id="container_222db1fd_padding">
+								<div id="container_702f2efc">
+									<div id="container_702f2efc_padding">
 										<div class="textstyle1">
 											<span class="textstyle5"><br /> <br /> <br /></span>
-											<h1 id="heading_359a6a0b">
+											<h1 id="heading_35470963">
 												<span class="textstyle1"> <span class="textstyle6"
 													th:text="${name}"></span>
 												</span>
 											</h1>
 											<span class="textstyle5"><br /></span>
-											<div id="container_40cddcf3">
-												<div id="container_40cddcf3_padding">
+											<div id="container_5af21732">
+												<div id="container_5af21732_padding">
 													<div class="textstyle1">
-														<span class="textstyle7" th:text="${univ}"></span>
+														<span class="textstyle7" th:text="${//}"></span>
 													</div>
 												</div>
 											</div>
@@ -348,119 +348,8 @@ td {
 				<div style="clear: both"></div>
 			</div>
 		</div>
-					<div id="container_35262ef1">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_399dadb4">
-								<option value="Notifications" selected="selected">Notifications</option>
-							</select> <img src="css/assets/notification.png" id="img_3bc43ebc" alt=""
-								title="" />
-						</div>
-					</div>
-					<div id="container_4c3f1239">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_19b8a48b">
-								<option value="Welcome Username" selected="selected">Welcome
-									Username</option>
-								<option value="Logout">Logout</option>
-								<option value="Reset Password">Reset Password</option>
-							</select> <img src="css/assets/user.png" id="img_79a9aeec" alt="" title="" />
-						</div>
-					</div>
-					<div id="container_3171fa88">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_797e71d6">
-								<option value="Profile">Profile</option>
-								<option value="Admin Panel">Admin Panel</option>
-								<option value="Notifications">Notifications</option>
-								<option value="Welcome Username">Welcome Username</option>
-								<option value="Logout">Logout</option>
-								<option value="Reset Password">Reset Password</option>
-							</select> <img src="css/assets/menu.png" id="img_575952df" alt="" title="" />
-						</div>
-					</div>
-					<div id="text_62b21f44">
-						<div class="textstyle1">
-							<span class="textstyle2">Profile</span>
-						</div>
-					</div>
-					<div id="text_7cc9aeb7">
-						<div class="textstyle1">
-							<span class="textstyle2">Applications</span>
-						</div>
-					</div>
-					<div id="text_6faf2f52">
-						<div class="textstyle1">
-							<span class="textstyle2"> Jobs</span>
-						</div>
-					</div>
-				</div>
-				<div style="clear: both"></div>
-			</div>
-		</div>
-		<div id="container_4e574861">
-			<div id="container_4e574861_padding">
-				<div class="textstyle1">
-					<form action="" enctype="application/x-www-form-urlencoded"
-						method="POST" id="form_a3b7a75">
-						<div id="form_a3b7a75_padding">
-							<div class="textstyle1">
-								<div id="container_76514898">
-									<div id="container_76514898_padding">
-										<div class="textstyle1">
-											<input type="hidden" value="" name="Profile picture path"
-												id="field_5e8d2adc"> <span class="textstyle3"><br />
-											<br /></span>
-										</div>
-										<div class="textstyle4">
-											<input name="Update Profile Picture" type="submit" value=""
-												title="" id="button_59b31302">
-										</div>
-										<div class="textstyle1"></div>
-										<div style="clear: both"></div>
-									</div>
-								</div>
-								<div id="container_702f2efc">
-									<div id="container_702f2efc_padding">
-										<div class="textstyle1">
-											<span class="textstyle5"><br />
-											<br />
-											<br /></span>
-											<h1 id="heading_35470963">
-												<span class="textstyle1"> <span class="textstyle6">NAME
-														OF ALUMNUS</span>
-												</span>
-											</h1>
-											<span class="textstyle5"><br /></span>
-											<div id="container_5af21732">
-												<div id="container_5af21732_padding">
-													<div class="textstyle1">
-														<span class="textstyle7">PROFESSION</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div style="clear: both"></div>
-									</div>
-								</div>
-								<div id="container_4cb3b36b">
-									<div id="container_4cb3b36b_padding">
-										<div class="textstyle8">
-											<input type="hidden" value="" name="Background picture path"
-												id="field_45fb13c"> <span class="textstyle9">
-											</span> <span class="textstyle5"> </span> <span class="textstyle9">Change
-												background image </span> <input name="Button7" type="submit"
-												value="" title="" id="button_51062d7e">
-										</div>
-										<div style="clear: both"></div>
-									</div>
-								</div>
-							</div>
-							<div style="clear: both"></div>
-						</div>
-					</form>
-				</div>
-				<div style="clear: both"></div>
-			</div>
+					
+					
 		</div>
 		<div id="container_a58fdc6">
 			<div id="container_a58fdc6_padding">
