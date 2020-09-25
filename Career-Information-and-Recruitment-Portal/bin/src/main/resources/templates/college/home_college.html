@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home | College</title>
@@ -193,8 +193,34 @@ td {
 	box-shadow: 1px 1px 2px 2px #dddddd;
 }
 
-#button_45190b08:hover {
+#profile_button {
+	box-sizing: border-box;
+	vertical-align: bottom;
+	border-radius: 100px;
+	position: relative;
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	background-color: #061332;
+	background-image: url([[@{'/view-profile-pic/' + ${profile_pic}}]]);
+	background-position: center left;	
+	background-size:cover;	
+	border: 0px;
+}
+
+.img-circle {
+	box-sizing: border-box;
+	border-radius: 100px;
+}
+
+#profile_button:hover {
 	background: url([[@{/css/assets/camera-circle.png}]]);
+	background-size: cover;
+}
+#backgroundimage {
+	display: block;
+	margin:0px;
+	background-image: url([[@{'/view-bg-img/' + ${bg_img}}]]);
 	background-size:cover;
 }
 </style>
@@ -211,16 +237,16 @@ td {
 </head>
 <body>
 	<div class="textstyle1">
-		<div id="container_4659b2a4">
-			<div class="navbar">
+		<div id="backgroundimage">
+			<div class="navbar" th:fragment="navbar-college">
 				<div id="nav_options">
 					<div class="dropdown" sec:authorize="isAuthenticated()">
 						<button class="dropbtn">
 							Welcome <span sec:authentication="name"></span> <span></span> <img
 								class="img-circle"
 								style="display: table-cell; vertical-align: middle; text-align: center"
-								th:src="@{'/css/assets/profile-pictures/'+ ${profile_pic}}"
-								height="28" width="28" />
+								th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
+								width="28" />
 						</button>
 						<div class="dropdown-content">
 							<a th:href="@{/logout}">Logout</a> <a
@@ -228,15 +254,15 @@ td {
 						</div>
 					</div>
 					<a th:href="@{/college/admin-panel}">Admin Panel</a> <a
-						th:href="@{/college/profile}">Profile</a>
+						th:href="@{/college/home}">Profile</a>
 					<div id="mySidebar" class="sidebar">
 						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
 						<a th:href="@{/college/admin-panel}">Welcome <span
 							sec:authentication="name"></span> <span></span> <img
 							class="img-circle"
 							style="display: table-cell; vertical-align: middle; text-align: center"
-							th:src="@{'/css/assets/profile-pictures/'+ ${profile_pic}}"
-							height="28" width="28" /></a> <a th:href="@{/college/home}"><span>Profile</span></a>
+							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
+							width="28" /></a> <a th:href="@{/college/home}"><span>Profile</span></a>
 						<a th:href="@{/college/admin-panel}"><span>Admin Panel</span></a>
 						<a th:href="@{/logout}"><span>Logout</span></a> <a
 							th:href="@{/reset-password-request}"><span>Reset
@@ -244,29 +270,31 @@ td {
 					</div>
 					<button class="openbtn" onclick="openNav()">☰</button>
 				</div>
-				<form action="" enctype="application/x-www-form-urlencoded"
-					method="GET" id="form_29acdad9">
+				<form th:action="@{/search}" enctype="application/x-www-form-urlencoded"
+			method="GET" id="form_29acdad9">
 					<div class="textstyle1">
-						<input type="text" value="" title="" name="nav_search"
+						<input type="text" value="" title="" name="search_text"
 							placeholder="Search recruiters, jobs, students, alumni or colleges"
-							id="edit_6804da94"> <input name="Search" type="submit"
+							id="edit_6804da94"> <input type="submit"
 							value="" title="" id="button_240550dc">
 					</div>
 				</form>
 			</div>
-			<div id="container_4659b2a4_padding">
+			<div>
 				<div class="textstyle1">
-					<form method="post" th:action="@{/common/update-profile-pic}"
-						enctype="multipart/form-data" id="form_8b61b39">
+					
 						<div id="form_8b61b39_padding">
 							<div class="textstyle1">
 								<div id="container_df4bb99">
-									<div id="container_df4bb99_padding">										
-										<div class="textstyle4">											
+									<div id="container_df4bb99_padding">
+										<div class="textstyle4">
+										<form method="post" th:action="@{/update-profile-pic}"
+						enctype="multipart/form-data" id="form_8b61b39">
 											<input id="profilePicUpload" type="file" name="file"
-											onchange="form.submit()" style="visibility: hidden" />
-											<label for="profilePicUpload"  id="button_45190b08"></label>
-										</div>										
+												onchange="form.submit()" style="visibility: hidden" /> <label
+												for="profilePicUpload" id="profile_button"></label>
+												</form>
+										</div>
 									</div>
 								</div>
 								<div id="container_222db1fd">
@@ -293,20 +321,29 @@ td {
 								<div id="container_7c8aa649">
 									<div id="container_7c8aa649_padding">
 										<div class="textstyle8">
-											<input type="hidden" value="" name="Background picture path"
-												id="field_72d0ea62"> <span class="textstyle9">
-											</span> <input name="Button9" type="hidden"
+
+											<input name="Button9" type="hidden"
 												value="Request Recommendation" title="" id="button_1b652568">
-											<span class="textstyle5"> </span> <span class="textstyle9">Change
-												background image</span> <input name="Button7" type="submit"
-												value="" title="" id="button_475df8fc">
+											<span class="textstyle5"> </span>
+											<form method="POST" th:action="@{/update-bg-img}"
+												enctype="multipart/form-data">
+												<input id="backgroundImageUpload" type="file" name="file"
+													onchange="form.submit()" style="visibility: hidden" />
+												<span class="textstyle9" style="text-align:right;">Change background image
+												</span> 
+																								
+													<label
+													for="backgroundImageUpload" id="button_475df8fc"  style="float:right">
+													</label> 						
+												
+											</form>
 										</div>
 										<div style="clear: both"></div>
 									</div>
 								</div>
-							</div>				
+							</div>
 						</div>
-					</form>
+					
 				</div>
 				<div style="clear: both"></div>
 			</div>

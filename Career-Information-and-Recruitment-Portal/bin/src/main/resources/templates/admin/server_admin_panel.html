@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
@@ -187,6 +187,38 @@ td {
 .repeating:hover {
 	box-shadow: 1px 1px 1px 1px #dddddd;
 }
+
+#navsearchbar {
+	box-sizing: border-box;
+	position: absolute;
+	left: 2%;
+	top: 5%;
+	width: 100%;
+	height: 90%;
+	background: none;
+	border: 0px solid #A0A0A0;
+	font-size: 8pt;
+	font-family: 'open sans';
+	color: #C2C2C2;
+}
+
+#navsearchbutton {
+	box-sizing: border-box;
+	position: absolute;
+	left: 90%;
+	top: 15%;
+	width: 20px;
+	height: 20px;
+	background-color: #272727;
+	background-image: url([[@{/css/assets/search___small.png}]]);
+	background-position: center left;
+	background-size: cover;
+	border: 0px solid #404040;
+	font-size: 12pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+
 </style>
 <script>
 	function openNav() {
@@ -200,14 +232,14 @@ td {
 
 </head>
 <body>
-	<div class="navbar">
+	<div class="navbar" th:fragment="navbar-admin">
 		<div id="nav_options">
 			<div class="dropdown" sec:authorize="isAuthenticated()">
 				<button class="dropbtn">
 					Welcome <span sec:authentication="name"></span> <span></span> <img
 						class="img-circle"
 						style="display: table-cell; vertical-align: middle; text-align: center"
-						th:src="@{'/css/assets/profile-pictures/'+ ${profile_pic}}"
+						th:src="@{/css/assets/user.png}"
 						height="28" width="28" />
 				</button>
 				<div class="dropdown-content">
@@ -222,7 +254,7 @@ td {
 					sec:authentication="name"></span> <span></span> <img
 					class="img-circle"
 					style="display: table-cell; vertical-align: middle; text-align: center"
-					th:src="@{'/css/assets/profile-pictures/'+ ${profile_pic}}"
+					th:src="@{/css/assets/user.png}"
 					height="28" width="28" /></a> <a th:href="@{/admin/admin-panel}"><span>Admin
 						Panel</span></a> <a th:href="@{/logout}"><span>Logout</span></a> <a
 					th:href="@{/reset-password-request}"><span>Reset
@@ -230,13 +262,13 @@ td {
 			</div>
 			<button class="openbtn" onclick="openNav()">☰</button>
 		</div>
-		<form action="" enctype="application/x-www-form-urlencoded"
-			method="POST" id="form_11381a91">
+		<form th:action="@{/search}" enctype="application/x-www-form-urlencoded"
+			method="GET" id="form_11381a91">
 			<div class="textstyle1">
-				<input type="text" value="" title="" name="nav_search"
+				<input type="text" value="" title="" name="search_text"
 					placeholder="Search recruiters, jobs, students, alumni or colleges"
-					id="edit_9f39c86"> <input name="Search" type="submit"
-					value="" title="" id="button_56d7e83b">
+					id="navsearchbar"> <input type="submit"
+					value="" id="navsearchbutton">
 			</div>
 		</form>
 	</div>
