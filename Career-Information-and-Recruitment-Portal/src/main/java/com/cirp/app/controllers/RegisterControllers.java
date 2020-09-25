@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,7 +28,7 @@ public class RegisterControllers {
 
 	@PostMapping(value = "/register-college", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerCollege(@Valid College college, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerCollege(@Valid College college, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(college.getUsername());
 		User email_exists = repo.findByEmail(college.getEmail());
@@ -39,13 +38,13 @@ public class RegisterControllers {
 			college.setPassword(password);
 			repo.register(college);
 		}
-		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists);
+		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists, "");
 		return "redirect:/register-college";
 	}
 	
 	@PostMapping(value = "/register-recruiter", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerRecruiter(@Valid Recruiter recruiter, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerRecruiter(@Valid Recruiter recruiter, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(recruiter.getUsername());
 		User email_exists = repo.findByEmail(recruiter.getEmail());
@@ -56,13 +55,13 @@ public class RegisterControllers {
 			repo.register(recruiter);
 		}
 		
-		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists);
+		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists, "");
 		return "redirect:/register-recruiter";
 	}
 	
 	@PostMapping(value = "/register-alumnus", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerAlumnus(@Valid Alumnus alumnus, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerAlumnus(@Valid Alumnus alumnus, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(alumnus.getUsername());
 		User email_exists = repo.findByEmail(alumnus.getEmail());
@@ -73,13 +72,13 @@ public class RegisterControllers {
 			repo.register(alumnus);
 		}
 		
-		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists);
+		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists, "");
 		return "redirect:/register-alumnus";
 	}
 	
 	@PostMapping(value = "/register-student", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerStudent(@Valid Student student, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String registerStudent(@Valid Student student, RedirectAttributes redirectAttributes) {
 		
 		User user_exists = repo.findById(student.getUsername());
 		User email_exists = repo.findByEmail(student.getEmail());
@@ -90,7 +89,7 @@ public class RegisterControllers {
 			repo.register(student);
 		}
 		
-		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists);
-		return "redirect:/register-college";
+		RegisterMessage.registerMessage(redirectAttributes, user_exists, email_exists, "student");
+		return "redirect:/college/admin-panel";
 	}
 }

@@ -1,12 +1,13 @@
 package com.cirp.app.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,8 +23,13 @@ public class Student extends NonAdmin {
 	private String branch;
 	@NotBlank
 	private int sem;
-	private Date st_date;
-	private Date end_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate st_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate end_date;
+	@NotBlank
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dob;
 	private String mobile2;
 	private float sgpa;
 	private float cgpa;
@@ -38,7 +44,8 @@ public class Student extends NonAdmin {
 	private List<ObjectId> rejected_jobs;
 
 	public Student(String username, String password, String name, Address address, String mobile, String email,
-			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, String college_id) {
+			String reg_no, String course, String branch, int sem, LocalDate st_date, LocalDate end_date, LocalDate dob,
+			String college_id) {
 		super(username, password, name, address, mobile, email);
 		this.reg_no = reg_no;
 		this.course = course;
@@ -47,6 +54,7 @@ public class Student extends NonAdmin {
 		this.st_date = st_date;
 		this.end_date = end_date;
 		this.college_id = college_id;
+		this.dob = dob;
 		this.setStatus(1);
 		this.setRole("ROLE_STUDENT");
 		this.setProfile_pic("default_student.png");
@@ -97,20 +105,28 @@ public class Student extends NonAdmin {
 		this.sem = sem;
 	}
 
-	public Date getSt_date() {
+	public LocalDate getSt_date() {
 		return st_date;
 	}
 
-	public void setSt_date(Date st_date) {
+	public void setSt_date(LocalDate st_date) {
 		this.st_date = st_date;
 	}
 
-	public Date getEnd_date() {
+	public LocalDate getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(LocalDate end_date) {
 		this.end_date = end_date;
+	}
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
 	}
 
 	public String getMobile2() {

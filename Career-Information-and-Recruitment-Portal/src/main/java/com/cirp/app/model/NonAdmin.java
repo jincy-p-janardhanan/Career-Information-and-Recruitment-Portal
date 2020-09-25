@@ -18,7 +18,7 @@ public abstract class NonAdmin extends User {
 		this.setMobile(mobile);
 		this.setEmail(email);
 		this.approval_count = 0;
-		this.desc = "";
+		this.desc = "Add your profile description here... ";
 	}
 	
 	public NonAdmin(String username, String password, String name, String mobile, String email) {

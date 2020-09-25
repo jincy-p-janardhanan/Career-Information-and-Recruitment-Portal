@@ -51,6 +51,9 @@ public class Job {
 		
 	}
 
+	public Job() {
+	}
+
 	public ObjectId getId() {
 		return Id;
 	}

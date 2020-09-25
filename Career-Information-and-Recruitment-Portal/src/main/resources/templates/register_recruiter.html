@@ -10,8 +10,8 @@
 </head>
 <script type="text/javascript">
 	var validate_both_passwords = function() {
-	
-			if (document.getElementById('edit_22b54045').value != document
+
+		if (document.getElementById('edit_22b54045').value != document
 				.getElementById('edit_1cc351d8').value) {
 			document.getElementById('edit_1cc351d8').style.borderColor = 'red';
 		} else {
@@ -22,7 +22,7 @@
 </script>
 <body>
 	<div class="textstyle1">
-	<span class="textstyle4"></span>
+		<span class="textstyle4"></span>
 		<div id="container_6d6e5d70">
 			<div class="textstyle5">
 				<div id="container_6b605b84">
@@ -38,7 +38,8 @@
 					<div id="container_1bd488e7_padding">
 						<div class="textstyle1"></div>
 						<div class="textstyle5">
-							<span class="textstyle6"><a th:href="@{/index#OurSolutions}" class="wsp508c6e15">OUR
+							<span class="textstyle6"><a
+								th:href="@{/index#OurSolutions}" class="wsp508c6e15">OUR
 									SERVICES</a></span>
 						</div>
 					</div>
@@ -50,10 +51,11 @@
 			alt="" title="" />
 		<div id="container_dd9bc10">
 			<div class="textstyle1">
-				<form th:action="@{/register-recruiter}" th:Object="${recruiter}" enctype="application/x-www-form-urlencoded"
-					method="POST" id="form_5145a595">
+				<form th:action="@{/register-recruiter}" th:Object="${recruiter}"
+					enctype="application/x-www-form-urlencoded" method="POST"
+					id="form_5145a595">
 					<div class="textstyle1">
-					
+
 						<div id="container_2a3fae56">
 							<div class="textstyle1">
 								<h1 id="heading_127e45b7">
@@ -61,7 +63,7 @@
 											as Recruiter</span>
 									</span>
 								</h1>
-								
+
 							</div>
 						</div>
 						<div th:if="${message}" th:text="${message}" class="message"></div>
@@ -70,41 +72,39 @@
 								<span class="textstyle2">NAME OF COMPANY/ORGANIZATION</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="Name" id="edit_6e14722" th:field="*{name}" required>
+						<input type="text" value="" title="" name="Name" id="edit_6e14722"
+							th:field="*{name}" required>
 						<div id="text_18a7179b">
 							<div class="textstyle1">
 								<span class="textstyle2">ORGANISATION LICENSE NUMBER</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="TextEdit2"
-							th:field="*{license_no}" id="edit_45257f07" required>
+						<input type="text" th:field="*{license_no}" id="edit_45257f07" required>
 						<div id="text_c76e99a">
 							<div class="textstyle1">
 								<span class="textstyle2">ADDRESS LINE 1<br /></span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="address1"
-							th:field="*{contact.address_line1}" id="edit_62f9d0e5" required>
+						<input type="text" th:field="*{contact.address_line1}" id="edit_62f9d0e5" required>
 						<div id="text_57ffce5">
 							<div class="textstyle1">
 								<span class="textstyle2">ADDRESS LINE 2</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="address2"
-							th:field="*{contact.address_line2}" id="edit_38e2e8f9">
+						<input type="text" th:field="*{contact.address_line2}" id="edit_38e2e8f9">
 						<div id="text_445470d8">
 							<div class="textstyle1">
 								<span class="textstyle2">CITY/TOWN</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="city"
-							th:field="*{contact.city_or_town}" id="edit_73f33e94" required>
+						<input type="text" th:field="*{contact.city_or_town}"
+							id="edit_73f33e94" required>
 						<div id="text_25030a25">
 							<div class="textstyle1">
 								<span class="textstyle2">COUNTRY</span>
 							</div>
 						</div>
-						<select th:field="*{contact.country}" name="country" title="" id="combo_5594cca3" required>
+						<select th:field="*{contact.country}" id="combo_5594cca3" required>
 							<option value="India" selected="selected">India</option>
 						</select>
 						<div id="text_1471b5a0">
@@ -112,7 +112,8 @@
 								<span class="textstyle2">STATE</span>
 							</div>
 						</div>
-						<select name="state" th:field="*{contact.state}" title="" id="combo_68870372" required>
+						<select th:field="*{contact.state}" title="" id="combo_68870372"
+							required>
 							<option value="Kerala" selected="selected">Kerala</option>
 						</select>
 						<div id="text_765db6a">
@@ -120,7 +121,8 @@
 								<span class="textstyle2">DISTRICT</span>
 							</div>
 						</div>
-						<select name="district" title="" id="combo_7308bc43" th:field="*{contact.state}" required>
+						<select id="combo_7308bc43" th:field="*{contact.district}"
+							required>
 							<option value="Alappuzha">Alappuzha</option>
 							<option value="Kollam">Kollam</option>
 							<option value="Thiruvananthapuram">Thiruvananthapuram</option>
@@ -141,22 +143,19 @@
 								<span class="textstyle2">ZIP/PIN CODE</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="pincode"
-							th:field="*{contact.pincode}" id="edit_dccad16" required>
+						<input type="text" th:field="*{contact.pincode}" id="edit_dccad16" required>
 						<div id="text_79f9370a">
 							<div class="textstyle1">
 								<span class="textstyle2">USERNAME</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="username"
-							th:field="*{username}" id="edit_c7916db" required>
+						<input type="text" th:field="*{username}" id="edit_c7916db" required>
 						<div id="text_1f940351">
 							<div class="textstyle1">
 								<span class="textstyle2">PASSWORD</span>
 							</div>
 						</div>
-						<input type="password" value="" title="" name="password"
-							th:field="*{password}" id="edit_22b54045" required 
+						<input type="password" th:field="*{password}" id="edit_22b54045" required
 							onkeyup='validate_both_passwords();'>
 						<div id="text_7295c315">
 							<div class="textstyle1">
@@ -170,38 +169,33 @@
 								<span class="textstyle2">LOGIN E-MAIL ADDRESS </span>
 							</div>
 						</div>
-						<input type="email" value="" title="" name="login-email"
-							th:field="*{email}" id="edit_26cf35f6" required>
+						<input type="email" th:field="*{email}" id="edit_26cf35f6" required>
 						<div id="text_60fc2221">
 							<div class="textstyle1">
 								<span class="textstyle2">PUBLIC E-MAIL ADDRESS</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="public-email"
-							th:field="*{contact.public_email}" id="edit_4a7c550e" required>
+						<input type="text" th:field="*{contact.public_email}" id="edit_4a7c550e" required>
 						<div id="text_5b2bee83">
 							<div class="textstyle1">
 								<span class="textstyle2">WEBSITE<br /></span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="website"
-							th:field="*{contact.website}" id="edit_448ebc93" >
+						<input type="text" th:field="*{contact.website}" id="edit_448ebc93">
 						<div id="text_70c1442e">
 							<div class="textstyle1">
 								<span class="textstyle2">OFFICE PHONE</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="office-phone"
-							th:field="*{contact.landph}" id="edit_1f5bed12" required>
+						<input type="text" th:field="*{contact.landph}" id="edit_1f5bed12" required>
 						<div id="text_2014f191">
 							<div class="textstyle1">
 								<span class="textstyle2">MOBILE NUMBER</span>
 							</div>
 						</div>
-						<input type="text" value="" title="" name="mobile-number"
-							th:field="*{mobile}" id="edit_ac32da3" required>
+						<input type="text" th:field="*{mobile}" id="edit_ac32da3" required>
 						<div id="text_383f18d1"></div>
-						<input name="Button1" type="submit" value="REGISTER" title=""
+						<input type="submit" value="REGISTER" title=""
 							id="button_db89545">
 						<div id="container_1f6e7e">
 							<div class="textstyle1">
@@ -216,7 +210,7 @@
 								</div>
 							</div>
 						</div>
-							
+
 					</div>
 				</form>
 			</div>

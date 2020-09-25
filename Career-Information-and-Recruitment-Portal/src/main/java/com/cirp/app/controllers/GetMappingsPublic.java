@@ -21,7 +21,7 @@ import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.StringVal;
 
 @Controller
-public class GetMappings {
+public class GetMappingsPublic {
 	
 	@Autowired
 	private CirpRepository repo;

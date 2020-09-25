@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
 <title>MANAGE JOB | RECRUITER</title>
-<link rel="stylesheet" type="text/css" 
-		th:href="css/manage_job_html.css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/manage_job_html.css}">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -14,7 +14,7 @@
 	background-color: #0f0f0f;
 	min-height: 51px;
 	min-width: 579px;
-	}
+}
 
 .navbar a {
 	float: right;
@@ -33,6 +33,7 @@
 	float: right;
 	overflow: hidden;
 }
+
 .dropdown .dropbtn {
 	font-size: 11pt;
 	color: #B2B2B2;
@@ -69,6 +70,7 @@
 .dropdown-content a:hover {
 	background-color: #ddd;
 }
+
 .sidebar a:hover {
 	color: #f1f1f1;
 }
@@ -93,6 +95,7 @@
 .openbtn:hover {
 	background-color: #444;
 }
+
 @media screen and (max-height: 450px) {
 	.sidebar {
 		padding-top: 15px;
@@ -161,12 +164,37 @@ td {
 	width: 200px;
 	height: 200px;
 	background-color: #061332;
-	background-image: url([[@{'/view-profile-pic/' + ${profile_pic}}]]);
-	background-position: center left;	
-	background-size:cover;	
-	border: 0px;
+	background-image: url([[@{ '/view-profile-pic/' + ${ profile_pic
 }
 
+}
+]]
+)
+;
+
+	
+background-position
+:
+ 
+center
+ 
+left
+;
+	
+	
+background-size
+:cover
+;
+	
+	
+border
+:
+ 
+0px
+;
+
+
+}
 .img-circle {
 	box-sizing: border-box;
 	border-radius: 100px;
@@ -181,11 +209,23 @@ td {
 	background: url([[@{/css/assets/camera-circle.png}]]);
 	background-size: cover;
 }
+
 #backgroundimage {
 	display: block;
-	margin:0px;
-	background-image: url([[@{'/view-bg-img/' + ${bg_img}}]]);
-	background-size:cover;
+	margin: 0px;
+	background-image: url([[@{ '/view-bg-img/' + ${ bg_img
+}
+}
+]]
+)
+;
+
+	
+background-size
+:cover
+;
+
+
 }
 </style>
 <script>
@@ -201,38 +241,7 @@ td {
 </head>
 
 <body>
-<div class="textstyle1">
-	<div id="backgroundimage">
-			<div class="navbar">
-				<div id="nav_options">
-					<div class="dropdown" sec:authorize="isAuthenticated()">
-						<button class="dropbtn">
-							Welcome <span sec:authentication="name"></span> <span></span> <img
-								class="img-circle"
-								style="display: table-cell; vertical-align: middle; text-align: center"
-								th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
-								width="28" />
-						</button>
-						<div class="dropdown-content">
-							<a th:href="@{/logout}">Logout</a> <a
-								th:href="@{/reset-password-request}">Reset Password</a>
-						</div>
-					</div>
-					<a th:href="@{/recruiter/home}">Profile</a>	
-					<div id="mySidebar" class="sidebar">
-						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-						<a th:href="@{/recruiter/}">Welcome <span
-							sec:authentication="name"></span> <span></span> <img
-							class="img-circle"
-							style="display: table-cell; vertical-align: middle; text-align: center"
-							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
-							width="28" /></a> <a th:href="@{/college/home}"><span>Profile</span></a>
-							<a th:href="@{/logout}"><span>Logout</span></a> <a
-							th:href="@{/reset-password-request}"><span>Reset
-								Password</span></a>
-					</div>
-					<button class="openbtn" onclick="openNav()">☰</button>
-				</div>
+	
 	<div class="textstyle1">
 		<div id="container_152d49c3">
 			<div id="container_152d49c3_padding">
@@ -324,11 +333,10 @@ td {
 											<div id="container_23b2962e">
 												<div id="container_23b2962e_padding">
 													<div class="textstyle5">
-														<span class="textstyle6"><br />
-														<br /></span> <img src="css/assets/applicant.png"
-															id="img_203e602b" alt="" title="" /> <span
-															class="textstyle3"> </span> <span class="textstyle6">View
-															Applications</span>
+														<span class="textstyle6"><br /> <br /></span> <img
+															src="css/assets/applicant.png" id="img_203e602b" alt=""
+															title="" /> <span class="textstyle3"> </span> <span
+															class="textstyle6">View Applications</span>
 													</div>
 													<div class="textstyle1"></div>
 													<div style="clear: both"></div>
@@ -412,8 +420,7 @@ td {
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<span class="textstyle3"><br />
-											<br /></span>
+											<span class="textstyle3"><br /> <br /></span>
 										</div>
 										<div style="clear: both"></div>
 									</div>
@@ -432,28 +439,17 @@ td {
 					<div id="container_54b5db54">
 						<div id="container_54b5db54_padding">
 							<div class="textstyle1">
-								<span class="textstyle3"><br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br /></span>
+								<span class="textstyle3"><br /> <br /> <br /> <br />
+									<br /> <br /> <br /> <br /> <br /> <br /> <br /></span>
 								<div id="container_1c318ba7">
 									<div id="container_1c318ba7_padding">
 										<div class="textstyle8">
 											<span class="textstyle9">Create New Job</span><span
-												class="textstyle10"><br />
-											<br />Create a new job listing describing the job roles and
-												responsibilities, duration of work, skills required and
-												other relevant info.<br />
-											<br />Feel free to create custom application forms for the
-												job.<br />
-											<br /></span>
+												class="textstyle10"><br /> <br />Create a new job
+												listing describing the job roles and responsibilities,
+												duration of work, skills required and other relevant info.<br />
+												<br />Feel free to create custom application forms for the
+												job.<br /> <br /></span>
 											<div id="button_1e74c3d8">
 												<div class="vcenterstyle1">
 													<div class="vcenterstyle2">

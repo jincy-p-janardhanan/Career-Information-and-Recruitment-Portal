@@ -111,7 +111,7 @@ body {
 	width: 20px;
 	height: 20px;
 	background-color: #272727;
-	background-image: url(assets/search___small.png);
+	background-image: url(images/search___small.png);
 	background-position: center left;
 	background-size: cover;
 	border: 0px solid #404040;
@@ -393,16 +393,6 @@ body {
 #container_5881401d_padding {
 	margin: 10px 0px 0px 0px;
 	display: block;
-}
-
-#button_4b3c2b67 {
-	border-radius: 5px;
-	position: absolute;
-	left: 0px;
-	top: 20%;
-	width: 100%;
-	height: 40px;
-	background-color: #2279BE;
 }
 
 .vcenterstyle1 {

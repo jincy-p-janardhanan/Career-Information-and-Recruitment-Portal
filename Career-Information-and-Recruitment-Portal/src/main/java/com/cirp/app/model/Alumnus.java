@@ -1,6 +1,6 @@
 package com.cirp.app.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -15,16 +15,16 @@ public class Alumnus extends Student{
 	private List<ObjectId> recc_req_recvd; //Recommendation requests received
 	private List<ObjectId> reccommeded; //Recommendations made by this user
 	private List<ObjectId> recc_rejected; //Recommendation requests rejected by this user
-	
+
 	public Alumnus(String username, String password, String name, Address address, String mobile, String email,
-			String reg_no, String course, String branch, int sem, Date st_date, Date end_date, String college_id) {
-		super(username, password, name, address, mobile, email, reg_no, course, branch, sem, st_date, end_date,
+			String reg_no, String course, String branch, int sem, LocalDate st_date, LocalDate end_date, LocalDate dob,
+			String college_id) {
+		super(username, password, name, address, mobile, email, reg_no, course, branch, sem, st_date, end_date, dob,
 				college_id);
 		this.setRole("ROLE_PENDING");
 	}
 
 	public Alumnus() {
-		super();
 		this.setRole("ROLE_PENDING");
 	}
 

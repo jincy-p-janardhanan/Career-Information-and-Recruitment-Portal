@@ -187,6 +187,38 @@ td {
 .repeating:hover {
 	box-shadow: 1px 1px 1px 1px #dddddd;
 }
+
+#navsearchbar {
+	box-sizing: border-box;
+	position: absolute;
+	left: 2%;
+	top: 5%;
+	width: 100%;
+	height: 90%;
+	background: none;
+	border: 0px solid #A0A0A0;
+	font-size: 8pt;
+	font-family: 'open sans';
+	color: #C2C2C2;
+}
+
+#navsearchbutton {
+	box-sizing: border-box;
+	position: absolute;
+	left: 90%;
+	top: 15%;
+	width: 20px;
+	height: 20px;
+	background-color: #272727;
+	background-image: url([[@{/css/assets/search___small.png}]]);
+	background-position: center left;
+	background-size: cover;
+	border: 0px solid #404040;
+	font-size: 12pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+
 </style>
 <script>
 	function openNav() {
@@ -235,8 +267,8 @@ td {
 			<div class="textstyle1">
 				<input type="text" value="" title="" name="search_text"
 					placeholder="Search recruiters, jobs, students, alumni or colleges"
-					id="edit_9f39c86"> <input type="submit"
-					value="" id="button_56d7e83b">
+					id="navsearchbar"> <input type="submit"
+					value="" id="navsearchbutton">
 			</div>
 		</form>
 	</div>

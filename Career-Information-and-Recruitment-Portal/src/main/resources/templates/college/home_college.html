@@ -270,12 +270,12 @@ td {
 					</div>
 					<button class="openbtn" onclick="openNav()">☰</button>
 				</div>
-				<form action="" enctype="application/x-www-form-urlencoded"
-					method="GET" id="form_29acdad9">
+				<form th:action="@{/search}" enctype="application/x-www-form-urlencoded"
+			method="GET" id="form_29acdad9">
 					<div class="textstyle1">
-						<input type="text" value="" title="" name="nav_search"
+						<input type="text" value="" title="" name="search_text"
 							placeholder="Search recruiters, jobs, students, alumni or colleges"
-							id="edit_6804da94"> <input name="Search" type="submit"
+							id="edit_6804da94"> <input type="submit"
 							value="" title="" id="button_240550dc">
 					</div>
 				</form>

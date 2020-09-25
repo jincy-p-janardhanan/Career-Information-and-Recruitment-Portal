@@ -3,6 +3,9 @@ package com.cirp.app.repository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -90,8 +93,11 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void deleteJob(Job job) {
+	public void deleteJob(Job job, String recruiter_id) {
 		mongoTemplate.remove(job);
+		Query query = new Query();
+		query.addCriteria(where("username").is(recruiter_id));
+		mongoTemplate.updateFirst(query, new Update().pull("jobs", job.getId()), Recruiter.class);
 	}
 
 	@Override
@@ -354,5 +360,15 @@ public class CirpRepository implements CirpRepositoryOperations {
 		query.addCriteria(where("username").is(username));
 		mongoTemplate.updateFirst(query, new Update().set("role", role), user_class);
 
+	}
+	
+	@Override
+	public void editJob(Job job) {
+		mongoTemplate.findAndReplace(new Query().addCriteria(where("_id").is(job.getId())), job);		
+	}
+	
+	@Override
+	public void updateStudent(Student student) {
+		mongoTemplate.save(student);		
 	}
 }
