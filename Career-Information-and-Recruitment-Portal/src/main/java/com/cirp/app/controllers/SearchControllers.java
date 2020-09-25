@@ -27,7 +27,7 @@ public class SearchControllers {
 	public String Search(@RequestParam String search_text, Model model) {
 		List<Document> results = searchall.search(search_text);
 		model.addAttribute("results", results);
-		return "common/search";
+		return "common/search_results";
 	}
 
 	@PostMapping("/filtered-search")

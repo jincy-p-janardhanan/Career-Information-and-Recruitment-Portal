@@ -1,9 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="RocketCake">
 <title></title>
 <link rel="stylesheet" type="text/css" href="css/search_html.css">
 <link rel="stylesheet"
@@ -55,7 +54,8 @@
 	position: relative;
 	text-align: center;
 	min-width: 200px;
-	min-height: 50px; margin : 0px;
+	min-height: 50px;
+	margin: 0px;
 	padding: 20px;
 	margin: 0px;
 }
@@ -70,7 +70,7 @@ table {
 }
 </style>
 </head>
-<body>
+<body>	
 	<div class="textstyle1" th:fragment="nav-search-results">
 		<div id="container_27317a9a">
 			<div id="container_27317a9a_padding">
@@ -87,7 +87,7 @@ table {
 														<img src="css/assets/search___large.png" id="img_424e875"
 															alt="" title="" /> <span class="textstyle3"> <br />
 														</span> <span class="textstyle4">Search Results<br /></span>
-													</div>													
+													</div>
 												</div>
 											</div>
 										</div>
@@ -95,14 +95,15 @@ table {
 								</div>
 								<div id="form_441edaf_padding">
 									<div class="textstyle1">
-										<form th:action="@{/filtered-search}" enctype="application/x-www-form-urlencoded"
-											method="GET" id="form_17498188">
+										<form th:action="@{/filtered-search}"
+											enctype="application/x-www-form-urlencoded" method="GET"
+											id="form_17498188">
 											<div id="form_17498188_padding">
 												<div class="textstyle1">
 													<div id="container_101d8633">
 														<div id="container_101d8633_padding">
 															<div class="textstyle1">
-																<input type="text" value="" title="" name="TextEdit1"
+																<input type="text"
 																	placeholder="Search for job listing to view applications"
 																	id="edit_150ad987"> <input name="Search"
 																	type="submit" value="" title="" id="button_40b210c5">
@@ -141,9 +142,8 @@ table {
 													<td style="padding: 20px;"><img
 														th:src="@{'/view-profile-pic/' + ${result.profile_pic}}"
 														id="profile_image" /></td>
-													<td>
-													<span th:text="${result.desc}" class="textstyle5" style="padding: 25px;"></span>
-													</td>
+													<td><span th:text="${result.desc}" class="textstyle5"
+														style="padding: 25px;"></span></td>
 													<td></td>
 												</tr>
 												<tr>
