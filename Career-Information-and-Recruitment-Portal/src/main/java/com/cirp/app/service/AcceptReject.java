@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cirp.app.model.Admin;
-import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.College;
 import com.cirp.app.model.NonAdmin;
 import com.cirp.app.model.Recruiter;
