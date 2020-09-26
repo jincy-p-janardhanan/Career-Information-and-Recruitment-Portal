@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cirp.app.model.Application;
+import com.cirp.app.model.College;
 import com.cirp.app.model.Student;
 import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.StringVal;
@@ -26,6 +27,7 @@ public class StudentController {
 	@GetMapping("/home")
 	public String profile(Model model, Authentication authentication) {
 		Student student = repo.findById(authentication.getName());
+		College college = repo.findById(student.getCollege_id());
 		StringVal desc = new StringVal();
 		desc.setValue(student.getDesc());
 		String bg_img = student.getBg_img();
@@ -37,7 +39,7 @@ public class StudentController {
 		model.addAttribute("desc", desc);
 		model.addAttribute("name", student.getName().toUpperCase());
 		model.addAttribute("course_and_branch",
-				student.getCourse().toUpperCase() + ". " + student.getBranch().toUpperCase());
+				student.getCourse() + ". " + student.getBranch()+"\n"+ college.getName());
 		model.addAttribute("personalisation", student.getPersonalisation());
 		return "student/home_student";
 

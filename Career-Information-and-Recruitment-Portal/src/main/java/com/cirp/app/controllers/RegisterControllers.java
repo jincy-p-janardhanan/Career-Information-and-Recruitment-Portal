@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,7 +79,7 @@ public class RegisterControllers {
 	
 	@PostMapping(value = "/register-student", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String registerStudent(@Valid Student student, RedirectAttributes redirectAttributes) {
+	public String registerStudent(@Valid Student student, RedirectAttributes redirectAttributes, Authentication authentication) {
 		
 		User user_exists = repo.findById(student.getUsername());
 		User email_exists = repo.findByEmail(student.getEmail());
@@ -86,6 +87,7 @@ public class RegisterControllers {
 		if (user_exists == null && email_exists == null) {
 			String password = passwordEncoder.encode(student.getPassword());
 			student.setPassword(password);
+			student.setCollege_id(authentication.getName());
 			repo.register(student);
 		}
 		

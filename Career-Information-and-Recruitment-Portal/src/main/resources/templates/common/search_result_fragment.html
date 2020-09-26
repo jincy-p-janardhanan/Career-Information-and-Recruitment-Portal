@@ -25,12 +25,11 @@
 
 #profile_image {
 	margin: auto;
-	min-width: 150px;
-	min-height: 150px;
-	max-height: 200px;
-	max-width: 200px;
+	height: 200px;
+	width: 200px;
 	box-sizing: border-box;
 	border-radius: 100px;
+	background-size: cover;
 }
 
 #title {
@@ -68,9 +67,12 @@ table {
 	margin: 10px 10px 20px 10px;
 	display: block;
 }
+a {
+	color: #B2B2B2;
+}
 </style>
 </head>
-<body>	
+<body>
 	<div class="textstyle1" th:fragment="nav-search-results">
 		<div id="container_27317a9a">
 			<div id="container_27317a9a_padding">
@@ -139,9 +141,8 @@ table {
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 20px;"><img
-														th:src="@{'/view-profile-pic/' + ${result.profile_pic}}"
-														id="profile_image" /></td>
+													<td style="padding: 20px;"><div id="profile_image"
+															th:style="'background-image: url('+ @{'/view-profile-pic/' + ${result.profile_pic}} +');'"></div></td>
 													<td><span th:text="${result.desc}" class="textstyle5"
 														style="padding: 25px;"></span></td>
 													<td></td>

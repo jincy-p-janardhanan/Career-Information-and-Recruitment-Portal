@@ -21,7 +21,7 @@ public class Student extends NonAdmin {
 	private String course;
 	@NotBlank
 	private String branch;
-	@NotBlank
+
 	private int sem;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate st_date;

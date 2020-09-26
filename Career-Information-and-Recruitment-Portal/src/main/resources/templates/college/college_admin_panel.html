@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
@@ -149,12 +149,15 @@
 table {
 	border-collapse: collapse;
 	width: 100%;
+	font-size: 10pt;
+	font-family: 'open sans';
+	color: #0f0f0f;
 }
 
 td {
 	border: none;
 	text-align: left;
-	padding: 10px;
+	padding: 5px;
 }
 
 .col1 {
@@ -227,9 +230,6 @@ td {
 	background-position: center left;
 	background-size: cover;
 	border: 0px solid #404040;
-	font-size: 12pt;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #000000;
 }
 
 .img-circle {
@@ -259,7 +259,8 @@ td {
 }
 
 .modal {
-	display: none; position : fixed; /* Stay in place */
+	display: none;
+	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
 	margin: auto;
 	width: 100%;
@@ -270,6 +271,34 @@ td {
 	background-color: rgb(0, 0, 0); /* Fallback color */
 	background-color: rgba(0, 0, 0, 0.4);
 	position: fixed; /* Black w/ opacity */
+}
+#button_70f0277e {
+	box-sizing: border-box;
+	vertical-align: bottom;
+	border-radius: 5px;
+	position: relative;
+	display: inline-block;
+	width: 25%;
+	height: 40px;
+	background-color: #42740C;
+	border: 0px solid #404040;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+}
+#button_6fd57d28 {
+	box-sizing: border-box;
+	vertical-align: bottom;
+	border-radius: 5px;
+	position: relative;
+	display: inline-block;
+	width: 25%;
+	height: 40px;
+	background-color: #ED3D32;
+	border: 0px solid #404040;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
 }
 </style>
 <script>
@@ -293,6 +322,18 @@ td {
 			document.getElementById("addStudentsPopup").style.display = "none";
 		}
 	}
+	
+	var validate_both_passwords = function() {
+
+		if (document.getElementById('edit_3830d4d5').value != document
+				.getElementById('edit_4b58d6fd').value) {
+			document.getElementById('edit_4b58d6fd').style.borderColor = 'red';
+		} else {
+			document.getElementById('edit_3830d4d5').style.borderColor = 'green';
+			document.getElementById('edit_4b58d6fd').style.borderColor = 'green';
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -466,11 +507,10 @@ td {
 												</div>
 											</div>
 										</div>
-									</div>
-									<div style="clear: both"></div>
+									</div>									
 								</div>
 							</div>
-							<div id="container_538cdea6">
+							<div id="container_538cdea6" th:each="alumnus: ${alumni_pending}">
 								<div id="container_538cdea6_padding">
 									<div class="textstyle1">
 										<div id="container_38aef332">
@@ -481,7 +521,7 @@ td {
 												<div id="container_d41a4bd">
 													<div id="container_d41a4bd_padding">
 														<div class="textstyle7">
-															<span class="textstyle10">Name of Alumnus</span>
+															<span class="textstyle10" th:text="${alumnus.name}"></span>
 														</div>
 													</div>
 												</div>
@@ -491,39 +531,109 @@ td {
 												<div id="container_5c3ad905">
 													<div id="container_5c3ad905_padding">
 														<div class="textstyle1">
-															<div id="container_6081153a">
-																<div id="container_6081153a_padding">
-																	<div class="textstyle1">
-																		<span class="textstyle11">Registration fields</span>
-																	</div>
-																</div>
-															</div>
-															<div id="container_79322e0f">
-																<div id="container_79322e0f_padding">
-																	<div class="textstyle1">
-																		<span class="textstyle11">Field values<br /> <br />
-																			<br /> <br /></span>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="textstyle9">
-															<form action=""
-																enctype="application/x-www-form-urlencoded"
-																method="POST" id="form_13c5438b">
-																<div id="form_13c5438b_padding">
-																	<div class="textstyle9">
-																		<input name="Button8" type="submit" value="APPROVE"
-																			title="" id="button_17cc0ba1"> <span
-																			class="textstyle6"> </span><input name="Button8"
-																			type="submit" value="REJECT" title=""
-																			id="button_14b3a90c">
-																	</div>
-																	<div style="clear: both"></div>
-																</div>
+															<table>													
+													<tr>
+														<td class="col1">Register Number</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.reg_no}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Course</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.course}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Branch</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.branch}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Start Date</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.st_date}"></td>
+													</tr>
+													<tr>
+														<td class="col1">End Date</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.end_date}"></td>
+													</tr>
+													<tr>
+														<td class="col1">SGPA</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.sgpa}"></td>
+													</tr>
+													<tr>
+														<td class="col1">CGPA</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.cgpa}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Date of Birth</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.dob}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Address</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.address.address_line1}"></td>
+													</tr>
+													<tr th:if="${alumnus.address.address_line2}">
+														<td class="col1"></td>
+														<td class="col2"></td>
+														<td th:text="${alumnus.address.address_line2}"></td>
+													</tr>
+													<tr>
+														<td class="col1">City/Town</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.address.city_or_town}"></td>
+													</tr>
+													<tr>
+														<td class="col1">District</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.address.district}"></td>
+													</tr>
+													<tr>
+														<td class="col1">State</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.address.state}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Country</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.address.country}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Zip/Pincode</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.address.pincode}"></td>
+													</tr>
+													<tr>
+														<td class="col1">Email</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.email}"></td>
+													</tr>													
+													<tr>
+														<td class="col1">Mobile</td>
+														<td class="col2">:</td>
+														<td th:text="${alumnus.mobile}"></td>
+													</tr>
+													<tr>
+														<td class="col1" style="width: 50%;">
+															<form id="form_2523b6a4_padding"
+																th:action="@{'/accept-user?username='+${alumnus.username}}"
+																method="POST">
+																<button type=submit id="button_70f0277e">APPROVE</button>
 															</form>
-														</div>
-														<div style="clear: both"></div>
+														</td>
+														<td class="col2"></td>
+														<td class="col3" style="width: 50%;">
+															<form id="form_2523b6a4_padding"
+																th:action="@{'/reject-user?username='+${alumnus.username}}" method="POST">
+																<button type="submit" id="button_6fd57d28">REJECT</button>
+															</form>
+														</td>
+													</tr>
+												</table>
 													</div>
 												</div>
 											</div>
@@ -563,50 +673,51 @@ td {
 						<div class="textstyle1"></div>
 					</div>
 					<form th:action="@{/register-student}"
-						enctype="application/x-www-form-urlencoded" method="POST" th:object="${student}"
-						id="form_4b4e21bc">
+						enctype="application/x-www-form-urlencoded" method="POST"
+						th:object="${student}" id="form_4b4e21bc">
 						<div id="form_4b4e21bc_padding">
 							<div class="textstyle1">
-								<div id="text_7b547ce0">
-									<div class="textstyle1">
-										<span class="textstyle4">Full Name</span>
+								<div th:fragment="student-up2-branch">
+									<div id="text_7b547ce0">
+										<div class="textstyle1">
+											<span class="textstyle4">Full Name</span>
+										</div>
 									</div>
-								</div>
-								<input type="text" value="" th:field="*{name}"
-									id="edit_4a065c39">
-								<div id="text_594abb12">
-									<div class="textstyle1">
-										<span class="textstyle4">Register Number</span>
+									<input type="text" value="" th:field="*{name}"
+										id="edit_4a065c39">
+									<div id="text_594abb12">
+										<div class="textstyle1">
+											<span class="textstyle4">Register Number</span>
+										</div>
 									</div>
-								</div>
-								<input type="text" value="" th:field="*{reg_no}"
-									id="edit_74cc30ce">								
-								<div id="text_50c906c2">
-									<div class="textstyle1">
-										<span class="textstyle4">Course</span>
+									<input type="text" value="" th:field="*{reg_no}"
+										id="edit_74cc30ce">
+									<div id="text_50c906c2">
+										<div class="textstyle1">
+											<span class="textstyle4">Course</span>
+										</div>
 									</div>
-								</div>
-								<select name="course" th:field="*{course}"
-									id="combo_9e2d23b">
-									<option value="BTech" selected="selected">BTech</option>
-								</select>
-								<div id="text_60dba8b2">
-									<div class="textstyle1">
-										<span class="textstyle4">Branch</span>
+									<select name="course" th:field="*{course}" id="combo_9e2d23b">
+										<option value="BTech" selected="selected">BTech</option>
+									</select>
+									<div id="text_60dba8b2">
+										<div class="textstyle1">
+											<span class="textstyle4">Branch</span>
+										</div>
 									</div>
+									<select th:field="*{branch}" id="combo_247160fb">
+										<option value="Information Technology ">Information
+											Technology</option>
+										<option value="Electronics and Communication Engineering">Printing
+											Technology</option>
+										<option value="Electrical and Electronics Engineering">Electronics
+											and Communication Engineering</option>
+										<option value="Electrical and Electronics Engineering">Electrical
+											and Electronics Engineering</option>
+										<option value="Mechanical Engineering">Mechanical
+											Engineering</option>
+									</select>
 								</div>
-								<select th:field="*{branch}" id="combo_247160fb">
-									<option value="Information Technology ">Information
-										Technology</option>
-									<option value="Electronics and Communication Engineering">Printing
-										Technology</option>
-									<option value="Electrical and Electronics Engineering">Electronics
-										and Communication Engineering</option>
-									<option value="Electrical and Electronics Engineering">Electrical
-										and Electronics Engineering</option>
-									<option value="Mechanical Engineering">Mechanical
-										Engineering</option>
-								</select>
 								<div id="text_6409f847">
 									<div class="textstyle1">
 										<span class="textstyle4">Semester</span>
@@ -622,154 +733,151 @@ td {
 									<option value="7">7</option>
 									<option value="8">8</option>
 								</select>
-								<div id="text_68473273">
-									<div class="textstyle1">
-										<span class="textstyle4">Start Date</span>
+								<div th:fragment="student-from-stdate">
+									<div id="text_68473273">
+										<div class="textstyle1">
+											<span class="textstyle4">Start Date</span>
+										</div>
 									</div>
+									<input type="date" th:field="*{st_date}" step="1"
+										id="edit_238231e9">
+									<div id="text_24b03f36">
+										<div class="textstyle1">
+											<span class="textstyle4">Ending Date</span>
+										</div>
+									</div>
+									<input type="date" th:field="*{end_date}" id="edit_5d96740">
+									<div id="text_5acfb01a">
+										<div class="textstyle1">
+											<span class="textstyle4">SGPA</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{sgpa}" id="edit_7883ba7c">
+									<div id="text_3eca7aab">
+										<div class="textstyle1">
+											<span class="textstyle4">CGPA</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{cgpa}" id="edit_25c634d8">
+									<div id="text_73bda0f4">
+										<div class="textstyle1">
+											<span class="textstyle4">Date of Birth</span>
+										</div>
+									</div>
+									<input type="date" th:field="*{dob}" id="edit_3c89489e">
+									<div id="text_37f1edb3">
+										<div class="textstyle1">
+											<span class="textstyle4">Email Address</span>
+										</div>
+									</div>
+									<input type="email" th:field="*{email}" id="edit_76461fe4">
+									<div id="text_12077a6">
+										<div class="textstyle1">
+											<span class="textstyle4">Contact Number 1</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{mobile}" id="edit_756977fa">
+									<div id="text_78250f0d">
+										<div class="textstyle1">
+											<span class="textstyle4">Contact Number 2</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{mobile2}" id="edit_1e24092a">
+									<div id="text_428514aa">
+										<div class="textstyle1">
+											<span class="textstyle4">Address Line 1</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{address.address_line1}"
+										id="edit_16feeedf">
+									<div id="text_3a687b5a">
+										<div class="textstyle1">
+											<span class="textstyle4">Address Line 2</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{address.address_line2}"
+										id="edit_2cec44a1">
+									<div id="text_36e1e858">
+										<div class="textstyle1">
+											<span class="textstyle4">City/Town</span>
+										</div>
+									</div>
+									<input th:field="*{address.city_or_town}" id="edit_5bfa6758">
+									<div id="text_73249144">
+										<div class="textstyle1">
+											<span class="textstyle4">District</span>
+										</div>
+									</div>
+									<select th:field="*{address.district}" id="combo_38d296dd">
+										<option value="Alappuzha">Alappuzha</option>
+										<option value="Kollam">Kollam</option>
+										<option value="Thiruvananthapuram">Thiruvananthapuram</option>
+										<option value="Kasaragod">Kasaragod</option>
+										<option value="Kannur">Kannur</option>
+										<option value="Malappuram">Malappuram</option>
+										<option value="Thrissur">Thrissur</option>
+										<option value="Palakkad">Palakkad</option>
+										<option value="Ernakulam">Ernakulam</option>
+										<option value="Kottayam">Kottayam</option>
+										<option value="Pathanamthitta">Pathanamthitta</option>
+										<option value="Kozhikode">Kozhikode</option>
+										<option value="Wayanad">Wayanad</option>
+										<option value="Idukki">Idukki</option>
+									</select>
+									<div id="text_2238b7f8">
+										<div class="textstyle1">
+											<span class="textstyle4">State</span>
+										</div>
+									</div>
+									<select th:field="*{address.state}" id="combo_7d48d734">
+										<option value="Kerala" selected="selected">Kerala</option>
+									</select>
+									<div id="text_15ebf00e">
+										<div class="textstyle1">
+											<span class="textstyle4">Country</span>
+										</div>
+									</div>
+									<select th:field="*{address.country}" title=""
+										id="combo_491a62e6">
+										<option value="India" selected="selected">India</option>
+									</select>
+									<div id="text_466424f6">
+										<div class="textstyle1">
+											<span class="textstyle4">Zip/Pin code</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{address.pincode}"
+										id="edit_7e4f3457">
+									<div id="text_713f3ccf">
+										<div class="textstyle1">
+											<span class="textstyle4">Username</span>
+										</div>
+									</div>
+									<input type="text" th:field="*{username}" id="edit_74acef95">
+									<div id="text_322a2f93">
+										<div class="textstyle1">
+											<span class="textstyle4">Password</span>
+										</div>
+									</div>
+									<input type="password" th:field="*{password}"
+										id="edit_3830d4d5">
+									<div id="text_25b8112d">
+										<div class="textstyle1">
+											<span class="textstyle4">Re-enter Password</span>
+										</div>
+									</div>
+									<input type="password" name="re_password" id="edit_4b58d6fd">
 								</div>
-								<input type="date" th:field="*{st_date}"
-									step="1" id="edit_238231e9">
-								<div id="text_24b03f36">
-									<div class="textstyle1">
-										<span class="textstyle4">Ending Date</span>
-									</div>
-								</div>
-								<input type="date" th:field="*{end_date}"
-									id="edit_5d96740">  
-								<div id="text_5acfb01a">
-									<div class="textstyle1">
-										<span class="textstyle4">SGPA</span>
-									</div>
-								</div>
-								<input type="text" th:field="*{sgpa}"
-									id="edit_7883ba7c">
-								<div id="text_3eca7aab">
-									<div class="textstyle1">
-										<span class="textstyle4">CGPA</span>
-									</div>
-								</div>
-								<input type="text" th:field="*{cgpa}"
-									id="edit_25c634d8"> 
-								<div id="text_73bda0f4">
-									<div class="textstyle1">
-										<span class="textstyle4">Date of Birth</span>
-									</div>
-								</div>
-								<input type="date" th:field="*{dob}"
-									id="edit_3c89489e">
-								<div id="text_37f1edb3">
-									<div class="textstyle1">
-										<span class="textstyle4">Email Address</span>
-									</div>
-								</div>
-								<input type="email" th:field="*{email}" id="edit_76461fe4">
-								<div id="text_12077a6">
-									<div class="textstyle1">
-										<span class="textstyle4">Contact Number 1</span>
-									</div>
-								</div>
-								<input type="text" th:field="*{mobile}" id="edit_756977fa">
-								<div id="text_78250f0d">
-									<div class="textstyle1">
-										<span class="textstyle4">Contact Number 2</span>
-									</div>
-								</div>
-								<input type="text" th:field="*{mobile2}" id="edit_1e24092a">								
-								<div id="text_428514aa">
-									<div class="textstyle1">
-										<span class="textstyle4">Address Line 1</span>
-									</div>
-								</div>
-								<input type="text" th:field="*{address.address_line1}" id="edit_16feeedf">
-								<div id="text_3a687b5a">
-									<div class="textstyle1">
-										<span class="textstyle4">Address Line 2</span>
-									</div>
-								</div>
-								<input type="text" th:field="*{address.address_line2}"
-									id="edit_2cec44a1">
-								<div id="text_36e1e858">
-									<div class="textstyle1">
-										<span class="textstyle4">City/Town</span>
-									</div>
-								</div>
-								<input th:field="*{address.city_or_town}" id="edit_5bfa6758">
-								<div id="text_73249144">
-									<div class="textstyle1">
-										<span class="textstyle4">District</span>
-									</div>
-								</div>
-								<select th:field="*{address.district}"  id="combo_38d296dd">
-									<option value="Alappuzha">Alappuzha</option>
-									<option value="Kollam">Kollam</option>
-									<option value="Thiruvananthapuram">Thiruvananthapuram</option>
-									<option value="Kasaragod">Kasaragod</option>
-									<option value="Kannur">Kannur</option>
-									<option value="Malappuram">Malappuram</option>
-									<option value="Thrissur">Thrissur</option>
-									<option value="Palakkad">Palakkad</option>
-									<option value="Ernakulam">Ernakulam</option>
-									<option value="Kottayam">Kottayam</option>
-									<option value="Pathanamthitta">Pathanamthitta</option>
-									<option value="Kozhikode">Kozhikode</option>
-									<option value="Wayanad">Wayanad</option>
-									<option value="Idukki">Idukki</option>
-								</select>
-								<div id="text_2238b7f8">
-									<div class="textstyle1">
-										<span class="textstyle4">State</span>
-									</div>
-								</div>
-								<select th:field="*{address.state}" id="combo_7d48d734">
-									<option value="Kerala" selected="selected">Kerala</option>
-								</select>
-								<div id="text_15ebf00e">
-									<div class="textstyle1">
-										<span class="textstyle4">Country</span>
-									</div>
-								</div>
-								 <select th:field="*{address.country}" title="" id="combo_491a62e6">
-									<option value="India" selected="selected">India</option>
-								</select>
-								<div id="text_466424f6">
-									<div class="textstyle1">
-										<span class="textstyle4">Zip/Pin code</span>
-									</div>
-								</div>								
-								<input type="text" th:field="*{address.pincode}"
-									id="edit_7e4f3457">					
-								<div id="text_713f3ccf">
-									<div class="textstyle1">
-										<span class="textstyle4">Username</span>
-									</div>
-								</div>
-								 <input type="text" th:field="*{username}"
-									id="edit_74acef95">
-								<div id="text_322a2f93">
-									<div class="textstyle1">
-										<span class="textstyle4">Password</span>
-									</div>
-								</div>
-								<input type="password" th:field="*{password}"
-									id="edit_3830d4d5">
-								<div id="text_25b8112d">
-									<div class="textstyle1">
-										<span class="textstyle4">Re-enter Password</span>
-									</div>
-								</div>
-								<input type="password" name="re_password"
-									id="edit_4b58d6fd">
-								<input name="Button2" type="submit" value="SAVE" title=""
-									id="button_6e42984b">
-								<input name="Button2" style="display:none;"
-									type="submit" value="SAVE & ADD ANOTHER" title=""
-									id="button_5ef93a62">
-							</div>
-							<div style="clear: both"></div>
+								<input name="Button2" type="submit" value="SAVE" 
+									id="button_6e42984b"> <input name="Button2"
+									style="display: none;" type="submit" value="SAVE & ADD ANOTHER"
+									title="" id="button_5ef93a62">
+							</div>							
 						</div>
 					</form>
 					<form action="" enctype="application/x-www-form-urlencoded"
-						method="POST" id="form_5806d7d8" style="display:none; position:relative;">
+						method="POST" id="form_5806d7d8"
+						style="display: none; position: relative;">
 						<div class="textstyle1">
 							<div id="text_4447d3e4">
 								<div class="textstyle1">
@@ -788,7 +896,6 @@ td {
 						</div>
 					</form>
 				</div>
-				<div style="clear: both"></div>
 			</div>
 		</div>
 	</div>

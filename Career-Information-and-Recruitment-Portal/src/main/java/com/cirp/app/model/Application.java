@@ -2,11 +2,11 @@ package com.cirp.app.model;
 
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 public class Application {
 	
-	@NotNull
+	@MongoId
 	private String applicant_id;
 	private List<String> answers;
 	

@@ -93,4 +93,27 @@ public class UserControllers {
 			return "redirect:/login";
 		}
 	}
+	
+	@PostMapping(value="/accept-user")
+	public String acceptRegistration(@RequestParam String username, Authentication authentication, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		acceptReject.acceptRejectRegistration(username, "confirm", authentication.getName());
+		if(request.isUserInRole("ROLE_ADMIN"))
+			return "redirect:/admin/admin-panel";
+		else if(request.isUserInRole("ROLE_COLLEGE"))
+			return "redirect:/college/admin-panel";
+		else
+			return "/error";
+	}
+	
+	@PostMapping(value="/reject-user")
+	public String rejectRegistration(@RequestParam String username, Authentication authentication, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		acceptReject.acceptRejectRegistration(username, "reject", authentication.getName());
+		
+		if(request.isUserInRole("ROLE_ADMIN"))
+			return "redirect:/admin/admin-panel";
+		else if(request.isUserInRole("ROLE_COLLEGE"))
+			return "redirect:/college/admin-panel";
+		else
+			return "/error";
+	}
 }

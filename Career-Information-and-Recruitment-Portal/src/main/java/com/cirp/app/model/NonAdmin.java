@@ -28,11 +28,13 @@ public abstract class NonAdmin extends User {
 		this.setMobile(mobile);
 		this.setEmail(email);
 		this.approval_count = 0;
+		this.desc = "Add your profile description here... ";
 	}
 	
 	public NonAdmin() {
 		super();
 		this.approval_count = 0;
+		this.desc = "Add your profile description here... ";
 	}
 
 	public String getProfile_pic() {

@@ -9,12 +9,12 @@
 	<div sec:authorize="hasRole('ROLE_ADMIN')">
 		<header th:insert="admin/server_admin_panel.html :: header">
 		</header>
-		<div th:replace="admin/server_admin_panel.html :: navbar-admin"></div>
+		<div th:replace="admin/server_admin_panel.html :: navbar-admin" style="color: #B2B2B2;"></div>
 	</div>
 	<div sec:authorize="hasRole('ROLE_COLLEGE')">
 		<header th:insert="college/home_college.html :: header">
 		</header>
-		<div th:replace="college/home_college.html :: navbar-college"></div>
+		<div th:replace="college/home_college.html :: navbar-college" th:style="a{color: #B2B2B2;}"></div>
 	</div>
 	<div sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')">
 		<header th:insert="student/home_student.html :: header">
