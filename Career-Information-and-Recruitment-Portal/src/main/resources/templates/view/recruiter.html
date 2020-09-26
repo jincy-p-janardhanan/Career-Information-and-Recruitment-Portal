@@ -1,0 +1,363 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home | Recruiter</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/home_college_html.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+
+@media only screen and (max-width: 1212px) {
+	#form_11381a91 {
+		width: 80%;
+		position: absolute;
+		left: 5%;
+		top: 2%;
+	}
+	#nav_options {
+		display: none;
+	}
+}
+
+.sidebar {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidebar a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 16px;
+	color: #818181;
+	display: block;
+	width: 100%;
+	transition: 0.3s;
+}
+
+.sidebar a:hover {
+	color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+	position: absolute;
+	top: 0;
+	width: 83%;
+	font-size: 30px;
+	text-align: right;
+}
+
+.openbtn {
+	font-size: 26px;
+	cursor: pointer;
+	background-color: #0f0f0f;
+	color: #b2b2b2;
+	padding: 10px 15px;
+	border: none;
+}
+
+.openbtn:hover {
+	background-color: #444;
+}
+
+@media screen and (max-height: 450px) {
+	.sidebar {
+		padding-top: 15px;
+	}
+	.sidebar a {
+		font-size: 18px;
+	}
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td {
+	border: none;
+	text-align: left;
+	padding: 10px;
+}
+
+.col1 {
+	text-align: right;
+}
+
+.col2 {
+	width: 5px;
+}
+
+.textstyle5 {
+	text-align: center;
+}
+
+#button_70f0277e {
+	text-align: center;
+	text-align: vcenter;
+}
+
+#button_6fd57d28 {
+	text-align: center;
+}
+
+.aboutform {
+	border: none;
+	font-family: 'Open Sans';
+	font-size: 14px;
+}
+
+.aboutform:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
+}
+
+#button_475df8fc {
+	float: right;
+}
+
+.textstyle16:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
+}
+
+#profile_button {
+	box-sizing: border-box;
+	vertical-align: bottom;
+	border-radius: 100px;
+	position: relative;
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	background-color: #061332;
+	background-image: url("@{'/view-profile-pic/' + ${profile_pic}}");
+	background-position: center left;	
+	background-size:cover;	
+	border: 0px;
+}
+
+.img-circle {
+	box-sizing: border-box;
+	border-radius: 100px;
+}
+
+#profile_button:hover {
+	background: url([[@{/css/assets/camera-circle.png}]]);
+	background-size: cover;
+}
+#backgroundimage {
+	display: block;
+	margin:0px;
+	background-image: url("@{'/view-bg-img/' + ${bg_img}}");
+	background-size:cover;
+}
+</style>
+<script>
+	function openNav() {
+		document.getElementById("mySidebar").style.width = "250px";
+	}
+
+	function closeNav() {
+		document.getElementById("mySidebar").style.width = "0";
+	}
+</script>
+
+</head>
+<body>
+	
+
+				</form>
+			</div>
+			<div>
+				<div class="textstyle1">
+					
+						<div id="form_8b61b39_padding">
+							<div class="textstyle1">
+								<div id="container_df4bb99">
+									<div id="container_df4bb99_padding">
+										<div class="textstyle4">
+										<form method="post" th:action="@{/update-profile-pic}"
+						enctype="multipart/form-data" id="form_8b61b39">
+											<input id="profilePicUpload" type="file" name="file"
+												onchange="form.submit()" style="visibility: hidden" /> <label
+												for="profilePicUpload" id="profile_button"></label>
+												</form>
+										</div>
+									</div>
+								</div>
+								<div id="container_222db1fd">
+									<div id="container_222db1fd_padding">
+										<div class="textstyle1">
+											<span class="textstyle5"><br /> <br /> <br /></span>
+											<h1 id="heading_359a6a0b">
+												<span class="textstyle1"> <span class="textstyle6"
+													th:text="${name}"></span>
+												</span>
+											</h1>
+											<span class="textstyle5"><br /></span>
+											<div id="container_40cddcf3">
+												<div id="container_40cddcf3_padding">
+													<div class="textstyle1">
+														<span class="textstyle7" th:text="${location}"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div style="clear: both"></div>
+									</div>
+								</div>
+								<div id="container_7c8aa649">
+									<div id="container_7c8aa649_padding">
+										<div class="textstyle8">
+
+											<input name="Button9" type="hidden"
+												value="Request Recommendation" title="" id="button_1b652568">
+											<span class="textstyle5"> </span>
+											<form method="POST" th:action="@{/update-bg-img}"
+												enctype="multipart/form-data">
+												<input id="backgroundImageUpload" type="file" name="file"
+													onchange="form.submit()" style="visibility: hidden" />
+												<span class="textstyle9" style="text-align:right;">Change background image
+												</span>																								
+													<label
+													for="backgroundImageUpload" id="button_475df8fc"  style="float:right">
+													</label> 										
+											</form>
+										</div>
+										<div style="clear: both"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+				</div>
+				<div style="clear: both"></div>
+			</div>
+		</div>
+		<div id="container_7d6e006">
+			<div id="container_7d6e006_padding">
+				<div class="textstyle1">
+					<div id="container_8cede07">
+						<div id="container_8cede07_padding">
+							<div class="textstyle1">
+								<div id="text_43046ee">
+									<div id="text_43046ee_padding">
+										<form class="textstyle1" th:action="@{/common/update-desc}"
+											th:Object="${desc}" method="POST">
+											<div class="textstyle1">
+												<span class="textstyle10">ABOUT <input type="submit"
+													value="" title="Click here to save your about"
+													style="cursor: pointer;" id="button_475df8fc"></span>
+											</div>
+											<textarea th:field="*{value}" th:value="*{value}"
+												class="aboutform" cols="95" rows="20"
+												style="width: 93%; padding: 20px;">
+											</textarea>
+										</form>
+									</div>
+								</div>
+								<span class="textstyle3"><br /></span>
+								<div id="container_5be111dc">
+									<div id="container_5be111dc_padding"></div>
+								</div>
+							</div>
+							<div style="clear: both"></div>
+						</div>
+					</div>
+					<div id="container_171ab194">
+						<div id="container_171ab194_padding">
+							<div class="textstyle4">
+								<form th:action="@{/common/update-contact}"
+									th:Object="${contact}" method="post">
+									<div id="container_23a21de4">
+										<div id="container_23a21de4_padding">
+											<div class="textstyle1">
+												<span class="textstyle13">CONTACT INFO</span> <input
+													type="submit" value=""
+													title="Click here to update your contact info"
+													style="cursor: pointer;" id="button_475df8fc">
+											</div>
+
+										</div>
+									</div>
+
+
+									<div id="container_46fed51b">
+										<div id="container_46fed51b_padding">
+											<div class="textstyle1">
+												<span class="textstyle14">WEBSITE</span><span
+													class="textstyle15"><br /></span> <input type="text"
+													class="textstyle16" th:field="${contact.website}"
+													th:value="${contact.website}"
+													style="border: none; width: 98%;" />
+											</div>
+										</div>
+									</div>
+									<div id="container_6424726f">
+										<div id="container_6424726f_padding">
+											<div class="textstyle1">
+												<span class="textstyle14">EMAIL</span><span
+													class="textstyle17"><br /></span> <input type="email"
+													class="textstyle16" th:field="${contact.public_email}"
+													th:value="${contact.public_email}"
+													style="border: none; width: 98%;" />
+											</div>
+										</div>
+									</div>
+									<div id="container_5ce18608">
+										<div id="container_5ce18608_padding">
+											<div class="textstyle1">
+												<span class="textstyle14">PHONE</span><span
+													class="textstyle17"><br /></span> <input type="tel"
+													class="textstyle16" th:field="${contact.landph}"
+													th:value="${contact.landph}"
+													style="border: none; width: 98%;" />
+											</div>
+										</div>
+									</div>
+									<div id="container_5638aaa2">
+										<div id="container_5638aaa2_padding">
+											<div class="textstyle1">
+												<span class="textstyle14">ADDRESS</span> <span
+													class="textstyle16"> <input type="text"
+													class="textstyle16" th:field="${contact.address_line1}"
+													th:value="${contact.address_line1}"
+													style="border: none; width: 98%;" /> <input type="text"
+													class="textstyle16" th:field="${contact.address_line2}"
+													th:value="${contact.address_line2}"
+													style="border: none; width: 98%;" /> <input type="text"
+													class="textstyle16" th:field="${contact.district}"
+													th:value="${contact.district}"
+													style="border: none; width: 98%;" /> <input type="text"
+													class="textstyle16" th:field="${contact.state}"
+													th:value="${contact.state}"
+													style="border: none; width: 98%;" /> <input type="text"
+													class="textstyle16" th:field="${contact.country}"
+													th:value="${contact.country}"
+													style="border: none; width: 98%;" /> <input type="text"
+													class="textstyle16" th:field="${contact.pincode}"
+													th:value="${contact.pincode}"
+													style="border: none; width: 98%;" />
+												</span>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

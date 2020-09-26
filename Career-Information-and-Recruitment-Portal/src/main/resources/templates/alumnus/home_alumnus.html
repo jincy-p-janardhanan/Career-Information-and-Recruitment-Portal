@@ -1,12 +1,11 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
-<title>Home | Student</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/home_college_html.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/home_student_html.css}">
+<title>Home | Alumnus</title>
+<link rel="stylesheet" type="text/css" href="@{css/home_alumnus_html.css}">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -221,7 +220,7 @@ td {
 #backgroundimage {
 	display: block;
 	margin:0px;
-	background-image: url("@{'/view-bg-img/' + ${bg_img}}");
+	background-image: "@{'/view-bg-img/' + ${bg_img}})";
 	background-size:cover;
 }
 </style>
@@ -234,12 +233,12 @@ td {
 		document.getElementById("mySidebar").style.width = "0";
 	}
 </script>
-
 </head>
+<body>
 <body>
 	<div class="textstyle1">
 		<div id="backgroundimage">
-			<div class="navbar" th:fragment="navbar-student">
+			<div class="navbar">
 				<div id="nav_options">
 					<div class="dropdown" sec:authorize="isAuthenticated()">
 						<button class="dropbtn">
@@ -254,17 +253,17 @@ td {
 								th:href="@{/reset-password-request}">Reset Password</a>
 						</div>
 					</div>
-					<a th:href="@{/student/jobs}">Jobs</a> <a
-						th:href="@{/student/home}">Profile</a>
+					<a th:href="@{/college/admin-panel}">Admin Panel</a> <a
+						th:href="@{/college/home}">Profile</a>
 					<div id="mySidebar" class="sidebar">
 						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-						<a th:href="@{/student/home}">Welcome <span
+						<a th:href="@{/college/admin-panel}">Welcome <span
 							sec:authentication="name"></span> <span></span> <img
 							class="img-circle"
 							style="display: table-cell; vertical-align: middle; text-align: center"
 							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
-							width="28" /></a> <a th:href="@{/student/home}"><span>Profile</span></a>
-						<a th:href="@{/student/jobs}"><span>Admin Panel</span></a>
+							width="28" /></a> <a th:href="@{/college/home}"><span>Profile</span></a>
+						<a th:href="@{/college/admin-panel}"><span>Admin Panel</span></a>
 						<a th:href="@{/logout}"><span>Logout</span></a> <a
 							th:href="@{/reset-password-request}"><span>Reset
 								Password</span></a>
@@ -272,22 +271,22 @@ td {
 					<button class="openbtn" onclick="openNav()">☰</button>
 				</div>
 				<form th:action="@{/search}" enctype="application/x-www-form-urlencoded"
-			method="GET" id="form_29acdad9">
+			method="GET" id="form_2bcceca4">
 					<div class="textstyle1">
 						<input type="text" value="" title="" name="search_text"
 							placeholder="Search recruiters, jobs, students, alumni or colleges"
-							id="edit_6804da94"> <input type="submit"
-							value="" title="" id="button_240550dc">
+							id="edit_3993ab94"> <input type="submit"
+							value="" title="" id="button_4ea6c90">
 					</div>
-				</form>
-			</div>
+	                </form>
+						</div>
 			<div>
 				<div class="textstyle1">
 					
-						<div id="form_8b61b39_padding">
+						<div id="form_a3b7a75_padding">
 							<div class="textstyle1">
-								<div id="container_df4bb99">
-									<div id="container_df4bb99_padding">
+								<div id="container_76514898">
+									<div id="container_76514898_padding">
 										<div class="textstyle4">
 										<form method="post" th:action="@{/update-profile-pic}"
 						enctype="multipart/form-data" id="form_8b61b39">
@@ -298,20 +297,20 @@ td {
 										</div>
 									</div>
 								</div>
-								<div id="container_222db1fd">
-									<div id="container_222db1fd_padding">
+								<div id="container_702f2efc">
+									<div id="container_702f2efc_padding">
 										<div class="textstyle1">
 											<span class="textstyle5"><br /> <br /> <br /></span>
-											<h1 id="heading_359a6a0b">
+											<h1 id="heading_35470963">
 												<span class="textstyle1"> <span class="textstyle6"
 													th:text="${name}"></span>
 												</span>
 											</h1>
 											<span class="textstyle5"><br /></span>
-											<div id="container_40cddcf3">
-												<div id="container_40cddcf3_padding">
+											<div id="container_5af21732">
+												<div id="container_5af21732_padding">
 													<div class="textstyle1">
-														<span class="textstyle7" th:text="${course_and_branch}"></span>
+														<span class="textstyle7" th:text="${//}"></span>
 													</div>
 												</div>
 											</div>
@@ -322,6 +321,7 @@ td {
 								<div id="container_7c8aa649">
 									<div id="container_7c8aa649_padding">
 										<div class="textstyle8">
+
 											<input name="Button9" type="hidden"
 												value="Request Recommendation" title="" id="button_1b652568">
 											<span class="textstyle5"> </span>
@@ -330,74 +330,93 @@ td {
 												<input id="backgroundImageUpload" type="file" name="file"
 													onchange="form.submit()" style="visibility: hidden" />
 												<span class="textstyle9" style="text-align:right;">Change background image
-												</span>																								
+												</span> 
+																								
 													<label
 													for="backgroundImageUpload" id="button_475df8fc"  style="float:right">
-													</label>											
+													</label> 						
+												
 											</form>
-										</div>										
+										</div>
+										<div style="clear: both"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-				</div>				
+					
+				</div>
+				<div style="clear: both"></div>
 			</div>
 		</div>
-		<div id="container_7d6e006">
-			<div id="container_7d6e006_padding">
+					
+					
+		</div>
+		<div id="container_a58fdc6">
+			<div id="container_a58fdc6_padding">
 				<div class="textstyle1">
-					<div id="container_8cede07">
-						<div id="container_8cede07_padding">
+					<div id="container_497e93c9">
+						<div id="container_497e93c9_padding">
 							<div class="textstyle1">
-								<div id="text_43046ee">
-									<div id="text_43046ee_padding">
-										<form class="textstyle1" th:action="@{/common/update-desc}"
-											th:Object="${desc}" method="POST">
-											<div class="textstyle1">
-												<span class="textstyle10">ABOUT <input type="submit"
-													value="" title="Click here to save your about"
-													style="cursor: pointer;" id="button_475df8fc"></span>
-											</div>
-											<textarea th:field="*{value}" th:value="*{value}"
-												class="aboutform" cols="95" rows="20"
-												style="width: 93%; padding: 20px;">
-											</textarea>
-										</form>
+								<div id="text_2c33aeb8">
+									<div id="text_2c33aeb8_padding">
+										<div class="textstyle1">
+											<span class="textstyle10">ABOUT</span>
+										</div>
 									</div>
 								</div>
 								<span class="textstyle3"><br /></span>
-								<div id="container_5be111dc">
-									<div id="container_5be111dc_padding"></div>
+								<div id="container_4039bbf8">
+									<div id="container_4039bbf8_padding">
+										<div class="textstyle1">
+											<span class="textstyle11">&quot;Lorem ipsum dolor sit
+												amet, consectetur adipiscing elit, sed do eiusmod tempor
+												incididunt ut labore et dolore magna aliqua. Ut enim ad
+												minim veniam, quis nostrud exercitation ullamco laboris nisi
+												ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+												reprehenderit in voluptate velit esse cillum dolore eu
+												fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+												proident, sunt in culpa qui officia deserunt mollit anim id
+												est laborum.&quot;<br />&quot;Lorem ipsum dolor sit amet,
+												consectetur adipiscing elit, sed do eiusmod tempor
+												incididunt ut labore et dolore magna aliqua. Ut enim ad
+												minim veniam, quis nostrud exercitation ullamco laboris nisi
+												ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+												reprehenderit in voluptate velit esse cillum dolore eu
+												fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+												proident, sunt in culpa qui officia deserunt mollit anim id
+												est laborum.&quot;<br />
+											<br />
+											</span> <span class="textstyle12"> </span> <span class="textstyle12">
+											</span>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div style="clear: both"></div>
 						</div>
-					</div>	
-					
-					
-					
-					<div id="container_4df9ec82">
-						<div id="container_4df9ec82_padding">
+					</div>
+					<div id="container_7fc81bf5">
+						<div id="container_7fc81bf5_padding">
 							<div class="textstyle1">
 								<form action="" enctype="application/x-www-form-urlencoded"
-									method="POST" id="form_6740f3d6">
-									<div id="form_6740f3d6_padding">
+									method="POST" id="form_7abb3782">
+									<div id="form_7abb3782_padding">
 										<div class="textstyle4">
-											<div id="container_57f3998b">
-												<div id="container_57f3998b_padding">
+											<div id="container_7476209">
+												<div id="container_7476209_padding">
 													<div class="textstyle1">
-														<div id="container_666e48e">
-															<div id="container_666e48e_padding">
+														<div id="container_7e93c855">
+															<div id="container_7e93c855_padding">
 																<div class="textstyle1">
 																	<span class="textstyle13">PROFILE </span>
 																</div>
 															</div>
 														</div>
-														<div id="container_1b2936b3">
-															<div id="container_1b2936b3_padding">
+														<div id="container_5115b763">
+															<div id="container_5115b763_padding">
 																<div class="textstyle8">
 																	<input name="Button7" type="submit" value="" title=""
-																		id="button_a7107c3">
+																		id="button_3043d485">
 																</div>
 																<div style="clear: both"></div>
 															</div>
@@ -406,8 +425,8 @@ td {
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<div id="container_3e3cee44">
-												<div id="container_3e3cee44_padding">
+											<div id="container_5e0af03b">
+												<div id="container_5e0af03b_padding">
 													<div class="textstyle1">
 														<span class="textstyle14">SKILLS</span><span
 															class="textstyle11"><br /></span><span
@@ -415,13 +434,13 @@ td {
 															class="textstyle11"> </span>
 														<textarea name="TextEdit9" title=""
 															placeholder="Add your skills here" cols="8" rows="1"
-															id="edit_233c7d9f">Add your skills here</textarea>
+															id="edit_5d7e5e89">Add your skills here</textarea>
 													</div>
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<div id="container_4f4d6c1a">
-												<div id="container_4f4d6c1a_padding">
+											<div id="container_1b3b95de">
+												<div id="container_1b3b95de_padding">
 													<div class="textstyle1">
 														<span class="textstyle14">EXPERIENCE</span><span
 															class="textstyle11"><br /></span><span
@@ -429,13 +448,13 @@ td {
 															class="textstyle11"> </span>
 														<textarea name="TextEdit9" title=""
 															placeholder="Add your work experience here" cols="8"
-															rows="1" id="edit_505de514">Add your work experience here</textarea>
+															rows="1" id="edit_143ad83c">Add your work experience here</textarea>
 													</div>
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<div id="container_303afc8e">
-												<div id="container_303afc8e_padding">
+											<div id="container_19a39057">
+												<div id="container_19a39057_padding">
 													<div class="textstyle1">
 														<span class="textstyle14">PROJECTS</span><span
 															class="textstyle11"><br /></span><span
@@ -443,13 +462,13 @@ td {
 															class="textstyle11"> </span>
 														<textarea name="TextEdit9" title=""
 															placeholder="Add your work experience here" cols="8"
-															rows="1" id="edit_66b3c1">Add significant projects you have worked on here</textarea>
+															rows="1" id="edit_61bf960d">Add significant projects you have worked on here</textarea>
 													</div>
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<div id="container_30037028">
-												<div id="container_30037028_padding">
+											<div id="container_69ad1ab6">
+												<div id="container_69ad1ab6_padding">
 													<div class="textstyle1">
 														<span class="textstyle14">AWARDS &amp; HONOURS</span><span
 															class="textstyle11"><br /></span><span
@@ -457,13 +476,13 @@ td {
 															class="textstyle11"> </span>
 														<textarea name="TextEdit9" title=""
 															placeholder="Showcase your achievements here" cols="8"
-															rows="1" id="edit_2d71571">Showcase your achievements here</textarea>
+															rows="1" id="edit_1ee14061">Showcase your achievements here</textarea>
 													</div>
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<div id="container_4437b494">
-												<div id="container_4437b494_padding">
+											<div id="container_7492860c">
+												<div id="container_7492860c_padding">
 													<div class="textstyle1">
 														<span class="textstyle14">COMMUNITIES &amp;
 															ORGANISATIONS</span><span class="textstyle11"><br /></span><span
@@ -472,13 +491,13 @@ td {
 														</span>
 														<textarea name="TextEdit9" title=""
 															placeholder="Mention notable communities and organisations you are involved in here"
-															cols="8" rows="1" id="edit_648e27f0">Mention notable communities and organisations you are involved in here</textarea>
+															cols="8" rows="1" id="edit_2f852f4">Mention notable communities and organisations you are involved in here</textarea>
 													</div>
 													<div style="clear: both"></div>
 												</div>
 											</div>
-											<div id="container_5b8175c2">
-												<div id="container_5b8175c2_padding">
+											<div id="container_17e53ec0">
+												<div id="container_17e53ec0_padding">
 													<div class="textstyle1">
 														<span class="textstyle14">EDUCATION</span><span
 															class="textstyle11"><br /></span><span
@@ -486,7 +505,7 @@ td {
 															class="textstyle11"> </span>
 														<textarea name="TextEdit9" title=""
 															placeholder="Let others know your learning story here"
-															cols="8" rows="1" id="edit_726f4809">Let others know your learning story here</textarea>
+															cols="8" rows="1" id="edit_2530e68c">Let others know your learning story here</textarea>
 													</div>
 													<div style="clear: both"></div>
 												</div>
