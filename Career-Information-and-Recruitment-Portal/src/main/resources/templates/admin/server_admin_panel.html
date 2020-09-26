@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
@@ -386,7 +386,7 @@ td {
 																<tr>
 																	<td class="col1" style="width: 50%;">
 																		<form id="form_2523b6a4_padding"
-																			th:action="@{'/admin/accept-user?username='+${college.username}}"
+																			th:action="@{'/accept-user?username='+${college.username}}"
 																			method="POST">
 																			<button type=submit id="button_70f0277e">APPROVE</button>
 																		</form>
@@ -394,7 +394,7 @@ td {
 																	<td class="col2"></td>
 																	<td class="col3" style="width: 50%;">
 																		<form id="form_2523b6a4_padding"
-																			th:action="@{'/admin/reject-user?username='+${college.username}}" method="POST">
+																			th:action="@{'/reject-user?username='+${college.username}}" method="POST">
 																			<button type="submit" id="button_6fd57d28">REJECT</button>
 																		</form>
 																	</td>
@@ -522,7 +522,7 @@ td {
 													<tr>
 														<td class="col1" style="width: 50%;">
 															<form id="form_2523b6a4_padding"
-																th:action="@{'/admin/accept-user?username='+${recruiter.username}}"
+																th:action="@{'/accept-user?username='+${recruiter.username}}"
 																method="POST">
 																<button type=submit id="button_70f0277e">APPROVE</button>
 															</form>
@@ -530,7 +530,7 @@ td {
 														<td class="col2"></td>
 														<td class="col3" style="width: 50%;">
 															<form id="form_2523b6a4_padding"
-																th:action="@{'/admin/reject-user?username='+${recruiter.username}}" method="POST">
+																th:action="@{'/reject-user?username='+${recruiter.username}}" method="POST">
 																<button type="submit" id="button_6fd57d28">REJECT</button>
 															</form>
 														</td>

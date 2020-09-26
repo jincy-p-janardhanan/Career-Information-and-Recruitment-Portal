@@ -47,7 +47,6 @@ public class AcceptReject {
 		}
 		// Get class of user
 		Class<?> user_class = find.findClass(username);
-
 		// Increment or decrement approval count of the user
 		repo.updateApprovalCount(username, counter, user_class);
 
@@ -56,7 +55,9 @@ public class AcceptReject {
 		String approve_reject_list;
 		Class<?> admin_class = Admin.class;
 		String role;
-
+		
+		int admin_count = (int) repo.getAdminCount();
+		
 		// Choose the lists to update
 		if (user_class == College.class) {
 			role = "ROLE_COLLEGE";
@@ -78,6 +79,7 @@ public class AcceptReject {
 		} else {
 			role = "ROLE_ALUMNUS";
 			pending_list = "alumni_pending";
+			admin_count = 1; // only 1 college needs to approve
 			if (choice == "confirm") {
 				approve_reject_list = "alumni";
 			} else {
@@ -96,10 +98,6 @@ public class AcceptReject {
 		// Get total number of admins and absolute value (positive) of approval count
 		NonAdmin user = repo.findById(username);
 		int approval_count = Math.abs(user.getApproval_count());
-		int admin_count = (int) repo.getAdminCount();
-		if (user_class == Alumnus.class) {
-			admin_count = 1; // only 1 college needs to approve
-		}
 
 		// Check if user is accepted or rejected by all admins
 		if (admin_count == approval_count) {

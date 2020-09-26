@@ -17,7 +17,6 @@ import com.cirp.app.model.Admin;
 import com.cirp.app.model.College;
 import com.cirp.app.model.Recruiter;
 import com.cirp.app.repository.CirpRepository;
-import com.cirp.app.service.AcceptReject;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,9 +24,6 @@ public class AdminController {
 
 	@Autowired
 	private CirpRepository repo;
-	
-	@Autowired
-	private AcceptReject accept_reject;
 	
 	@GetMapping("/admin-panel")
 	public String home(Model model, Authentication authentication) {
@@ -49,17 +45,5 @@ public class AdminController {
 		model.addAttribute("college_pending", college_pending);
 		model.addAttribute("recruiter_pending", recruiter_pending);
 		return "admin/server_admin_panel";
-	}
-	
-	@PostMapping(value="/accept-user")
-	public String acceptRegistration(@RequestParam String username, Authentication authentication, RedirectAttributes redirectAttributes) {
-		accept_reject.acceptRejectRegistration(username, "confirm", authentication.getName());
-		return "redirect:/admin/admin-panel";
-	}
-	
-	@PostMapping(value="/reject-user")
-	public String rejectRegistration(@RequestParam String username, Authentication authentication, RedirectAttributes redirectAttributes) {
-		accept_reject.acceptRejectRegistration(username, "reject", authentication.getName());
-		return "redirect:/admin/admin-panel";
 	}
 }

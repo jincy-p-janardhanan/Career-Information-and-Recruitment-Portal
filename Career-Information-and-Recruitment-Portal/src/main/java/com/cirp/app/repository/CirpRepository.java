@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -47,15 +45,15 @@ public class CirpRepository implements CirpRepositoryOperations {
 		alumnus.setCollege_id(mongoTemplate.findOne(query, College.class).getUsername());
 
 		mongoTemplate.insert(alumnus);
-		mongoTemplate.updateFirst(query, new Update().push("college_pending", alumnus.getUsername()), College.class);
+		mongoTemplate.updateFirst(query, new Update().push("alumni_pending", alumnus.getUsername()), College.class);
 	}
 
 	@Override
 	public void register(Student student) {
 
-		Query query = new Query(where("name").is(student.getCollege_id()));
+		Query query = new Query(where("username").is(student.getCollege_id()));
 		mongoTemplate.insert(student);
-		mongoTemplate.updateFirst(query, new Update().push("college_pending", student.getUsername()), College.class);
+		mongoTemplate.updateFirst(query, new Update().push("students", student.getUsername()), College.class);
 	}
 
 	@Override
@@ -160,7 +158,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> search(String search_text, String filter) {
-		Query query = TextQuery.queryText(new TextCriteria().matchingAny(search_text.split(" "))).sortByScore();
+		Query query = TextQuery.queryText(new TextCriteria().matchingAny(search_text)).sortByScore();
 		Class<?> filter_class = null;
 		if (filter.equals("college"))
 			filter_class = College.class;
@@ -361,14 +359,15 @@ public class CirpRepository implements CirpRepositoryOperations {
 		mongoTemplate.updateFirst(query, new Update().set("role", role), user_class);
 
 	}
-	
+
 	@Override
 	public void editJob(Job job) {
-		mongoTemplate.findAndReplace(new Query().addCriteria(where("_id").is(job.getId())), job);		
+		mongoTemplate.findAndReplace(new Query().addCriteria(where("_id").is(job.getId())), job);
 	}
-	
+
 	@Override
 	public void updateStudent(Student student) {
-		mongoTemplate.save(student);		
+		mongoTemplate.save(student);
 	}
+
 }

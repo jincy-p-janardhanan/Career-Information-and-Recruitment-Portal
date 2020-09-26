@@ -83,7 +83,7 @@
 				Welcome <span sec:authentication="name"></span>
 				<span></span>
 				<img class="img-circle" style="display:table-cell; vertical-align:middle; text-align:center"
-					th:src="@{'/css/assets/profile-pictures/'+ ${profile_pic}}"
+					th:src="@{/css/assets/user.png}"
 					height="28" width="28" />
 			</button>
 			<div class="dropdown-content">
@@ -100,7 +100,7 @@
 					<div id="container_730dc4c6">
 						<div id="container_730dc4c6_padding">
 							<div class="textstyle1">
-								<img src="css/assets/info.png" id="img_259d4d8f" alt="" title="" />
+								<img th:src="@{/css/assets/info.png}" id="img_259d4d8f" alt="" title="" />
 							</div>
 							<div class="textstyle2">
 								<span class="textstyle3">Registration Pending</span>

@@ -56,7 +56,7 @@ public class RecruiterController {
 			jobs.add(repo.findById(jobid.toString()));
 		}
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
-		model.addAttribute("jobs", jobs);
+		model.addAttribute("jobs", jobs);	
 		return "recruiter/manage_job";
 	}
 	

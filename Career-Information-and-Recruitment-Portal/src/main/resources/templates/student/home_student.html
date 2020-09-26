@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
@@ -239,7 +239,7 @@ td {
 <body>
 	<div class="textstyle1">
 		<div id="backgroundimage">
-			<div class="navbar">
+			<div class="navbar" th:fragment="navbar-student">
 				<div id="nav_options">
 					<div class="dropdown" sec:authorize="isAuthenticated()">
 						<button class="dropbtn">
@@ -254,17 +254,17 @@ td {
 								th:href="@{/reset-password-request}">Reset Password</a>
 						</div>
 					</div>
-					<a th:href="@{/college/admin-panel}">Admin Panel</a> <a
-						th:href="@{/college/home}">Profile</a>
+					<a th:href="@{/student/jobs}">Jobs</a> <a
+						th:href="@{/student/home}">Profile</a>
 					<div id="mySidebar" class="sidebar">
 						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-						<a th:href="@{/college/admin-panel}">Welcome <span
+						<a th:href="@{/student/home}">Welcome <span
 							sec:authentication="name"></span> <span></span> <img
 							class="img-circle"
 							style="display: table-cell; vertical-align: middle; text-align: center"
 							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
-							width="28" /></a> <a th:href="@{/college/home}"><span>Profile</span></a>
-						<a th:href="@{/college/admin-panel}"><span>Admin Panel</span></a>
+							width="28" /></a> <a th:href="@{/student/home}"><span>Profile</span></a>
+						<a th:href="@{/student/jobs}"><span>Admin Panel</span></a>
 						<a th:href="@{/logout}"><span>Logout</span></a> <a
 							th:href="@{/reset-password-request}"><span>Reset
 								Password</span></a>
@@ -311,7 +311,7 @@ td {
 											<div id="container_40cddcf3">
 												<div id="container_40cddcf3_padding">
 													<div class="textstyle1">
-														<span class="textstyle7" th:text="${univ}"></span>
+														<span class="textstyle7" th:text="${course_and_branch}"></span>
 													</div>
 												</div>
 											</div>
@@ -322,7 +322,6 @@ td {
 								<div id="container_7c8aa649">
 									<div id="container_7c8aa649_padding">
 										<div class="textstyle8">
-
 											<input name="Button9" type="hidden"
 												value="Request Recommendation" title="" id="button_1b652568">
 											<span class="textstyle5"> </span>
@@ -331,22 +330,17 @@ td {
 												<input id="backgroundImageUpload" type="file" name="file"
 													onchange="form.submit()" style="visibility: hidden" />
 												<span class="textstyle9" style="text-align:right;">Change background image
-												</span> 
-																								
+												</span>																								
 													<label
 													for="backgroundImageUpload" id="button_475df8fc"  style="float:right">
-													</label> 						
-												
+													</label>											
 											</form>
-										</div>
-										<div style="clear: both"></div>
+										</div>										
 									</div>
 								</div>
 							</div>
 						</div>
-					
-				</div>
-				<div style="clear: both"></div>
+				</div>				
 			</div>
 		</div>
 		<div id="container_7d6e006">
