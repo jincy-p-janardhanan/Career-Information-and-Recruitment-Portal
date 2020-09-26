@@ -5,198 +5,148 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
 <title></title>
-<link rel="stylesheet" type="text/css" href="css/create_job_html.css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/create_job_html.css}">
 </head>
 <body>
-	<div class="textstyle1">
-		<div id="container_66074cc0">
-			<div id="container_66074cc0_padding">
-				<div class="textstyle1">
-					<form action="" enctype="application/x-www-form-urlencoded"
-						method="GET" id="form_40cee31b">
+	<header th:insert="recruiter/home_recruiter.html :: header"> </header>
+	<div th:replace="recruiter/home_recruiter.html :: navbar-recruiter"
+		th:style="a{color: #B2B2B2;}"></div>
+	<div id="container_76b73786">
+		<div id="container_76b73786_padding">
+			<div class="textstyle1">
+				<div id="container_3b7503c4">
+					<div id="container_3b7503c4_padding">
 						<div class="textstyle1">
-							<input type="text" value="" title="" name="nav_search"
-								placeholder="Search recruiters, jobs, students, alumni or colleges"
-								id="edit_75a96666"> <input name="Search" type="submit"
-								value="" title="" id="button_3336ab6d">
-						</div>
-					</form>
-					<div id="text_43bf97f7">
-						<div class="textstyle1">
-							<span class="textstyle2">Profile</span>
-						</div>
-					</div>
-					<div id="text_d10bbcd">
-						<div class="textstyle1">
-							<span class="textstyle2">Applications</span>
-						</div>
-					</div>
-					<div id="text_2ea1b31f">
-						<div class="textstyle1">
-							<span class="textstyle2">Manage Jobs</span>
-						</div>
-					</div>
-					<div id="text_11641a92">
-						<div class="textstyle1">
-							<span class="textstyle2">Admin Panel</span>
-						</div>
-					</div>
-					<div id="container_30818d64">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_30f911ac">
-								<option value="Notifications" selected="selected">Notifications</option>
-							</select> <img src="css/assets/notification.png" id="img_66882640" alt=""
+							<img th:src="@{/css/assets/jobs.png}" id="img_64225efd" alt=""
 								title="" />
-						</div>
-					</div>
-					<div id="container_1717b0a4">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_21b57895">
-								<option value="Welcome Username" selected="selected">Welcome
-									Username</option>
-								<option value="Logout">Logout</option>
-								<option value="Reset Password">Reset Password</option>
-							</select> <img src="css/assets/user.png" id="img_218b9b00" alt="" title="" />
-						</div>
-					</div>
-					<div id="container_20fbc2ca">
-						<div class="textstyle1">
-							<select name="Notifications" title="" id="combo_52562ad5">
-								<option value="Profile">Profile</option>
-								<option value="Applications">Applications</option>
-								<option value="Manage Jobs">Manage Jobs</option>
-								<option value="Admin Panel">Admin Panel</option>
-								<option value="Notifications">Notifications</option>
-								<option value="Welcome Username">Welcome Username</option>
-								<option value="Logout">Logout</option>
-								<option value="Reset Password">Reset Password</option>
-							</select> <img src="css/assets/menu.png" id="img_28f3bc4b" alt="" title="" />
-						</div>
-					</div>
-				</div>
-				<div style="clear: both"></div>
-			</div>
-		</div>
-		<div id="container_76b73786">
-			<div id="container_76b73786_padding">
-				<div class="textstyle1">
-					<div id="container_3b7503c4">
-						<div id="container_3b7503c4_padding">
-							<div class="textstyle1">
-								<img src="css/assets/jobs.png" id="img_64225efd" alt="" title="" />
-								<div id="text_27dba1b5">
-									<div class="textstyle1">
-										<span class="textstyle3">Create Job</span>
-									</div>
-								</div>
-								<form action="" enctype="application/x-www-form-urlencoded"
-									method="POST" id="form_53d4d74c">
-									<div id="form_53d4d74c_padding">
-										<div class="textstyle1">
-											<div id="text_44235dba">
-												<div class="textstyle1">
-													<span class="textstyle4">JOB TITLE</span>
-												</div>
-											</div>
-											<textarea name="TextEdit1" title=""
-												placeholder="Make your title precise" cols="28" rows="2"
-												id="edit_77609974"></textarea>
-											<div id="text_67580ade">
-												<div class="textstyle1">
-													<span class="textstyle4">LOCATION</span>
-												</div>
-											</div>
-											<div id="text_6e4fb690">
-												<div class="textstyle1">
-													<span class="textstyle4">DESCRIPTION</span>
-												</div>
-											</div>
-											<textarea name="TextEdit3" title=""
-												placeholder="Provide all necessary details like job roles,responsibilities,skills and qualifications required and any relevent terms and conditions."
-												cols="54" rows="16" id="edit_513301f0"></textarea>
-											<textarea name="TextEdit2" title=""
-												placeholder="Any locality or Online" cols="23" rows="2"
-												id="edit_60320bed"></textarea>
-											<div id="text_1383d4b1">
-												<div class="textstyle1">
-													<span class="textstyle4">DURATION OF <br />JOB
-													</span>
-												</div>
-											</div>
-											<textarea name="TextEdit4" title=""
-												placeholder="Required job duration like permanant recruitment ,6 months etc."
-												cols="19" rows="2" id="edit_785dbb6"></textarea>
-											<div id="text_4938d317">
-												<div class="textstyle1">
-													<span class="textstyle4">STIPEND/<br />SALARY
-													</span>
-												</div>
-											</div>
-											<input type="date" value="" title="" name="TextEdit6"
-												placeholder="Last date to apply." id="edit_e6830fc">
-											<div id="text_99b9ef4">
-												<div class="textstyle1">
-													<span class="textstyle4">APPLY BY</span>
-												</div>
-											</div>
-											<textarea name="TextEdit5" title=""
-												placeholder="Amount of stipend or salary provided per month."
-												cols="18" rows="2" id="edit_194e9651"></textarea>
-											<div id="text_1fcbd439">
-												<div class="textstyle1">
-													<span class="textstyle4">ATTACH JOB TAGS</span>
-												</div>
-											</div>
-											<textarea name="TextEdit7" title=""
-												placeholder="Attach relevent job tags like #webdeveloper #Onlinemarketing etc."
-												cols="54" rows="2" id="edit_38dcda88"></textarea>
-											<div id="text_1a4e855">
-												<div class="textstyle1">
-													<span class="textstyle3">Create Custom Job
-														Applications</span>
-												</div>
-											</div>
-											<div id="text_7b73e273">
-												<div class="textstyle5">
-													<span class="textstyle4">QUESTION 1:</span>
-												</div>
-												<div class="textstyle1"></div>
-											</div>
-											<textarea name="TextEdit8" title=""
-												placeholder="Ask specific questions to the candidate."
-												cols="30" rows="2" id="edit_78caf3bd"></textarea>
-											<div id="text_248f1ad5">
-												<div class="textstyle5">
-													<span class="textstyle4">QUESTION 2:</span>
-												</div>
-												<div class="textstyle1"></div>
-											</div>
-											<textarea name="TextEdit8" title=""
-												placeholder="Maybe some task or scenorio you would like to be solved by the candidate."
-												cols="30" rows="2" id="edit_1c1a24f4"></textarea>
-											<input name="Button2" type="submit" value="+" title=""
-												id="button_77363bda"> <input name="Button2"
-												type="submit" value="-" title="" id="button_6cf5d1d2">
-											<input name="Button1" type="submit" value="POST JOB" title=""
-												id="button_12f25c71">
-											<div id="container_48b5813c">
-												<div class="textstyle1"></div>
-											</div>
-										</div>
-										<div style="clear: both"></div>
-									</div>
-								</form>
-								<div id="container_688655a9">
-									<div class="textstyle1"></div>
+							<div id="text_27dba1b5">
+								<div class="textstyle1">
+									<span class="textstyle3">Create Job</span>
 								</div>
 							</div>
-							<div style="clear: both"></div>
+							<form th:action="@{/recruiter/create-job}"
+								enctype="application/x-www-form-urlencoded" th:Object="${job}"
+								method="POST" id="form_53d4d74c">
+								<div id="form_53d4d74c_padding">
+									<div class="textstyle1">
+										<div id="text_44235dba">
+											<div class="textstyle1">
+												<span class="textstyle4">JOB TITLE</span>
+											</div>
+										</div>
+										<input type="text" name="TextEdit1" title=""
+											th:field="*{name}" placeholder="Make your title precise"
+											id="edit_77609974" />
+										<div id="text_67580ade">
+											<div class="textstyle1">
+												<span class="textstyle4">LOCATION</span>
+											</div>
+										</div>
+										<input type="text" name="TextEdit2"
+											placeholder="Any locality or Online" th:field="*{location}"
+											id="edit_60320bed" />
+										<div id="text_6e4fb690">
+											<div class="textstyle1">
+												<span class="textstyle4">DESCRIPTION</span>
+											</div>
+										</div>
+										<textarea name="TextEdit3" th:field="*{desc}"
+											placeholder="Provide all necessary details like job roles,responsibilities,skills and qualifications required and any relevent terms and conditions."
+											cols="54" rows="16" id="edit_513301f0"></textarea>
+
+										<div id="text_1383d4b1">
+											<div class="textstyle1">
+												<span class="textstyle4">DURATION OF <br />JOB
+												</span>
+											</div>
+										</div>
+										<input type="text" name="TextEdit4" title=""
+											placeholder="Required job duration like permanant recruitment ,6 months etc."
+											th:field="*{duration}" id="edit_785dbb6">
+										<div id="text_4938d317">
+											<div class="textstyle1">
+												<span class="textstyle4">STIPEND/<br />SALARY
+												</span>
+											</div>
+										</div>
+										<input type="text" name="TextEdit5" title=""
+											th:field="*{stipend}"
+											placeholder="Amount of stipend or salary provided per month."
+											id="edit_194e9651" />
+										<div class="textstyle1">
+											<span class="textstyle4">APPLY BY</span>
+										</div>
+									</div>
+									<input type="date" value="" title="" name="TextEdit6"
+										th:field="*{last_date}" placeholder="Last date to apply."
+										id="edit_e6830fc">
+									<div id="text_99b9ef4">
+
+										<div id="text_1fcbd439">
+											<div class="textstyle1">
+												<span class="textstyle4">ATTACH JOB TAGS</span>
+											</div>
+										</div>
+										<textarea name="TextEdit7" title="" th:field="*{skills}"
+											placeholder="Attach relevent job tags like #webdeveloper #Onlinemarketing etc."
+											cols="54" rows="2" id="edit_38dcda88"></textarea>
+										<div id="text_1a4e855">
+											<div class="textstyle1">
+												<span class="textstyle3">Create Custom Job
+													Applications</span>
+											</div>
+										</div>
+										<div id="text_7b73e273">
+											<div class="textstyle5">
+												<span class="textstyle4">QUESTION 1:</span>
+											</div>
+											<div class="textstyle1"></div>
+										</div>
+										<textarea name="TextEdit8" title=""
+											placeholder="Ask specific questions to the candidate."
+											cols="30" rows="2" id="edit_78caf3bd"></textarea>
+										<div id="text_248f1ad5">
+											<div class="textstyle5">
+												<span class="textstyle4">QUESTION 2:</span>
+											</div>
+
+											<div class="textstyle1"></div>
+										</div>
+										<textarea name="TextEdit8" title=""
+											placeholder="Maybe some task or scenorio you would like to be solved by the candidate."
+											cols="30" rows="2" id="edit_1c1a24f4"></textarea>
+										<form>
+											<input name="Button2" type="submit" value="+" /> <input
+												type="text" placeholder="type questions" /> <input
+												type="button" class="add-row" value="Add Row" title=""
+												id="button_77363bda" />
+										</form>
+										<form>
+											<input name="Button2" type="submit" value="-" />
+											<button type="button" class="delete-row"
+											title="" id="button_6cf5d1d2"></button>
+										</form>
+										<input name="Button1" type="submit" value="POST JOB" title=""
+											id="button_12f25c71">
+										<div id="container_48b5813c">
+											<div class="textstyle1"></div>
+										</div>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</form>
+							<div id="container_688655a9">
+								<div class="textstyle1"></div>
+							</div>
 						</div>
+						<div style="clear: both"></div>
 					</div>
 				</div>
-				<div style="clear: both"></div>
 			</div>
+			<div style="clear: both"></div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

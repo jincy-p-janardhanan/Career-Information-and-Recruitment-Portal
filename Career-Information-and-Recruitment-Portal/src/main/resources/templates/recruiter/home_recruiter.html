@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home | Recruiter</title>
@@ -238,7 +238,7 @@ td {
 <body>
 	<div class="textstyle1">
 		<div id="backgroundimage">
-			<div class="navbar">
+			<div class="navbar" th:fragment="navbar-recruiter">
 				<div id="nav_options">
 					<div class="dropdown" sec:authorize="isAuthenticated()">
 						<button class="dropbtn">

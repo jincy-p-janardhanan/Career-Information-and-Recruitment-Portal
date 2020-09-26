@@ -69,11 +69,28 @@ public class RecruiterController {
 	}
 	
 	@GetMapping("/create-job")
-	public String createJob(Model model) {
-		model.addAttribute("job", new Job());				
+	public String createJob(Model model, RedirectAttributes redirectAttributes, Authentication authentication) {
+		model.addAttribute("job", new Job());
+		Recruiter recruiter = repo.findById(authentication.getName());
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		return "recruiter/create_job";
 	}
-	
+	/*
+	@RequestMapping(value="/add-questions", params={"addRow"})
+	public String addRow(final SeedStarter seedStarter, final BindingResult bindingResult) {
+	    seedStarter.getRows().add(new Row());
+	    return "seedstartermng";
+	}
+
+	@RequestMapping(value="/seedstartermng", params={"removeRow"})
+	public String removeRow(
+	        final SeedStarter seedStarter, final BindingResult bindingResult, 
+	        final HttpServletRequest req) {
+	    final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+	    seedStarter.getRows().remove(rowId.intValue());
+	    return "seedstartermng";
+	}
+	*/
 	@PostMapping(value="/delete-job", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public String deleteJob(String job_id, RedirectAttributes redirectAttributes, Authentication authentication) {	

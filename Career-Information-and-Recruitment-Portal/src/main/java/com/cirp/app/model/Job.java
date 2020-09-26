@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,6 +29,7 @@ public class Job {
 	private String duration;
 	private float stipend;
 	@NotBlank
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date last_date;
 	private List<String> questions;
 	private List<Application> applicants;

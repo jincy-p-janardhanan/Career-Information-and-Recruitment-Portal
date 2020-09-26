@@ -16,6 +16,11 @@
 		</header>
 		<div th:replace="college/home_college.html :: navbar-college" th:style="a{color: #B2B2B2;}"></div>
 	</div>
+	<div sec:authorize="hasRole('ROLE_recruiter')">
+		<header th:insert="recruiter/home_recruiter.html :: header">
+		</header>
+		<div th:replace="recruiter/home_recruiter.html :: navbar-recruiter" th:style="a{color: #B2B2B2;}"></div>
+	</div>
 	<div sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')">
 		<header th:insert="student/home_student.html :: header">
 		</header>
