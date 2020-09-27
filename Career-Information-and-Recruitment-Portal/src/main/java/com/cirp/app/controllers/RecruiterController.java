@@ -1,8 +1,10 @@
 package com.cirp.app.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
@@ -11,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,12 +51,15 @@ public class RecruiterController {
 	}
 
 	@GetMapping("/manage-jobs")
-	public String mangeJobs(Model model, Authentication authentication) {
+	public String manageJobs(Model model, Authentication authentication) {
 		Recruiter recruiter = repo.findById(authentication.getName());
-		List<ObjectId> jobids = recruiter.getJobs();
+		List<String> jobids = recruiter.getJobs();
 		List<Job> jobs = new ArrayList<Job>();
-		for(ObjectId jobid: jobids) {
-			jobs.add(repo.findById(jobid.toString()));
+		if(jobids!= null) {
+			for(String jobid: jobids) {
+				Job job = repo.findById(jobid);				
+				jobs.add(job);
+			}
 		}
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		model.addAttribute("jobs", jobs);	
@@ -63,40 +69,64 @@ public class RecruiterController {
 	@PostMapping(value = "/create-job", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public String createJob(@Valid Job job, RedirectAttributes redirectAttributes, Authentication authentication) {	
-		repo.createJob(job, authentication.getName());
+		Recruiter recruiter = repo.findById(authentication.getName());
+		job.setRecruiter_id(recruiter.getUsername());
+		if (!recruiter.getProfile_pic().equals("default_recruiter.png")) {
+			job.setProfile_pic(recruiter.getProfile_pic());
+		} else {
+			job.setProfile_pic("default_job.png");
+		}
+		job.set_id(new ObjectId().toString());
+		List<String> job_ids = recruiter.getJobs();
+		if (job_ids == null) {
+			job_ids = new ArrayList<String>();
+		}
+
+		job_ids.add(job.get_id());
+		recruiter.setJobs(job_ids);
+		repo.createJob(job, recruiter);
 		redirectAttributes.addFlashAttribute("message", "Successfully created new job opening for "+job.getName()+"!");
-		return "redirect:/create-job";
+		return "redirect:/recruiter/manage-jobs";
 	}
 	
 	@GetMapping("/create-job")
 	public String createJob(Model model, RedirectAttributes redirectAttributes, Authentication authentication) {
-		model.addAttribute("job", new Job());
+		Job job = new Job();
+		job.setQuestions(Arrays.asList("Maybe some task or scenorio you would like to be solved by the candidate..."));
+		model.addAttribute("job", job);
 		Recruiter recruiter = repo.findById(authentication.getName());
+		System.out.println(recruiter.getUsername() + "\n" + authentication.getName());
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		return "recruiter/create_job";
 	}
-	/*
-	@RequestMapping(value="/add-questions", params={"addRow"})
-	public String addRow(final SeedStarter seedStarter, final BindingResult bindingResult) {
-	    seedStarter.getRows().add(new Row());
-	    return "seedstartermng";
+	
+	@RequestMapping(value="/create-job", params={"add-question"})
+	public String addQuestion(final Job job, final BindingResult bindingResult, Model model, Authentication authentication) {
+	    job.getQuestions().add(new String());
+	    Recruiter recruiter = repo.findById(authentication.getName());
+		System.out.println(recruiter.getUsername() + "\n" + authentication.getName());
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+	    return "recruiter/create_job";
 	}
 
-	@RequestMapping(value="/seedstartermng", params={"removeRow"})
-	public String removeRow(
-	        final SeedStarter seedStarter, final BindingResult bindingResult, 
-	        final HttpServletRequest req) {
-	    final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
-	    seedStarter.getRows().remove(rowId.intValue());
-	    return "seedstartermng";
+	@RequestMapping(value="/create-job", params={"delete-question"})
+	public String deleteQuestion(Model model,
+			final Job job, final BindingResult bindingResult, 
+	        final HttpServletRequest req, Authentication authentication) {
+		Recruiter recruiter = repo.findById(authentication.getName());
+		System.out.println(recruiter.getUsername() + "\n" + authentication.getName());
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+	    final Integer question_no = Integer.valueOf(req.getParameter("delete-question"));
+	    job.getQuestions().remove(question_no.intValue());
+	    return "recruiter/create_job";
 	}
-	*/
+	
 	@PostMapping(value="/delete-job", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public String deleteJob(String job_id, RedirectAttributes redirectAttributes, Authentication authentication) {	
 		Job job = repo.findById(job_id);
 		repo.deleteJob(job, authentication.getName());
-		redirectAttributes.addFlashAttribute("message", "Successfully created new job opening for "+job.getName()+"!");
+		redirectAttributes.addFlashAttribute("message", "Deleted your job opening for "+job.getName()+"!");
 		return "redirect:/create-job";
 	}
 	
@@ -105,7 +135,7 @@ public class RecruiterController {
 	public String editJob(@Valid Job job, RedirectAttributes redirectAttributes, Authentication authentication) {	
 		repo.editJob(job);
 		repo.deleteJob(job, authentication.getName());
-		redirectAttributes.addFlashAttribute("message", "Successfully created new job opening for "+job.getName()+"!");
+		redirectAttributes.addFlashAttribute("message", "Edit success!");
 		return "redirect:/create-job";
 	}
 }

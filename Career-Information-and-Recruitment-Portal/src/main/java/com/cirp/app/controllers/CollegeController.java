@@ -32,8 +32,6 @@ public class CollegeController {
 		desc.setValue(college.getDesc());
 		String bg_img = college.getBg_img();
 		
-		if(desc.getValue() == "")
-			desc.setValue("Add your profile description here... ");
 		if(bg_img == null) {
 			bg_img = "default_background.png";
 		}

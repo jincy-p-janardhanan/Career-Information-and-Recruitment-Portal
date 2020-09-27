@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Job {
 	
 	@MongoId
-	ObjectId Id;
+	String _id;
 	@NotBlank
 	private String recruiter_id;
 	private String profile_pic; //Recruiter's profile picture; default job icon (if there's no profile picture for recruiter)
@@ -56,12 +56,12 @@ public class Job {
 	public Job() {
 	}
 
-	public ObjectId getId() {
-		return Id;
+	public String get_id() {
+		return _id;
 	}
 
-	public void setId(ObjectId id) {
-		Id = id;
+	public void set_id(String id) {
+		_id = id;
 	}
 
 	public String getRecruiter_id() {

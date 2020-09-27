@@ -71,16 +71,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void createJob(Job job, String username) {
-		Recruiter recruiter = findById(username);
-		List<ObjectId> job_ids = recruiter.getJobs();
-		if (job_ids == null) {
-			job_ids = new ArrayList<ObjectId>();
-		}
-
-		job_ids.add(job.getId());
-		recruiter.setJobs(job_ids);
-
+	public void createJob(Job job, Recruiter recruiter) {
 		mongoTemplate.save(recruiter);
 		mongoTemplate.insert(job);
 	}
@@ -95,7 +86,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 		mongoTemplate.remove(job);
 		Query query = new Query();
 		query.addCriteria(where("username").is(recruiter_id));
-		mongoTemplate.updateFirst(query, new Update().pull("jobs", job.getId()), Recruiter.class);
+		mongoTemplate.updateFirst(query, new Update().pull("jobs", job.get_id()), Recruiter.class);
 	}
 
 	@Override
@@ -120,7 +111,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@Override
 	public List<Application> viewAllApplications(String recruiter_id) {
 		Recruiter recruiter = mongoTemplate.findById(recruiter_id, Recruiter.class);
-		List<ObjectId> job_list = recruiter.getJobs();
+		List<String> job_list = recruiter.getJobs();
 		List<Application> all_applications = new ArrayList<Application>();
 		for (int i = 0; i < job_list.size(); i++) {
 			Job job = mongoTemplate.findById(job_list.get(i), Job.class);
@@ -196,11 +187,10 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 		else if (mongoTemplate.findById(id, Alumnus.class) != null)
 			return (T) mongoTemplate.findById(id, Alumnus.class);
-
 		else if (mongoTemplate.findById(id, Job.class) != null)
 			return (T) mongoTemplate.findById(id, Job.class);
-		else
-			return null;
+		
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -347,7 +337,10 @@ public class CirpRepository implements CirpRepositoryOperations {
 		} else if (mongoTemplate.findOne(query, Admin.class) != null) {
 
 			return (T) mongoTemplate.findOne(query, Admin.class);
-		}
+		} else if (mongoTemplate.findOne(query, Job.class) != null) {
+
+			return (T) mongoTemplate.findOne(query, Job.class);
+		} 
 
 		return null;
 	}
@@ -362,12 +355,11 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void editJob(Job job) {
-		mongoTemplate.findAndReplace(new Query().addCriteria(where("_id").is(job.getId())), job);
+		mongoTemplate.findAndReplace(new Query().addCriteria(where("_id").is(job.get_id())), job);
 	}
 
 	@Override
 	public void updateStudent(Student student) {
 		mongoTemplate.save(student);
 	}
-
 }

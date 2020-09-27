@@ -3,150 +3,354 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="RocketCake">
-<title></title>
 <link rel="stylesheet" type="text/css"
-	th:href="@{/css/create_job_html.css}">
+	th:href="@{/css/bootstrap-tagsinput.css}">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap-tagsinput.js}"></script>
+<title>Create Job</title>
+<style type="text/css">
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+textarea {
+	resize: none;
+}
+
+.bootstrap-tagsinput {
+	box-sizing: border-box;
+	border-radius: 10px;
+	position: absolute;
+	left: 2%;
+	top: 60%;
+	width: 96%;
+	height: 4%;
+	background-color: rgba(255, 255, 255, 0.007843);
+	border: 1px solid #DDDDDD;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #434343;
+}
+
+.bootstrap-tagsinput input {
+	border: none;
+	box-shadow: none;
+	outline: none;
+	background-color: transparent;
+	padding: 0 6px;
+	margin: 0;
+}
+
+@media only screen and (max-width: 1212px) {
+	#form_40cee31b {
+		width: 80% !important;
+		left: 15% !important;
+		top: 22% !important;
+	}
+	#text_43bf97f7 {
+		display: none !important;
+	}
+	#text_d10bbcd {
+		display: none !important;
+	}
+	#text_2ea1b31f {
+		display: none !important;
+	}
+	#text_11641a92 {
+		display: none !important;
+	}
+	#container_30818d64 {
+		display: none !important;
+	}
+	#container_1717b0a4 {
+		display: none !important;
+	}
+}
+
+@media only screen and (max-width: 929px) {
+	#container_76b73786 {
+		min-height: 1500px !important;
+	}
+	#container_48b5813c {
+		width: 96% !important;
+		min-height: 1px !important;
+	}
+	#container_688655a9 {
+		width: 96% !important;
+	}
+}
+
+@media only screen and (max-width: 868px) {
+	#text_27dba1b5 {
+		left: 23% !important;
+		top: 1% !important;
+	}
+	#text_44235dba {
+		left: 4% !important;
+		top: 1% !important;
+	}
+	#text_1383d4b1 {
+		left: 0% !important;
+		top: 47% !important;
+	}
+	#text_4938d317 {
+		left: 45% !important;
+		top: 47% !important;
+	}
+	#text_99b9ef4 {
+		left: 79% !important;
+		top: 47% !important;
+	}
+	#text_7b73e273 {
+		left: 2% !important;
+		top: 78% !important;
+	}
+	#edit_78caf3bd {
+		left: 20% !important;
+		top: 77% !important;
+	}
+	#text_248f1ad5 {
+		left: 2% !important;
+		top: 84% !important;
+	}
+	#edit_1c1a24f4 {
+		left: 20% !important;
+		top: 83% !important;
+	}
+	#button_77363bda {
+		left: 75% !important;
+		top: 84% !important;
+		width: 25px !important;
+		height: 28px !important;
+	}
+	#button_6cf5d1d2 {
+		left: 85% !important;
+		top: 84% !important;
+		width: 25px !important;
+		height: 28px !important;
+	}
+	#button_12f25c71 {
+		width: 90px !important;
+		height: 40px !important;
+		width: 90px !important;
+		left: 50% !important;
+		top: 89% !important;
+	}
+}
+
+@media only screen and (max-width: 501px) {
+	#text_1a4e855 {
+		width: 100% !important;
+		height: auto !important;
+	}
+}
+</style>
 </head>
-<body>
-	<header th:insert="recruiter/home_recruiter.html :: header"> </header>
-	<div th:replace="recruiter/home_recruiter.html :: navbar-recruiter"
-		th:style="a{color: #B2B2B2;}"></div>
-	<div id="container_76b73786">
-		<div id="container_76b73786_padding">
-			<div class="textstyle1">
-				<div id="container_3b7503c4">
-					<div id="container_3b7503c4_padding">
-						<div class="textstyle1">
-							<img th:src="@{/css/assets/jobs.png}" id="img_64225efd" alt=""
-								title="" />
-							<div id="text_27dba1b5">
-								<div class="textstyle1">
-									<span class="textstyle3">Create Job</span>
-								</div>
-							</div>
-							<form th:action="@{/recruiter/create-job}"
-								enctype="application/x-www-form-urlencoded" th:Object="${job}"
-								method="POST" id="form_53d4d74c">
-								<div id="form_53d4d74c_padding">
-									<div class="textstyle1">
-										<div id="text_44235dba">
-											<div class="textstyle1">
-												<span class="textstyle4">JOB TITLE</span>
-											</div>
-										</div>
-										<input type="text" name="TextEdit1" title=""
-											th:field="*{name}" placeholder="Make your title precise"
-											id="edit_77609974" />
-										<div id="text_67580ade">
-											<div class="textstyle1">
-												<span class="textstyle4">LOCATION</span>
-											</div>
-										</div>
-										<input type="text" name="TextEdit2"
-											placeholder="Any locality or Online" th:field="*{location}"
-											id="edit_60320bed" />
-										<div id="text_6e4fb690">
-											<div class="textstyle1">
-												<span class="textstyle4">DESCRIPTION</span>
-											</div>
-										</div>
-										<textarea name="TextEdit3" th:field="*{desc}"
-											placeholder="Provide all necessary details like job roles,responsibilities,skills and qualifications required and any relevent terms and conditions."
-											cols="54" rows="16" id="edit_513301f0"></textarea>
-
-										<div id="text_1383d4b1">
-											<div class="textstyle1">
-												<span class="textstyle4">DURATION OF <br />JOB
-												</span>
-											</div>
-										</div>
-										<input type="text" name="TextEdit4" title=""
-											placeholder="Required job duration like permanant recruitment ,6 months etc."
-											th:field="*{duration}" id="edit_785dbb6">
-										<div id="text_4938d317">
-											<div class="textstyle1">
-												<span class="textstyle4">STIPEND/<br />SALARY
-												</span>
-											</div>
-										</div>
-										<input type="text" name="TextEdit5" title=""
-											th:field="*{stipend}"
-											placeholder="Amount of stipend or salary provided per month."
-											id="edit_194e9651" />
-										<div class="textstyle1">
-											<span class="textstyle4">APPLY BY</span>
-										</div>
+<body style="background-color: #FFFFFF; padding: 0; margin: 0;">
+	<div style="text-align: left;">
+		<header th:insert="recruiter/home_recruiter.html :: header">
+		</header>
+		<div th:replace="recruiter/home_recruiter.html :: navbar-recruiter"
+			th:style="a{color: #B2B2B2;}"></div>
+		<div
+			style="position: absolute; left: 0%; top: 10%; width: 100%; background: none;"
+			id="container_76b73786">
+			<div style="margin: 10px; display: block;"
+				id="container_76b73786_padding">
+				<div style="text-align: left;">
+					<div
+						style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 1254px; background: none;"
+						id="container_3b7503c4">
+						<div style="margin: 10px; display: block;"
+							id="container_3b7503c4_padding">
+							<div style="text-align: left;">
+								<img th:src="@{/css/assets/jobs.png}"
+									style="position: absolute; left: 1%; top: 0%; width: 60px; background: none;"
+									id="img_64225efd" alt="" title="" />
+								<div
+									style="position: absolute; left: 8%; top: 1%; background: none;"
+									id="text_27dba1b5">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">Create
+											Job</span>
 									</div>
-									<input type="date" value="" title="" name="TextEdit6"
-										th:field="*{last_date}" placeholder="Last date to apply."
-										id="edit_e6830fc">
-									<div id="text_99b9ef4">
-
-										<div id="text_1fcbd439">
-											<div class="textstyle1">
-												<span class="textstyle4">ATTACH JOB TAGS</span>
-											</div>
-										</div>
-										<textarea name="TextEdit7" title="" th:field="*{skills}"
-											placeholder="Attach relevent job tags like #webdeveloper #Onlinemarketing etc."
-											cols="54" rows="2" id="edit_38dcda88"></textarea>
-										<div id="text_1a4e855">
-											<div class="textstyle1">
-												<span class="textstyle3">Create Custom Job
-													Applications</span>
-											</div>
-										</div>
-										<div id="text_7b73e273">
-											<div class="textstyle5">
-												<span class="textstyle4">QUESTION 1:</span>
-											</div>
-											<div class="textstyle1"></div>
-										</div>
-										<textarea name="TextEdit8" title=""
-											placeholder="Ask specific questions to the candidate."
-											cols="30" rows="2" id="edit_78caf3bd"></textarea>
-										<div id="text_248f1ad5">
-											<div class="textstyle5">
-												<span class="textstyle4">QUESTION 2:</span>
-											</div>
-
-											<div class="textstyle1"></div>
-										</div>
-										<textarea name="TextEdit8" title=""
-											placeholder="Maybe some task or scenorio you would like to be solved by the candidate."
-											cols="30" rows="2" id="edit_1c1a24f4"></textarea>
-										<form>
-											<input name="Button2" type="submit" value="+" /> <input
-												type="text" placeholder="type questions" /> <input
-												type="button" class="add-row" value="Add Row" title=""
-												id="button_77363bda" />
-										</form>
-										<form>
-											<input name="Button2" type="submit" value="-" />
-											<button type="button" class="delete-row"
-											title="" id="button_6cf5d1d2"></button>
-										</form>
-										<input name="Button1" type="submit" value="POST JOB" title=""
-											id="button_12f25c71">
-										<div id="container_48b5813c">
-											<div class="textstyle1"></div>
-										</div>
-									</div>
-									<div style="clear: both"></div>
 								</div>
-							</form>
-							<div id="container_688655a9">
-								<div class="textstyle1"></div>
+								<form
+									style="position: absolute; left: 1%; top: 7%; width: 98%; min-height: 1130px; background: none;"
+									th:action="@{/recruiter/create-job}" th:Object="${job}"
+									enctype="application/x-www-form-urlencoded" method="POST"
+									id="form_53d4d74c">
+									<div style="margin: 10px; display: block;"
+										id="form_53d4d74c_padding">
+										<div style="text-align: left;">
+											<div
+												style="position: absolute; left: 2%; top: 1%; background: none;"
+												id="text_44235dba">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">JOB
+														TITLE</span>
+												</div>
+											</div>
+											<input type=text th:field="*{name}"
+												placeholder="Make your title precise"
+												style="box-sizing: border-box; border-radius: 10px; position: absolute; left: 2%; top: 4%; width: 50%; height: 4%; background-color: #FFFFFF; border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+												id="edit_77609974" />
+											<div
+												style="position: absolute; left: 56%; top: 1%; background: none;"
+												id="text_67580ade">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">LOCATION</span>
+												</div>
+											</div>
+											<input type=text th:field="*{location}"
+												placeholder="Any locality or Online"
+												style="box-sizing: border-box; border-radius: 10px; position: absolute; left: 56%; top: 4%; width: 42%; height: 4%; background-color: rgba(255, 255, 255, 0.007843); border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+												id="edit_60320bed" />
+											<div
+												style="position: absolute; left: 2%; top: 10%; background: none;"
+												id="text_6e4fb690">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">DESCRIPTION</span>
+												</div>
+											</div>
+											<textarea th:field="*{desc}"
+												placeholder="Provide all necessary details like job roles,responsibilities,skills and qualifications required and any relevent terms and conditions."
+												cols="54" rows="16"
+												style="resize: none; box-sizing: border-box; border-radius: 10px; position: absolute; left: 2%; top: 13%; width: 96%; height: 30%; background-color: rgba(255, 255, 255, 0.007843); border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+												id="edit_513301f0"></textarea>
+
+											<div
+												style="position: absolute; left: 2%; top: 47%; background: none;"
+												id="text_1383d4b1">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">DURATION
+														OF <br />JOB
+													</span>
+												</div>
+											</div>
+											<input type=text th:field="*{duration}"
+												placeholder="Required job duration like permanant recruitment ,6 months etc."
+												style="box-sizing: border-box; border-radius: 10px; position: absolute; left: 2%; top: 52%; width: 34%; height: 4%; background-color: rgba(255, 255, 255, 0.007843); border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+												id="edit_785dbb6">
+											<div
+												style="position: absolute; left: 40%; top: 47%; background: none;"
+												id="text_4938d317">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">STIPEND/<br />SALARY
+													</span>
+												</div>
+											</div>
+											<input type=text th:field="*{stipend}"
+												placeholder="Amount of stipend or salary provided per month."
+												style="box-sizing: border-box; border-radius: 10px; position: absolute; left: 40%; top: 52%; width: 32%; height: 4%; background-color: rgba(255, 255, 255, 0.007843); border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+												id="edit_194e9651">
+											<div
+												style="position: absolute; left: 76%; top: 48%; background: none;"
+												id="text_99b9ef4">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">APPLY
+														BY</span>
+												</div>
+											</div>
+											<input type="date" th:field="*{last_date}"
+												placeholder="Last date to apply."
+												style="box-sizing: border-box; border-radius: 10px; position: absolute; left: 76%; top: 52%; width: 22%; height: 4%; background-color: rgba(255, 255, 255, 0.007843); border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+												id="edit_e6830fc">
+											<div
+												style="position: absolute; left: 2%; top: 57%; background: none;"
+												id="text_1fcbd439">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">ATTACH
+														JOB TAGS</span>
+												</div>
+											</div>
+											<input type="text" th:field="*{skills}"
+												placeholder="Attach relevent job tags like webdeveloper,Onlinemarketing etc."
+												data-role="tagsinput" id="edit_38dcda88" />
+											<div
+												style="box-sizing: border-box; position: absolute; left: 1%; top: 69%; width: 98%; background: none; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #DDDDDD;"
+												id="text_1a4e855">
+												<div style="text-align: left;">
+													<span
+														style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">Create
+														Custom Job Applications</span>
+												</div>
+											</div>
+											<table
+												style="position: absolute; left: 0%; top: 75%; width: 100%; height: auto; background: none; padding: 0px; margin: 0px;">
+												<tr th:each="question, questionStat: *{questions}"
+													style="font-size: 11pt; font-family: 'Open Sans'; color: #434343; width: 100%;">
+													<td style="width: 80px;"><span th:text="'Question '+ ${questionStat.count} + ':'"></span></td>
+													<td><input type="text" th:field="*{questions[__${questionStat.index}__]}"
+														placeholder="Maybe some task or scenorio you would like to be solved by the candidate."
+														style="box-sizing: border-box; border-radius: 10px; width: 100%; height: 40px; background-color: rgba(255, 255, 255, 0.007843); border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+														id="edit_1c1a24f4"></td>
+													<td style="width:80px;"><button type="submit" name="add-question" th:text="'+'"
+														style="box-sizing: border-box; border-radius: 9px; position: relative; width:30px; height:30px; background-color: #282828; border: 1px solid #282828; font-size: 18pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
+														id="button_77363bda"></button>
+													<button type="submit" name="delete-question"
+														th:value="${questionStat.index}" th:text="'-'"
+														style="box-sizing: border-box; border-radius: 9px; position: relative; width:30px; height:30px; background-color: #ED3D32; border: 1px solid #ED3D32; font-size: 18pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
+														id="button_6cf5d1d2"></button></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>
+														<input type="submit" value="POST JOB" style="border:none; border-radius: 9px; position: relative; width: 75px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
+												id="button_12f25c71">
+													</td>
+													<td></td>
+												</tr>
+											</table>
+											
+											<div
+												style="box-sizing: border-box; position: absolute; left: 1%; top: 67%; width: 96%; min-height: 1px; background-color: #DDDDDD; border: 1px solid #DDDDDD;"
+												id="container_48b5813c">
+												<div style="text-align: left;"></div>
+											</div>
+										</div>										
+									</div>
+								</form>
+								<div
+									style="box-sizing: border-box; position: absolute; left: 1%; top: 5%; width: 96%; min-height: 1px; background-color: #DDDDDD; border: 1px solid #DDDDDD;"
+									id="container_688655a9">
+									<div style="text-align: left;"></div>
+								</div>
+
 							</div>
+
 						</div>
-						<div style="clear: both"></div>
+
 					</div>
 				</div>
+				<div style="clear: both"></div>
 			</div>
-			<div style="clear: both"></div>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

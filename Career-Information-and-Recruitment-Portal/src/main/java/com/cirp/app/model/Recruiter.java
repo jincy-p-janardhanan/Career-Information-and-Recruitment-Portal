@@ -18,7 +18,7 @@ public final class Recruiter extends NonAdmin {
 	private String license_no;
 	@NotNull
 	private ContactInfo contact;
-	private List<ObjectId> jobs;
+	private List<String> jobs;
 	private List<ObjectId> recc_req_recvd; //Recommendation requests received
 	private List<ObjectId> reccommeded; //Recommendations made by this user
 	private List<ObjectId> recc_rejected; //Recommendation requests rejected by this user
@@ -53,11 +53,11 @@ public final class Recruiter extends NonAdmin {
 		this.contact = contact;
 	}
 
-	public List<ObjectId> getJobs() {
+	public List<String> getJobs() {
 		return jobs;
 	}
 
-	public void setJobs(List<ObjectId> jobs) {
+	public void setJobs(List<String> jobs) {
 		this.jobs = jobs;
 	}
 

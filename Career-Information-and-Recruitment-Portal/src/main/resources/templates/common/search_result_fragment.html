@@ -25,8 +25,8 @@
 
 #profile_image {
 	margin: auto;
-	height: 200px;
-	width: 200px;
+	height: 180px;
+	width: 180px;
 	box-sizing: border-box;
 	border-radius: 100px;
 	background-size: cover;
@@ -50,23 +50,20 @@
 }
 
 #buttoncell {
-	position: relative;
+	position: absolute;
+	top: 75%;
+	left: 45%;
 	text-align: center;
 	min-width: 200px;
-	min-height: 50px;
 	margin: 0px;
 	padding: 20px;
 	margin: 0px;
 }
 
-table {
-	padding: 25px;
+#resultcontainer {
+	margin: 0px;
 }
 
-#resultcontainer {
-	margin: 10px 10px 20px 10px;
-	display: block;
-}
 a {
 	color: #B2B2B2;
 }
@@ -95,67 +92,93 @@ a {
 										</div>
 									</div>
 								</div>
-								<div id="form_441edaf_padding">
-									<div class="textstyle1">
-										<form th:action="@{/filtered-search}"
-											enctype="application/x-www-form-urlencoded" method="GET"
-											id="form_17498188">
-											<div id="form_17498188_padding">
-												<div class="textstyle1">
-													<div id="container_101d8633">
-														<div id="container_101d8633_padding">
-															<div class="textstyle1">
-																<input type="text"
-																	placeholder="Search for job listing to view applications"
-																	id="edit_150ad987"> <input name="Search"
-																	type="submit" value="" title="" id="button_40b210c5">
+								<form
+									style="vertical-align: top; position: relative; display: inline-block; width: 98%; min-height: 100px; background: none;"
+									action="" enctype="application/x-www-form-urlencoded"
+									method="POST" id="form_24c9c287">
+									<div style="margin: 10px; display: block;"
+										id="form_24c9c287_padding">
+										<div style="text-align: left;">
+											<div
+												style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 30px; background: none;"
+												id="form_3e786fdb">
+												<div style="margin: 10px; display: block;"
+													id="form_3e786fdb_padding">
+													<div style="text-align: left;">
+														<div
+															style="vertical-align: top; position: relative; display: inline-block; width: 65%; min-height: 46px; background: none;"
+															id="container_599833e8">
+															<div style="margin: 10px; display: block;"
+																id="container_599833e8_padding">
+																<div style="text-align: left;">
+																	<input type="text" value="" title="" name="TextEdit1"
+																		placeholder="Search for students, alumni, recruiter, colleges or jobs"
+																		style="box-sizing: border-box; vertical-align: bottom; border-radius: 10px; position: relative; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078); font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
+																		id="edit_47b47bcf"> <input name="Search"
+																		type="submit" value="" title=""
+																		th:style="'box-sizing: border-box; position: absolute; left: 90%; top: 24%; width: 20px; height: 20px; background-color: #FFFFFF; background-image: url(' + @{ '/css/assets/search___small.png'} + '); background-position: center left; background-size: cover; border: 0px solid #404040; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;'"
+																		id="button_3cc65eff">
+																</div>
+																<div style="clear: both"></div>
 															</div>
-															<div style="clear: both"></div>
+														</div>
+														<div
+															style="vertical-align: top; padding-top: 14px; position: relative; display: inline-block; float: right; width: 35%; min-height: 46px; background: none; padding: none;"
+															id="container_b942c79">
+															<div style="margin: 0px; display: block;"
+																id="container_b942c79_padding">
+																<div style="text-align: left;">
+																	<select name="ComboBox1" title=""
+																		style="box-sizing: border-box; border-radius: 10px; position: absolute; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
+																		id="combo_5b7be53">
+																		<option value="All" selected="selected">All
+																		</option>
+																		<option value="Jobs">Jobs
+																		</option>
+																		<option value="Students">Students</option>
+																		<option value="Alumni">Alumni</option>
+																		<option value="Recruiter">Recruiters</option>
+																		<option value="College">Colleges</option>
+																	</select>
+																</div>
+															</div>
 														</div>
 													</div>
-													<div id="container_4b7457a3">
-														<div id="container_4b7457a3_padding">
-															<div class="textstyle1">
-																<select name="ComboBox1" title="" id="combo_39554477">
-																	<option value="Student" selected="selected">Student</option>
-																	<option value="Alumni">Alumni</option>
-																	<option value="College">College</option>
-																	<option value="Recruiter">Recruiter</option>
-																	<option value="Jobs">Jobs</option>
-																</select>
-															</div>
-														</div>
-													</div>
+
 												</div>
 											</div>
-										</form>
+										</div>
 									</div>
-								</div>
+								</form>
 								<div id="resultcontainer" th:each="result:${results}">
-									<div id="container_31eea8b3_padding">
-										<div id="box">
-											<table style="width: 95%">
+									<div id="container_31eea8b3_padding"
+										style="position: relative;">
+										<div id="box" style="position: relative;">
+											<table style="width: 95%; padding: 0px;"position:relative;"">
 												<tr>
 													<td></td>
 													<td th:text="${result.name}" class="textstyle4" id="title"></td>
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 20px;"><div id="profile_image"
+													<td style="padding: 0px;"><div id="profile_image"
 															th:style="'background-image: url('+ @{'/view-profile-pic/' + ${result.profile_pic}} +');'"></div></td>
 													<td><span th:text="${result.desc}" class="textstyle5"
-														style="padding: 25px;"></span></td>
-													<td></td>
+														style="display: inline-block; white-space: pre-wrap; text-overflow: ellipsis; height: 10em; overflow: hidden;"></span></td>
+
 												</tr>
-												<tr>
+												<tr style="padding: 0px; margin: 0px;">
 													<td></td>
 													<td>
 														<div id="buttoncell">
-															<button id="viewprofilebutton">
+															<a th:href="@{'/view?id='+ ${result._id}}"><button id="viewprofilebutton">
 																<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW
 																PROFILE
 															</button>
-														</div>
+															<</a>
+
+														</div> <span> <br /> <br />
+													</span>
 													</td>
 													<td></td>
 												</tr>

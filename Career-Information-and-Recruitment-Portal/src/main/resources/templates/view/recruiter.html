@@ -3,355 +3,274 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home | Recruiter</title>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/home_college_html.css}">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
+<title th:text="${recruiter_name}"></title>
+<style type="text/css">
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	font-style: normal;
+}
 
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
 
-@media only screen and (max-width: 1212px) {
-	#form_11381a91 {
-		width: 80%;
-		position: absolute;
-		left: 5%;
-		top: 2%;
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+@media only screen and (max-width: 851px) {
+	#container_65d33ff3 {
+		width: 100% !important;
 	}
-	#nav_options {
-		display: none;
-	}
-}
-
-.sidebar {
-	height: 100%;
-	width: 0;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #111;
-	overflow-x: hidden;
-	transition: 0.5s;
-	padding-top: 60px;
-}
-
-.sidebar a {
-	padding: 8px 8px 8px 32px;
-	text-decoration: none;
-	font-size: 16px;
-	color: #818181;
-	display: block;
-	width: 100%;
-	transition: 0.3s;
-}
-
-.sidebar a:hover {
-	color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-	position: absolute;
-	top: 0;
-	width: 83%;
-	font-size: 30px;
-	text-align: right;
-}
-
-.openbtn {
-	font-size: 26px;
-	cursor: pointer;
-	background-color: #0f0f0f;
-	color: #b2b2b2;
-	padding: 10px 15px;
-	border: none;
-}
-
-.openbtn:hover {
-	background-color: #444;
-}
-
-@media screen and (max-height: 450px) {
-	.sidebar {
-		padding-top: 15px;
-	}
-	.sidebar a {
-		font-size: 18px;
+	#container_54e3dd05 {
+		width: 100% !important;
 	}
 }
 
-table {
-	border-collapse: collapse;
-	width: 100%;
+@media only screen and (max-width: 640px) {
+	#container_430e85af {
+		display: inline-block !important;
+	}
+	#container_430e85af * span {
+		font-size: 10pt !important;
+	}
 }
 
-td {
-	border: none;
-	text-align: left;
-	padding: 10px;
-}
-
-.col1 {
-	text-align: right;
-}
-
-.col2 {
-	width: 5px;
-}
-
-.textstyle5 {
-	text-align: center;
-}
-
-#button_70f0277e {
-	text-align: center;
-	text-align: vcenter;
-}
-
-#button_6fd57d28 {
-	text-align: center;
-}
-
-.aboutform {
-	border: none;
-	font-family: 'Open Sans';
-	font-size: 14px;
-}
-
-.aboutform:hover {
-	box-shadow: 1px 1px 2px 2px #dddddd;
-}
-
-#button_475df8fc {
-	float: right;
-}
-
-.textstyle16:hover {
-	box-shadow: 1px 1px 2px 2px #dddddd;
-}
-
-#profile_button {
-	box-sizing: border-box;
-	vertical-align: bottom;
-	border-radius: 100px;
-	position: relative;
-	display: inline-block;
-	width: 200px;
-	height: 200px;
-	background-color: #061332;
-	background-image: url("@{'/view-profile-pic/' + ${profile_pic}}");
-	background-position: center left;	
-	background-size:cover;	
-	border: 0px;
-}
-
-.img-circle {
-	box-sizing: border-box;
-	border-radius: 100px;
-}
-
-#profile_button:hover {
-	background: url([[@{/css/assets/camera-circle.png}]]);
-	background-size: cover;
-}
-#backgroundimage {
-	display: block;
-	margin:0px;
-	background-image: url("@{'/view-bg-img/' + ${bg_img}}");
-	background-size:cover;
+@media only screen and (max-width: 609px) {
+	#container_2a07b59f {
+		width: 100% !important;
+	}
+	#container_1e6987e3 {
+		width: 100% !important;
+	}
+	#heading_30e6bc0e * span {
+		font-size: 28pt !important;
+	}
+	#container_713f2bdf * span {
+		font-size: 10pt !important;
+	}
 }
 </style>
-<script>
-	function openNav() {
-		document.getElementById("mySidebar").style.width = "250px";
-	}
-
-	function closeNav() {
-		document.getElementById("mySidebar").style.width = "0";
-	}
-</script>
-
 </head>
-<body>
-	
-
-				</form>
-			</div>
-			<div>
-				<div class="textstyle1">
-					
-						<div id="form_8b61b39_padding">
-							<div class="textstyle1">
-								<div id="container_df4bb99">
-									<div id="container_df4bb99_padding">
-										<div class="textstyle4">
-										<form method="post" th:action="@{/update-profile-pic}"
-						enctype="multipart/form-data" id="form_8b61b39">
-											<input id="profilePicUpload" type="file" name="file"
-												onchange="form.submit()" style="visibility: hidden" /> <label
-												for="profilePicUpload" id="profile_button"></label>
-												</form>
-										</div>
-									</div>
+<body style="background-color: #FFFFFF; padding: 0; margin: 0;">
+	<div style="text-align: left;">
+		<div
+			th:style="'vertical-align: top; position: relative; display: block; margin:0px; width: 100%; height: 450px; background-color: #061332; background-size: cover; background-image: url('+ @{'/view-bg-img/' + ${recruiter_bg_img}} +');'"
+			id="container_547898cf">
+			<div
+				style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 300px; background: none;"
+				id="form_71a76e09">
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<header th:insert="admin/server_admin_panel.html :: header">
+					</header>
+					<div th:replace="admin/server_admin_panel.html :: navbar-admin"
+						style="color: #B2B2B2;"></div>
+				</div>
+				<div sec:authorize="hasRole('ROLE_RECRUITER')">
+					<header th:insert="recruiter/home_recruiter.html :: header"> </header>
+					<div th:replace="recruiter/home_recruiter.html :: navbar-recruiter"
+						th:style="a{color: #B2B2B2;}"></div>
+				</div>				
+				<div
+					sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')">
+					<header th:insert="student/home_student.html :: header"> </header>
+					<div th:replace="student/home_student.html :: navbar-student"></div>
+				</div>
+				<div style="margin: 10px; display: block;"
+					id="form_71a76e09_padding">
+					<div style="text-align: left; padding-top: 60px;">
+						<div
+							th:style="'vertical-align: top; border-radius: 100px; position: relative; display: inline-block; width: 25%; height: 200px; width: 200px; background-image: url('+ @{'/view-profile-pic/' + ${recruiter_profile_pic}} +'); background-position: top left; background-size: cover;'"
+							id="container_2a07b59f">
+							<div style="margin: 10px; display: block;"
+								id="container_2a07b59f_padding">
+								<div style="text-align: left;">
+									<span><br /> <br /></span>
 								</div>
-								<div id="container_222db1fd">
-									<div id="container_222db1fd_padding">
-										<div class="textstyle1">
-											<span class="textstyle5"><br /> <br /> <br /></span>
-											<h1 id="heading_359a6a0b">
-												<span class="textstyle1"> <span class="textstyle6"
-													th:text="${name}"></span>
-												</span>
-											</h1>
-											<span class="textstyle5"><br /></span>
-											<div id="container_40cddcf3">
-												<div id="container_40cddcf3_padding">
-													<div class="textstyle1">
-														<span class="textstyle7" th:text="${location}"></span>
-													</div>
-												</div>
+							</div>
+						</div>
+						<div
+							style="vertical-align: top; position: relative; display: inline-block; width: 65%; min-height: 150px; background: none;"
+							id="container_1e6987e3">
+							<div style="margin: 10px; display: block;"
+								id="container_1e6987e3_padding">
+								<div style="text-align: left;">
+									<h1
+										style="vertical-align: top; position: relative; display: inline-block; background: none;"
+										id="heading_30e6bc0e">
+										<span
+											style="text-align: left; font-size: 28pt; font-family: 'Open Sans'; color: #FFFFFF;"
+											th:text="${recruiter_name}"></span>
+									</h1>
+
+									<div
+										style="vertical-align: top; position: relative; display: inline-block; width: 100%; background: none;"
+										id="container_713f2bdf">
+										<div style="margin: 0px; display: block;"
+											id="container_713f2bdf_padding">
+											<div style="text-align: left;">
+												<span
+													style="font-size: 12pt; font-family: 'Open Sans'; color: #FFFFFF;"
+													th:text="${recruiter_location}"></span>
 											</div>
 										</div>
-										<div style="clear: both"></div>
-									</div>
-								</div>
-								<div id="container_7c8aa649">
-									<div id="container_7c8aa649_padding">
-										<div class="textstyle8">
-
-											<input name="Button9" type="hidden"
-												value="Request Recommendation" title="" id="button_1b652568">
-											<span class="textstyle5"> </span>
-											<form method="POST" th:action="@{/update-bg-img}"
-												enctype="multipart/form-data">
-												<input id="backgroundImageUpload" type="file" name="file"
-													onchange="form.submit()" style="visibility: hidden" />
-												<span class="textstyle9" style="text-align:right;">Change background image
-												</span>																								
-													<label
-													for="backgroundImageUpload" id="button_475df8fc"  style="float:right">
-													</label> 										
-											</form>
-										</div>
-										<div style="clear: both"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-					
-				</div>
-				<div style="clear: both"></div>
-			</div>
-		</div>
-		<div id="container_7d6e006">
-			<div id="container_7d6e006_padding">
-				<div class="textstyle1">
-					<div id="container_8cede07">
-						<div id="container_8cede07_padding">
-							<div class="textstyle1">
-								<div id="text_43046ee">
-									<div id="text_43046ee_padding">
-										<form class="textstyle1" th:action="@{/common/update-desc}"
-											th:Object="${desc}" method="POST">
-											<div class="textstyle1">
-												<span class="textstyle10">ABOUT <input type="submit"
-													value="" title="Click here to save your about"
-													style="cursor: pointer;" id="button_475df8fc"></span>
-											</div>
-											<textarea th:field="*{value}" th:value="*{value}"
-												class="aboutform" cols="95" rows="20"
-												style="width: 93%; padding: 20px;">
-											</textarea>
-										</form>
-									</div>
+						<div
+							style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none;"
+							id="container_38d84016">
+							<div style="margin: 10px; display: block;"
+								id="container_38d84016_padding">
+								<div style="text-align: right; padding-top:50px; padding-right:20px;">
+									<a th:href="@{#}" 
+										style="box-sizing: border-box; vertical-align: bottom; position: relative; margin:auto; display: inline-block; width: 180px; height: 30px; background-color: #54861B; border: 0px solid #404040; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;"
+										id="button_4be8a3e4">Request Recommendation</a>
 								</div>
-								<span class="textstyle3"><br /></span>
-								<div id="container_5be111dc">
-									<div id="container_5be111dc_padding"></div>
-								</div>
+								<div style="clear: both"></div>
 							</div>
-							<div style="clear: both"></div>
 						</div>
 					</div>
-					<div id="container_171ab194">
-						<div id="container_171ab194_padding">
-							<div class="textstyle4">
-								<form th:action="@{/common/update-contact}"
-									th:Object="${contact}" method="post">
-									<div id="container_23a21de4">
-										<div id="container_23a21de4_padding">
-											<div class="textstyle1">
-												<span class="textstyle13">CONTACT INFO</span> <input
-													type="submit" value=""
-													title="Click here to update your contact info"
-													style="cursor: pointer;" id="button_475df8fc">
-											</div>
-
+					<div style="clear: both"></div>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both"></div>
+	</div>
+	<div
+		style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 150px; background-color: #FFFFFF;"
+		id="container_3b59a56e">
+		<div style="margin: 10px; display: block;"
+			id="container_3b59a56e_padding">
+			<div style="text-align: left;">
+				<div
+					style="vertical-align: top; position: relative; display: inline-block; width: 70%; background-color: #FFFFFF;"
+					id="container_65d33ff3">
+					<div style="margin: 10px; display: block;"
+						id="container_65d33ff3_padding">
+						<div style="text-align: left;">
+							<div
+								style="vertical-align: bottom; position: relative; display: inline-block; margin: 20px 20px 0px 20px; width: 90%; background: none;"
+								id="text_6f4bea7e">
+								<div style="margin: 10px; display: block;"
+									id="text_6f4bea7e_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 26pt; font-family: 'Open Sans'; color: #333333;">ABOUT</span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; margin: 0px 0px 0px 20px; width: 90%; min-height: 300px; background-color: #FFFFFF;"
+								id="container_430e85af">
+								<div style="margin: 10px; display: block;"
+									id="container_430e85af_padding">
+									<div style="text-align: left;">
+										<span
+											style="white-space: pre-wrap; font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
+											th:text="${recruiter_desc}"><br /> <br /> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="clear: both"></div>
+					</div>
+				</div>
+				<div
+					style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; float: left; margin: 20px 0px 0px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
+					id="container_54e3dd05">
+					<div style="margin: 10px; display: block;"
+						id="container_54e3dd05_padding">
+						<div style="text-align: center;">
+							<div
+								style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #DDDDDD;"
+								id="container_bfe47d7">
+								<div style="margin: 10px; display: block;"
+									id="container_bfe47d7_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">CONTACT</span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 62px; background: none;"
+								id="container_55e5f313">
+								<div style="margin: 10px; display: block;"
+									id="container_55e5f313_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">WEBSITE</span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
+											th:text="${recruiter_contact.website}"></span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 64px; background: none;"
+								id="container_4cc8eb5f">
+								<div style="margin: 10px; display: block;"
+									id="container_4cc8eb5f_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">EMAIL</span><span
+											style="font-size: 12pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
+											th:text="${recruiter_contact.public_email}"></span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 65px; background-color: #FFFFFF;"
+								id="container_4873a8bf">
+								<div style="margin: 10px; display: block;"
+									id="container_4873a8bf_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">PHONE</span><span
+											style="font-size: 12pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
+											th:text="${recruiter_contact.landph}"></span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 140px; background-color: #FFFFFF;"
+								id="container_3044ba94">
+								<div style="margin: 10px; display: block;"
+									id="container_3044ba94_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">ADDRESS</span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #000000;"><br /></span>
+										<div
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;">
+											<span th:text="${recruiter_contact.address_line1}"></span><br />
+											<span th:text="${recruiter_contact.address_line2}"></span> <span
+												th:text="${recruiter_contact.city_or_town}"></span><br />
+											<span th:text="${recruiter_contact.district}"><br /></span>, <span
+												th:text="${recruiter_contact.state}"><br /></span>, <span
+												th:text="${recruiter_contact.country}"><br /></span> - <span
+												th:text="${recruiter_contact.pincode}"><br /></span>
 										</div>
 									</div>
-
-
-									<div id="container_46fed51b">
-										<div id="container_46fed51b_padding">
-											<div class="textstyle1">
-												<span class="textstyle14">WEBSITE</span><span
-													class="textstyle15"><br /></span> <input type="text"
-													class="textstyle16" th:field="${contact.website}"
-													th:value="${contact.website}"
-													style="border: none; width: 98%;" />
-											</div>
-										</div>
-									</div>
-									<div id="container_6424726f">
-										<div id="container_6424726f_padding">
-											<div class="textstyle1">
-												<span class="textstyle14">EMAIL</span><span
-													class="textstyle17"><br /></span> <input type="email"
-													class="textstyle16" th:field="${contact.public_email}"
-													th:value="${contact.public_email}"
-													style="border: none; width: 98%;" />
-											</div>
-										</div>
-									</div>
-									<div id="container_5ce18608">
-										<div id="container_5ce18608_padding">
-											<div class="textstyle1">
-												<span class="textstyle14">PHONE</span><span
-													class="textstyle17"><br /></span> <input type="tel"
-													class="textstyle16" th:field="${contact.landph}"
-													th:value="${contact.landph}"
-													style="border: none; width: 98%;" />
-											</div>
-										</div>
-									</div>
-									<div id="container_5638aaa2">
-										<div id="container_5638aaa2_padding">
-											<div class="textstyle1">
-												<span class="textstyle14">ADDRESS</span> <span
-													class="textstyle16"> <input type="text"
-													class="textstyle16" th:field="${contact.address_line1}"
-													th:value="${contact.address_line1}"
-													style="border: none; width: 98%;" /> <input type="text"
-													class="textstyle16" th:field="${contact.address_line2}"
-													th:value="${contact.address_line2}"
-													style="border: none; width: 98%;" /> <input type="text"
-													class="textstyle16" th:field="${contact.district}"
-													th:value="${contact.district}"
-													style="border: none; width: 98%;" /> <input type="text"
-													class="textstyle16" th:field="${contact.state}"
-													th:value="${contact.state}"
-													style="border: none; width: 98%;" /> <input type="text"
-													class="textstyle16" th:field="${contact.country}"
-													th:value="${contact.country}"
-													style="border: none; width: 98%;" /> <input type="text"
-													class="textstyle16" th:field="${contact.pincode}"
-													th:value="${contact.pincode}"
-													style="border: none; width: 98%;" />
-												</span>
-											</div>
-										</div>
-									</div>
-								</form>
+								</div>
 							</div>
 						</div>
 					</div>

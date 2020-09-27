@@ -28,7 +28,7 @@ public interface CirpRepositoryOperations {
 	
 	void deleteUser(String username);
 	
-	void createJob(Job job, String username);
+	void createJob(Job job, Recruiter recruiter);
 	Job viewJob(ObjectId id);
 	void deleteJob(Job job, String recruiter_id);
 	public void editJob(Job job);
@@ -64,4 +64,5 @@ public interface CirpRepositoryOperations {
 	<T> T findByToken(String token);
 	void updateUserRole(String username, String role, Class<?> user_class);
 	void updateStudent(Student student);
+	
 }

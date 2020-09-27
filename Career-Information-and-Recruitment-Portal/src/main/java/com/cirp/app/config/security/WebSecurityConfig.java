@@ -101,7 +101,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     public void configure(WebSecurity web) throws Exception {
 		//Specifies spring security to ignore security anything in - src/main/resources/static/css
-        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/css/**").antMatchers("/js/**");
     }
 	
 	@Bean
