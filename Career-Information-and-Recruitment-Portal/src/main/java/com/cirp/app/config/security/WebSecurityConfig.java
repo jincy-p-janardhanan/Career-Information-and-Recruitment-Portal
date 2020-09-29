@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	       	.antMatchers("/admin/**").hasRole("ADMIN")
 	       	.antMatchers("/college/**").hasRole("COLLEGE")
 	       	.antMatchers("/recruiter/**").hasRole("RECRUITER")
-	       	.antMatchers("/student/**").hasRole("STUDENT")
+	       	.antMatchers("/student/**").hasAnyRole("STUDENT", "ALUMNUS")
 	       	.antMatchers("/alumnus/**").hasRole("ALUMNUS")
 	       	.antMatchers("/pending-approval").hasRole("PENDING")
 	       	.antMatchers("/common/**").hasAnyRole("ADMIN", "COLLEGE", "STUDENT", "RECRUITER", "ALUMNUS")
