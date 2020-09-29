@@ -44,15 +44,12 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
 				response.sendRedirect("/recruiter/home");
 
-			} else if (grantedAuthority.getAuthority().equals("ROLE_ALUMNUS")) {
-
-				response.sendRedirect("/alumnus/home");
-
-			} else if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
+			} else if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")
+					|| grantedAuthority.getAuthority().equals("ROLE_ALUMNUS")) {
 
 				response.sendRedirect("/student/home");
 
-			} else if (grantedAuthority.getAuthority().equals("ROLE_PENDING")){
+			} else if (grantedAuthority.getAuthority().equals("ROLE_PENDING")) {
 				response.sendRedirect("/pending-approval");
 			}
 		}
