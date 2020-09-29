@@ -1,11 +1,17 @@
 package com.cirp.app.model;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-class WorkExperience {
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class WorkExperience {
 	@NotBlank
 	private String job;
 	@NotBlank
@@ -13,11 +19,16 @@ class WorkExperience {
 	private List<String> skills;
 	private String desc;
 	@NotBlank
-	private Date st_date;
-	private Date end_date;
-	private String status; //"current" or "former" employment
-	
-	public WorkExperience(String job, String company, String desc, Date st_date, Date end_date) {
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate st_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate end_date;
+	private String status; // "current" or "former" employment
+
+	public WorkExperience() {
+	}
+
+	public WorkExperience(String job, String company, String desc, LocalDate st_date, LocalDate end_date) {
 		this.job = job;
 		this.company = company;
 		this.desc = desc;
@@ -26,7 +37,7 @@ class WorkExperience {
 		this.status = "Former";
 	}
 
-	public WorkExperience(String job, String company, String desc, Date st_date) {
+	public WorkExperience(String job, String company, String desc, LocalDate st_date) {
 		this.job = job;
 		this.company = company;
 		this.desc = desc;
@@ -34,52 +45,20 @@ class WorkExperience {
 		this.status = "Current";
 	}
 
-	protected String getJob() {
+	public String getJob() {
 		return job;
 	}
 
-	protected void setJob(String job) {
+	public void setJob(String job) {
 		this.job = job;
 	}
 
-	protected String getCompany() {
+	public String getCompany() {
 		return company;
 	}
 
-	protected void setCompany(String company) {
+	public void setCompany(String company) {
 		this.company = company;
-	}
-
-	protected String getDesc() {
-		return desc;
-	}
-
-	protected void setDesc(String desc) {
-		this.desc = desc;
-	}
-
-	protected Date getSt_date() {
-		return st_date;
-	}
-
-	protected void setSt_date(Date st_date) {
-		this.st_date = st_date;
-	}
-
-	protected Date getEnd_date() {
-		return end_date;
-	}
-
-	protected void setEnd_date(Date end_date) {
-		this.end_date = end_date;
-	}
-
-	protected String getStatus() {
-		return status;
-	}
-
-	protected void setStatus(String status) {
-		this.status = status;
 	}
 
 	public List<String> getSkills() {
@@ -89,9 +68,37 @@ class WorkExperience {
 	public void setSkills(List<String> skills) {
 		this.skills = skills;
 	}
-	
-	
-	
-	
-	
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public LocalDate getSt_date() {
+		return st_date;
+	}
+
+	public void setSt_date(LocalDate st_date) {
+		this.st_date = st_date;
+	}
+
+	public LocalDate getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(LocalDate end_date) {
+		this.end_date = end_date;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 }

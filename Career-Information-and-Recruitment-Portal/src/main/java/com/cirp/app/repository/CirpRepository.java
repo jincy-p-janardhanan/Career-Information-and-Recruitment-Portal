@@ -90,11 +90,18 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void applyJob(Application application, ObjectId job_id) {
+	public String applyJob(Application application, String job_id) {
+		mongoTemplate.updateFirst(new Query().addCriteria(where("_id").is(job_id)),
+				new Update().push("applicants", application), Job.class);
 		Job job = mongoTemplate.findById(job_id, Job.class);
-		List<Application> applications = job.getApplicants();
-		applications.add(application);
-		mongoTemplate.save(job);
+		try {
+		mongoTemplate.updateFirst(new Query().addCriteria(where("username").is(application.getApplicant_id())), new Update().push("applied_jobs", job.get_id()),
+				Job.class);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "Already applied";
+		}
+		return null;
 	}
 
 	@Override
@@ -189,7 +196,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 			return (T) mongoTemplate.findById(id, Alumnus.class);
 		else if (mongoTemplate.findById(id, Job.class) != null)
 			return (T) mongoTemplate.findById(id, Job.class);
-		
+
 		return null;
 	}
 
@@ -340,7 +347,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 		} else if (mongoTemplate.findOne(query, Job.class) != null) {
 
 			return (T) mongoTemplate.findOne(query, Job.class);
-		} 
+		}
 
 		return null;
 	}

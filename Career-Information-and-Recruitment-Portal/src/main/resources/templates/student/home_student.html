@@ -3,13 +3,33 @@
 <head th:fragment="header">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="RocketCake">
 <title>Home | Student</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/home_college_html.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/home_student_html.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/home_college_html.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/home_student_html.css}">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
 .navbar {
 	background-color: #0f0f0f;
 	min-height: 51px;
@@ -203,12 +223,48 @@ td {
 	width: 200px;
 	height: 200px;
 	background-color: #061332;
-	background-image: url("@{'/view-profile-pic/' + ${profile_pic}}");
-	background-position: center left;	
-	background-size:cover;	
-	border: 0px;
+	background-image: url([[@{ '/view-profile-pic/' + ${ profile_pic
 }
 
+}
+]]
+)
+
+
+;
+background-position
+
+
+:
+
+ 
+
+center
+
+ 
+
+left
+
+
+;
+background-size
+
+
+:cover
+
+
+;
+border
+
+
+:
+
+
+0px
+
+
+;
+}
 .img-circle {
 	box-sizing: border-box;
 	border-radius: 100px;
@@ -218,11 +274,35 @@ td {
 	background: url([[@{/css/assets/camera-circle.png}]]);
 	background-size: cover;
 }
+
 #backgroundimage {
 	display: block;
-	margin:0px;
-	background-image: url("@{'/view-bg-img/' + ${bg_img}}");
-	background-size:cover;
+	margin: 0px;
+	background-image: url([[@{ '/view-bg-img/' + ${ bg_img
+}
+}
+]]
+)
+
+
+;
+background-size
+
+
+:cover
+
+
+;
+}
+
+li{
+	font-size: 11pt; font-family: 'Open Sans'; color:#36A5E9;
+}
+.profile{
+	font-size: 11pt; font-family: 'Open Sans'; color: #282828;
+}
+.subheading {
+	font-size: 11pt; font-family: 'Open Sans'; color: #000000; font-weight: bolder;
 }
 </style>
 <script>
@@ -264,83 +344,86 @@ td {
 							style="display: table-cell; vertical-align: middle; text-align: center"
 							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
 							width="28" /></a> <a th:href="@{/student/home}"><span>Profile</span></a>
-						<a th:href="@{/student/jobs}"><span>Admin Panel</span></a>
-						<a th:href="@{/logout}"><span>Logout</span></a> <a
+						<a th:href="@{/student/jobs}"><span>Jobs</span></a> <a
+							th:href="@{/logout}"><span>Logout</span></a> <a
 							th:href="@{/reset-password-request}"><span>Reset
 								Password</span></a>
 					</div>
 					<button class="openbtn" onclick="openNav()">☰</button>
 				</div>
-				<form th:action="@{/search}" enctype="application/x-www-form-urlencoded"
-			method="GET" id="form_29acdad9">
+				<form th:action="@{/search}"
+					enctype="application/x-www-form-urlencoded" method="GET"
+					id="form_29acdad9">
 					<div class="textstyle1">
 						<input type="text" value="" title="" name="search_text"
 							placeholder="Search recruiters, jobs, students, alumni or colleges"
-							id="edit_6804da94"> <input type="submit"
-							value="" title="" id="button_240550dc">
+							id="edit_6804da94"> <input type="submit" value=""
+							title="" id="button_240550dc">
 					</div>
 				</form>
 			</div>
 			<div>
 				<div class="textstyle1">
-					
-						<div id="form_8b61b39_padding">
-							<div class="textstyle1">
-								<div id="container_df4bb99">
-									<div id="container_df4bb99_padding">
-										<div class="textstyle4">
+
+					<div id="form_8b61b39_padding">
+						<div class="textstyle1">
+							<div id="container_df4bb99">
+								<div id="container_df4bb99_padding">
+									<div class="textstyle4">
 										<form method="post" th:action="@{/update-profile-pic}"
-						enctype="multipart/form-data" id="form_8b61b39">
+											enctype="multipart/form-data" id="form_8b61b39">
 											<input id="profilePicUpload" type="file" name="file"
 												onchange="form.submit()" style="visibility: hidden" /> <label
 												for="profilePicUpload" id="profile_button"></label>
-												</form>
-										</div>
-									</div>
-								</div>
-								<div id="container_222db1fd">
-									<div id="container_222db1fd_padding">
-										<div class="textstyle1">
-											<span class="textstyle5"><br /> <br /> <br /></span>
-											<h1 id="heading_359a6a0b">
-												<span class="textstyle1"> <span class="textstyle6"
-													th:text="${name}"></span>
-												</span>
-											</h1>
-											<span class="textstyle5"><br /></span>
-											<div id="container_40cddcf3">
-												<div id="container_40cddcf3_padding">
-													<div class="textstyle1">
-														<span class="textstyle7" th:text="${course_and_branch}"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div style="clear: both"></div>
-									</div>
-								</div>
-								<div id="container_7c8aa649">
-									<div id="container_7c8aa649_padding">
-										<div class="textstyle8">
-											<input name="Button9" type="hidden"
-												value="Request Recommendation" title="" id="button_1b652568">
-											<span class="textstyle5"> </span>
-											<form method="POST" th:action="@{/update-bg-img}"
-												enctype="multipart/form-data">
-												<input id="backgroundImageUpload" type="file" name="file"
-													onchange="form.submit()" style="visibility: hidden" />
-												<span class="textstyle9" style="text-align:right;">Change background image
-												</span>																								
-													<label
-													for="backgroundImageUpload" id="button_475df8fc"  style="float:right">
-													</label>											
-											</form>
-										</div>										
+										</form>
 									</div>
 								</div>
 							</div>
+							<div id="container_222db1fd">
+								<div id="container_222db1fd_padding">
+									<div class="textstyle1">
+										<span class="textstyle5"><br /> <br /> <br /></span>
+										<h1 id="heading_359a6a0b">
+											<span class="textstyle1"> <span class="textstyle6"
+												th:text="${name}"></span>
+											</span>
+										</h1>
+										<span class="textstyle5"><br /></span>
+										<div id="container_40cddcf3" style="margin:0px; padding:0px;">
+											<div id="container_40cddcf3_padding" style="margin:0px; padding:0px;">
+												<div class="textstyle1">
+													<span style="white-space:pre-wrap;" class="textstyle7" th:text="${course_and_branch}"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</div>
+							<div id="container_7c8aa649">
+								<div id="container_7c8aa649_padding">
+									<div class="textstyle8">
+										<input name="Button9" type="hidden"
+											value="Request Recommendation" title="" id="button_1b652568">
+										<span class="textstyle5"> </span>
+										<form method="POST" th:action="@{/update-bg-img}"
+											enctype="multipart/form-data">
+											<input id="backgroundImageUpload" type="file" name="file"
+												onchange="form.submit()" style="visibility: hidden" /> <span
+												class="textstyle9" style="text-align: right;">Change
+												background image </span> <label for="backgroundImageUpload"
+												id="button_475df8fc" style="float: right"> </label>
+
+										</form>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</div>
 						</div>
-				</div>				
+					</div>
+
+				</div>
+				<div style="clear: both"></div>
 			</div>
 		</div>
 		<div id="container_7d6e006">
@@ -372,135 +455,98 @@ td {
 							</div>
 							<div style="clear: both"></div>
 						</div>
-					</div>	
-					
-					
-					
-					<div id="container_4df9ec82">
-						<div id="container_4df9ec82_padding">
-							<div class="textstyle1">
-								<form action="" enctype="application/x-www-form-urlencoded"
-									method="POST" id="form_6740f3d6">
-									<div id="form_6740f3d6_padding">
-										<div class="textstyle4">
-											<div id="container_57f3998b">
-												<div id="container_57f3998b_padding">
-													<div class="textstyle1">
-														<div id="container_666e48e">
-															<div id="container_666e48e_padding">
-																<div class="textstyle1">
-																	<span class="textstyle13">PROFILE </span>
-																</div>
-															</div>
-														</div>
-														<div id="container_1b2936b3">
-															<div id="container_1b2936b3_padding">
-																<div class="textstyle8">
-																	<input name="Button7" type="submit" value="" title=""
-																		id="button_a7107c3">
-																</div>
-																<div style="clear: both"></div>
-															</div>
-														</div>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<div id="container_3e3cee44">
-												<div id="container_3e3cee44_padding">
-													<div class="textstyle1">
-														<span class="textstyle14">SKILLS</span><span
-															class="textstyle11"><br /></span><span
-															class="textstyle15">&#9679;</span><span
-															class="textstyle11"> </span>
-														<textarea name="TextEdit9" title=""
-															placeholder="Add your skills here" cols="8" rows="1"
-															id="edit_233c7d9f">Add your skills here</textarea>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<div id="container_4f4d6c1a">
-												<div id="container_4f4d6c1a_padding">
-													<div class="textstyle1">
-														<span class="textstyle14">EXPERIENCE</span><span
-															class="textstyle11"><br /></span><span
-															class="textstyle15">&#9679;</span><span
-															class="textstyle11"> </span>
-														<textarea name="TextEdit9" title=""
-															placeholder="Add your work experience here" cols="8"
-															rows="1" id="edit_505de514">Add your work experience here</textarea>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<div id="container_303afc8e">
-												<div id="container_303afc8e_padding">
-													<div class="textstyle1">
-														<span class="textstyle14">PROJECTS</span><span
-															class="textstyle11"><br /></span><span
-															class="textstyle15">&#9679;</span><span
-															class="textstyle11"> </span>
-														<textarea name="TextEdit9" title=""
-															placeholder="Add your work experience here" cols="8"
-															rows="1" id="edit_66b3c1">Add significant projects you have worked on here</textarea>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<div id="container_30037028">
-												<div id="container_30037028_padding">
-													<div class="textstyle1">
-														<span class="textstyle14">AWARDS &amp; HONOURS</span><span
-															class="textstyle11"><br /></span><span
-															class="textstyle15">&#9679;</span><span
-															class="textstyle11"> </span>
-														<textarea name="TextEdit9" title=""
-															placeholder="Showcase your achievements here" cols="8"
-															rows="1" id="edit_2d71571">Showcase your achievements here</textarea>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<div id="container_4437b494">
-												<div id="container_4437b494_padding">
-													<div class="textstyle1">
-														<span class="textstyle14">COMMUNITIES &amp;
-															ORGANISATIONS</span><span class="textstyle11"><br /></span><span
-															class="textstyle15">&#9679;</span><span
-															class="textstyle11"> </span><span class="textstyle16">
-														</span>
-														<textarea name="TextEdit9" title=""
-															placeholder="Mention notable communities and organisations you are involved in here"
-															cols="8" rows="1" id="edit_648e27f0">Mention notable communities and organisations you are involved in here</textarea>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
-											<div id="container_5b8175c2">
-												<div id="container_5b8175c2_padding">
-													<div class="textstyle1">
-														<span class="textstyle14">EDUCATION</span><span
-															class="textstyle11"><br /></span><span
-															class="textstyle15">&#9679;</span><span
-															class="textstyle11"> </span>
-														<textarea name="TextEdit9" title=""
-															placeholder="Let others know your learning story here"
-															cols="8" rows="1" id="edit_726f4809">Let others know your learning story here</textarea>
-													</div>
-													<div style="clear: both"></div>
-												</div>
-											</div>
+					</div>
+
+					<div
+						style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; float: left; margin: 20px 0px 0px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
+						id="container_54e3dd05">
+						<div style="margin: 10px; display: block;"
+							id="container_54e3dd05_padding">
+							<div style="text-align: center;">
+								<div
+									style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #DDDDDD;"
+									id="container_bfe47d7">
+									<div style="margin: 10px; display: block;"
+										id="container_bfe47d7_padding">
+										<div style="text-align: left;">
+											<span
+												style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">PROFILE</span>
+											<a th:href="@{/student/update-personalisation}"><button
+													title="Click here to personalise your profile"
+													style="cursor: pointer;" id="button_475df8fc"></button></a>
 										</div>
-										<div style="clear: both"></div>
 									</div>
-								</form>
+								</div>
+								<div th:if="${personalisation}" th:object="${personalisation}"
+									style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 62px; background: none;"
+									id="container_55e5f313">
+									<div style="margin: 10px; display: block;"
+										id="container_55e5f313_padding">
+										<div style="text-align: left;">
+											<div th:if="*{skills}"><span class="profile">SKILLS</span> 
+												<ul>
+													<th:block >
+														<li th:each="skill : *{skills}"
+															th:text="${skill}"></li>
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{work}"><span class="profile">EXPERIENCE</span> 
+												<ul>
+													<th:block th:each="wrk : *{work}">		
+														<span class="subheading" th:text="${wrk.job}"></span>
+														<li th:if= "${wrk.company}" th:text="${wrk.company}"></li>
+														<li th:if= "${wrk.skills}" th:text="${wrk.skills}"></li>
+														<li th:if= "${wrk.st_date} and ${wrk.end_date}" th:text="${wrk.st_date}+'to'+${wrk.end_date}"></li>														
+													
+													</th:block>
+												</ul>
+											</div>  
+											<div th:if="*{education}"><span class="profile">EDUCATION</span> 
+												<ul>
+													<th:block th:each="edu : *{education}">		
+														<span class="subheading" th:text="${edu.course}"></span>
+														<li th:if= "${edu.institution}" th:text="${edu.institution}"></li>
+														<li th:if= "${edu.board}" th:text="${edu.board}"></li>
+														<li th:if= "${edu.year}" th:text="${edu.year}"></li>
+														
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{project}"><span class="profile">PROJECT</span> 
+												<ul>
+													<th:block th:each="pro : *{project}">		
+														<span class="subheading" th:text="${pro.name}"></span>
+														<li th:if= "${pro.desc}" th:text="${pro.desc}"></li>
+														<li th:if= "${pro.tech}" th:text="${pro.tech}"></li>
+														
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{communities}"><span class="profile">COMMUNITIES</span> 
+												<ul>
+													<th:block th:each="cmn : *{communities}">		
+														<span class="subheading" th:text="${cmn.name}"></span>
+														<li th:if= "${cmn.website}" th:text="${cmn.website}"></li>
+						
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{awards}"><span class="profile">AWARDS</span> 
+												<ul>
+													<th:block th:each="awr : *{awards}">		
+														<span class="subheading" th:text="${awr.name}"></span>
+														<li th:if= "${awr.year}" th:text="${awr.year}"></li>														
+													</th:block>
+												</ul>
+											</div>											
+										</div>
+									</div>
+								</div>							
 							</div>
-							<div style="clear: both"></div>
 						</div>
 					</div>
 				</div>
-				<div style="clear: both"></div>
 			</div>
 		</div>
 	</div>

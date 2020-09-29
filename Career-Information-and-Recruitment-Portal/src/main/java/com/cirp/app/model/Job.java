@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.format.annotation.DateTimeFormat;

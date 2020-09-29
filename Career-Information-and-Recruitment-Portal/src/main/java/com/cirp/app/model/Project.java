@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.mongodb.core.index.TextIndexed;
 
-class Project {
+public class Project {
 	
 	@NotBlank
 	private String name;
@@ -21,29 +21,32 @@ class Project {
 		this.tech = tech;
 	}
 
-	protected String getName() {
+	public Project() {
+		
+	}
+
+	public String getName() {
 		return name;
 	}
 
-	protected void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	protected String getDesc() {
+	public String getDesc() {
 		return desc;
 	}
 
-	protected void setDesc(String desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 
-	protected List<String> getTech() {
+	public List<String> getTech() {
 		return tech;
 	}
 
-	protected void setTech(List<String> tech) {
+	public void setTech(List<String> tech) {
 		this.tech = tech;
 	}
-	
 	
 }

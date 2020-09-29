@@ -14,6 +14,10 @@ public class Application {
 		this.setApplicant_id(applicant_id);
 	}
 
+	public Application() {
+		
+	}
+
 	public String getApplicant_id() {
 		return applicant_id;
 	}
@@ -22,11 +26,11 @@ public class Application {
 		this.applicant_id = applicant_id;
 	}
 
-	protected List<String> getAnswers() {
+	public List<String> getAnswers() {
 		return answers;
 	}
 
-	protected void setAnswers(List<String> answers) {
+	public void setAnswers(List<String> answers) {
 		this.answers = answers;
 	}
 }

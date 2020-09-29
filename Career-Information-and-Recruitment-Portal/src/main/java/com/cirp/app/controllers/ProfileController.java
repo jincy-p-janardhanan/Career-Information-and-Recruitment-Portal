@@ -1,7 +1,3 @@
-/**
- * This class defines all the view controllers used.
- */
-
 package com.cirp.app.controllers;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.College;
 import com.cirp.app.model.ContactInfo;
-import com.cirp.app.model.Personalisation;
 import com.cirp.app.model.Recruiter;
 import com.cirp.app.model.Student;
 import com.cirp.app.service.EditProfile;
@@ -44,13 +39,6 @@ public class ProfileController {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public String updateContact(ContactInfo contact, Authentication authentication, HttpServletRequest request) {
 		edit.updateContact(contact, authentication.getName());
-		return getRedirectUrl(authentication.getName());
-	}
-
-	@PostMapping(value = "/update-personalisation", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
-			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String updatePersonalisation(Personalisation personalisation, Authentication authentication,
-			HttpServletRequest request) {
 		return getRedirectUrl(authentication.getName());
 	}
 	

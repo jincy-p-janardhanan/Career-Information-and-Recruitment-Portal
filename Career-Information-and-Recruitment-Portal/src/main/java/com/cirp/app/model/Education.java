@@ -2,7 +2,9 @@ package com.cirp.app.model;
 
 import javax.validation.constraints.NotBlank;
 
-class Education {
+import com.fasterxml.jackson.annotation.JsonInclude;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Education {
 	
 	@NotBlank
 	private String course;
@@ -20,43 +22,47 @@ class Education {
 		this.year = year;
 	}
 
-	protected String getCourse() {
+	public Education() {
+		
+	}
+
+	public String getCourse() {
 		return course;
 	}
 
-	protected void setCourse(String course) {
-		this.course = course;
-	}
-
-	protected String getInstitute() {
+	public String getInstitute() {
 		return institute;
 	}
 
-	protected void setInstitute(String institute) {
+	public void setInstitute(String institute) {
 		this.institute = institute;
 	}
 
-	protected String getBoard() {
+	public String getBoard() {
 		return board;
 	}
 
-	protected void setBoard(String board) {
+	public void setBoard(String board) {
 		this.board = board;
 	}
 
-	protected float getMarks() {
+	public float getMarks() {
 		return marks;
 	}
 
-	protected void setMarks(float marks) {
+	public void setMarks(float marks) {
 		this.marks = marks;
 	}
 
-	protected int getYear() {
+	public int getYear() {
 		return year;
 	}
 
-	protected void setYear(int year) {
+	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
 	}
 }

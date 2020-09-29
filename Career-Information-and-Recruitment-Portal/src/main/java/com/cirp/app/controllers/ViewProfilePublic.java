@@ -1,5 +1,8 @@
 package com.cirp.app.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cirp.app.model.Admin;
 import com.cirp.app.model.Alumnus;
+import com.cirp.app.model.Application;
 import com.cirp.app.model.College;
 import com.cirp.app.model.Job;
 import com.cirp.app.model.NonAdmin;
@@ -66,10 +70,46 @@ public class ViewProfilePublic {
 			
 			return "view/recruiter";
 		} else if(user_class == Student.class) {
+			Student student = repo.findById(id);
+			String bg_img = student.getBg_img();
+			if(bg_img == null) {
+				bg_img = "default_background.png";
+			}
+			model.addAttribute("student_profile_pic", student.getProfile_pic());
+			model.addAttribute("student_bg_img", bg_img);
+			model.addAttribute("student_desc", student.getDesc());
+			model.addAttribute("student_name", student.getName().toUpperCase());
+			model.addAttribute("student_course", student.getCourse() + ", " + student.getBranch());
+			model.addAttribute("student_personalisation", student.getPersonalisation());
 			return "view/student";
 		} else if(user_class == Alumnus.class) {
-			return "view/alumnus";
+			Alumnus student = repo.findById(id);
+			String bg_img = student.getBg_img();
+			if(bg_img == null) {
+				bg_img = "default_background.png";
+			}
+			model.addAttribute("student_profile_pic", student.getProfile_pic());
+			model.addAttribute("student_bg_img", bg_img);
+			model.addAttribute("student_desc", student.getDesc());
+			model.addAttribute("student_name", student.getName().toUpperCase());
+			College college = repo.findById(student.getCollege_id());
+			model.addAttribute("student_course", student.getCourse() + ", " + student.getBranch()+"\n"+college.getName());
+			model.addAttribute("student_personalisation", student.getPersonalisation());
+			model.addAttribute("isAlumnus", true);
+			return "view/student";
 		} else if(user_class == Job.class) {
+			Job job = repo.findById(id);
+			job.setApplicants(null);
+			model.addAttribute("job", job);
+			Application application = new Application();
+			List<String> answers = new ArrayList<String>();
+			for(String question: job.getQuestions())
+				answers.add(new String());
+			Recruiter recruiter = repo.findById(job.getRecruiter_id());
+			application.setAnswers(answers);
+			model.addAttribute("application", application);
+			model.addAttribute("recruiter_name", recruiter.getName());
+			model.addAttribute("recruiter_desc", recruiter.getDesc());
 			return "view/job";
 		} else {
 			return "redirect:/error";

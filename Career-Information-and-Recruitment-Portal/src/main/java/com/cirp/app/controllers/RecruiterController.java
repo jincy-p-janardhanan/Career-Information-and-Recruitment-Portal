@@ -62,7 +62,8 @@ public class RecruiterController {
 			}
 		}
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
-		model.addAttribute("jobs", jobs);	
+		model.addAttribute("jobs", jobs);
+		model.addAttribute("viewjob", new Job());
 		return "recruiter/manage_job";
 	}
 	
@@ -94,8 +95,7 @@ public class RecruiterController {
 		Job job = new Job();
 		job.setQuestions(Arrays.asList("Maybe some task or scenorio you would like to be solved by the candidate..."));
 		model.addAttribute("job", job);
-		Recruiter recruiter = repo.findById(authentication.getName());
-		System.out.println(recruiter.getUsername() + "\n" + authentication.getName());
+		Recruiter recruiter = repo.findById(authentication.getName());		
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		return "recruiter/create_job";
 	}
@@ -103,8 +103,7 @@ public class RecruiterController {
 	@RequestMapping(value="/create-job", params={"add-question"})
 	public String addQuestion(final Job job, final BindingResult bindingResult, Model model, Authentication authentication) {
 	    job.getQuestions().add(new String());
-	    Recruiter recruiter = repo.findById(authentication.getName());
-		System.out.println(recruiter.getUsername() + "\n" + authentication.getName());
+	    Recruiter recruiter = repo.findById(authentication.getName());		
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 	    return "recruiter/create_job";
 	}
@@ -113,8 +112,7 @@ public class RecruiterController {
 	public String deleteQuestion(Model model,
 			final Job job, final BindingResult bindingResult, 
 	        final HttpServletRequest req, Authentication authentication) {
-		Recruiter recruiter = repo.findById(authentication.getName());
-		System.out.println(recruiter.getUsername() + "\n" + authentication.getName());
+		Recruiter recruiter = repo.findById(authentication.getName());		
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 	    final Integer question_no = Integer.valueOf(req.getParameter("delete-question"));
 	    job.getQuestions().remove(question_no.intValue());
@@ -137,5 +135,14 @@ public class RecruiterController {
 		repo.deleteJob(job, authentication.getName());
 		redirectAttributes.addFlashAttribute("message", "Edit success!");
 		return "redirect:/create-job";
+	}
+	
+	@GetMapping("/view-job")
+	public String viewJob( String job_id, Authentication authentication, Model model) {
+		Recruiter recruiter = repo.findById(authentication.getName());		
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+		Job job = repo.findById(job_id);
+		model.addAttribute("job", job);
+		return "recruiter/view_job";
 	}
 }

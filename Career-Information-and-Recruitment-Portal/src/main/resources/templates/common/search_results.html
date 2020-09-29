@@ -25,7 +25,7 @@
 				th:style="a{color: #B2B2B2;}"></div>
 		</div>
 		<div
-			sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')">
+			sec:authorize="hasRole('ROLE_STUDENT') or hasRole('ROLE_ALUMNUS')">
 			<header th:insert="student/home_student.html :: header"> </header>
 			<div th:replace="student/home_student.html :: navbar-student"></div>
 		</div>

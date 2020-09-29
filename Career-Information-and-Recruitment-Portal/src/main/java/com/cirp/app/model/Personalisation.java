@@ -2,6 +2,9 @@ package com.cirp.app.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Personalisation {
 
 	private List<Education> education;
@@ -25,6 +28,38 @@ public class Personalisation {
 		this.awards = awards;
 	}
 
+	public List<Education> getEducation() {
+		return education;
+	}
+
+	public void setEducation(List<Education> education) {
+		this.education = education;
+	}
+
+	public List<WorkExperience> getWork() {
+		return work;
+	}
+
+	public void setWork(List<WorkExperience> work) {
+		this.work = work;
+	}
+
+	public List<String> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<String> skills) {
+		this.skills = skills;
+	}
+
+	public List<Project> getProject() {
+		return project;
+	}
+
+	public void setProject(List<Project> project) {
+		this.project = project;
+	}
+
 	public List<Communities> getCommunities() {
 		return communities;
 	}
@@ -41,35 +76,4 @@ public class Personalisation {
 		this.awards = awards;
 	}
 
-	protected List<Education> getEducation() {
-		return education;
-	}
-
-	protected void setEducation(List<Education> education) {
-		this.education = education;
-	}
-
-	protected List<WorkExperience> getWork() {
-		return work;
-	}
-
-	protected void setWork(List<WorkExperience> work) {
-		this.work = work;
-	}
-
-	protected List<String> getSkills() {
-		return skills;
-	}
-
-	protected void setSkills(List<String> skills) {
-		this.skills = skills;
-	}
-
-	protected List<Project> getProject() {
-		return project;
-	}
-
-	protected void setProject(List<Project> project) {
-		this.project = project;
-	}
 }
