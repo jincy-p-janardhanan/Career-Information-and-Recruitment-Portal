@@ -36,5 +36,6 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	    registry.addViewController("/error").setViewName("error");	    
 	    registry.addViewController("/pending-approval").setViewName("common/registration_pending");
 	    registry.addViewController("/update-password").setViewName("common/reset_password");
+	    registry.addViewController("/csitinfo").setViewName("cs_it_info");
 	}
 }
