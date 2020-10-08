@@ -33,7 +33,7 @@ a {
 .navbar {
 	background-color: #0f0f0f;
 	min-height: 51px;
-	min-width: 579px;
+	width:100%;
 }
 
 .navbar a {
@@ -97,13 +97,10 @@ a {
 
 @media only screen and (max-width: 1212px) {
 	#form_11381a91 {
-		width: 80%;
+		width: 70%;
 		position: absolute;
-		left: 5%;
+		left: 100px;;
 		top: 2%;
-	}
-	#nav_options {
-		display: none;
 	}
 }
 
@@ -153,6 +150,16 @@ a {
 
 .openbtn:hover {
 	background-color: #444;
+}
+
+.aboutform {
+	border: none;
+	font-family: 'Open Sans';
+	font-size: 14px;
+}
+
+.aboutform:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
 }
 
 @media screen and (max-height: 450px) {
@@ -304,6 +311,34 @@ li{
 .subheading {
 	font-size: 11pt; font-family: 'Open Sans'; color: #000000; font-weight: bolder;
 }
+
+@media only screen and (max-width: 1212px) {
+	#form_29acdad9 {
+		width: 80%;
+		position: absolute;
+		left: 15%;
+		top: 2%;
+	}
+	.dropdown {
+		display:none;
+	}
+	#home {
+		display:none;
+	}
+	#jobs {
+		display:none;
+	}
+}
+
+@media screen and (max-height: 450px) {
+	.sidebar {
+		padding-top: 15px;
+	}
+	.sidebar a {
+		font-size: 18px;
+	}
+}
+
 </style>
 <script>
 	function openNav() {
@@ -334,8 +369,8 @@ li{
 								th:href="@{/reset-password-request}">Reset Password</a>
 						</div>
 					</div>
-					<a th:href="@{/student/jobs}">Jobs</a> <a
-						th:href="@{/student/home}">Profile</a>
+					<a th:href="@{/student/job-suggestions}" id="jobs">Jobs</a> <a
+						th:href="@{/student/home}" id="home">Profile</a>
 					<div id="mySidebar" class="sidebar">
 						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
 						<a th:href="@{/student/home}">Welcome <span
@@ -344,7 +379,7 @@ li{
 							style="display: table-cell; vertical-align: middle; text-align: center"
 							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
 							width="28" /></a> <a th:href="@{/student/home}"><span>Profile</span></a>
-						<a th:href="@{/student/jobs}"><span>Jobs</span></a> <a
+						<a th:href="@{/student/job-suggestions}"><span>Jobs</span></a> <a
 							th:href="@{/logout}"><span>Logout</span></a> <a
 							th:href="@{/reset-password-request}"><span>Reset
 								Password</span></a>
@@ -415,15 +450,12 @@ li{
 												id="button_475df8fc" style="float: right"> </label>
 
 										</form>
-									</div>
-									<div style="clear: both"></div>
+									</div>									
 								</div>
 							</div>
 						</div>
 					</div>
-
-				</div>
-				<div style="clear: both"></div>
+				</div>				
 			</div>
 		</div>
 		<div id="container_7d6e006">
@@ -447,18 +479,13 @@ li{
 											</textarea>
 										</form>
 									</div>
-								</div>
-								<span class="textstyle3"><br /></span>
-								<div id="container_5be111dc">
-									<div id="container_5be111dc_padding"></div>
-								</div>
-							</div>
-							<div style="clear: both"></div>
+								</div>								
+							</div>							
 						</div>
 					</div>
 
 					<div
-						style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; float: left; margin: 20px 0px 0px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
+						style="box-sizing: border-box; vertical-align: top; min-width:300px; position: relative; float: left; margin: 20px 0px 20px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
 						id="container_54e3dd05">
 						<div style="margin: 10px; display: block;"
 							id="container_54e3dd05_padding">
@@ -496,8 +523,9 @@ li{
 													<th:block th:each="wrk : *{work}">		
 														<span class="subheading" th:text="${wrk.job}"></span>
 														<li th:if= "${wrk.company}" th:text="${wrk.company}"></li>
+														<li th:text="${wrk.desc}"><br/></li>
 														<li th:if= "${wrk.skills}" th:text="${wrk.skills}"></li>
-														<li th:if= "${wrk.st_date} and ${wrk.end_date}" th:text="${wrk.st_date}+'to'+${wrk.end_date}"></li>														
+														<li th:if= "${wrk.st_date} and ${wrk.end_date}" th:text="${#dates.format(wrk.st_date, 'dd-MM-yyyy')}+'to'+${#dates.format(wrk.end_date, 'dd-MM-yyyy')}"></li>														
 													
 													</th:block>
 												</ul>
@@ -506,7 +534,7 @@ li{
 												<ul>
 													<th:block th:each="edu : *{education}">		
 														<span class="subheading" th:text="${edu.course}"></span>
-														<li th:if= "${edu.institution}" th:text="${edu.institution}"></li>
+														<li th:if= "${edu.institute}" th:text="${edu.institute}"></li>
 														<li th:if= "${edu.board}" th:text="${edu.board}"></li>
 														<li th:if= "${edu.year}" th:text="${edu.year}"></li>
 														
@@ -536,13 +564,15 @@ li{
 												<ul>
 													<th:block th:each="awr : *{awards}">		
 														<span class="subheading" th:text="${awr.name}"></span>
-														<li th:if= "${awr.year}" th:text="${awr.year}"></li>														
+														<li th:if= "${awr.year}" th:text="${awr.year}"></li>	
+														<li th:if="${awr.website_of_org}" th:text="${awr.website_of_org}"></li>													
 													</th:block>
 												</ul>
 											</div>											
 										</div>
 									</div>
-								</div>							
+								</div>
+														
 							</div>
 						</div>
 					</div>

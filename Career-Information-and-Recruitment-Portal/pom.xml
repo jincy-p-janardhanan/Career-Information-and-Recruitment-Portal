@@ -97,8 +97,7 @@
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongodb-driver-core</artifactId>
 			<version>4.1.0</version>
-		</dependency>
-
+		</dependency>		
 	</dependencies>
 
 	<build>

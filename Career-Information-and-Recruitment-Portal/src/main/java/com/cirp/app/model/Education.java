@@ -3,6 +3,7 @@ package com.cirp.app.model;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Education {
 	
@@ -11,17 +12,9 @@ public class Education {
 	@NotBlank
 	private String institute; //school or college
 	private String board; //board or university
-	private float marks; //marks, grade value or percentage
+	private String marks; //marks, grade value or percentage
 	private int year; //year of completion
 	
-	public Education(String course, String institute, String board, float marks, int year) {
-		this.course = course;
-		this.institute = institute;
-		this.board = board;
-		this.marks = marks;
-		this.year = year;
-	}
-
 	public Education() {
 		
 	}
@@ -46,11 +39,11 @@ public class Education {
 		this.board = board;
 	}
 
-	public float getMarks() {
+	public String getMarks() {
 		return marks;
 	}
 
-	public void setMarks(float marks) {
+	public void setMarks(String marks) {
 		this.marks = marks;
 	}
 

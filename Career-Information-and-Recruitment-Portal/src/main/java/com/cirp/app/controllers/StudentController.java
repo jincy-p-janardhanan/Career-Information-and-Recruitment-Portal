@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -63,17 +64,15 @@ public class StudentController {
 		return "student/home_student";
 
 	}
-
 	
 	@PostMapping(value = "/apply-job", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public String applyJob(@RequestParam String job_id, Application application, Authentication authentication,
 			RedirectAttributes redirectAttributes) {
-		
 		application.setApplicant_id(authentication.getName());
 		String message = repo.applyJob(application, job_id);
-		if(message!=null) {
-			message = "Application success";
+		if(message == null) {
+			message = "Application success!";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/view?id="+job_id;
@@ -228,4 +227,21 @@ public class StudentController {
 		return "student/edit_personalisation";
 	}
 	
+	@GetMapping(value="/job-suggestions" )
+	public String jobSuggestions(Model model, Authentication authentication) {
+		
+		String aggregatefrom;
+		if(find.findClass(authentication.getName()) == Student.class) {
+			aggregatefrom = "aggregate: 'student',";
+		}
+		else {
+			aggregatefrom = "aggregate: 'alumnus',";
+		}
+		
+		List<Document> job_suggestions = repo.jobSuggestions(authentication.getName(), aggregatefrom);
+		model.addAttribute("job_suggestions", job_suggestions);
+		Student student = repo.findById(authentication.getName());
+		model.addAttribute("profile_pic", student.getProfile_pic());
+		return "student/job_suggestions";
+	}
 }

@@ -229,7 +229,7 @@ a.wsp2e18e390:hover {
 													<div style="text-align: left;">
 														<input type="text" value="" title="" name=""
 															th:field="*{project[__${projectStat.index}__].tech}"
-															placeholder="Technologies used for the project"
+															placeholder="Technologies used for the project" data-role="tagsinput"
 															style="box-sizing: border-box; vertical-align: bottom; position: relative; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #282828;"
 															id="edit_485ec054">
 													</div>
@@ -325,7 +325,7 @@ a.wsp2e18e390:hover {
 												style="vertical-align: top; overflow: hidden;">
 												<div style="" id="cell_5c2e85e5">
 													<div style="text-align: left;">
-														<input type="text" value="" title="" name=""
+														<input type="text" value="" th:field="*{work[__${workStat.index}__].skills}"
 															data-role="tagsinput"
 															placeholder="Skills for this job position"
 															style="box-sizing: border-box; vertical-align: bottom; position: relative; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #282828;"

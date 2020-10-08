@@ -168,13 +168,13 @@ a:hover {
 											id="container_23b2962e">
 											<div style="margin: 0px; display: block;"
 												id="container_23b2962e_padding">
-												<div style="text-align: right;">
+												<a th:href="@{/recruiter/view-applications}"><span style="text-align: right;">
 													<img th:src="@{/css/assets/applicant.png}"
 														style="vertical-align: bottom; position: relative; display: inline-block; width: 20px; background: none;"
 														id="img_203e602b" alt="" title="" /> <span
 														style="font-size: 10pt; font-family: 'Open Sans'; color: #B2B2B2;">View
 														Applications</span>
-												</div>
+												</span></a>
 											</div>
 										</div>
 									</div>
@@ -202,7 +202,7 @@ a:hover {
 																<input type="text" value="" title="" name="TextEdit1"
 																	placeholder="Search for a job"
 																	style="box-sizing: border-box; vertical-align: bottom; border-radius: 10px; position: relative; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078); font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
-																	id="edit_47b47bcf"> <input name="Search"
+																	id="edit_47b47bcf"> <input name="search"
 																	type="submit" value="" title=""
 																	th:style="'box-sizing: border-box; position: absolute; left: 90%; top: 24%; width: 20px; height: 20px; background-color: #FFFFFF; background-image: url(' + @{ '/css/assets/search___small.png'} + '); background-position: center left; background-size: cover; border: 0px solid #404040; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;'"
 																	id="button_3cc65eff">
@@ -273,10 +273,10 @@ a:hover {
 																	th:text="${job.desc}"></span>
 															</div>
 														</div>
-
+														<a th:href="@{'/recruiter/view-applications?job_id=' + ${job._id}}">
 														<input name="Button1" type="submit" value="" title=""
 															th:style="'box-sizing: border-box; position: absolute; left: 72%; top: 88%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/applicant.png'} + '); background-position: center center; background-size: cover; border: none;'"
-															id="button_7a06fb91"> <input name="Button1"
+															id="button_7a06fb91"></a> <input name="Button1"
 															type="submit" value="" title=""
 															th:style="'box-sizing: border-box; position: absolute; left: 92%; top: 88%; width: 29px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/trash.png'} +'); background-position: center center; background-size: cover; border: none;'"
 															id="button_3dcb90c1"> <input name="Button1"

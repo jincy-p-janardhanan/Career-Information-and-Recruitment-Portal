@@ -1,21 +1,31 @@
 package com.cirp.app.repository;
 
-import java.util.ArrayList;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
 import java.util.Date;
 import java.util.List;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
-import static org.springframework.data.mongodb.core.query.Criteria.where;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import com.cirp.app.model.*;
+import com.cirp.app.model.Admin;
+import com.cirp.app.model.Alumnus;
+import com.cirp.app.model.Application;
+import com.cirp.app.model.College;
+import com.cirp.app.model.ContactInfo;
+import com.cirp.app.model.Job;
+import com.cirp.app.model.Personalisation;
+import com.cirp.app.model.Recommendation;
+import com.cirp.app.model.Recruiter;
+import com.cirp.app.model.Student;
 
 @Repository
 public class CirpRepository implements CirpRepositoryOperations {
@@ -91,16 +101,22 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public String applyJob(Application application, String job_id) {
+		Job job = mongoTemplate.findById(job_id, Job.class);
+		long r;
+		String username = application.getApplicant_id();
+		Query query = new Query().addCriteria(where("username").is(username));
+		Update update = new Update().addToSet("applied_jobs", job.get_id());
+		r = mongoTemplate.updateFirst(query, update, Student.class).getModifiedCount();
+		if (r == 0) {
+			r = mongoTemplate.updateFirst(query, update, Alumnus.class).getModifiedCount();
+		}
+		if (r == 0) {
+			return "You have already applied for this job! You cannot apply again.";
+		}
+
 		mongoTemplate.updateFirst(new Query().addCriteria(where("_id").is(job_id)),
 				new Update().push("applicants", application), Job.class);
-		Job job = mongoTemplate.findById(job_id, Job.class);
-		try {
-		mongoTemplate.updateFirst(new Query().addCriteria(where("username").is(application.getApplicant_id())), new Update().push("applied_jobs", job.get_id()),
-				Job.class);
-		} catch(Exception e) {
-			e.printStackTrace();
-			return "Already applied";
-		}
+
 		return null;
 	}
 
@@ -111,20 +127,58 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public List<Application> viewJobApplications(ObjectId job_id) {
-		return mongoTemplate.findById(job_id, Job.class).getApplicants();
-	}
+	public List<Document> viewApplications(String matchquery) {
 
-	@Override
-	public List<Application> viewAllApplications(String recruiter_id) {
-		Recruiter recruiter = mongoTemplate.findById(recruiter_id, Recruiter.class);
-		List<String> job_list = recruiter.getJobs();
-		List<Application> all_applications = new ArrayList<Application>();
-		for (int i = 0; i < job_list.size(); i++) {
-			Job job = mongoTemplate.findById(job_list.get(i), Job.class);
-			all_applications.addAll(job.getApplicants());
-		}
-		return all_applications;
+		// @formatter:off
+		String aggregate_command = "{"
+			+ "aggregate: 'job', "
+			+ "pipeline: ["
+				+ matchquery
+				+ "{$project: { recruiter_id: 0, profile_pic:0, desc:0, _class:0 }},"
+				+ "{$unwind: { path: '$applicants' }},"
+				+ "{$facet: { "
+					+ "alumni_application: ["
+						+ "{ $lookup : { from: 'alumnus', localField: 'applicant_id', foreignField: 'username', as: 'profile'}},"
+						+ "{ $unwind : '$profile' } ],"
+					+ "student_application : ["
+						+ "{ $lookup : { from: 'student', localField: 'applicant_id', foreignField: 'username', as: 'profile' }},"
+						+ "{ $unwind : '$profile' }]}},"
+				+ " {$project: { applications: { "
+					+ "$concatArrays : [ '$alumni_application' , '$student_application' ]}}},"
+				+ "{$unwind: { path: '$applications' }},"
+				+ "{$match: {"
+					+ "$expr:{ $eq : ['$applications.applicants.applicant_id', '$applications.profile._id']}}},"
+				+ "{$project: { "
+					+ "job_id                :  '$applications._id', "
+					+ "job_title             :  '$applications.name',"
+					+ "location              :  '$applications.location',"
+					+ "duration              :  '$applications.duration', "
+					+ "stipend               :  '$applications.stipend',"
+					+ "last_date             :  '$applications.last_date',"
+					+ "applicant_username    :  '$applications.profile._id',"
+					+ "applicant_name        :  '$applications.profile.name',"
+					+ "profile_desc          :  '$applications.profile.desc',"
+					+ "profile_pic           :  '$applications.profile.profile_pic',"
+					+ "questions             :  {"
+						+ "$ifNull: ['$applications.questions', []] }"
+					+ "answers               :  {"
+						+ "$ifNull: ['$applications.applicants.answers', []] }"
+					+ "application_timestamp :  '$applications.applicants.timestamp',"
+					+ "matched_skills        : { "
+						+ "$setIntersection : [  '$applications.skills', "
+							+ "{ $setUnion : ["
+								+ "{ $ifNull: [  '$applications.profile.personalisation.skills', []]},"
+								+ "{ $ifNull: [  '$applications.profile.personalisation.work.skills', []]}, "
+								+ "{ $ifNull: [  '$applications.profile.personalisation.project.skills', []]} ]}]}}},"
+				+ "{$addFields: { score : { $size : '$matched_skills'}}},"
+				+ "{$sort: { score : -1, application_timestamp : -1}}],"
+			+ "cursor: { }}";
+		
+		Document execution_results  = mongoTemplate.executeCommand(aggregate_command);
+		List<Document> aggregation_results = execution_results.get("cursor", Document.class).getList("firstBatch", Document.class);
+		
+		//@formatter:on
+		return aggregation_results;
 	}
 
 	@Override
@@ -368,5 +422,108 @@ public class CirpRepository implements CirpRepositoryOperations {
 	@Override
 	public void updateStudent(Student student) {
 		mongoTemplate.save(student);
+	}
+
+	@Override
+	public void hire(String applicant_id, String job_id, Class<?> userClass) {
+
+		Query find_applicant = new Query().addCriteria(where("username").is(applicant_id));
+
+		mongoTemplate.updateFirst(find_applicant, new Update().push("hired_jobs", job_id), userClass);
+
+		//@formatter:off
+		String find_application = "{ "
+				+ "aggregate: 'job',"
+				+ "pipeline : ["
+					+ "{ $match: { _id: '"+ job_id +"' }}, "
+					+ "{ $unwind: { path: '$applicants' }},"
+					+ "{ $match: { 'applicants.applicant_id': '"+ applicant_id +"'}},"
+					+ "{ $project: { _id: 0, applicants: 1} }], "
+				+ "cursor : {} }";
+		//@formatter:on
+		Document apln_document = mongoTemplate.executeCommand(find_application).get("cursor", Document.class)
+				.getList("firstBatch", Document.class).get(0).get("applicants", Document.class);
+
+		Application application = new Application();
+		application.setApplicant_id(apln_document.getString("applicant_id"));
+		application.setAnswers(apln_document.getList("answers", String.class));
+		application.setTimestamp(apln_document.getDate("timestamp"));
+
+		Query find_job = new Query().addCriteria(where("_id").is(job_id));
+
+		mongoTemplate.updateFirst(find_job, new Update().push("hired", application), Job.class);
+		mongoTemplate.updateFirst(find_job, new Update().pull("applicants", application), Job.class);
+
+	}
+
+	@Override
+	public void rejectApplication(String applicant_id, String job_id, Class<?> userClass) {
+
+		Query find_applicant = new Query().addCriteria(where("username").is(applicant_id));
+
+		mongoTemplate.updateFirst(find_applicant, new Update().push("rejected_jobs", job_id), userClass);
+
+		//@formatter:off
+		String find_application = "{ "
+				+ "aggregate: 'job',"
+				+ "pipeline : ["
+					+ "{ $match: { _id: '"+ job_id +"' }}, "
+					+ "{ $unwind: { path: '$applicants' }},"
+					+ "{ $match: { 'applicants.applicant_id': '"+ applicant_id +"'}},"
+					+ "{ $project: { _id: 0, applicants: 1 } }], "
+				+ "cursor : {} }";
+		//@formatter:on
+		Document apln_document = mongoTemplate.executeCommand(find_application).get("cursor", Document.class)
+				.getList("firstBatch", Document.class).get(0).get("applicants", Document.class);
+
+		Application application = new Application();
+		application.setApplicant_id(apln_document.getString("applicant_id"));
+		application.setAnswers(apln_document.getList("answers", String.class));
+		application.setTimestamp(apln_document.getDate("timestamp"));
+
+		Query find_job = new Query().addCriteria(where("_id").is(job_id));
+
+		mongoTemplate.updateFirst(find_job, new Update().push("rejected", application), Job.class);
+		mongoTemplate.updateFirst(find_job, new Update().pull("applicants", application), Job.class);
+	}
+
+	public List<Document> jobSuggestions(String name, String aggregatefrom) {
+
+		// @formatter:off
+		String aggregate_command = "{"
+			+ aggregatefrom
+			+ "pipeline: ["
+				+ "{ $match:{ _id:'"+ name +"' } }"
+				+ "{ $project: {"
+					+ " _id: 0,"
+					+ "skills: { $setUnion: ["
+						+ "{ $ifNull: ['$personalisation.skills', []]}," 
+						+ "{ $ifNull: ['$personalisation.work.skills', []]},"
+						+ "{ $ifNull: ['$personalisation.project.tech', []]} ]} }},"
+				+ "{ $lookup: { from: 'job', localField: 'skills', foreignField: 'skills', as: 'job_suggestions'} },"
+				+ "{ $project: { "
+					+ "skills:0, "
+					+ "'job_suggestions.questions' : 0, "
+					+ "'job_suggestions.answers' : 0, "
+					+ "'job_suggestions._class' : 0, "
+					+ "'job_suggestions.applicants' : 0, "
+					+ "'job_suggestions.hired' : 0, "
+					+ "'job_suggestions.rejected' : 0 }},"
+				+ "{ $unwind: { path: '$job_suggestions' } },"
+				+ "{ $lookup: { from: 'recruiter', localField: 'job_suggestions.recruiter_id', foreignField: '_id', as: 'recruiter' } },"
+				+ "{ $unwind: { path: '$recruiter' } },"
+				+ "{ $project: { "
+					+ "job_suggestions: 1, "
+					+ "'recruiter._id': 1, "
+					+ "'recruiter.name': 1, "
+					+ "'recruiter.desc' : 1 } } ],"
+			+ "cursor: { }}";
+				
+		Document execution_results  = mongoTemplate.executeCommand(aggregate_command);
+		List<Document> aggregation_results = execution_results.get("cursor", Document.class)
+				.getList("firstBatch", Document.class);
+		System.out.println(aggregation_results);	
+		//@formatter:on
+		return aggregation_results;
 	}
 }

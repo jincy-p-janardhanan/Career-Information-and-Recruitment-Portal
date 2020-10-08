@@ -33,7 +33,7 @@ public class SearchControllers {
 		return "common/search_results";
 	}
 
-	@PostMapping("/filtered-search")
+	@GetMapping("/filtered-search")
 	public <T> List<T> Search(@RequestParam String search_text, @RequestParam String filter) {
 		return repo.search(search_text, filter);
 	}

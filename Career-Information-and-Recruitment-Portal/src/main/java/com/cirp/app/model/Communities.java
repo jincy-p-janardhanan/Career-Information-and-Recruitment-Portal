@@ -2,6 +2,9 @@ package com.cirp.app.model;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Communities {
 
 	@NotBlank

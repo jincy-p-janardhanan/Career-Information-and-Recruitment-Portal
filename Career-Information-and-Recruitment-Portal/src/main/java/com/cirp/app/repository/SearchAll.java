@@ -47,10 +47,7 @@ public class SearchAll {
 		MongoCursor<Document> iterator = search_iterator.iterator();
 		while (iterator.hasNext()) {
 			result_documents.add(iterator.next());
-		}
-		
-		System.out.println(result_documents);
-		
+		}		
 		return result_documents;
 	}
 

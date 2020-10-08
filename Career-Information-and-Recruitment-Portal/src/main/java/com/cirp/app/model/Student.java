@@ -39,9 +39,9 @@ public class Student extends NonAdmin {
 	private List<ObjectId> recommend_req; // List of recommendation requests
 	private List<ObjectId> recommendations; // List of recommendations received
 
-	private List<ObjectId> applied_jobs;
-	private List<ObjectId> hired_jobs;
-	private List<ObjectId> rejected_jobs;
+	private List<String> applied_jobs;
+	private List<String> hired_jobs;
+	private List<String> rejected_jobs;
 
 	public Student(String username, String password, String name, Address address, String mobile, String email,
 			String reg_no, String course, String branch, int sem, LocalDate st_date, LocalDate end_date, LocalDate dob,
@@ -185,27 +185,28 @@ public class Student extends NonAdmin {
 		this.recommendations = recommendations;
 	}
 
-	public List<ObjectId> getApplied_jobs() {
+	public List<String> getApplied_jobs() {
 		return applied_jobs;
 	}
 
-	public void setApplied_jobs(List<ObjectId> applied_jobs) {
+	public void setApplied_jobs(List<String> applied_jobs) {
 		this.applied_jobs = applied_jobs;
 	}
 
-	public List<ObjectId> getHired_jobs() {
+	public List<String> getHired_jobs() {
 		return hired_jobs;
 	}
 
-	public void setHired_jobs(List<ObjectId> hired_jobs) {
+	public void setHired_jobs(List<String> hired_jobs) {
 		this.hired_jobs = hired_jobs;
 	}
 
-	public List<ObjectId> getRejected_jobs() {
+	public List<String> getRejected_jobs() {
 		return rejected_jobs;
 	}
 
-	public void setRejected_jobs(List<ObjectId> rejected_jobs) {
+	public void setRejected_jobs(List<String> rejected_jobs) {
 		this.rejected_jobs = rejected_jobs;
 	}
+
 }

@@ -25,7 +25,6 @@ import com.cirp.app.model.Student;
 import com.cirp.app.service.EditProfile;
 import com.cirp.app.service.FileStorage;
 import com.cirp.app.service.FindClass;
-import com.cirp.app.service.HomeRedirect;
 
 @Controller
 public class FileController {
@@ -35,8 +34,6 @@ public class FileController {
 
 	@Autowired
 	private FindClass find;
-	
-	HomeRedirect home;
 
 	@PostMapping("/update-profile-pic")
 	public String updateProfilePic(@RequestParam("file") MultipartFile image, RedirectAttributes redirectAttributes,

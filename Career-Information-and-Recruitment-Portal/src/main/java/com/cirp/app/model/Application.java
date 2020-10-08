@@ -1,21 +1,16 @@
 package com.cirp.app.model;
 
+import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.MongoId;
-
 public class Application {
-	
-	@MongoId
+
 	private String applicant_id;
+	private Date timestamp;
 	private List<String> answers;
-	
-	public Application(String applicant_id) {
-		this.setApplicant_id(applicant_id);
-	}
 
 	public Application() {
-		
+		this.timestamp = new Date();
 	}
 
 	public String getApplicant_id() {
@@ -24,6 +19,14 @@ public class Application {
 
 	public void setApplicant_id(String applicant_id) {
 		this.applicant_id = applicant_id;
+	}
+
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public List<String> getAnswers() {

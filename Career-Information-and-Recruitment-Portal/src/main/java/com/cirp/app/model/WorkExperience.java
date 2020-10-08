@@ -1,7 +1,7 @@
 package com.cirp.app.model;
 
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -20,15 +20,15 @@ public class WorkExperience {
 	private String desc;
 	@NotBlank
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate st_date;
+	private Date st_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate end_date;
+	private Date end_date;
 	private String status; // "current" or "former" employment
 
 	public WorkExperience() {
 	}
 
-	public WorkExperience(String job, String company, String desc, LocalDate st_date, LocalDate end_date) {
+	public WorkExperience(String job, String company, String desc, Date st_date, Date end_date) {
 		this.job = job;
 		this.company = company;
 		this.desc = desc;
@@ -37,7 +37,7 @@ public class WorkExperience {
 		this.status = "Former";
 	}
 
-	public WorkExperience(String job, String company, String desc, LocalDate st_date) {
+	public WorkExperience(String job, String company, String desc, Date st_date) {
 		this.job = job;
 		this.company = company;
 		this.desc = desc;
@@ -77,19 +77,19 @@ public class WorkExperience {
 		this.desc = desc;
 	}
 
-	public LocalDate getSt_date() {
+	public Date getSt_date() {
 		return st_date;
 	}
 
-	public void setSt_date(LocalDate st_date) {
+	public void setSt_date(Date st_date) {
 		this.st_date = st_date;
 	}
 
-	public LocalDate getEnd_date() {
+	public Date getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(LocalDate end_date) {
+	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
 

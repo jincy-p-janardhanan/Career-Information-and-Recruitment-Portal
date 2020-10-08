@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cirp.app.model.Job;
@@ -57,7 +59,7 @@ public class RecruiterController {
 		List<Job> jobs = new ArrayList<Job>();
 		if(jobids!= null) {
 			for(String jobid: jobids) {
-				Job job = repo.findById(jobid);				
+				Job job = repo.findById(jobid);
 				jobs.add(job);
 			}
 		}
@@ -144,5 +146,24 @@ public class RecruiterController {
 		Job job = repo.findById(job_id);
 		model.addAttribute("job", job);
 		return "recruiter/view_job";
+	}
+	
+	@GetMapping("/view-applications")
+	public String viewAllApplications(@RequestParam(required=false) String job_id, Authentication authentication, Model model) {
+		Recruiter recruiter = repo.findById(authentication.getName());		
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+		String matchquery;
+		if(job_id == null) {
+			matchquery = "{$match: { 'recruiter_id': '" + authentication.getName() +"' }},";
+			model.addAttribute("title", "All Applications");
+		}
+		else {
+			matchquery = "{$match: { 'recruiter_id': '" + authentication.getName() +"', '_id': '" + job_id +"' }},";
+			Job job = repo.findById(job_id);
+			model.addAttribute("title", "Applications for "+job.getName());
+		}
+		List<Document> applications = repo.viewApplications(matchquery);
+		model.addAttribute("applications", applications);
+		return "recruiter/job_applications";
 	}
 }

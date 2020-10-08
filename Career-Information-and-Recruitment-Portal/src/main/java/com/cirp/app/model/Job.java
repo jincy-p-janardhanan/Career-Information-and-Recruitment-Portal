@@ -32,6 +32,8 @@ public class Job {
 	private Date last_date;
 	private List<String> questions;
 	private List<Application> applicants;
+	private List<Application> hired;
+	private List<Application> rejected;
 	private List<String> skills; //job tags
 	
 	public Job(String recruiter_id, String recruiter_pic,  String name, String desc, String location, String duration, float stipend, Date last_date,
@@ -151,5 +153,21 @@ public class Job {
 
 	public void setSkills(List<String> skills) {
 		this.skills = skills;
+	}
+
+	public List<Application> getHired() {
+		return hired;
+	}
+
+	public void setHired(List<Application> hired) {
+		this.hired = hired;
+	}
+
+	public List<Application> getRejected() {
+		return rejected;
+	}
+
+	public void setRejected(List<Application> rejected) {
+		this.rejected = rejected;
 	}
 }

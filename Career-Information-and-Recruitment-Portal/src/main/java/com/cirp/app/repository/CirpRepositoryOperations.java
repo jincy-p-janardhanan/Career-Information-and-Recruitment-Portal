@@ -2,6 +2,7 @@ package com.cirp.app.repository;
 
 import java.util.List;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.cirp.app.model.Alumnus;
@@ -34,8 +35,7 @@ public interface CirpRepositoryOperations {
 	public void editJob(Job job);
 	void viewApplication(Application application);
 	
-	List<Application> viewJobApplications(ObjectId job_id);
-	List<Application> viewAllApplications(String recruiter_id);
+	List<Document> viewApplications(String matchquery);
 	List<Application> searchApplications(String search_text);
 	
 	void requestRecommendation(String requester_id, String recommender_id);
@@ -63,5 +63,7 @@ public interface CirpRepositoryOperations {
 	void updateUserRole(String username, String role, Class<?> user_class);
 	void updateStudent(Student student);
 	String applyJob(Application application, String job_id);
+	void hire(String applicant_id, String job_id, Class<?> userClass);
+	void rejectApplication(String applicant_id, String job_id, Class<?> userClass);
 	
 }

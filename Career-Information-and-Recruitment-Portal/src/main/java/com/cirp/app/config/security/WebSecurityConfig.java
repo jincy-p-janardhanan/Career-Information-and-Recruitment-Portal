@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	       	.antMatchers("/student/**").hasAnyRole("STUDENT", "ALUMNUS")
 	       	.antMatchers("/alumnus/**").hasRole("ALUMNUS")
 	       	.antMatchers("/pending-approval").hasRole("PENDING")
+	       	.antMatchers("/chat/**").hasAnyRole("RECRUITER", "STUDENT", "ALUMNUS")
 	       	.antMatchers("/common/**").hasAnyRole("ADMIN", "COLLEGE", "STUDENT", "RECRUITER", "ALUMNUS")
 	       	
 	       	//Specifies any request to the apis (other than those specified with permitAll() ) should be authenticated

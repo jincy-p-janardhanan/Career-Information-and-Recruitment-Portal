@@ -39,30 +39,31 @@ public class EnsureIndexes {
 				.build();
 
 		TextIndexDefinition student_alumni_index = new TextIndexDefinitionBuilder()
-				.onField("name", (float) 5)
-				.onField("address.address_line1", (float) 2)
-				.onField("address.address_line2", (float) 2)
-				.onField("address.city_or_town", (float) 2)
-				.onField("address.district", (float) 2)
-				.onField("address.state", (float) 2)
-				.onField("address.country", (float) 2)
-				.onField("personalition.education.course")
-				.onField("personalition.education.institute")
-				.onField("personalition.education.boards")
-				.onField("personalition.work.job", (float) 3)
-				.onField("personalition.work.company", (float) 3)
-				.onField("personalition.work.job", (float) 3)
-				.onField("personalition.work.skills", (float) 3)
-				.onField("personalition.skils", (float) 2)
-				.onField("personalition.project.name", (float) 2)
-				.onField("personalition.project.tech", (float) 2)
-				.onField("personalition.communities.name")
+				.onField("name", (float) 6)
+				.onField("address.address_line1", (float) 3)
+				.onField("address.address_line2", (float) 3)
+				.onField("address.city_or_town", (float) 3)
+				.onField("address.district", (float) 3)
+				.onField("address.state", (float) 3)
+				.onField("address.country", (float) 3)
+				.onField("personalisation.education.course", (float) 5)
+				.onField("personalisation.education.institute", (float) 5)
+				.onField("personalisation.education.boards")
+				.onField("personalisation.work.job", (float) 4)
+				.onField("personalisation.work.company", (float) 4)
+				.onField("personalisation.work.job", (float) 4)
+				.onField("personalisation.work.skills", (float) 4)
+				.onField("personalisation.skills", (float) 4)
+				.onField("personalisation.project.name", (float) 2)
+				.onField("personalisation.project.tech", (float) 4)
+				.onField("personalisation.communities.name")
 				.onField("username", (float) 4)
 				.build();
 		
 		TextIndexDefinition job_index = new TextIndexDefinitionBuilder()
-				.onField("name", (float) 5)
+				.onField("name", (float) 7)
 				.onField("location", (float) 4)
+				.onField("skills", (float) 5)
 				.build();
 		try {
 			
@@ -76,6 +77,7 @@ public class EnsureIndexes {
 			
 			mongoTemplate.indexOps(collections[4]).ensureIndex(job_index);
 			mongoTemplate.indexOps(collections[4]).ensureIndex(new Index().on("last_date", Direction.DESC));
+			mongoTemplate.indexOps(collections[4]).ensureIndex(new Index().on("applicants.timestamp", Direction.DESC));
 			
 		} catch(Exception e) {
 			System.out.println("INDEX CREATION FAILED + \n");

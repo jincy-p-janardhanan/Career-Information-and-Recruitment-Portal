@@ -103,8 +103,10 @@ public class ViewProfilePublic {
 			model.addAttribute("job", job);
 			Application application = new Application();
 			List<String> answers = new ArrayList<String>();
-			for(String question: job.getQuestions())
-				answers.add(new String());
+			if(job.getQuestions()!= null) {
+				for(String question: job.getQuestions())
+					answers.add(new String());
+			}
 			Recruiter recruiter = repo.findById(job.getRecruiter_id());
 			application.setAnswers(answers);
 			model.addAttribute("application", application);
