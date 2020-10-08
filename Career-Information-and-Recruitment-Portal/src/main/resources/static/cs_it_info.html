@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="generator" content="RocketCake">
+	<title></title>
+	<link rel="stylesheet" type="text/css" th:href="@{cs_it_info_html.css}">
+	<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.navbar {
+	background-color: #0f0f0f;
+	min-height: 51px;
+	min-width: 579px;
+}
+
+.navbar a {
+	float: right;
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.dropdown {
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	float: right;
+	overflow: hidden;
+}
+
+.dropdown .dropbtn {
+	font-size: 11pt;
+	color: #B2B2B2;
+	border: none;
+	outline: none;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+	background-color: rgb(46, 44, 44);
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+@media only screen and (max-width: 1212px) {
+	#form_11381a91 {
+		width: 80%;
+		position: absolute;
+		left: 5%;
+		top: 2%;
+	}
+	#nav_options {
+		display: none;
+	}
+}
+
+.sidebar {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidebar a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 16px;
+	color: #818181;
+	display: block;
+	width: 100%;
+	transition: 0.3s;
+}
+
+.sidebar a:hover {
+	color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+	position: absolute;
+	top: 0;
+	width: 83%;
+	font-size: 30px;
+	text-align: right;
+}
+
+.openbtn {
+	font-size: 26px;
+	cursor: pointer;
+	background-color: #0f0f0f;
+	color: #b2b2b2;
+	padding: 10px 15px;
+	border: none;
+}
+
+.openbtn:hover {
+	background-color: #444;
+}
+
+@media screen and (max-height: 450px) {
+	.sidebar {
+		padding-top: 15px;
+	}
+	.sidebar a {
+		font-size: 18px;
+	}
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td {
+	border: none;
+	text-align: left;
+	padding: 10px;
+}
+
+.col1 {
+	text-align: right;
+}
+
+.col2 {
+	width: 5px;
+}
+
+.textstyle5 {
+	text-align: center;
+}
+
+#button_70f0277e {
+	text-align: center;
+	text-align: vcenter;
+}
+
+#button_6fd57d28 {
+	text-align: center;
+}
+
+.aboutform {
+	border: none;
+	font-family: 'Open Sans';
+	font-size: 14px;
+}
+
+.aboutform:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
+}
+
+#button_475df8fc {
+	float: right;
+}
+
+.textstyle16:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
+}
+
+#profile_button {
+	box-sizing: border-box;
+	vertical-align: bottom;
+	border-radius: 100px;
+	position: relative;
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	background-color: #061332;
+	background-image: url([[@{'/view-profile-pic/' + ${profile_pic}}]]);
+	background-position: center left;	
+	background-size:cover;	
+	border: 0px;
+}
+
+.img-circle {
+	box-sizing: border-box;
+	border-radius: 100px;
+}
+
+#profile_button:hover {
+	background: url([[@{/css/assets/camera-circle.png}]]);
+	background-size: cover;
+}
+#backgroundimage {
+	display: block;
+	margin:0px;
+	background-image: url([[@{'/view-bg-img/' + ${bg_img}}]]);
+	background-size:cover;
+}
+</style>
+<script>
+	function openNav() {
+		document.getElementById("mySidebar").style.width = "250px";
+	}
+
+	function closeNav() {
+		document.getElementById("mySidebar").style.width = "0";
+	}
+</script>
+
+</head>
+<body>
+<div class="textstyle1">
+<div id="container_3f52f5e"><div id="container_3f52f5e_padding" ><div class="textstyle1">  <div id="container_1d02c053">
+    </div>
+  <div id="container_597592f2">
+    <div id="container_597592f2_padding" >
+      <div class="textstyle1">
+        <img src="rc_images/cs_icon.png" id="img_44c6c9cc" alt="" title="" />
+        <div id="container_552d7807">
+          <div id="container_552d7807_padding" >
+            <div class="textstyle2">
+              <span class="textstyle3">COMPUTER SCIENCE    &amp;<br/> INFORMATION TECHNOLOGY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div style="clear:both"></div>
+      </div>
+    </div>
+  <div id="container_5f62f228">
+    <div id="container_5f62f228_padding" >
+      <div class="textstyle1">
+		<div id="container_3c000d03">
+				<div id="container_3c000d03_padding" >
+						<div class="textstyle1"><span class="textstyle4">Some top recruiters of computer science engineers include:<br/></span>
+							<span class="textstyle5"><br/></span><div id="container_5ef79c26"></div><span class="textstyle5"><br/>&#8226;	
+								TCS Consultancy<br/>&#8226;	Deloitte<br/>&#8226;	
+									Google<br/>&#8226;	Cognizant<br/>&#8226;	
+										Wipro<br/>&#8226;	Microsoft<br/>&#8226;	
+											Infosys Technologies<br/>&#8226;	
+												IBM Global Services<br/>&#8226;	
+													Accenture Services<br/>&#8226;	
+														Facebook<br/>&#8226;	
+															Hewlett and Packard<br/>&#8226;	
+														HCL Technologies<br/>&#8226;	
+													Paytm<br/>&#8226;
+												Sun microsystems<br/>&#8226;	
+											Cisco<br/></span></div>
+										<div style="clear:both">
+									</div>
+									</div>
+								</div>
+								<div id="container_74f6e22b">
+									<div id="container_74f6e22b_padding" >
+										<div class="textstyle1"><span class="textstyle4">Some top recruiters of Information technology engineers include:<br/></span>
+										<span class="textstyle5"><br/></span>
+											<div id="container_1e96eab0">
+											</div>
+											<span class="textstyle5"><br/>&#8226;	
+												Computer Programmer<br/>&#8226;	
+													Database Administrator<br/>&#8226;	
+														Database Designer<br/>&#8226;	
+															Datawarehouse Designer<br/>&#8226;	
+																ERP<br/>&#8226;	Network Administrator<br/>&#8226;	
+																	Network Architect<br/>&#8226;	
+																		Network Engineer<br/>&#8226;	
+																	Project Manager<br/>&#8226;	
+																Quality Assurance Specialist<br/>&#8226;	
+															Software Engineer<br/>&#8226;	
+														System Administrator<br/>&#8226;	
+													Technical Writers<br/></span>
+													</div>
+												<div style="clear:both">
+												</div>
+												</div>
+											</div>
+										<div id="container_41e58864">
+										<div id="container_41e58864_padding" >
+									<div class="textstyle1"><span class="textstyle6">ABOUT CS:</span>
+								<span class="textstyle7"><br/></span>
+								<span class="textstyle5">Computer science engineering includes the study of design, 
+									computational processes and programming languages. Students get to learn technical 
+									know-how about how to develop a variety of hardwares and softwares and gain knowledge
+									 about communications systems and other similar devices. Usually students and potential 
+									 candidates tend to confuse computer science engineering and computer science as one subject.
+									  There is a large difference between both subjects. Computer science is a study focused on 
+									  troubleshooting issues on a software level. This study deals with programming languages and 
+									  operating systems and learning the technical aspects related to software and its advancements.
+									   On the other hand, computer engineering is a study focused on hardware and software interface 
+									   development as well as its related problems.
+									   </span>
+									  </div>
+									</div>
+										</div>
+											<div id="container_73277115">
+											<div id="container_73277115_padding" >
+											</div>
+										</div>
+										<div id="container_7fc73153">
+										<div id="container_7fc73153_padding" >
+										<div class="textstyle1"><span class="textstyle6"><br/>ABOUT IT:</span>
+										<span class="textstyle7"><br/></span>
+										<span class="textstyle5">Information Technology plays a vital role in our modern day lifestyles.
+										 It has touched each and every aspect of human life. With the emergence of computers,
+										  we are witnessing a sea change in the business world. Starting from multi-national corporations 
+										  to small businesses, IT plays a stupendous role. In the field of Communication, Inventory Management, 
+										  Data Management, Management Information Systems and Customer Relationship Management, IT plays a pivotal 
+										  role. IT has also opened up various concepts like online shopping, digital marketing, social networking, 
+										  digital communication, cloud computing, Mobile, and big data for solving many social and business problems.
+										   In addition, for making long-term business successful, IT has developed many tools and software
+										    applications.Information Technology is an engineering division, which concentrates on the study 
+										    of utilizing computers and telecommunications in order to control, gather, store and circulate
+										     information. Both software and hardware sectors are parts of Information Technology.
+										     </span>
+										     </div>
+											</div>
+										</div>
+										<div id="container_6983ed74">
+											<div id="container_6983ed74_padding" >
+											</div>
+										</div>
+										<div id="container_7ecb5c5f">
+											<div id="container_7ecb5c5f_padding" >
+												<div class="textstyle1">
+													<img src="rc_images/top_recruiters_1024x307.png" id="img_24ad08ac" alt="" title="" />
+											<img src="rc_images/it_industry.jpg" id="img_4072b823" alt="" title="" />
+													</div>
+												<div style="clear:both">
+												</div>
+											</div>
+										</div>        
+										</div>
+      									<div style="clear:both">
+      									</div>
+      								</div>
+   								 </div>
+								</div>
+							<div style="clear:both">
+						</div>
+					</div>
+				</div> 
+			 </div>
+</body>
+</html>
