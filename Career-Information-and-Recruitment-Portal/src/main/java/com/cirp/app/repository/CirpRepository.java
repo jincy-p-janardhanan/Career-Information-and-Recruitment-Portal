@@ -121,12 +121,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void viewApplication(Application application) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<Document> viewApplications(String matchquery) {
 
 		// @formatter:off
@@ -179,12 +173,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 		
 		//@formatter:on
 		return aggregation_results;
-	}
-
-	@Override
-	public List<Application> searchApplications(String search_text) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -315,22 +303,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 		Query query = new Query();
 		query.addCriteria(where("username").is(username));
 		mongoTemplate.updateFirst(query, new Update().set("personalisation", personalisation), user_class);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T viewProfile(String username) {
-
-		if (findById(username) instanceof College) {
-			return (T) mongoTemplate.findById(new Query(where("_id").is(username)).fields().include("name")
-					.include("affil_univ").include("contact"), College.class);
-		} else {
-			if (findById(username) instanceof Recruiter) {
-				return (T) mongoTemplate.findById(new Query(where("_id").is(username)).fields().include("name")
-						.include("license_no").include("contact"), Recruiter.class);
-			}
-		}
-		return null;
 	}
 
 	@Override
@@ -487,6 +459,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 		mongoTemplate.updateFirst(find_job, new Update().pull("applicants", application), Job.class);
 	}
 
+	@Override
 	public List<Document> jobSuggestions(String name, String aggregatefrom) {
 
 		// @formatter:off

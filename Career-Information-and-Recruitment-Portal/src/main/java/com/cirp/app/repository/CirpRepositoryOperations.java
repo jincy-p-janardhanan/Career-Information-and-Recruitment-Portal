@@ -22,10 +22,7 @@ public interface CirpRepositoryOperations {
 	void register(Alumnus alumnus); //request to college
 	void register(Student student);
 	
-	void updatePassword(String username_or_email, String new_password, Class<?> user_class);
-	
-	//Profile includes data displayed on the user's home page only
-	<T> T viewProfile(String username);	
+	void updatePassword(String username_or_email, String new_password, Class<?> user_class);	
 	
 	void deleteUser(String username);
 	
@@ -33,10 +30,8 @@ public interface CirpRepositoryOperations {
 	Job viewJob(ObjectId id);
 	void deleteJob(Job job, String recruiter_id);
 	public void editJob(Job job);
-	void viewApplication(Application application);
 	
 	List<Document> viewApplications(String matchquery);
-	List<Application> searchApplications(String search_text);
 	
 	void requestRecommendation(String requester_id, String recommender_id);
 	void recommend(ObjectId reccomendation_id, String recc_msg);
@@ -65,5 +60,6 @@ public interface CirpRepositoryOperations {
 	String applyJob(Application application, String job_id);
 	void hire(String applicant_id, String job_id, Class<?> userClass);
 	void rejectApplication(String applicant_id, String job_id, Class<?> userClass);
+	List<Document> jobSuggestions(String name, String aggregatefrom);
 	
 }
