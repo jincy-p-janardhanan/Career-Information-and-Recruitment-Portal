@@ -21,6 +21,10 @@ public class Message {
 		this.channelId = channelId;
 	}
 	
+	public Message() {
+		
+	}
+
 	public String getId() {
 		return id;
 	}

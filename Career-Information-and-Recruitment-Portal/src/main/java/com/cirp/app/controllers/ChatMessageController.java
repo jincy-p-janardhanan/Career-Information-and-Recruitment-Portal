@@ -1,5 +1,9 @@
 package com.cirp.app.controllers;
 
+
+
+import java.time.Duration;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,7 @@ import com.cirp.app.repository.ChatChannelRepo;
 import com.cirp.app.repository.ChatMessageRepo;
 import com.cirp.app.repository.CirpRepository;
 
+import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -47,17 +52,25 @@ public class ChatMessageController {
 	@PostMapping("/channel")
 	public String createChannel(String receiver, Model model, Authentication authentication){
 		ChatChannel channel = new ChatChannel();
+		String channel_id = authentication.getName()+receiver;
+		channel.setId(channel_id);
 		channel.setFirstUser(authentication.getName());
 		channel.setSecondUser(receiver);
-		Mono<ChatChannel> ch = chatChannelRepo.save(channel);
 		NonAdmin user = repo.findById(receiver);
-		model.addAttribute("channel", ch);
+		chatChannelRepo.save(channel).subscribe();
+		Message message =  new Message();
+		message.setChannelId(channel_id);
+		message.setSender(authentication.getName());
+		message.setSendee(receiver);
+		model.addAttribute("message", message);
 		model.addAttribute("profile_pic", user.getProfile_pic());
 		model.addAttribute("name", user.getName());
 		return "common/chat";
 	}
 	@GetMapping(value = "/chats/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-	public Flux<Message> streamMessages(@RequestParam String channelId){
-		return chatMessageRepo.findWithTailableCursorByChannelId(channelId);
+	public String streamMessages(@RequestParam String channelId, Model model){
+		Flux<Message> all_msgs = chatMessageRepo.findWithTailableCursorByChannelId(channelId);
+		model.addAttribute("", arg1);
+		return "common/chat";
 	}
 }
