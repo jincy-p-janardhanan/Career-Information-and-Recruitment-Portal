@@ -29,7 +29,6 @@ public interface CirpRepositoryOperations {
 	void createJob(Job job, Recruiter recruiter);
 	Job viewJob(ObjectId id);
 	void deleteJob(Job job, String recruiter_id);
-	public void editJob(Job job);
 	
 	List<Document> viewApplications(String matchquery);
 	

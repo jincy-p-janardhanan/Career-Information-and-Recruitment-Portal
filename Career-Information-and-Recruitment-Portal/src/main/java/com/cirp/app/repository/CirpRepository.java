@@ -387,11 +387,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void editJob(Job job) {
-		mongoTemplate.findAndReplace(new Query().addCriteria(where("_id").is(job.get_id())), job);
-	}
-
-	@Override
 	public void updateStudent(Student student) {
 		mongoTemplate.save(student);
 	}

@@ -321,7 +321,9 @@ textarea {
 												<tr>
 													<td></td>
 													<td>
-														<input type="submit" value="POST JOB" style="border:none; border-radius: 9px; position: relative; width: 75px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
+														<input th:unless="${update}" type="submit" value="POST JOB" style="border:none; border-radius: 9px; position: relative; width: 75px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
+												id="button_12f25c71">
+														<input th:if="${update}" type="submit" value="UPDATE JOB" style="border:none; border-radius: 9px; position: relative; width: 95px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
 												id="button_12f25c71">
 													</td>
 													<td></td>

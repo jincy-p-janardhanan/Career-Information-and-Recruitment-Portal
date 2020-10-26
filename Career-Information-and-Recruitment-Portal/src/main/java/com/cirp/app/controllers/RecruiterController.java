@@ -38,9 +38,9 @@ public class RecruiterController {
 
 	@GetMapping("/home")
 	public String profile(Model model, Authentication authentication) {
-		
+
 		String username = authentication.getName();
-		
+
 		Recruiter recruiter = repo.findById(username);
 		StringVal desc = new StringVal();
 		desc.setValue(recruiter.getDesc());
@@ -56,7 +56,7 @@ public class RecruiterController {
 		model.addAttribute("location",
 				recruiter.getContact().getCity_or_town() + ", " + recruiter.getContact().getCountry());
 		model.addAttribute("contact", recruiter.getContact());
-		
+
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
 		model.addAttribute("channels", channels);
@@ -70,8 +70,8 @@ public class RecruiterController {
 		Recruiter recruiter = repo.findById(username);
 		List<String> jobids = recruiter.getJobs();
 		List<Job> jobs = new ArrayList<Job>();
-		if(jobids!= null) {
-			for(String jobid: jobids) {
+		if (jobids != null) {
+			for (String jobid : jobids) {
 				Job job = repo.findById(jobid);
 				jobs.add(job);
 			}
@@ -85,10 +85,10 @@ public class RecruiterController {
 		model.addAttribute("viewjob", new Job());
 		return "recruiter/manage_job";
 	}
-	
+
 	@PostMapping(value = "/create-job", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String createJob(@Valid Job job, RedirectAttributes redirectAttributes, Authentication authentication) {	
+	public String createJob(@Valid Job job, RedirectAttributes redirectAttributes, Authentication authentication) {
 		Recruiter recruiter = repo.findById(authentication.getName());
 		job.setRecruiter_id(recruiter.getUsername());
 		if (!recruiter.getProfile_pic().equals("default_recruiter.png")) {
@@ -105,93 +105,103 @@ public class RecruiterController {
 		job_ids.add(job.get_id());
 		recruiter.setJobs(job_ids);
 		repo.createJob(job, recruiter);
-		redirectAttributes.addFlashAttribute("message", "Successfully created new job opening for "+job.getName()+"!");
+		redirectAttributes.addFlashAttribute("message",
+				"Successfully created new job opening for " + job.getName() + "!");
 		return "redirect:/recruiter/manage-jobs";
 	}
-	
+
 	@GetMapping("/create-job")
 	public String createJob(Model model, RedirectAttributes redirectAttributes, Authentication authentication) {
 		Job job = new Job();
 		job.setQuestions(Arrays.asList("Maybe some task or scenorio you would like to be solved by the candidate..."));
 		model.addAttribute("job", job);
 		String username = authentication.getName();
-		Recruiter recruiter = repo.findById(username);		
+		Recruiter recruiter = repo.findById(username);
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
-		
-		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
-		channels.addAll(chatChannelRepo.findByUser2(username));
-		model.addAttribute("channels", channels);
-		model.addAttribute("username", username);		
-		return "recruiter/create_job";
-	}
-	
-	@RequestMapping(value="/create-job", params={"add-question"})
-	public String addQuestion(final Job job, final BindingResult bindingResult, Model model, Authentication authentication) {
-	    job.getQuestions().add(new String());
-	    Recruiter recruiter = repo.findById(authentication.getName());		
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
-	    return "recruiter/create_job";
-	}
 
-	@RequestMapping(value="/create-job", params={"delete-question"})
-	public String deleteQuestion(Model model,
-			final Job job, final BindingResult bindingResult, 
-	        final HttpServletRequest req, Authentication authentication) {
-		Recruiter recruiter = repo.findById(authentication.getName());		
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
-	    final Integer question_no = Integer.valueOf(req.getParameter("delete-question"));
-	    job.getQuestions().remove(question_no.intValue());
-	    return "recruiter/create_job";
-	}
-	
-	@PostMapping(value="/delete-job", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
-			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String deleteJob(String job_id, RedirectAttributes redirectAttributes, Authentication authentication) {	
-		Job job = repo.findById(job_id);
-		repo.deleteJob(job, authentication.getName());
-		redirectAttributes.addFlashAttribute("message", "Deleted your job opening for "+job.getName()+"!");
-		return "redirect:/create-job";
-	}
-	
-	@PostMapping(value = "/edit-job", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
-			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public String editJob(@Valid Job job, RedirectAttributes redirectAttributes, Authentication authentication) {	
-		repo.editJob(job);
-		repo.deleteJob(job, authentication.getName());
-		redirectAttributes.addFlashAttribute("message", "Edit success!");
-		return "redirect:/create-job";
-	}
-	
-	@GetMapping("/view-job")
-	public String viewJob( String job_id, Authentication authentication, Model model) {
-		String username = authentication.getName();
-		Recruiter recruiter = repo.findById(username);		
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
-		Job job = repo.findById(job_id);
-		model.addAttribute("job", job);
-		
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
 		model.addAttribute("channels", channels);
 		model.addAttribute("username", username);
-		
+		return "recruiter/create_job";
+	}
+
+	@RequestMapping(value = "/create-job", params = { "add-question" })
+	public String addQuestion(final Job job, final BindingResult bindingResult, Model model,
+			Authentication authentication) {
+		job.getQuestions().add(new String());
+		Recruiter recruiter = repo.findById(authentication.getName());
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+		return "recruiter/create_job";
+	}
+
+	@RequestMapping(value = "/create-job", params = { "delete-question" })
+	public String deleteQuestion(Model model, final Job job, final BindingResult bindingResult,
+			final HttpServletRequest req, Authentication authentication) {
+		Recruiter recruiter = repo.findById(authentication.getName());
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+		final Integer question_no = Integer.valueOf(req.getParameter("delete-question"));
+		job.getQuestions().remove(question_no.intValue());
+		return "recruiter/create_job";
+	}
+
+	@GetMapping("/delete-job")
+	public String deleteJob(@RequestParam("job_id") String job_id, RedirectAttributes redirectAttributes,
+			Authentication authentication) {
+		Job job = repo.findById(job_id);
+		repo.deleteJob(job, authentication.getName());
+		redirectAttributes.addFlashAttribute("message", "Deleted your job opening for " + job.getName() + "!");
+		return "redirect:/recruiter/manage-jobs";
+	}
+
+	@GetMapping("/edit-job")
+	public String editJob(@RequestParam("job_id") String job_id, Model model, Authentication authentication) {
+		Job job = repo.findById(job_id);
+		if (job.getQuestions() == null) {
+			job.setQuestions(
+					Arrays.asList("Maybe some task or scenorio you would like to be solved by the candidate..."));
+		}
+		model.addAttribute("job", job);
+		model.addAttribute("update", "update");
+
+		String username = authentication.getName();
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
+		return "recruiter/create_job";
+	}
+
+	@GetMapping("/view-job")
+	public String viewJob(String job_id, Authentication authentication, Model model) {
+		String username = authentication.getName();
+		Recruiter recruiter = repo.findById(username);
+		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+		Job job = repo.findById(job_id);
+		model.addAttribute("job", job);
+
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
+
 		return "recruiter/view_job";
 	}
-	
+
 	@GetMapping("/view-applications")
-	public String viewAllApplications(@RequestParam(required=false) String job_id, Authentication authentication, Model model) {
+	public String viewAllApplications(@RequestParam(required = false) String job_id, Authentication authentication,
+			Model model) {
 		String username = authentication.getName();
-		Recruiter recruiter = repo.findById(username);		
+		Recruiter recruiter = repo.findById(username);
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		String matchquery;
-		if(job_id == null) {
-			matchquery = "{$match: { 'recruiter_id': '" + authentication.getName() +"' }},";
+		if (job_id == null) {
+			matchquery = "{$match: { 'recruiter_id': '" + authentication.getName() + "' }},";
 			model.addAttribute("title", "All Applications");
-		}
-		else {
-			matchquery = "{$match: { 'recruiter_id': '" + authentication.getName() +"', '_id': '" + job_id +"' }},";
+		} else {
+			matchquery = "{$match: { 'recruiter_id': '" + authentication.getName() + "', '_id': '" + job_id + "' }},";
 			Job job = repo.findById(job_id);
-			model.addAttribute("title", "Applications for "+job.getName());
+			model.addAttribute("title", "Applications for " + job.getName());
 		}
 		List<Document> applications = repo.viewApplications(matchquery);
 		model.addAttribute("applications", applications);

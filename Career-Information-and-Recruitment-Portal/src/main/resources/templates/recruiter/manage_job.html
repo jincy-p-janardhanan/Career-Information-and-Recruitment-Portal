@@ -180,63 +180,7 @@ a:hover {
 									</div>
 								</div>
 							</div>
-							<form
-								style="vertical-align: top; position: relative; display: inline-block; width: 98%; min-height: 100px; background: none;"
-								action="" enctype="application/x-www-form-urlencoded"
-								method="POST" id="form_24c9c287">
-								<div style="margin: 10px; display: block;"
-									id="form_24c9c287_padding">
-									<div style="text-align: left;">
-										<div
-											style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 30px; background: none;"
-											id="form_3e786fdb">
-											<div style="margin: 10px; display: block;"
-												id="form_3e786fdb_padding">
-												<div style="text-align: left;">
-													<div
-														style="vertical-align: top; position: relative; display: inline-block; width: 65%; min-height: 46px; background: none;"
-														id="container_599833e8">
-														<div style="margin: 10px; display: block;"
-															id="container_599833e8_padding">
-															<div style="text-align: left;">
-																<input type="text" value="" title="" name="TextEdit1"
-																	placeholder="Search for a job"
-																	style="box-sizing: border-box; vertical-align: bottom; border-radius: 10px; position: relative; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078); font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
-																	id="edit_47b47bcf"> <input name="search"
-																	type="submit" value="" title=""
-																	th:style="'box-sizing: border-box; position: absolute; left: 90%; top: 24%; width: 20px; height: 20px; background-color: #FFFFFF; background-image: url(' + @{ '/css/assets/search___small.png'} + '); background-position: center left; background-size: cover; border: 0px solid #404040; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;'"
-																	id="button_3cc65eff">
-															</div>
-															<div style="clear: both"></div>
-														</div>
-													</div>
-													<div
-														style="vertical-align: top; padding-top: 14px; position: relative; display: inline-block; float: right; width: 35%; min-height: 46px; background: none; padding: none;"
-														id="container_b942c79">
-														<div style="margin: 0px; display: block;"
-															id="container_b942c79_padding">
-															<div style="text-align: left;">
-																<select name="ComboBox1" title=""
-																	style="box-sizing: border-box; border-radius: 10px; position: absolute; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
-																	id="combo_5b7be53">
-																	<option value="Open Jobs" selected="selected">Open
-																		Jobs</option>
-																	<option value="All Job Listings">All Job
-																		Listings</option>
-																	<option value="Open Jobs Only">Open Jobs Only</option>
-																	<option value="Closed Jobs Only">Closed Jobs
-																		Only</option>
-																</select>
-															</div>
-														</div>
-													</div>
-												</div>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
+							<br><br>
 							<div th:each="job: ${jobs}">
 								<div
 									style="vertical-align: top; position: relative; display: inline-block; width: 98%; min-height: 300px; background: none;"
@@ -274,19 +218,40 @@ a:hover {
 															</div>
 														</div>
 														<a th:href="@{'/recruiter/view-applications?job_id=' + ${job._id}}">
-														<input name="Button1" type="submit" value="" title=""
+														<button
 															th:style="'box-sizing: border-box; position: absolute; left: 72%; top: 88%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/applicant.png'} + '); background-position: center center; background-size: cover; border: none;'"
-															id="button_7a06fb91"></a> <input name="Button1"
-															type="submit" value="" title=""
+															id="button_7a06fb91"></button></a>
+														
+														<button onClick="popup()"
 															th:style="'box-sizing: border-box; position: absolute; left: 92%; top: 88%; width: 29px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/trash.png'} +'); background-position: center center; background-size: cover; border: none;'"
-															id="button_3dcb90c1"> <input name="Button1"
-															type="submit" value="" title=""
+															id="button_3dcb90c1"></button>
+														
+														<a th:href="@{'/recruiter/edit-job?job_id=' + ${job._id}}">
+														<button
 															th:style="'box-sizing: border-box; position: absolute; left: 86%; top: 89%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/edit_pencil.png'} +'); background-position: center center; background-size: cover; border: none;'"
-															id="button_1905419d">
+															id="button_1905419d"></button>
+														</a>
+														
 														<a th:href="@{'/recruiter/view-job?job_id=' + ${job._id}}">
 															<button	th:style="'box-sizing: border-box; position: absolute; left: 79%; top: 88%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/view___grey.png'} +'); background-position: center center; background-size: cover; border: none;'"
 																id="button_25c626af"></button>
 														</a>
+														<div id="delete_confirm" class = "modal">
+															<div style="background:#0f0f0f; margin: 200px; width:30%; height: 100px; padding:20px;">
+																<span style="color:white; text-align:center;">Do you really want to delete this job?<br><br></span>
+																
+																<a style="padding: 10px; margin:20px; width:75px; background: #F23D3E; color:white;" th:href="@{'/recruiter/delete-job?job_id=' + ${job._id}}">Yes</a>
+																<a style="padding: 10px; margin:20px; width:75px; background: #42740C; color:white;" onClick="close_popup()">Cancel</a>											
+															</div>														
+														</div>
+														<script th:inline="javascript">
+															function popup() {
+																document.getElementById("delete_confirm").style.display = "block";
+															}
+															function close_popup() {
+																document.getElementById("delete_confirm").style.display = "none";
+															}
+														</script>
 													</div>
 												</div>
 											</div>
