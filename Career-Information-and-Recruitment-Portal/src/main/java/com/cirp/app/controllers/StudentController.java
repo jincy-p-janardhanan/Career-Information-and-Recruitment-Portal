@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cirp.app.model.Application;
 import com.cirp.app.model.Awards;
+import com.cirp.app.model.ChatChannel;
 import com.cirp.app.model.College;
 import com.cirp.app.model.Communities;
 import com.cirp.app.model.Education;
@@ -27,6 +28,7 @@ import com.cirp.app.model.Personalisation;
 import com.cirp.app.model.Project;
 import com.cirp.app.model.Student;
 import com.cirp.app.model.WorkExperience;
+import com.cirp.app.repository.ChatChannelRepo;
 import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.FindClass;
 import com.cirp.app.service.StringVal;
@@ -41,10 +43,16 @@ public class StudentController {
 	
 	@Autowired
 	private FindClass find;
+	
+	@Autowired
+	ChatChannelRepo chatChannelRepo;
 
 	@GetMapping("/home")
 	public String profile(Model model, Authentication authentication) {
-		Student student = repo.findById(authentication.getName());
+		
+		String username = authentication.getName();
+		
+		Student student = repo.findById(username);
 		College college = repo.findById(student.getCollege_id());
 		StringVal desc = new StringVal();
 		desc.setValue(student.getDesc());
@@ -59,7 +67,12 @@ public class StudentController {
 		model.addAttribute("course_and_branch",
 				student.getCourse() + ". " + student.getBranch()+"\n"+ college.getName());
 		Personalisation p = student.getPersonalisation();		
-		model.addAttribute("personalisation", p);	
+		model.addAttribute("personalisation", p);
+		
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
 		
 		return "student/home_student";
 

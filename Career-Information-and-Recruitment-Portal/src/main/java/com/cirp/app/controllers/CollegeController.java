@@ -48,16 +48,12 @@ public class CollegeController {
 	@GetMapping("/admin-panel")
 	public String home(Model model, Authentication authentication) {
 		College college = repo.findById(authentication.getName());
-		
 		List<Alumnus> alumni_pending = new ArrayList<Alumnus>();
 		if(college.getAlumni_pending() !=null) {
 			for(String alumnus : college.getAlumni_pending()) {
 				alumni_pending.add(repo.findById(alumnus));
 				Alumnus a = repo.findById(alumnus);
-				System.out.println(a.getAddress().getAddress_line1() + a.getAddress().getAddress_line2());
 			}
-				
-			
 		}
 		System.out.println(alumni_pending);
 		model.addAttribute("profile_pic", college.getProfile_pic());

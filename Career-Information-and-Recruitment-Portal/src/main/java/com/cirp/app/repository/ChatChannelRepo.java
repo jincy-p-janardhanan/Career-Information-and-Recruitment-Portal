@@ -1,9 +1,14 @@
 package com.cirp.app.repository;
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.cirp.app.model.ChatChannel;
 
-public interface ChatChannelRepo extends ReactiveMongoRepository<ChatChannel, String>{
+public interface ChatChannelRepo extends MongoRepository<ChatChannel, String>{
+
+	List<ChatChannel> findByUser1(String username);
+	List<ChatChannel> findByUser2(String username);
 
 }

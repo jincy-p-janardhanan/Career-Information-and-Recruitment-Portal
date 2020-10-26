@@ -4,8 +4,44 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="RocketCake">
-<title></title>
+<title>Chat</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <style type="text/css">
+#received_msg {
+	float: left;
+	border-radius: 5px;
+	position: relative;
+	margin-top: 5px;
+	margin-left: 5px;
+	width: 55%;
+	background-color: rgba(34, 121, 190, 0.698039);
+	width: 55%;
+	padding: 5px;
+	white-space: pre-wrap;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+}
+
+#sent_msg {
+	float: right;
+	border-radius: 5px;
+	position: relative;
+	margin-top: 5px;
+	margin-right: 5px;
+	width: 55%;
+	background-color: rgba(98, 170, 17, 0.698039);
+	width: 55%;
+	padding: 5px;
+	white-space: pre-wrap;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+}
+
 a {
 	color: #5D5D9E;
 }
@@ -90,94 +126,146 @@ a.wsp2e18e390:hover {
 }
 </style>
 </head>
-<body style="background-color: #FFFFFF; padding: 0; margin: 0;">
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	'use strict';
+
+	var stompClient = null;
+	var chid = /*[[${channelid}]]*/'none';
+	var sender_id = /*[[${sender}]]*/'none';
+	var receiver_id = /*[[${receiver}]]*/'none';
+
+	function connect() {
+		document.getElementById("message").value = '';
+		var socket = new SockJS('/chat');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, onConnected, onError);
+	}
+
+	function onConnected() {
+		stompClient.subscribe('/channel/' + chid + "/queue/messages",
+				onMessageReceived);
+	}
+
+	function onError(error) {
+		console.log("An error occured during connect! \n" + error);
+	}
+
+	function sendMessage() {
+
+		var msg = document.getElementById("message").value.trim();
+
+		if (msg && stompClient) {
+			var chatMessage = {
+				sender : sender_id,
+				receiver : receiver_id,
+				message : document.getElementById("message").value,
+				channelid : chid
+			};
+			stompClient.send("/app/chat.sendMessage", {}, JSON
+					.stringify(chatMessage));
+			document.getElementById("message").value = '';
+			console.log("Message Sent!")
+		}
+		event.preventDefault();
+	}
+
+	function onMessageReceived(payload) {
+		console.log("Message Received")
+		var msg = JSON.parse(payload.body);
+		var messageElement = document.createElement('span');
+		messageElement.id="received_msg";
+		if(msg.sender == sender_id){
+			messageElement.id = "sent_msg";
+		}
+		messageElement.textContent = msg.message;
+		
+		var dateElement = document.createElement('span');
+		dateElement.textContent = "\n"+msg.timestamp;
+		dateElement.style.float="right";
+		dateElement.style.color = "yellow";
+		
+		messageElement.appendChild(dateElement);
+		
+		document.getElementById('message_div').appendChild(messageElement);
+		
+	}
+	/*]]>*/
+</script>
+<body style="background-color: #FFFFFF; padding: 0; margin: 0;"
+	onload="connect()">
 	<div style="text-align: left;">
 		<div
-			style="vertical-align: top; position: relative; display: inline-block; width: 102%; min-height: 650px; background: none;"
+			style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 650px; background: none;"
 			id="container_1f7b86ec">
 			<div style="margin: 10px; display: block;"
 				id="container_1f7b86ec_padding">
 				<div style="text-align: left;">
 					<div
-						style="box-sizing: border-box; border-radius: 15px 15px 0px 0px; position: absolute; left: 5%; top: 8%; width: 80%; min-height: 478px; background: none; border: 1px solid #DDDDDD; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078);"
+						style="box-sizing: border-box; border-radius: 15px 15px 0px 0px; position: absolute; left: 5%; top: 5%; width: 90%; height: 90vh; background: none; border: 1px solid #DDDDDD; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078);"
 						id="container_3f284748">
 						<div style="text-align: left;">
 							<div
-								style="vertical-align: top; border-radius: 10px 10px 0px 0px; position: relative; display: inline-block; width: 100%; min-height: 60px; background-color: #F23D3E;"
+								style="vertical-align: top; border-radius: 10px 10px 0px 0px; position: relative; display: inline-block; width: 100%; height: 8vh; background-color: #F23D3E;"
 								id="container_eaea99e">
 								<div style="margin: 10px; display: block;"
 									id="container_eaea99e_padding">
 									<div style="text-align: left;">
-										<img th:src="@{'/view-profile-pic/' + ${profile_pic}}"
-											style="vertical-align: bottom; position: relative; float:left; width: 40px; height: 40px; border-radius:30px; background-size:cover; min-width: 40px; background: none;"
+										<img th:if="${sender == channel.user1}" th:src="@{'/view-profile-pic/' + ${channel.profilePicUser2}}"
+											style="vertical-align: bottom; position: relative; float: left; width: 40px; height: 40px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+											id="img_f39e300" alt="" title="" />
+										<img th:if="${sender == channel.user2}" th:src="@{'/view-profile-pic/' + ${channel.profilePicUser1}}"
+											style="vertical-align: bottom; position: relative; float: left; width: 40px; height: 40px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
 											id="img_f39e300" alt="" title="" />
 										<div
 											style="vertical-align: bottom; position: relative; display: inline-block; background: none;"
 											id="text_4ed55246">
 											<div style="text-align: left;">
 												<span
-													style="font-size: 16pt; vertical-align:bottom; padding-left: 10px; font-family: 'Open Sans'; color: #FFFFFF;" th:text="${name}">
-													</span>
+													style="font-size: 16pt; vertical-align: bottom; padding-left: 10px; font-family: 'Open Sans'; color: #FFFFFF;"
+													th:if="${sender == channel.user1}" th:text="${channel.nameUser2}"> </span>
+												<span
+													style="font-size: 16pt; vertical-align: bottom; padding-left: 10px; font-family: 'Open Sans'; color: #FFFFFF;"
+													th:if="${sender == channel.user2}" th:text="${channel.nameUser1}"> </span>
 											</div>
 										</div>
 									</div>
-									<div style="clear: both"></div>
 								</div>
 							</div>
-							<form
-								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 478px; background-color: #0F0F0F;"
-								action="" enctype="application/x-www-form-urlencoded"
-								method="POST" id="form_5e3d4c0c">
-								<div style="margin: 10px; display: block;"
-									id="form_5e3d4c0c_padding">
-									<div style="text-align: left;">
-										<div
-											style="box-sizing: border-box; border-radius: 15px; position: absolute; left: 1%; top: 84%; width: 99%; height: 14%; background-color: #434343; border: 1px solid #434334;"
-											id="text_27cdb73f">
-											<div style="text-align: left;">
-												<textarea name="TextEdit2" title=""
-													placeholder="Message......" cols="46" rows="1" 
-													style="box-sizing: border-box; padding:10px; border-radius: 15px; position: absolute; left: 1%; top: 8%; width: 98%; height: 50px; background-color: #FFFFFF; border: 1px solid #A0A0A0; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078); font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
-													id="edit_675b9d11"></textarea>
-												<input name="Button3" type="submit" value="" title=""
-													th:style="'box-sizing: border-box; border-radius: 0px 15px 15px 0px; position: absolute; left: 95%; top: 20%; width: 35px; height: 35px; background-color: white; background-image: url('+ @{/css/assets/send.png} +'); background-position: center center; background-size: cover; border: 0px solid #404040; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;'"
-													id="button_5f610a27">
-											</div>
-										</div>
-										<div
-											style="vertical-align: bottom; border-radius: 5px; position: relative; display: inline-block; width: 55%; background-color: rgba(34, 121, 190, 0.698039);"
-											id="text_388434eb">
-											<div style="margin: 5px; display: block;"
-												id="text_388434eb_padding">
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; height: 82vh; background-color: #0F0F0F; border-radius: 0px 0px 7px 7px;">
+								<div id="message_div">
+									<div th:each="msg: ${all_msgs}">
+										<span th:if="${msg.sender == sender}" th:inline="text" id="sent_msg">[[${msg.message}]]
+										<span th:text="${msg.timestamp}" style="color:yellow; float:right;"></span></span>
+										<span th:if="${msg.sender != sender}" th:inline="text" id="received_msg">[[${msg.message}]]
+										<span th:text="${msg.timestamp}" style="color:yellow; float:right;"></span></span>										
+									</div>
+								</div>
+								<form id="message_form">
+									<div style="margin: 10px; display: block;"
+										id="form_5e3d4c0c_padding">
+										<div style="text-align: left;">
+											<div
+												style="box-sizing: border-box; border-radius: 15px; position: absolute; left: 1%; top: 87%; width: 98%; height: 65px; background-color: #434343; border: 1px solid #434334;"
+												id="text_27cdb73f">
 												<div style="text-align: left;">
-													<span
-														style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">Hi Jane Doe, MNC International would like to hire you! Would you be available for 6 months?</span>
-												</div>
-											</div>
-										</div>
-										<span
-											style="font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;"><br />
-										<br /></span>
-										<div
-											style="vertical-align: top; border-radius: 5px; position: relative; display: inline-block; float: right; width: 55%; background-color: rgba(98, 170, 17, 0.698039);"
-											id="text_41fb6381">
-											<div style="margin: 5px; display: block;"
-												id="text_41fb6381_padding">
-												<div style="text-align: left;">
-													<span
-														style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">Thank you for your offer!<br />
-													</span>
+													<textarea id="message" placeholder="Message..." cols="46"
+														rows="1"
+														style="box-sizing: border-box; resize: none; padding: 10px 45px 10px 10px; border-radius: 15px; position: absolute; left: 1%; top: 8%; width: 98%; height: 50px; background-color: #FFFFFF; border: 1px solid #A0A0A0; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078); font-size: 10pt; font-family: 'Open Sans'; color: #434343;">
+													</textarea>
+													<button onClick="sendMessage()"
+														th:style="'box-sizing: border-box; border-radius: 0px 15px 15px 0px; position: absolute; left: 95%; top: 20%; width: 35px; height: 35px; background-color: white; background-image: url('+ @{/css/assets/send.png} +'); background-position: center center; background-size: cover; border: 0px solid #404040; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;'"
+														id="button_5f610a27"></button>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div style="clear: both"></div>
-								</div>
-							</form>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div style="clear: both"></div>
 			</div>
 		</div>
 	</div>

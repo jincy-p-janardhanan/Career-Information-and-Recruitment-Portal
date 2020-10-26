@@ -1,5 +1,6 @@
 package com.cirp.app.model;
 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,20 +12,21 @@ public class Message {
 	private String id;
 	private String message;
 	private String sender;
-	private String sendee;
-	private String channelId;
-	
-	public Message( String message, String sender, String sendee, String channelId) {
+	private String receiver;
+	private String channelid;
+	private String timestamp;
+	public Message(String id, String message, String sender, String receiver, String channelid,
+			String timestamp) {
+		this.id = id;
 		this.message = message;
 		this.sender = sender;
-		this.sendee = sendee;
-		this.channelId = channelId;
+		this.receiver = receiver;
+		this.channelid = channelid;
+		this.timestamp = timestamp;
 	}
-	
 	public Message() {
 		
 	}
-
 	public String getId() {
 		return id;
 	}
@@ -43,18 +45,22 @@ public class Message {
 	public void setSender(String sender) {
 		this.sender = sender;
 	}
-	public String getSendee() {
-		return sendee;
+	public String getReceiver() {
+		return receiver;
 	}
-	public void setSendee(String sendee) {
-		this.sendee = sendee;
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
-	public String getChannelId() {
-		return channelId;
+	public String getChannelid() {
+		return channelid;
 	}
-	public void setChannelId(String channelId) {
-		this.channelId = channelId;
+	public void setChannelid(String channelid) {
+		this.channelid = channelid;
 	}
-	
-	
+	public String getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 }

@@ -1,24 +1,18 @@
 package com.cirp.app.controllers;
 
-
-
-import java.time.Duration;
-
-import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.cirp.app.model.ChatChannel;
 import com.cirp.app.model.Message;
@@ -27,50 +21,71 @@ import com.cirp.app.repository.ChatChannelRepo;
 import com.cirp.app.repository.ChatMessageRepo;
 import com.cirp.app.repository.CirpRepository;
 
-import reactor.core.Disposable;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
 @Controller
-@RequestMapping("/chat")
 public class ChatMessageController {
-	
+
 	@Autowired
 	ChatChannelRepo chatChannelRepo;
 	@Autowired
 	ChatMessageRepo chatMessageRepo;
-	
+
 	@Autowired
 	CirpRepository repo;
+
+	@Autowired
+	private SimpMessageSendingOperations messagingTemplate;
 	
-	@PostMapping("/message")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void postChat(@Valid @RequestBody Message chatMessage){	
-		 chatMessageRepo.insert(chatMessage).subscribe();
-	}
-	
-	@PostMapping("/channel")
-	public String createChannel(String receiver, Model model, Authentication authentication){
+	@PostMapping("/chat/channel")
+	public String createChannel(String receiver, Model model, Authentication authentication) {
 		ChatChannel channel = new ChatChannel();
-		String channel_id = authentication.getName()+receiver;
-		channel.setId(channel_id);
-		channel.setFirstUser(authentication.getName());
-		channel.setSecondUser(receiver);
-		NonAdmin user = repo.findById(receiver);
-		chatChannelRepo.save(channel).subscribe();
-		Message message =  new Message();
-		message.setChannelId(channel_id);
-		message.setSender(authentication.getName());
-		message.setSendee(receiver);
-		model.addAttribute("message", message);
-		model.addAttribute("profile_pic", user.getProfile_pic());
-		model.addAttribute("name", user.getName());
+		String sender = authentication.getName();
+		String channelid = sender + receiver;
+		channel.setId(channelid);
+		channel.setUser1(sender);
+		channel.setUser2(receiver);
+		
+		NonAdmin user1 = repo.findById(sender);
+		NonAdmin user2 = repo.findById(receiver);
+		
+		channel.setNameUser1(user1.getName());
+		channel.setNameUser2(user2.getName());
+		channel.setProfilePicUser1(user1.getProfile_pic());
+		channel.setProfilePicUser2(user2.getProfile_pic());
+		
+		chatChannelRepo.save(channel);
+		return "redirect:/chat/channel/" + channelid;
+	}
+
+	@GetMapping("/chat/channel/{channelid}")
+	public String getChannel(@PathVariable("channelid") String channelid, Model model, Authentication authentication) {
+
+		ChatChannel channel = chatChannelRepo.findById(channelid).get();
+		String sender, receiver;
+		if (authentication.getName().equals(channel.getUser1())) {
+			sender = channel.getUser1();
+			receiver = channel.getUser2();
+		} else {
+			sender = channel.getUser2();
+			receiver = channel.getUser1();
+		}
+		
+		if(!authentication.getName().equals(sender) && !authentication.getName().equals(receiver)) {
+			return "redirect:/error";
+		}
+		
+		model.addAttribute("sender", sender);
+		model.addAttribute("receiver", receiver);
+		model.addAttribute("channel", channel);
+		model.addAttribute("all_msgs", chatMessageRepo.findByChannelid(channelid));
+
 		return "common/chat";
 	}
-	@GetMapping(value = "/chats/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-	public String streamMessages(@RequestParam String channelId, Model model){
-		Flux<Message> all_msgs = chatMessageRepo.findWithTailableCursorByChannelId(channelId);
-		model.addAttribute("", arg1);
-		return "common/chat";
+
+	@MessageMapping("/chat.sendMessage")
+	public void sendMessage(@Payload Message chatMessage) {
+		SimpleDateFormat date_format = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
+		chatMessage.setTimestamp(date_format.format(new Date()));
+		chatMessageRepo.save(chatMessage);
+		messagingTemplate.convertAndSendToUser(chatMessage.getChannelid(),"/queue/messages", chatMessage);
 	}
 }

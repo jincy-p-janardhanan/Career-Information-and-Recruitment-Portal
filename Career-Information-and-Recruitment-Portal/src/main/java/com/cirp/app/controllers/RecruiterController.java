@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cirp.app.model.ChatChannel;
 import com.cirp.app.model.Job;
 import com.cirp.app.model.Recruiter;
+import com.cirp.app.repository.ChatChannelRepo;
 import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.StringVal;
 
@@ -31,10 +33,15 @@ import com.cirp.app.service.StringVal;
 public class RecruiterController {
 	@Autowired
 	private CirpRepository repo;
+	@Autowired
+	ChatChannelRepo chatChannelRepo;
 
 	@GetMapping("/home")
 	public String profile(Model model, Authentication authentication) {
-		Recruiter recruiter = repo.findById(authentication.getName());
+		
+		String username = authentication.getName();
+		
+		Recruiter recruiter = repo.findById(username);
 		StringVal desc = new StringVal();
 		desc.setValue(recruiter.getDesc());
 		String bg_img = recruiter.getBg_img();
@@ -49,6 +56,11 @@ public class RecruiterController {
 		model.addAttribute("location",
 				recruiter.getContact().getCity_or_town() + ", " + recruiter.getContact().getCountry());
 		model.addAttribute("contact", recruiter.getContact());
+		
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
 		return "recruiter/home_recruiter";
 	}
 

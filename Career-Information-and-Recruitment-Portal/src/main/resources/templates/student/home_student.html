@@ -338,7 +338,34 @@ li{
 		font-size: 18px;
 	}
 }
+.close {
+	position: relative;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	color: #0f0f0f;
+	padding: 0px 10px 0px 10px;
+}
 
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal {
+	display: none;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	margin: auto;
+	width: 100%;
+	height: 100%; /* Full height */
+	top: 0;
+	left: 0;
+	overflow: auto;
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+}
 </style>
 <script>
 	function openNav() {
@@ -348,6 +375,19 @@ li{
 	function closeNav() {
 		document.getElementById("mySidebar").style.width = "0";
 	}
+	function viewChats() {
+		document.getElementById("all_chats_popup").style.display = "block";
+	}
+
+	function close_popup() {
+		document.getElementById("all_chats_popup").style.display = "none";
+	}
+
+	window.onclick = function(event) {
+		if (event.target == document.getElementById("all_chats_popup")) {
+			document.getElementById("all_chats_popup").style.display = "none";
+		}
+	}	
 </script>
 
 </head>
@@ -367,6 +407,7 @@ li{
 						<div class="dropdown-content">
 							<a th:href="@{/logout}">Logout</a> <a
 								th:href="@{/reset-password-request}">Reset Password</a>
+							<a href="#" onClick="viewChats()">Chats</a>
 						</div>
 					</div>
 					<a th:href="@{/student/job-suggestions}" id="jobs">Jobs</a> <a
@@ -383,6 +424,7 @@ li{
 							th:href="@{/logout}"><span>Logout</span></a> <a
 							th:href="@{/reset-password-request}"><span>Reset
 								Password</span></a>
+						<a href="#" onClick="viewChats()"><span>Chats</span></a>						
 					</div>
 					<button class="openbtn" onclick="openNav()">☰</button>
 				</div>
@@ -578,6 +620,40 @@ li{
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	
+		<div class="modal" id="all_chats_popup">
+		<div style="background: white; margin: 100px; padding: 20px;">
+			<span class="close" style="margin-top: -10px;"
+				onclick="close_popup();">&times;</span>
+			<div style="padding: 20px;">
+				<div th:each="channel: ${channels}"
+					style="border-bottom: solid 1px #DDDDDD; padding: 5px;">
+
+					<div style="display: table-cell;">
+						<img th:if="${username == channel.user1}"
+							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser2}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <img
+							th:if="${username == channel.user2}"
+							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser1}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: #0F0F0F;"
+							th:if="${username == channel.user1}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser2}"> </a> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: #0F0F0F;"
+							th:if="${username == channel.user2}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser1}"> </a>
+
+					</div>
+				</div>
+			</div>
+			<span th:if="${#lists.isEmpty(channels)}" style="color: #0f0f0f;">You
+				do not have any chats yet!</span>
 		</div>
 	</div>
 </body>

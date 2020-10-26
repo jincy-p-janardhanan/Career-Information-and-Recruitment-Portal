@@ -202,12 +202,129 @@ td {
 	width: 200px;
 	height: 200px;
 	background-color: #061332;
-	background-image: url([[@{'/view-profile-pic/' + ${profile_pic}}]]);
-	background-position: center left;	
-	background-size:cover;	
-	border: 0px;
+	background-image: url([[@{ '/view-profile-pic/' + ${ profile_pic
 }
 
+}
+]]
+)
+
+
+
+
+
+
+
+
+
+
+;
+background-position
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+ 
+
+
+
+
+
+center
+
+
+
+
+
+ 
+
+
+
+
+
+left
+
+
+
+
+
+
+
+
+
+
+;
+background-size
+
+
+
+
+
+
+
+
+
+
+:cover
+
+
+
+
+
+
+
+
+
+
+;
+border
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+ 
+
+
+
+
+
+0px
+
+
+
+
+
+
+
+
+
+
+;
+}
 .img-circle {
 	box-sizing: border-box;
 	border-radius: 100px;
@@ -217,11 +334,78 @@ td {
 	background: url([[@{/css/assets/camera-circle.png}]]);
 	background-size: cover;
 }
+
 #backgroundimage {
 	display: block;
-	margin:0px;
-	background-image: url([[@{'/view-bg-img/' + ${bg_img}}]]);
-	background-size:cover;
+	margin: 0px;
+	background-image: url([[@{ '/view-bg-img/' + ${ bg_img
+}
+
+}
+]]
+)
+
+
+
+
+
+
+
+
+
+
+;
+background-size
+
+
+
+
+
+
+
+
+
+
+:cover
+
+
+
+
+
+
+
+
+
+
+;
+}
+.close {
+	position: relative;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	color: #0f0f0f;
+	padding: 0px 10px 0px 10px;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal {
+	display: none;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	margin: auto;
+	width: 100%;
+	height: 100%; /* Full height */
+	top: 0;
+	left: 0;
+	overflow: auto;
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
 }
 </style>
 <script>
@@ -232,8 +416,20 @@ td {
 	function closeNav() {
 		document.getElementById("mySidebar").style.width = "0";
 	}
-</script>
+	function viewChats() {
+		document.getElementById("all_chats_popup").style.display = "block";
+	}
 
+	function close_popup() {
+		document.getElementById("all_chats_popup").style.display = "none";
+	}
+
+	window.onclick = function(event) {
+		if (event.target == document.getElementById("all_chats_popup")) {
+			document.getElementById("all_chats_popup").style.display = "none";
+		}
+	}
+</script>
 </head>
 <body>
 	<div class="textstyle1">
@@ -250,7 +446,8 @@ td {
 						</button>
 						<div class="dropdown-content">
 							<a th:href="@{/logout}">Logout</a> <a
-								th:href="@{/reset-password-request}">Reset Password</a>
+								th:href="@{/reset-password-request}">Reset Password</a> <a
+								href="#" onClick="viewChats()">Chats</a>
 						</div>
 					</div>
 					<a th:href="@{/recruiter/manage-jobs}">Manage Jobs</a> <a
@@ -263,85 +460,84 @@ td {
 							style="display: table-cell; vertical-align: middle; text-align: center"
 							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
 							width="28" /></a> <a th:href="@{/recruiter/home}"><span>Profile</span></a>
-						<a th:href="@{/recruiter/manage-jobs}"><span>Manage Jobs</span></a>
-						<a th:href="@{/logout}"><span>Logout</span></a> <a
+						<a th:href="@{/recruiter/manage-jobs}"><span>Manage
+								Jobs</span></a> <a th:href="@{/logout}"><span>Logout</span></a> <a
 							th:href="@{/reset-password-request}"><span>Reset
-								Password</span></a>
+								Password</span></a> <a href="#" onClick="viewChats()"><span>Chats</span></a>
 					</div>
 					<button class="openbtn" onclick="openNav()">☰</button>
 				</div>
-				<form th:action="@{/search}" enctype="application/x-www-form-urlencoded"
-			method="GET" id="form_29acdad9">
+				<form th:action="@{/search}"
+					enctype="application/x-www-form-urlencoded" method="GET"
+					id="form_29acdad9">
 					<div class="textstyle1">
 						<input type="text" value="" title="" name="search_text"
 							placeholder="Search recruiters, jobs, students, alumni or colleges"
-							id="edit_6804da94"> <input type="submit"
-							value="" title="" id="button_240550dc">
+							id="edit_6804da94"> <input type="submit" value=""
+							title="" id="button_240550dc">
 					</div>
 				</form>
 			</div>
 			<div>
 				<div class="textstyle1">
-					
-						<div id="form_8b61b39_padding">
-							<div class="textstyle1">
-								<div id="container_df4bb99">
-									<div id="container_df4bb99_padding">
-										<div class="textstyle4">
+
+					<div id="form_8b61b39_padding">
+						<div class="textstyle1">
+							<div id="container_df4bb99">
+								<div id="container_df4bb99_padding">
+									<div class="textstyle4">
 										<form method="post" th:action="@{/update-profile-pic}"
-						enctype="multipart/form-data" id="form_8b61b39">
+											enctype="multipart/form-data" id="form_8b61b39">
 											<input id="profilePicUpload" type="file" name="file"
 												onchange="form.submit()" style="visibility: hidden" /> <label
 												for="profilePicUpload" id="profile_button"></label>
-												</form>
-										</div>
-									</div>
-								</div>
-								<div id="container_222db1fd">
-									<div id="container_222db1fd_padding">
-										<div class="textstyle1">
-											<span class="textstyle5"><br /> <br /> <br /></span>
-											<h1 id="heading_359a6a0b">
-												<span class="textstyle1"> <span class="textstyle6"
-													th:text="${name}"></span>
-												</span>
-											</h1>
-											<span class="textstyle5"><br /></span>
-											<div id="container_40cddcf3">
-												<div id="container_40cddcf3_padding">
-													<div class="textstyle1">
-														<span class="textstyle7" th:text="${location}"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div style="clear: both"></div>
-									</div>
-								</div>
-								<div id="container_7c8aa649">
-									<div id="container_7c8aa649_padding">
-										<div class="textstyle8">
-
-											<input name="Button9" type="hidden"
-												value="Request Recommendation" title="" id="button_1b652568">
-											<span class="textstyle5"> </span>
-											<form method="POST" th:action="@{/update-bg-img}"
-												enctype="multipart/form-data">
-												<input id="backgroundImageUpload" type="file" name="file"
-													onchange="form.submit()" style="visibility: hidden" />
-												<span class="textstyle9" style="text-align:right;">Change background image
-												</span>																								
-													<label
-													for="backgroundImageUpload" id="button_475df8fc"  style="float:right">
-													</label> 										
-											</form>
-										</div>
-										<div style="clear: both"></div>
+										</form>
 									</div>
 								</div>
 							</div>
+							<div id="container_222db1fd">
+								<div id="container_222db1fd_padding">
+									<div class="textstyle1">
+										<span class="textstyle5"><br /> <br /> <br /></span>
+										<h1 id="heading_359a6a0b">
+											<span class="textstyle1"> <span class="textstyle6"
+												th:text="${name}"></span>
+											</span>
+										</h1>
+										<span class="textstyle5"><br /></span>
+										<div id="container_40cddcf3">
+											<div id="container_40cddcf3_padding">
+												<div class="textstyle1">
+													<span class="textstyle7" th:text="${location}"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</div>
+							<div id="container_7c8aa649">
+								<div id="container_7c8aa649_padding">
+									<div class="textstyle8">
+
+										<input name="Button9" type="hidden"
+											value="Request Recommendation" title="" id="button_1b652568">
+										<span class="textstyle5"> </span>
+										<form method="POST" th:action="@{/update-bg-img}"
+											enctype="multipart/form-data">
+											<input id="backgroundImageUpload" type="file" name="file"
+												onchange="form.submit()" style="visibility: hidden" /> <span
+												class="textstyle9" style="text-align: right;">Change
+												background image </span> <label for="backgroundImageUpload"
+												id="button_475df8fc" style="float: right"> </label>
+										</form>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</div>
 						</div>
-					
+					</div>
+
 				</div>
 				<div style="clear: both"></div>
 			</div>
@@ -460,6 +656,40 @@ td {
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="all_chats_popup">
+		<div style="background: white; margin: 100px; padding: 20px;">
+			<span class="close" style="margin-top: -10px;"
+				onclick="close_popup();">&times;</span>
+			<div style="padding: 20px;">
+				<div th:each="channel: ${channels}"
+					style="border-bottom: solid 1px #DDDDDD; padding: 5px;">
+
+					<div style="display: table-cell;">
+						<img th:if="${username == channel.user1}"
+							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser2}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <img
+							th:if="${username == channel.user2}"
+							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser1}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: #0F0F0F;"
+							th:if="${username == channel.user1}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser2}"> </a> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: #0F0F0F;"
+							th:if="${username == channel.user2}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser1}"> </a>
+
+					</div>
+				</div>
+			</div>
+			<span th:if="${#lists.isEmpty(channels)}" style="color: #0f0f0f;">You
+				do not have any chats yet!</span>
 		</div>
 	</div>
 </body>
