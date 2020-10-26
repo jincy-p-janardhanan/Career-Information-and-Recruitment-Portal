@@ -438,6 +438,39 @@ li{
 							title="" id="button_240550dc">
 					</div>
 				</form>
+				<div class="modal" id="all_chats_popup">
+		<div style="background: #0f0f0f; margin: 100px; padding: 20px;">
+			<span class="close" style="margin-top: -10px; color:white;"
+				onclick="close_popup();">&times;</span>
+			<div style="padding: 20px;">
+				<div th:each="channel: ${channels}"
+					style="border-bottom: solid 1px #DDDDDD; padding: 5px;">
+
+					<div style="display: table-cell;">
+						<img th:if="${username == channel.user1}"
+							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser2}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <img
+							th:if="${username == channel.user2}"
+							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser1}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: white;"
+							th:if="${username == channel.user1}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser2}"> </a> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: white;"
+							th:if="${username == channel.user2}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser1}"> </a>
+
+					</div>
+				</div>
+			</div>
+			<span th:if="${#lists.isEmpty(channels)}" style="color: white;">You
+				do not have any chats yet!</span>
+		</div>
+	</div>
 			</div>
 			<div>
 				<div class="textstyle1">
@@ -620,40 +653,6 @@ li{
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	
-		<div class="modal" id="all_chats_popup">
-		<div style="background: white; margin: 100px; padding: 20px;">
-			<span class="close" style="margin-top: -10px;"
-				onclick="close_popup();">&times;</span>
-			<div style="padding: 20px;">
-				<div th:each="channel: ${channels}"
-					style="border-bottom: solid 1px #DDDDDD; padding: 5px;">
-
-					<div style="display: table-cell;">
-						<img th:if="${username == channel.user1}"
-							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser2}}"
-							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
-							id="img_f39e300" alt="" title="" /> <img
-							th:if="${username == channel.user2}"
-							th:src="@{'/view-profile-pic/' + ${channel.profilePicUser1}}"
-							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
-							id="img_f39e300" alt="" title="" /> <a
-							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: #0F0F0F;"
-							th:if="${username == channel.user1}"
-							th:href="@{'/chat/channel/'+ ${channel.id}}"
-							th:text="${channel.nameUser2}"> </a> <a
-							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: #0F0F0F;"
-							th:if="${username == channel.user2}"
-							th:href="@{'/chat/channel/'+ ${channel.id}}"
-							th:text="${channel.nameUser1}"> </a>
-
-					</div>
-				</div>
-			</div>
-			<span th:if="${#lists.isEmpty(channels)}" style="color: #0f0f0f;">You
-				do not have any chats yet!</span>
 		</div>
 	</div>
 </body>

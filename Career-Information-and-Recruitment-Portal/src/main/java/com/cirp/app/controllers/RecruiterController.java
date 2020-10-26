@@ -66,7 +66,8 @@ public class RecruiterController {
 
 	@GetMapping("/manage-jobs")
 	public String manageJobs(Model model, Authentication authentication) {
-		Recruiter recruiter = repo.findById(authentication.getName());
+		String username = authentication.getName();
+		Recruiter recruiter = repo.findById(username);
 		List<String> jobids = recruiter.getJobs();
 		List<Job> jobs = new ArrayList<Job>();
 		if(jobids!= null) {
@@ -75,6 +76,10 @@ public class RecruiterController {
 				jobs.add(job);
 			}
 		}
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		model.addAttribute("jobs", jobs);
 		model.addAttribute("viewjob", new Job());
@@ -109,8 +114,14 @@ public class RecruiterController {
 		Job job = new Job();
 		job.setQuestions(Arrays.asList("Maybe some task or scenorio you would like to be solved by the candidate..."));
 		model.addAttribute("job", job);
-		Recruiter recruiter = repo.findById(authentication.getName());		
+		String username = authentication.getName();
+		Recruiter recruiter = repo.findById(username);		
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+		
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);		
 		return "recruiter/create_job";
 	}
 	
@@ -153,16 +164,24 @@ public class RecruiterController {
 	
 	@GetMapping("/view-job")
 	public String viewJob( String job_id, Authentication authentication, Model model) {
-		Recruiter recruiter = repo.findById(authentication.getName());		
+		String username = authentication.getName();
+		Recruiter recruiter = repo.findById(username);		
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		Job job = repo.findById(job_id);
 		model.addAttribute("job", job);
+		
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
+		
 		return "recruiter/view_job";
 	}
 	
 	@GetMapping("/view-applications")
 	public String viewAllApplications(@RequestParam(required=false) String job_id, Authentication authentication, Model model) {
-		Recruiter recruiter = repo.findById(authentication.getName());		
+		String username = authentication.getName();
+		Recruiter recruiter = repo.findById(username);		
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		String matchquery;
 		if(job_id == null) {
@@ -176,6 +195,10 @@ public class RecruiterController {
 		}
 		List<Document> applications = repo.viewApplications(matchquery);
 		model.addAttribute("applications", applications);
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
 		return "recruiter/job_applications";
 	}
 }

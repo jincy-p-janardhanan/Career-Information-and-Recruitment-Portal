@@ -7,9 +7,12 @@ import javax.validation.constraints.Size;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public abstract class User {
 	
 	@MongoId
+	@JsonAlias("_id")
 	private String username;
 	@NotBlank
 	@Size(min = 6, max = 24)

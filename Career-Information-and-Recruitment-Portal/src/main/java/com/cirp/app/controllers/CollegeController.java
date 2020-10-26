@@ -55,7 +55,6 @@ public class CollegeController {
 				Alumnus a = repo.findById(alumnus);
 			}
 		}
-		System.out.println(alumni_pending);
 		model.addAttribute("profile_pic", college.getProfile_pic());
 		model.addAttribute("alumni_pending", alumni_pending);
 		model.addAttribute("student", new Student());

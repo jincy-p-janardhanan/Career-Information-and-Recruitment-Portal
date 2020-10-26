@@ -103,8 +103,8 @@ public class StudentController {
 
 	@GetMapping("/update-personalisation")
 	public String updatePersonalisation(Model model, Authentication authentication) {
-
-		Student student = repo.findById(authentication.getName());
+		String username = authentication.getName();
+		Student student = repo.findById(username);
 		Personalisation p = student.getPersonalisation();
 		if(p == null) {
 			p = new Personalisation();
@@ -141,7 +141,10 @@ public class StudentController {
 
 		model.addAttribute("profile_pic", student.getProfile_pic());
 		model.addAttribute("personalisation", p);
-
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
 		return "student/edit_personalisation";
 	}
 
@@ -242,7 +245,7 @@ public class StudentController {
 	
 	@GetMapping(value="/job-suggestions" )
 	public String jobSuggestions(Model model, Authentication authentication) {
-		
+		String username = authentication.getName();
 		String aggregatefrom;
 		if(find.findClass(authentication.getName()) == Student.class) {
 			aggregatefrom = "aggregate: 'student',";
@@ -251,10 +254,14 @@ public class StudentController {
 			aggregatefrom = "aggregate: 'alumnus',";
 		}
 		
-		List<Document> job_suggestions = repo.jobSuggestions(authentication.getName(), aggregatefrom);
+		List<Document> job_suggestions = repo.jobSuggestions(username, aggregatefrom);
 		model.addAttribute("job_suggestions", job_suggestions);
 		Student student = repo.findById(authentication.getName());
 		model.addAttribute("profile_pic", student.getProfile_pic());
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
 		return "student/job_suggestions";
 	}
 }

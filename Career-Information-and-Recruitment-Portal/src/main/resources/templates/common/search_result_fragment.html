@@ -94,8 +94,8 @@ a {
 								</div>
 								<form
 									style="vertical-align: top; position: relative; display: inline-block; width: 98%; min-height: 100px; background: none;"
-									action="" enctype="application/x-www-form-urlencoded"
-									method="POST" id="form_24c9c287">
+									th:action="@{/filtered-search}" enctype="application/x-www-form-urlencoded"
+									method="GET" id="form_24c9c287">
 									<div style="margin: 10px; display: block;"
 										id="form_24c9c287_padding">
 										<div style="text-align: left;">
@@ -111,12 +111,13 @@ a {
 															<div style="margin: 10px; display: block;"
 																id="container_599833e8_padding">
 																<div style="text-align: left;">
-																	<input type="text" value="" title="" name="TextEdit1"
+																	<input type="text" value="" title="" name="text"
 																		placeholder="Search for students, alumni, recruiter, colleges or jobs"
 																		style="box-sizing: border-box; vertical-align: bottom; border-radius: 10px; position: relative; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078); font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
-																		id="edit_47b47bcf"> <input
+																		id="edit_47b47bcf">
+																	<input
 																		type="submit" value="" title=""
-																		th:style="'box-sizing: border-box; position: absolute; left: 90%; top: 24%; width: 20px; height: 20px; background-color: #FFFFFF; background-image: url(' + @{ '/css/assets/search___small.png'} + '); background-position: center left; background-size: cover; border: 0px solid #404040; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;'"
+																		th:style="'box-sizing: border-box; position: absolute; left: 90%; top: 24%; width: 20px; height: 20px; background-color: #FFFFFF; background-image: url(' + @{ '/css/assets/search___small.png'} + '); background-position: center left; background-size: cover; border: 0px solid #404040; font-size: 12pt;  color: #000000;'"
 																		id="button_3cc65eff">
 																</div>
 																<div style="clear: both"></div>
@@ -131,14 +132,14 @@ a {
 																	<select name="filter" title=""
 																		style="box-sizing: border-box; border-radius: 10px; position: absolute; display: inline-block; width: 100%; height: 30px; background-color: #FFFFFF; border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
 																		id="combo_5b7be53">
-																		<option value="All" selected="selected">All
+																		<option value="all" selected="selected">All
 																		</option>
-																		<option value="Jobs">Jobs
+																		<option value="job">Jobs
 																		</option>
-																		<option value="Students">Students</option>
-																		<option value="Alumni">Alumni</option>
-																		<option value="Recruiter">Recruiters</option>
-																		<option value="College">Colleges</option>
+																		<option value="student">Students</option>
+																		<option value="alumnus">Alumni</option>
+																		<option value="recruiter">Recruiters</option>
+																		<option value="college">Colleges</option>
 																	</select>
 																</div>
 															</div>
@@ -171,11 +172,17 @@ a {
 													<td></td>
 													<td>
 														<div id="buttoncell">
-															<a th:href="@{'/view?id='+ ${result._id}}"><button id="viewprofilebutton">
+															<a th:if="${result instanceof T(org.bson.Document)}" th:href="@{'/view?id='+ ${result._id}}"><button id="viewprofilebutton">
 																<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW
 																PROFILE
 															</button>
-															<</a>
+															</a>
+															
+															<a th:if="${result instanceof T(com.cirp.app.model.User)}" th:href="@{'/view?id='+ ${result?.username}}"><button id="viewprofilebutton">
+																<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW
+																PROFILE
+															</button>
+															</a>
 
 														</div> <span> <br /> <br />
 													</span>
