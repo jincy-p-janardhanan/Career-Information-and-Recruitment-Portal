@@ -1,0 +1,277 @@
+a {
+	color: #5D5D9E;
+}
+
+a:visited {
+	color: #5D5D9E;
+}
+
+a:active {
+	color: #5C615E;
+}
+
+a:hover {
+	color: #B2B3B4;
+}
+
+body {
+	background-color: #FFFFFF;
+	padding: 0;
+	margin: 0;
+}
+
+.textstyle1 {
+	text-align: left;
+}
+
+#container_3f52f5e {
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	min-height: 1900px;
+	background: none;
+}
+
+#container_3f52f5e_padding {
+	margin: 10px;
+	display: block;
+}
+
+#container_1d02c053 {
+	box-sizing: border-box;
+	position: absolute;
+	left: 4%;
+	top: 14%;
+	width: 90%;
+	min-height: 1px;
+	background: none;
+	border: 1px solid #0000A0;
+}
+
+#container_597592f2 {
+	position: absolute;
+	left: 4%;
+	top: 1%;
+	width: 97%;
+	min-height: 177px;
+	background: none;
+}
+
+#container_597592f2_padding {
+	margin: 10px;
+	display: block;
+}
+
+#img_44c6c9cc {
+	position: absolute;
+	left: 1%;
+	top: 5%;
+	width: 16%;
+	background: none;
+}
+
+#container_552d7807 {
+	position: absolute;
+	left: 3%;
+	top: 25%;
+	width: 84%;
+	min-height: 150px;
+	background: none;
+}
+
+#container_552d7807_padding {
+	margin: 10px;
+	display: block;
+}
+
+.textstyle2 {
+	text-align: center;
+}
+
+.textstyle3 {
+	font-size: 36pt;
+	font-family: 'Open Sans';
+	color: #0000A0;
+	font-style: italic;
+}
+
+#container_5f62f228 {
+	position: absolute;
+	left: 2%;
+	top: 15%;
+	width: 95%;
+	min-height: 1600px;
+	background: none;
+}
+
+#container_5f62f228_padding {
+	margin: 10px;
+	display: block;
+}
+
+#container_3c000d03 {
+	position: absolute;
+	left: 68%;
+	top: 0%;
+	width: 32%;
+	min-height: 450px;
+	background: none;
+}
+
+#container_3c000d03_padding {
+	margin: 10px;
+	display: block;
+}
+
+.textstyle4 {
+	font-size: 14pt;
+	font-family: 'Open Sans';
+	color: #000000;
+}
+
+.textstyle5 {
+	font-size: 12pt;
+	font-family: 'Open Sans';
+	color: #000000;
+}
+
+#container_5ef79c26 {
+	box-sizing: border-box;
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 80%;
+	min-height: 1px;
+	background: none;
+	border: 1px solid #404040;
+}
+
+#container_74f6e22b {
+	position: absolute;
+	left: 68%;
+	top: 33%;
+	width: 32%;
+	min-height: 472px;
+	background: none;
+}
+
+#container_74f6e22b_padding {
+	margin: 10px;
+	display: block;
+}
+
+#container_1e96eab0 {
+	box-sizing: border-box;
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 80%;
+	min-height: 1px;
+	background: none;
+	border: 1px solid #404040;
+}
+
+#container_41e58864 {
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 67%;
+	min-height: 150px;
+	background: none;
+}
+
+#container_41e58864_padding {
+	margin: 10px;
+	display: block;
+}
+
+.textstyle6 {
+	font-size: 14pt;
+	font-family: 'Open Sans';
+	color: #0000A0;
+}
+
+.textstyle7 {
+	font-size: 12pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+
+#container_73277115 {
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 67%;
+	min-height: 275px;
+	background-color: #FFFFFF;
+	background-image: url(/css/assets/cse_info_1_1024x431.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+#container_73277115_padding {
+	margin: 10px;
+	display: block;
+}
+
+#container_7fc73153 {
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 67%;
+	min-height: 354px;
+	background: none;
+}
+
+#container_7fc73153_padding {
+	margin: 10px;
+	display: block;
+}
+
+#container_6983ed74 {
+	position: absolute;
+	left: 0%;
+	top: 48%;
+	width: 67%;
+	min-height: 250px;
+	background-color: #FFFFFF;
+	background-image: url(/css/assets/2020_09_30.png);
+	background-position: top left;
+	background-size: cover;
+}
+
+#container_6983ed74_padding {
+	margin: 10px;
+	display: block;
+}
+
+#container_7ecb5c5f {
+	position: absolute;
+	left: 1%;
+	top: 65%;
+	width: 97%;
+	min-height: 550px;
+	background: none;
+}
+
+#container_7ecb5c5f_padding {
+	margin: 10px;
+	display: block;
+}
+
+#img_24ad08ac {
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	width: 98%;
+	background: none;
+}
+
+#img_4072b823 {
+	position: absolute;
+	left: 2%;
+	top: 76%;
+	width: 80%;
+	background: none;
+}

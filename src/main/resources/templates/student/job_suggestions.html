@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<title>Job Suggestions For You</title>
+<style type="text/css">
+#viewprofilebutton {
+	box-sizing: border-box;
+	border-radius: 9px;
+	width: 150px;
+	height: 40px;
+	background-color: #F23D3E;
+	border: 0px;
+	box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078);
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+	background-color: #F23D3E;
+}
+
+#profile_image {
+	margin: auto;
+	height: 180px;
+	width: 180px;
+	box-sizing: border-box;
+	border-radius: 100px;
+	background-size: cover;
+}
+
+#box {
+	box-sizing: border-box;
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	background: none;
+	border: 1px solid #DDDDDD;
+}
+
+.desc {
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #434343;
+	padding-right: 10px;
+}
+</style>
+</head>
+<body style="background-color: #FFFFFF; padding: 0; margin: 0;">
+	<div th:replace="common/search_results.html :: any-nav"
+		style="color: #B2B2B2;"></div>
+	<div th:if="${message}" th:text="${message}"
+		style="position: center; top: 6%; padding: 10px; text-align: center; width: auto; min-height: 20px; font-size: 10pt; font-family: 'Open Sans'; color: #ffffff; background: #986767;"></div>
+	<div style="text-align: left; margin: 10px 40px;">
+		<div style="border-bottom: solid 1px #dddddd; padding-bottom: 10px;">
+			<img th:src="@{/css/assets/jobs.png}"
+				style="vertical-align: bottom; position: relative; margin-top: 20px; float: left; width: 60px; background: none;"
+				id="img_4af67b10" alt="" title="" />
+			<div
+				style="padding-top: 40px; padding-left: 10px; font-size: 18pt; font-family: 'Open Sans'; color: #434343;">
+				<span style="white-space: pre-wrap;"> Job Suggestions for You!</span>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(job_suggestions)}" style="margin:20px; border:solid 1px #DDDDDD; border-radius:9px; text-align:center; color: #434343; font-family: 'Open Sans'; font-size: 11pt; padding:20px;">
+			<span>Oh no, it looks like your skills do not match any jobs. Stay tuned and come back later! Meanwhile, equip yourself with more skills and add them to your profile. <br>
+			<img th:src="@{/css/assets/smile-thumbs-up.png}" style="width:70px; height:auto;"> </span>
+		</div>
+		<table th:each="job: ${job_suggestions}"
+			style="position: relative; display: inline-block; border: solid 1px #dddddd; margin-top: 30px; border-radius: 9px; width: 100%; padding: 0px; box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.196078);">
+			<tr
+				style="background: #369FEF; height: 35px; margin: 0px; padding: 0px;">
+				<td colspan=2
+					style="color: white; font-family: 'Open Sans'; font-size: 12pt; border-radius: 9px 9px 0px 0px;">
+					<span
+					th:text="'Job Vacancy Info: ' + ${job.job_suggestions.name} + ', ' + ${job.job_suggestions.location} + ', &#8377;' + ${job.job_suggestions.stipend}"></span>
+					<span
+					th:text="'Last Date - ' + ${#dates.format(job.job_suggestions.last_date, 'dd MMM, yyyy')}"
+					style="float: right;"></span>
+
+				</td>
+			</tr>
+			<tr>
+				<td rowspan=2 id="profile-block"
+					style="background: #0f0f0f; min-height: 250px; overflow: hidden; margin: 0px; width: 25%; padding: 10px; font-size: 18pt; font-family: 'Open Sans'; text-align: center; color: #434343;">
+					
+					<div id="profile_image"
+						th:style="'background-image: url('+ @{'/view-profile-pic/' + ${job.job_suggestions._id}} +');'"></div>
+					<br /> <span style="color: white;" th:text="${job.recruiter.name}"></span>
+					<div id="profile">
+						<div th:text="${job.recruiter.desc}" class="desc"
+							style="color: #dddddd; text-overflow: ellipsis; overflow: hidden; max-height: 120px;"></div>
+						<br /> <a th:href="@{'/view?id='+ ${job.recruiter._id}}"><button
+								id="viewprofilebutton">
+								<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW PROFILE
+							</button></a>
+					</div>
+					
+				</td>
+				<td
+					style="white-space:pre-wrap; width: 70%; padding-left: 25px; font-size: 11pt; font-family: 'Open Sans'; color: white; border-radius: 9px;">
+					<span class="desc" th:text="${job.job_suggestions.desc}"></span>
+				</td>
+			<tr style="height: 70px;">
+				<td><div
+						style="padding-right: 20px; font-family: Open Sans; font-size: 10pt; color: #434343">
+						<div
+							style="width: 65%; margin: -20px; padding: 7px; background: #F0F51A;"
+							th:if="${not #lists.isEmpty(job.job_suggestions.skills)}">
+							<strong><span>Skills:</span></strong> <span
+								th:each="skill : ${job.job_suggestions.skills}"> <strong><span
+									style="color: black; white-space: pre-wrap;"
+									th:text="${skill} + '     '"></span></strong></span>
+						</div>
+						<div style="float: right; margin-top: -16px; ">
+							<a th:href="@{'/view?id='+ ${job.job_suggestions._id}}"><button
+									id="viewprofilebutton" style="background: #42740C;">APPLY NOW</button></a>
+						</div>
+					</div></td>
+			</tr>
+		</table>
+		<br /> <br />
+	</div>
+</body>
+</html>

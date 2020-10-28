@@ -1,0 +1,706 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<title>Home | Student</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/home_college_html.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/home_student_html.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<style>
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+.navbar {
+	background-color: #0f0f0f;
+	min-height: 51px;
+	width:100%;
+}
+
+.navbar a {
+	float: right;
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.dropdown {
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	float: right;
+	overflow: hidden;
+}
+
+.dropdown .dropbtn {
+	font-size: 11pt;
+	color: #B2B2B2;
+	border: none;
+	outline: none;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+	background-color: rgb(46, 44, 44);
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+@media only screen and (max-width: 1212px) {
+	#form_11381a91 {
+		width: 70%;
+		position: absolute;
+		left: 100px;;
+		top: 2%;
+	}
+}
+
+.sidebar {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidebar a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 16px;
+	color: #818181;
+	display: block;
+	width: 100%;
+	transition: 0.3s;
+}
+
+.sidebar a:hover {
+	color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+	position: absolute;
+	top: 0;
+	width: 83%;
+	font-size: 30px;
+	text-align: right;
+}
+
+.openbtn {
+	font-size: 26px;
+	cursor: pointer;
+	background-color: #0f0f0f;
+	color: #b2b2b2;
+	padding: 10px 15px;
+	border: none;
+}
+
+.openbtn:hover {
+	background-color: #444;
+}
+
+.aboutform {
+	border: none;
+	font-family: 'Open Sans';
+	font-size: 14px;
+}
+
+.aboutform:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
+}
+
+@media screen and (max-height: 450px) {
+	.sidebar {
+		padding-top: 15px;
+	}
+	.sidebar a {
+		font-size: 18px;
+	}
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td {
+	border: none;
+	text-align: left;
+	padding: 10px;
+}
+
+.col1 {
+	text-align: right;
+}
+
+.col2 {
+	width: 5px;
+}
+
+.textstyle5 {
+	text-align: center;
+}
+
+#button_70f0277e {
+	text-align: center;
+	text-align: vcenter;
+}
+
+#button_6fd57d28 {
+	text-align: center;
+}
+
+.aboutform {
+	border: none;
+	font-family: 'Open Sans';
+	font-size: 14px;
+}
+
+.aboutform:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
+}
+
+#button_475df8fc {
+	float: right;
+}
+
+.textstyle16:hover {
+	box-shadow: 1px 1px 2px 2px #dddddd;
+}
+
+#profile_button {
+	box-sizing: border-box;
+	vertical-align: bottom;
+	border-radius: 100px;
+	position: relative;
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	background-color: #061332;
+	background-image: url([[@{ '/view-profile-pic/' + ${username}}]]);
+	background-position: center left;
+	background-size:cover;
+	border:0px;
+}
+.img-circle {
+	box-sizing: border-box;
+	border-radius: 100px;
+}
+
+#profile_button:hover {
+	background: url([[@{/css/assets/camera-circle.png}]]);
+	background-size: cover;
+}
+
+#backgroundimage {
+	display: block;
+	margin: 0px;
+	background-image: url([[@{ '/view-bg-img/' + ${ bg_img}}]]);
+	background-size:cover;
+}
+
+li{
+	font-size: 11pt; font-family: 'Open Sans'; color:#36A5E9;
+}
+.profile{
+	font-size: 11pt; font-family: 'Open Sans'; color: #282828;
+}
+.subheading {
+	font-size: 11pt; font-family: 'Open Sans'; color: #000000; font-weight: bolder;
+}
+
+@media only screen and (max-width: 1212px) {
+	#form_29acdad9 {
+		width: 80%;
+		position: absolute;
+		left: 15%;
+		top: 2%;
+	}
+	.dropdown {
+		display:none;
+	}
+	#home {
+		display:none;
+	}
+	#jobs {
+		display:none;
+	}
+}
+
+@media screen and (max-height: 450px) {
+	.sidebar {
+		padding-top: 15px;
+	}
+	.sidebar a {
+		font-size: 18px;
+	}
+}
+.close {
+	position: relative;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	color: #0f0f0f;
+	padding: 0px 10px 0px 10px;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal {
+	display: none;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	margin: auto;
+	width: 100%;
+	height: 100%; /* Full height */
+	top: 0;
+	left: 0;
+	overflow: auto;
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+}
+</style>
+<script>
+	function openNav() {
+		document.getElementById("mySidebar").style.width = "250px";
+	}
+
+	function closeNav() {
+		document.getElementById("mySidebar").style.width = "0";
+	}
+	function viewChats() {
+		document.getElementById("all_chats_popup").style.display = "block";
+	}
+
+	function close_popup() {
+		document.getElementById("all_chats_popup").style.display = "none";
+		document.getElementById("recommend_others").style.display = "none";
+	}
+
+	window.onclick = function(event) {
+		if (event.target == document.getElementById("all_chats_popup")) {
+			document.getElementById("all_chats_popup").style.display = "none";
+		}
+		if (event.target == document.getElementById("recommend_others")) {
+			document.getElementById("recommend_others").style.display = "none";
+		}
+	}
+	function viewRecommendRequests() {
+		document.getElementById("recommend_others").style.display = "block";
+	}
+</script>
+
+</head>
+<body>
+	<div class="textstyle1">
+		<div id="backgroundimage">
+			<div class="navbar" th:fragment="navbar-student">
+				<div id="nav_options">
+					<div class="dropdown" sec:authorize="isAuthenticated()">
+						<button class="dropbtn">
+							Welcome <span sec:authentication="name"></span> <span></span> <img
+								class="img-circle"
+								style="display: table-cell; vertical-align: middle; text-align: center"
+								th:src="@{'/view-profile-pic/'+ ${username}}" height="28"
+								width="28" />
+						</button>
+						<div class="dropdown-content">
+							<a th:href="@{/logout}">Logout</a> <a
+								th:href="@{/reset-password-request}">Reset Password</a>
+							<a onClick="viewChats()">Chats</a>
+							<a sec:authorize="hasRole('ROLE_ALUMNUS')" onClick="viewRecommendRequests()"><span>Recommend Others</span></a>
+						</div>
+					</div>
+					<a th:href="@{/student/job-suggestions}" id="jobs">Jobs</a> <a
+						th:href="@{/student/home}" id="home">Profile</a>
+					<div id="mySidebar" class="sidebar">
+						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+						<a th:href="@{/student/home}">Welcome <span
+							sec:authentication="name"></span> <span></span> <img
+							class="img-circle"
+							style="display: table-cell; vertical-align: middle; text-align: center"
+							th:src="@{'/view-profile-pic/'+ ${username}}" height="28"
+							width="28" /></a> <a th:href="@{/student/home}"><span>Profile</span></a>
+						<a th:href="@{/student/job-suggestions}"><span>Jobs</span></a> <a
+							th:href="@{/logout}"><span>Logout</span></a> <a
+							th:href="@{/reset-password-request}"><span>Reset
+								Password</span></a>
+						<a onClick="viewChats()"><span>Chats</span></a>
+						<a sec:authorize="hasRole('ROLE_ALUMNUS')" onClick="viewRecommendRequests()"><span>Recommend Others</span></a>				
+					</div>
+					<button class="openbtn" onclick="openNav()">☰</button>
+				</div>
+				<form th:action="@{/search}"
+					enctype="application/x-www-form-urlencoded" method="GET"
+					id="form_29acdad9">
+					<div class="textstyle1">
+						<input type="text" value="" title="" name="search_text"
+							placeholder="Search recruiters, jobs, students, alumni or colleges"
+							id="edit_6804da94"> <input type="submit" value=""
+							title="" id="button_240550dc">
+					</div>
+				</form>
+				<div class="modal" id="all_chats_popup">
+		
+		<div style="background: #0f0f0f; margin: 100px; padding: 20px;">
+			<span class="close" style="margin-top: -10px; color:white;"
+				onclick="close_popup();">&times;</span>
+			<div style="padding: 20px;">
+				<div th:each="channel: ${channels}"
+					style="border-bottom: solid 1px #DDDDDD; padding: 5px;">
+
+					<div style="display: table-cell;">
+						<img th:if="${username == channel.user1}"
+							th:src="@{'/view-profile-pic/' + ${channel.user2}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <img
+							th:if="${username == channel.user2}"
+							th:src="@{'/view-profile-pic/' + ${channel.user1}}"
+							style="vertical-align: bottom; position: relative; float: left; width: 60px; height: 60px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" /> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: white;"
+							th:if="${username == channel.user1}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser2}"> </a> <a
+							style="text-decoration: none; font-size: 12pt; margin-left: 10px; font-family: 'Open Sans'; color: white;"
+							th:if="${username == channel.user2}"
+							th:href="@{'/chat/channel/'+ ${channel.id}}"
+							th:text="${channel.nameUser1}"> </a>
+					</div>
+				</div>
+			</div>
+			<span th:if="${#lists.isEmpty(channels)}" style="color: white;">You
+				do not have any chats yet!</span>
+		</div>
+	</div>
+	<div class="modal" id="recommend_others">
+		
+		<div style="background: #0f0f0f; margin: 100px; padding: 20px;">
+			<span class="close" style="margin-top: -10px; color:white;"
+				onclick="close_popup();">&times;</span>
+			<div style="padding: 20px;">
+				<div th:if="${requests}" th:each="request: ${requests}"
+					style="border-bottom: solid 1px #DDDDDD; padding: 5px;">					
+					<div style="display: table-cell;">
+						<img 
+							th:src="@{'/view-profile-pic/' + ${request.requester_id}}"
+							style="vertical-align: bottom; position: relative; float: right; width: 75px; height: 75px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+							id="img_f39e300" alt="" title="" />						
+						<a onClick="recommend()" style="padding: 10px; margin: 10px; width: 90px; background: #42740C; color: white;">Recommend</a>
+						<a onClick="reject()" style="padding: 10px; margin: 10px; width: 90px; background: #F23D3E; color: white;">Reject</a>
+						<br/>
+					</div>
+					<div style="display:table-cell; width:100%; vertical-align: middle; padding:10px; text-decoration: none; font-size: 12pt; margin-left: 35px; font-family: 'Open Sans'; color: white;">
+						<a style="color: white; width:100%" th:href="@{'/view?id=' + ${request.requester_id}}"><span th:text="${request.requester_name}"></span></a>
+						<textarea style="width:98%; height:150px;" id="recc_msg"></textarea>												
+					</div>
+					<script th:inline="javascript">
+					/*<![CDATA[*/
+						function recommend(){							
+							var recommendation = {
+								"requester_id": /*[[${request.requester_id}]]*/ "",
+						        "requester_name": /*[[${request.requester_name}]]*/ "",
+						        "recommender_id": /*[[${request.recommender_id}]]*/ "",
+						        "recommender_name": /*[[${request.recommender_name}]]*/ "",
+						        "recc_msg": document.getElementById("recc_msg").value,
+						        "status": 1
+							}
+							var token = $("meta[name='_csrf']").attr("content");							
+							$.ajax({
+						       type: "POST",						       						   
+						       url: /*[[@{/recommend}]]*/ '',
+						       data: JSON.stringify(recommendation),
+						       contentType: 'application/json',						       
+						       headers: {Accept: 'application/json', "X-CSRF-TOKEN": token}
+						   	});
+							location.reload(true);
+						}
+					
+						function reject(){
+							var recommendation = {
+									"requester_id": /*[[${request.requester_id}]]*/ "",
+							        "requester_name": /*[[${request.requester_name}]]*/ "",
+							        "recommender_id": /*[[${request.recommender_id}]]*/ "",
+							        "recommender_name": /*[[${request.recommender_name}]]*/ "",							        
+							        "status": -1
+								}
+								var token = $("meta[name='_csrf']").attr("content");							
+								$.ajax({
+							       type: "POST",						       						   
+							       url: /*[[@{/reject-recommend-req}]]*/ '',
+							       data: JSON.stringify(recommendation),
+							       contentType: 'application/json',						       
+							       headers: {Accept: 'application/json', "X-CSRF-TOKEN": token}
+							   	});	
+								location.reload(true);
+						}
+					/*]]>*/
+					</script>							
+				</div>
+			</div>
+			<span th:if="${#lists.isEmpty(requests)}" style="color: white;">No recommendation requests now!</span>
+		</div>
+	</div>
+			</div>
+			<div>
+				<div class="textstyle1">
+
+					<div id="form_8b61b39_padding">
+						<div class="textstyle1">
+							<div id="container_df4bb99">
+								<div id="container_df4bb99_padding">
+									<div class="textstyle4">
+										<form method="post" th:action="@{/update-profile-pic}"
+											enctype="multipart/form-data" id="form_8b61b39">
+											<input id="profilePicUpload" type="file" name="file"
+												onchange="form.submit()" style="visibility: hidden" /> <label
+												for="profilePicUpload" id="profile_button"></label>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div id="container_222db1fd">
+								<div id="container_222db1fd_padding">
+									<div class="textstyle1">
+										<span class="textstyle5"><br /> <br /> <br /></span>
+										<h1 id="heading_359a6a0b">
+											<span class="textstyle1"> <span class="textstyle6"
+												th:text="${name}"></span>
+											</span>
+										</h1>
+										<span class="textstyle5"><br /></span>
+										<div id="container_40cddcf3" style="margin:0px; padding:0px;">
+											<div id="container_40cddcf3_padding" style="margin:0px; padding:0px;">
+												<div class="textstyle1">
+													<span style="white-space:pre-wrap;" class="textstyle7" th:text="${course_and_branch}"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</div>
+							<div id="container_7c8aa649">
+								<div id="container_7c8aa649_padding">
+									<div class="textstyle8">
+										<input name="Button9" type="hidden"
+											value="Request Recommendation" title="" id="button_1b652568">
+										<span class="textstyle5"> </span>
+										<form method="POST" th:action="@{/update-bg-img}"
+											enctype="multipart/form-data">
+											<input id="backgroundImageUpload" type="file" name="file"
+												onchange="form.submit()" style="visibility: hidden" /> <span
+												class="textstyle9" style="text-align: right;">Change
+												background image </span> <label for="backgroundImageUpload"
+												id="button_475df8fc" style="float: right"> </label>
+
+										</form>
+									</div>									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<div id="container_7d6e006">
+			<div id="container_7d6e006_padding">
+				<div class="textstyle1">
+					<div id="container_8cede07">
+						<div id="container_8cede07_padding">
+							<div class="textstyle1">
+								<div id="text_43046ee">
+									<div id="text_43046ee_padding">
+										<form class="textstyle1" th:action="@{/common/update-desc}"
+											th:Object="${desc}" method="POST">
+											<div class="textstyle1">
+												<span class="textstyle10">ABOUT <input type="submit"
+													value="" title="Click here to save your about"
+													style="cursor: pointer;" id="button_475df8fc"></span>
+											</div>
+											<textarea th:field="*{value}" th:value="*{value}"
+												class="aboutform" cols="95" rows="20"
+												style="width: 93%; padding: 20px;">
+											</textarea>
+										</form>
+									</div>
+								</div>								
+							</div>							
+						</div>						
+						<table th:if="${recommendations}">
+							<tr>
+								<td colspan=2>
+									<span style="font-family: 'Open Sans'; font-size:18pt; color: #434343;">RECOMMENDATIONS</span>
+								</td>
+							</tr>
+							<tr th:each="r:${recommendations}">
+								<td>
+									<div th:style="'height:90px; width:90px; border-radius:100px; background-size:cover; background-image: url('+ @{'/view-profile-pic/' + ${r.recommender_id}} +');'"></div>
+								</td>
+								<td  style="text-align:left;">
+									<span style="font-family: 'Open Sans'; font-size:11pt; color: #434343;">
+										<i class="fas fa-quote-left" style="font-size:22pt; color:#36A5E9; margin-right:10px;"></i><span th:text="${r.recc_msg}"></span></span>
+								</td>
+								
+							</tr>
+						</table>
+					</div>
+
+					<div
+						style="box-sizing: border-box; vertical-align: top; min-width:300px; position: relative; float: left; margin: 20px 0px 20px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
+						id="container_54e3dd05">
+						<div style="margin: 10px; display: block;"
+							id="container_54e3dd05_padding">
+							<div style="text-align: center;">
+								<div
+									style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #DDDDDD;"
+									id="container_bfe47d7">
+									<div style="margin: 10px; display: block;"
+										id="container_bfe47d7_padding">
+										<div style="text-align: left;">
+											<span
+												style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">PROFILE</span>
+											<a th:href="@{/student/update-personalisation}"><button
+													title="Click here to personalise your profile"
+													style="cursor: pointer;" id="button_475df8fc"></button></a>
+										</div>
+									</div>
+								</div>
+								<div th:if="${personalisation}" th:object="${personalisation}"
+									style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 62px; background: none;"
+									id="container_55e5f313">
+									<div style="margin: 10px; display: block;"
+										id="container_55e5f313_padding">
+										<div style="text-align: left;">
+											<div th:if="*{skills}"><span class="profile">SKILLS</span> 
+												<ul>
+													<th:block >
+														<li th:each="skill : *{skills}"
+															th:text="${skill}"></li>
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{work}"><span class="profile">EXPERIENCE</span> 
+												<ul>
+													<th:block th:each="wrk : *{work}">		
+														<span class="subheading" th:text="${wrk.job}"></span>
+														<li th:if= "${wrk.company}" th:text="${wrk.company}"></li>
+														<li th:text="${wrk.desc}"><br/></li>
+														<li th:if= "${wrk.skills}" th:text="${wrk.skills}"></li>
+														<li th:if= "${wrk.st_date} and ${wrk.end_date}" th:text="${#dates.format(wrk.st_date, 'dd-MM-yyyy')}+'to'+${#dates.format(wrk.end_date, 'dd-MM-yyyy')}"></li>														
+													
+													</th:block>
+												</ul>
+											</div>  
+											<div th:if="*{education}"><span class="profile">EDUCATION</span> 
+												<ul>
+													<th:block th:each="edu : *{education}">		
+														<span class="subheading" th:text="${edu.course}"></span>
+														<li th:if= "${edu.institute}" th:text="${edu.institute}"></li>
+														<li th:if= "${edu.board}" th:text="${edu.board}"></li>
+														<li th:if= "${edu.year}" th:text="${edu.year}"></li>
+														
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{project}"><span class="profile">PROJECT</span> 
+												<ul>
+													<th:block th:each="pro : *{project}">		
+														<span class="subheading" th:text="${pro.name}"></span>
+														<li th:if= "${pro.desc}" th:text="${pro.desc}"></li>
+														<li th:if= "${pro.tech}" th:text="${pro.tech}"></li>
+														
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{communities}"><span class="profile">COMMUNITIES</span> 
+												<ul>
+													<th:block th:each="cmn : *{communities}">		
+														<span class="subheading" th:text="${cmn.name}"></span>
+														<li th:if= "${cmn.website}" th:text="${cmn.website}"></li>
+						
+													</th:block>
+												</ul>
+											</div>
+											<div th:if="*{awards}"><span class="profile">AWARDS</span> 
+												<ul>
+													<th:block th:each="awr : *{awards}">		
+														<span class="subheading" th:text="${awr.name}"></span>
+														<li th:if= "${awr.year}" th:text="${awr.year}"></li>	
+														<li th:if="${awr.website_of_org}" th:text="${awr.website_of_org}"></li>													
+													</th:block>
+												</ul>
+											</div>											
+										</div>
+									</div>
+								</div>
+														
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

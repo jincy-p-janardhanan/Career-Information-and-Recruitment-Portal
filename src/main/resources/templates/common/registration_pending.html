@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="RocketCake">
+<title>Registration Pending</title>
+<link rel="stylesheet" type="text/css"
+	href="css/registration_pending_html.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.navbar {
+	overflow: hidden;
+	background-color: #0f0f0f;
+}
+
+.navbar a {
+	float: right;
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.dropdown {
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #B2B2B2;
+	float: right;
+	overflow: hidden;
+}
+
+.dropdown .dropbtn {
+	font-size: 11pt;
+	color: #B2B2B2;
+	border: none;
+	outline: none;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+	background-color: rgb(46, 44, 44);
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+</style>
+</head>
+<body>
+
+	<div class="navbar">
+		<div class="dropdown" sec:authorize="isAuthenticated()">
+			<button class="dropbtn">
+				Welcome <span sec:authentication="name"></span>
+				<span></span>
+				<img class="img-circle" style="display:table-cell; vertical-align:middle; text-align:center"
+					th:src="@{/css/assets/user.png}"
+					height="28" width="28" />
+			</button>
+			<div class="dropdown-content">
+				<a th:href="@{/logout}">Logout</a>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="textstyle1">
+		<div id="container_3a5dff97">
+			<div id="container_3a5dff97_padding">
+				<div class="textstyle1">
+					<div id="container_730dc4c6">
+						<div id="container_730dc4c6_padding">
+							<div class="textstyle1">
+								<img th:src="@{/css/assets/info.png}" id="img_259d4d8f" alt="" title="" />
+							</div>
+							<div class="textstyle2">
+								<span class="textstyle3">Registration Pending</span>
+							</div>
+							<div style="clear: both"></div>
+						</div>
+					</div>
+					<div id="text_105f1f2b">
+						<div class="textstyle2">
+							<span class="textstyle4">Your account has not been
+								approved. You won't be able to access any resources on this
+								platform.<br /> <br />Please wait until you receive an
+								approval email from us.<br /> <br />
+							</span><span class="textstyle5">Stay Tuned! </span>
+						</div>
+					</div>
+				</div>
+				<div style="clear: both"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

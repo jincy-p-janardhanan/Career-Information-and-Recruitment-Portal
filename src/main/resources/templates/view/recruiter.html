@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="${recruiter_name}"></title>
+<style type="text/css">
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	font-style: normal;
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+@media only screen and (max-width: 851px) {
+	#container_65d33ff3 {
+		width: 100% !important;
+	}
+	#container_54e3dd05 {
+		width: 100% !important;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	#container_430e85af {
+		display: inline-block !important;
+	}
+	#container_430e85af * span {
+		font-size: 10pt !important;
+	}
+}
+
+@media only screen and (max-width: 609px) {
+	#container_2a07b59f {
+		width: 100% !important;
+	}
+	#container_1e6987e3 {
+		width: 100% !important;
+	}
+	#heading_30e6bc0e * span {
+		font-size: 28pt !important;
+	}
+	#container_713f2bdf * span {
+		font-size: 10pt !important;
+	}
+}
+</style>
+</head>
+<body style="background-color: #FFFFFF; padding: 0; margin: 0;">
+	<div style="text-align: left;">
+		<div
+			th:style="'vertical-align: top; position: relative; display: block; margin:0px; width: 100%; height: 450px; background-color: #061332; background-size: cover; background-image: url('+ @{'/view-bg-img/' + ${recruiter_bg_img}} +');'"
+			id="container_547898cf">
+			<div
+				style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 300px; background: none;"
+				id="form_71a76e09">
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<header th:insert="admin/server_admin_panel.html :: header">
+					</header>
+					<div th:replace="admin/server_admin_panel.html :: navbar-admin"
+						style="color: #B2B2B2;"></div>
+				</div>
+				<div sec:authorize="hasRole('ROLE_RECRUITER')">
+					<header th:insert="recruiter/home_recruiter.html :: header"> </header>
+					<div th:replace="recruiter/home_recruiter.html :: navbar-recruiter"
+						th:style="a{color: #B2B2B2;}"></div>
+				</div>				
+				<div
+					sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')">
+					<header th:insert="student/home_student.html :: header"> </header>
+					<div th:replace="student/home_student.html :: navbar-student"></div>
+				</div>
+				<div th:if="${message}" th:text="${message}"
+					style="position: center; top: 6%; padding: 10px; text-align: center; width: auto; min-height: 20px; font-size: 10pt; font-family: 'Open Sans'; color: #ffffff; background: #986767;"></div>
+				<div style="margin: 10px; display: block;"
+					id="form_71a76e09_padding">
+					<div style="text-align: left; padding-top: 40px;">
+						<div
+							th:style="'vertical-align: top; margin-left:50px; border-radius: 100px; position: relative; display: inline-block; width: 25%; height: 200px; width: 200px; background-image: url('+ @{'/view-profile-pic/' + ${id}} +'); background-position: top left; background-size: cover;'"
+							id="container_2a07b59f">
+							<div style="margin: 10px; display: block;"
+								id="container_2a07b59f_padding">
+								<div style="text-align: left;">
+									<span><br /> <br /></span>
+								</div>
+							</div>
+						</div>
+						<div
+							style="vertical-align: top; position: relative; display: inline-block; width: 65%; min-height: 150px; background: none;"
+							id="container_1e6987e3">
+							<div style="margin: 10px; display: block;"
+								id="container_1e6987e3_padding">
+								<div style="text-align: left; margin-top:40px; margin-left:50px;">
+									<h1
+										style="vertical-align: top; position: relative; display: inline-block; background: none;"
+										id="heading_30e6bc0e">
+										<span
+											style="text-align: left; font-size: 28pt; font-family: 'Open Sans'; color: #FFFFFF;"
+											th:text="${recruiter_name}"></span>
+									</h1>
+
+									<div
+										style="vertical-align: top; position: relative; display: inline-block; width: 100%; background: none;"
+										id="container_713f2bdf">
+										<div style="margin: 0px; display: block;"
+											id="container_713f2bdf_padding">
+											<div style="text-align: left;">
+												<span
+													style="font-size: 12pt; font-family: 'Open Sans'; color: #FFFFFF;"
+													th:text="${recruiter_location}"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')"
+							style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none;"
+							id="container_38d84016">
+							<div style="margin: 10px; display: block;"
+								id="container_38d84016_padding" >
+								<div style="text-align: right; padding-top:50px; padding-right:20px;">
+									<a th:href="@{'/request-recommendation?recommender_id=' + ${id}}"
+										style="box-sizing: border-box; vertical-align: bottom; position: relative; margin:auto; display: inline-block; width: 180px; height: 30px; background-color: #54861B; border: 0px solid #404040; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;"
+										id="button_4be8a3e4">Request Recommendation</a>
+								</div>
+								<div style="clear: both"></div>
+							</div>
+						</div>
+					</div>
+					<div style="clear: both"></div>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both"></div>
+	</div>
+	<div
+		style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 150px; background-color: #FFFFFF;"
+		id="container_3b59a56e">
+		<div style="margin: 10px; display: block;"
+			id="container_3b59a56e_padding">
+			<div style="text-align: left;">
+				<div
+					style="vertical-align: top; position: relative; display: inline-block; width: 70%; background-color: #FFFFFF;"
+					id="container_65d33ff3">
+					<div style="margin: 10px; display: block;"
+						id="container_65d33ff3_padding">
+						<div style="text-align: left;">
+							<div
+								style="vertical-align: bottom; position: relative; display: inline-block; margin: 20px 20px 0px 20px; width: 90%; background: none;"
+								id="text_6f4bea7e">
+								<div style="margin: 10px; display: block;"
+									id="text_6f4bea7e_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 26pt; font-family: 'Open Sans'; color: #333333;">ABOUT</span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; margin: 0px 0px 0px 20px; width: 90%; min-height: 300px; background-color: #FFFFFF;"
+								id="container_430e85af">
+								<div style="margin: 10px; display: block;"
+									id="container_430e85af_padding">
+									<div style="text-align: left;">
+										<span
+											style="white-space: pre-wrap; font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
+											th:text="${recruiter_desc}"><br /> <br /> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="clear: both"></div>
+					</div>
+				</div>
+				<div
+					style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; float: left; margin: 20px 0px 0px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
+					id="container_54e3dd05">
+					<div style="margin: 10px; display: block;"
+						id="container_54e3dd05_padding">
+						<div style="text-align: center;">
+							<div
+								style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #DDDDDD;"
+								id="container_bfe47d7">
+								<div style="margin: 10px; display: block;"
+									id="container_bfe47d7_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">CONTACT</span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 62px; background: none;"
+								id="container_55e5f313">
+								<div style="margin: 10px; display: block;"
+									id="container_55e5f313_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">WEBSITE</span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
+											th:text="${recruiter_contact.website}"></span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 64px; background: none;"
+								id="container_4cc8eb5f">
+								<div style="margin: 10px; display: block;"
+									id="container_4cc8eb5f_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">EMAIL</span><span
+											style="font-size: 12pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
+											th:text="${recruiter_contact.public_email}"></span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 65px; background-color: #FFFFFF;"
+								id="container_4873a8bf">
+								<div style="margin: 10px; display: block;"
+									id="container_4873a8bf_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">PHONE</span><span
+											style="font-size: 12pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
+											th:text="${recruiter_contact.landph}"></span>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 140px; background-color: #FFFFFF;"
+								id="container_3044ba94">
+								<div style="margin: 10px; display: block;"
+									id="container_3044ba94_padding">
+									<div style="text-align: left;">
+										<span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">ADDRESS</span><span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #000000;"><br /></span>
+										<div
+											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;">
+											<span th:text="${recruiter_contact.address_line1}"></span><br />
+											<span th:text="${recruiter_contact.address_line2}"></span> <span
+												th:text="${recruiter_contact.city_or_town}"></span><br />
+											<span th:text="${recruiter_contact.district}"><br /></span>, <span
+												th:text="${recruiter_contact.state}"><br /></span>, <span
+												th:text="${recruiter_contact.country}"><br /></span> - <span
+												th:text="${recruiter_contact.pincode}"><br /></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

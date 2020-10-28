@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>View Job</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/view_job_html.css}">
+<style>
+#viewprofilebutton {
+	box-sizing: border-box;
+	border-radius: 9px;
+	width: 150px;
+	height: 40px;
+	background-color: #F23D3E;
+	border: 0px;
+	box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078);
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+	background-color: #F23D3E;
+}
+
+#profile_image {
+	margin: auto;
+	height: 180px;
+	width: 180px;
+	box-sizing: border-box;
+	border-radius: 100px;
+	background-size: cover;
+}
+
+#title {
+	text-align: center;
+	width: 100%;
+	padding: 10px;
+	font-size: 18pt;
+	font-family: 'Open Sans';
+	color: #434343;
+}
+
+#box {
+	box-sizing: border-box;
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	background: none;
+	border: 1px solid #DDDDDD;
+}
+
+#buttoncell {
+	text-align: center;
+	margin: 0px;
+	padding: 20px;
+	margin: 0px;
+}
+
+.desc {
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #434343;
+	display: inline-block;
+	white-space: pre-wrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 15em;
+	padding-right: 10px;
+}
+
+a {
+	color: #B2B2B2;
+}
+
+.message {
+	position: center;
+	margin-left: 1%;
+	margin-right: 1%;
+	width: auto;
+	top: 4%;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #ffffff;
+	background: #986767;
+}
+</style>
+</head>
+<body>
+	<div style="margin: 0;">
+		<div th:replace="common/search_results.html :: any-nav"
+			style="color: #B2B2B2;"></div>
+		<div th:if="${message}" th:text="${message}"
+			style="position: center; top:6%; padding:10px; text-align:center; width: auto; min-height: 20px; font-size: 10pt; font-family: 'Open Sans'; color: #ffffff; background: #986767;"></div>
+		<div
+			style="width: 60%; position: relative; margin-top: 20px; display: inline-block;">
+			<div
+				style="position: relative; width: 100%; min-height: 200px; background: none; margin: 0px; padding: 0px;"
+				id="container_2ed68a52">
+				<div style="display: block; margin: 0px; padding: 0px;">
+					<div style="text-align: left;">
+						<div
+							style="position: relative; background: none; padding-bottom: 10px; border-bottom: 1px solid #DDDDDD;"
+							id="text_5c32d2b9">
+							<div style="text-align: left; padding-bottom: 5px;">
+								<div
+									style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;"
+									th:text="${job.name}"></div>
+							</div>
+							<div
+								style="font-size: 10pt; display: inline-block; font-family: 'Open Sans'; color: #666666; text-shadow: 0px 0px 0px #666666;"
+								th:text="'Location: ' + ${job.location}"></div>
+							<div
+								style="font-size: 10pt; margin-left: 20px; display: inline-block; font-family: 'Open Sans'; color: #666666; text-shadow: 0px 0px 0px #666666;"
+								th:text="'Stipend: &#8377; ' + ${job.stipend}"></div>
+							<div
+								style="font-size: 10pt; margin-left: 20px; display: inline-block; font-family: 'Open Sans'; color: #666666; text-shadow: 0px 0px 0px #666666;"
+								th:text="'Last Date: ' + ${#dates.format(job.last_date, 'dd MMM, yyyy')}"></div>
+							<div
+								style="font-size: 10pt; margin-left: 20px; display: inline-block; font-family: 'Open Sans'; color: #666666; text-shadow: 0px 0px 0px #666666;"
+								th:text="'Duration: ' + ${job.duration}"></div>
+						</div>
+
+						<div
+							style="position: relative; width: 100%; background: none; padding-top: 10px;"
+							id="text_239169a0">
+							<div style="text-align: left;">
+								<span
+									style="white-space: pre-wrap; font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
+									th:text="${job.desc}"></span>
+							</div>
+						</div>
+						<br />
+					</div>
+
+				</div>
+			</div>
+			<br />
+			<div style="position: relative; width: 100%; background: none;"
+				id="container_1f608baf">
+				<div style="margin: 10px; display: block;"
+					id="container_1f608baf_padding">
+					<div style="text-align: left;">
+						<div
+							style="position: relative; background: none; padding-bottom: 10px; border-bottom: 1px solid #DDDDDD;"
+							id="text_420ba6de">
+							<div style="text-align: left;">
+								<span
+									style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">Application
+									Form</span>
+							</div>
+						</div>
+						<form
+							style="position: relative; width: 100%; padding-bottom: 20px; background: none;"
+							th:action="@{'/student/apply-job?job_id=' + ${job._id}}"
+							enctype="application/x-www-form-urlencoded"
+							th:Object="${application}" method="POST" id="form_59acdec8">
+							<div style="text-align: left;">
+								<div
+									style="vertical-align: bottom; position: relative; display: inline-block; width: 100%; background: none;"
+									 th:if="${not #lists.isEmpty(job.questions)}"
+									 th:each="question, questionStat : ${job.questions}"
+									id="text_2ab0171c">
+									<div style="text-align: left;">
+										<br /> <span
+											style="font-size: 11pt; font-family: 'Open Sans'; color: white; border-radius: 9px; padding: 3px; background: #434343;">Question
+											<span style="color: yellow;"
+											th:text="' ' + ${questionStat.count} + ': '"></span>
+										</span> <span
+											style="font-size: 11pt; font-family: 'Open Sans'; padding-left: 10px; color: #434343;"
+											th:text="${question}"></span>
+									</div>
+									<div
+										sec:authorize="hasRole('ROLE_STUDENT') or hasRole('ROLE_ALUMNUS')">
+										<br />
+										<textarea placeholder="Your answer here..." cols="38"
+											th:field="*{answers[__${questionStat.index}__]}" rows="10"
+											style="resize: none; float: center; background: #ffffff; box-sizing: border-box; position: relative; width: 100%; height: 200px; border: 1px solid #DDDDDD; font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
+											id="edit_527f20b2"></textarea>
+									</div>
+								</div>
+								<br />
+								<div
+									sec:authorize="hasRole('ROLE_STUDENT') or hasRole('ROLE_ALUMNUS')">
+									<input name="apply_button" type="submit" value="APPLY"
+										style="position: relative; margin-top: 20px; box-sizing: border-box; width: 100px; height: 35px; border: 0px; font-size: 10pt; background: #42740C; font-family: 'Open Sans'; color: #FFFFFF;"
+										id="button_35785fb2">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div
+			style="position: absolute; border: solid 1px #dddddd; border-radius: 9px; top: 25%; left: 70%; width: 25%; margin-top: 100px; padding: 10px; box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.196078);">
+			<div id="profile_image"
+				th:style="'background-image: url('+ @{'/view-profile-pic/' + ${job._id}} +');'"></div>
+			<br />
+			<div id="title">
+				<span th:text="${recruiter_name}"></span> <span
+					th:text="${recruiter_desc}" class="desc"></span> <a
+					th:href="@{'/view?id='+ ${job.recruiter_id}}"><button
+						id="viewprofilebutton">
+						<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW PROFILE
+					</button> </a>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

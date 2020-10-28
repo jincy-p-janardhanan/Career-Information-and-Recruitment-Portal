@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="RocketCake">
+<title>Chat</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<style type="text/css">
+#received_msg {
+	float: left;
+	border-radius: 5px;
+	position: relative;
+	margin-top: 5px;
+	margin-left: 5px;
+	width: 55%;
+	background-color: rgba(34, 121, 190, 0.698039);
+	width: 55%;
+	padding: 5px;
+	white-space: pre-wrap;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+}
+
+#sent_msg {
+	float: right;
+	border-radius: 5px;
+	position: relative;
+	margin-top: 5px;
+	margin-right: 5px;
+	width: 55%;
+	background-color: rgba(98, 170, 17, 0.698039);
+	width: 55%;
+	padding: 5px;
+	white-space: pre-wrap;
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+}
+
+a {
+	color: #5D5D9E;
+}
+
+a:visited {
+	color: #5D5D9E;
+}
+
+a:active {
+	color: #5C615E;
+}
+
+a:hover {
+	color: #B2B3B4;
+}
+
+a.wsp508c6e15 {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a.wsp508c6e15:visited {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a.wsp508c6e15:active {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a.wsp508c6e15:hover {
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+a.wsp2e18e390 {
+	color: #666666;
+	text-decoration: none
+}
+
+a.wsp2e18e390:visited {
+	color: #666666;
+	text-decoration: none
+}
+
+a.wsp2e18e390:active {
+	color: #666666;
+	text-decoration: none
+}
+
+a.wsp2e18e390:hover {
+	color: #666666;
+	text-decoration: none
+}
+
+@media only screen and (max-width: 929px) {
+	#container_eaea99e {
+		min-height: 70px !important;
+	}
+}
+
+@media only screen and (max-width: 868px) {
+	#text_27cdb73f {
+		width: 99% !important;
+		width: 99% !important;
+		height: 8% !important;
+		left: 1% !important;
+		top: 91% !important;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	#container_1f7b86ec {
+		display: inline-block !important;
+		width: 102% !important;
+		min-height: 650px !important;
+	}
+	#container_1f7b86ec * span {
+		font-size: 12pt !important;
+	}
+}
+</style>
+</head>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	'use strict';
+
+	var stompClient = null;
+	var chid = /*[[${channelid}]]*/'none';
+	var sender_id = /*[[${sender}]]*/'none';
+	var receiver_id = /*[[${receiver}]]*/'none';
+
+	function connect() {
+		document.getElementById("message").value = '';
+		var socket = new SockJS('/chat');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, onConnected, onError);
+	}
+
+	function onConnected() {
+		stompClient.subscribe('/channel/' + chid + "/queue/messages",
+				onMessageReceived);
+	}
+
+	function onError(error) {
+		console.log("An error occured during connect! \n" + error);
+	}
+
+	function sendMessage() {
+
+		var msg = document.getElementById("message").value.trim();
+
+		if (msg && stompClient) {
+			var chatMessage = {
+				sender : sender_id,
+				receiver : receiver_id,
+				message : document.getElementById("message").value,
+				channelid : chid
+			};
+			stompClient.send("/app/chat.sendMessage", {}, JSON
+					.stringify(chatMessage));
+			document.getElementById("message").value = '';
+			console.log("Message Sent!")
+		}
+		event.preventDefault();
+	}
+
+	function onMessageReceived(payload) {
+		console.log("Message Received")
+		var msg = JSON.parse(payload.body);
+		var messageElement = document.createElement('span');
+		messageElement.id="received_msg";
+		if(msg.sender == sender_id){
+			messageElement.id = "sent_msg";
+		}
+		messageElement.textContent = msg.message;
+		
+		var dateElement = document.createElement('span');
+		dateElement.textContent = "\n"+msg.timestamp;
+		dateElement.style.float="right";
+		dateElement.style.color = "yellow";
+		
+		messageElement.appendChild(dateElement);
+		
+		document.getElementById('message_div').appendChild(messageElement);
+		
+	}
+	/*]]>*/
+</script>
+<body style="background-color: #FFFFFF; padding: 0; margin: 0;"
+	onload="connect()">
+	<div style="text-align: left;">
+		<div
+			style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 650px; background: none;"
+			id="container_1f7b86ec">
+			<div style="margin: 10px; display: block;"
+				id="container_1f7b86ec_padding">
+				<div style="text-align: left;">
+					<div
+						style="box-sizing: border-box; border-radius: 15px 15px 0px 0px; position: absolute; left: 5%; top: 5%; width: 90%; height: 90vh; background: none; border: 1px solid #DDDDDD; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078);"
+						id="container_3f284748">
+						<div style="text-align: left;">
+							<div
+								style="vertical-align: top; border-radius: 10px 10px 0px 0px; position: relative; display: inline-block; width: 100%; height: 8vh; background-color: #F23D3E;"
+								id="container_eaea99e">
+								<div style="margin: 10px; display: block;"
+									id="container_eaea99e_padding">
+									<div style="text-align: left;">
+										<img th:if="${sender == channel.user1}" th:src="@{'/view-profile-pic/' + ${channel.user2}}"
+											style="vertical-align: bottom; position: relative; float: left; width: 40px; height: 40px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+											id="img_f39e300" alt="" title="" />
+										<img th:if="${sender == channel.user2}" th:src="@{'/view-profile-pic/' + ${channel.user1}}"
+											style="vertical-align: bottom; position: relative; float: left; width: 40px; height: 40px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
+											id="img_f39e300" alt="" title="" />
+										<div
+											style="vertical-align: bottom; position: relative; display: inline-block; background: none;"
+											id="text_4ed55246">
+											<div style="text-align: left;">
+												<span
+													style="font-size: 16pt; vertical-align: bottom; padding-left: 10px; font-family: 'Open Sans'; color: #FFFFFF;"
+													th:if="${sender == channel.user1}" th:text="${channel.nameUser2}"> </span>
+												<span
+													style="font-size: 16pt; vertical-align: bottom; padding-left: 10px; font-family: 'Open Sans'; color: #FFFFFF;"
+													th:if="${sender == channel.user2}" th:text="${channel.nameUser1}"> </span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div
+								style="vertical-align: top; position: relative; display: inline-block; width: 100%; height: 82vh; background-color: #0F0F0F; border-radius: 0px 0px 7px 7px;">
+								<div id="message_div">
+									<div th:each="msg: ${all_msgs}">
+										<span th:if="${msg.sender == sender}" th:inline="text" id="sent_msg">[[${msg.message}]]
+										<span th:text="${msg.timestamp}" style="color:yellow; float:right;"></span></span>
+										<span th:if="${msg.sender != sender}" th:inline="text" id="received_msg">[[${msg.message}]]
+										<span th:text="${msg.timestamp}" style="color:yellow; float:right;"></span></span>										
+									</div>
+								</div>
+								<form id="message_form">
+									<div style="margin: 10px; display: block;"
+										id="form_5e3d4c0c_padding">
+										<div style="text-align: left;">
+											<div
+												style="box-sizing: border-box; border-radius: 15px; position: absolute; left: 1%; top: 87%; width: 98%; height: 65px; background-color: #434343; border: 1px solid #434334;"
+												id="text_27cdb73f">
+												<div style="text-align: left;">
+													<textarea id="message" placeholder="Message..." cols="46"
+														rows="1"
+														style="box-sizing: border-box; resize: none; padding: 10px 45px 10px 10px; border-radius: 15px; position: absolute; left: 1%; top: 8%; width: 98%; height: 50px; background-color: #FFFFFF; border: 1px solid #A0A0A0; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078); font-size: 10pt; font-family: 'Open Sans'; color: #434343;">
+													</textarea>
+													<button onClick="sendMessage()"
+														th:style="'box-sizing: border-box; border-radius: 0px 15px 15px 0px; position: absolute; left: 95%; top: 20%; width: 35px; height: 35px; background-color: white; background-image: url('+ @{/css/assets/send.png} +'); background-position: center center; background-size: cover; border: 0px solid #404040; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; color: #000000;'"
+														id="button_5f610a27"></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

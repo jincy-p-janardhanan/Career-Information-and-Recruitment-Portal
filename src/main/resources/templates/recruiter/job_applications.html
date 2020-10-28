@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<title th:text="${title}"></title>
+<style type="text/css">
+#viewprofilebutton {
+	box-sizing: border-box;
+	border-radius: 9px;
+	width: 150px;
+	height: 40px;
+	background-color: #F23D3E;
+	border: 0px;
+	box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.196078);
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #FFFFFF;
+	background-color: #F23D3E;
+}
+
+#profile_image {
+	margin: auto;
+	height: 180px;
+	width: 180px;
+	box-sizing: border-box;
+	border-radius: 100px;
+	background-size: cover;
+}
+
+#box {
+	box-sizing: border-box;
+	vertical-align: top;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	background: none;
+	border: 1px solid #DDDDDD;
+}
+
+.desc {
+	font-size: 10pt;
+	font-family: 'Open Sans';
+	color: #434343;
+	padding-right: 10px;
+}
+</style>
+</head>
+<body style="background-color: #FFFFFF; padding: 0; margin: 0;">
+	<div th:replace="common/search_results.html :: any-nav"
+		style="color: #B2B2B2;"></div>
+	<div th:if="${message}" th:text="${message}"
+		style="position: center; top: 6%; padding: 10px; text-align: center; width: auto; min-height: 20px; font-size: 10pt; font-family: 'Open Sans'; color: #ffffff; background: #986767;"></div>
+	<div style="text-align: left; margin: 10px 40px;">
+		<div style="border-bottom: solid 1px #dddddd; padding-bottom: 10px;">
+			<img th:src="@{/css/assets/applicant.png}"
+				style="vertical-align: bottom; position: relative; margin-top: 20px; float: left; width: 60px; background: none;"
+				id="img_4af67b10" alt="" title="" />
+			<div
+				style="padding-top: 40px; padding-left: 10px; font-size: 18pt; font-family: 'Open Sans'; color: #434343;">
+				<span th:text="${title}"></span>
+			</div>
+		</div>
+		<table th:each="apln: ${applications}"
+			style="position: relative; display: inline-block; border: solid 1px #dddddd; margin-top: 30px; border-radius: 9px; width: 100%; padding: 0px; box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.196078);">
+			<tr
+				style="background: #42740C; height: 35px; margin: 0px; padding: 0px;">
+				<td colspan=2
+					style="color: white; font-family: 'Open Sans'; font-size: 11pt; border-radius: 9px 9px 0px 0px;">
+					<span
+					th:text="'Job Info: ' + ${apln.job_title} + ', ' + ${apln.location} + ', &#8377;' + ${apln.stipend}"></span>
+					<span
+					th:text="'Applied on - ' + ${#dates.format(apln.application_timestamp, 'dd MMM, yyyy, HH:mm:ss')}"
+					style="float: right;"></span>
+
+				</td>
+			</tr>
+			<tr>
+				<td rowspan=2 id="profile-block"
+					style="background: #0f0f0f; min-height: 250px; overflow: hidden; margin: 0px; width: 25%; padding: 10px; font-size: 18pt; font-family: 'Open Sans'; text-align: center; color: #434343;">
+					<div id="profile_image"
+						th:style="'background-image: url('+ @{'/view-profile-pic/' + ${apln.applicant_username}} +');'"></div>
+					<br /> <span style="color: white;"
+					th:text="${apln.applicant_name}"></span>
+					<div id="profile">
+						<div th:text="${apln.profile_desc}" class="desc"
+							style="color: #dddddd; text-overflow: ellipsis; overflow: hidden; max-height: 120px;"></div>
+						<br /> <a th:href="@{'/view?id='+ ${apln.applicant_username}}"><button
+								id="viewprofilebutton">
+								<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW PROFILE
+							</button></a>
+					</div>
+				</td>
+				<td style="width: 70%; padding-left: 25px;">
+					<div id="question-block">
+						<div th:each="question, questionStat : ${apln.questions}">
+							<div style="text-align: left;">
+								<br /> <span
+									style="font-size: 11pt; font-family: 'Open Sans'; color: white; border-radius: 9px; padding: 3px; background: #434343;">Question
+									<span style="color: yellow;"
+									th:text="' ' + ${questionStat.count} + ': '"></span>
+								</span> <strong><span
+									style="font-size: 11pt; font-family: 'Open Sans'; padding-left: 10px; padding-right: 10px; color: #434343;"
+									th:text="${question}"></span></strong> <span
+									th:text="${apln.answers[__${questionStat.index}__]}"
+									class="desc"
+									style="display: block; margin-top: 15px; margin-left: 15px; margin-right: 15px;"></span>
+							</div>
+						</div>
+					</div>
+				</td>
+			<tr style="height: 70px;">
+				<td><div
+						style="padding-right: 20px; font-family: Open Sans; font-size: 10pt; color: #434343">
+						<div
+							style="width: 65%; margin: -20px; padding: 7px; background: #F0F51A;"
+							th:if="${not #lists.isEmpty(apln.matched_skills)}">
+							<strong><span>Skills Matched for this Job:</span></strong> <span
+								th:each="skill : ${apln.matched_skills}"> <strong><span
+									style="color: black; white-space: pre-wrap;"
+									th:text="${skill} + '     '"></span></strong></span>
+						</div>
+						<div style="float: right; margin-top: -16px;">
+							<form th:action="@{/chat/channel}" method="post"
+								style="display: inline-block;">
+								<input type="hidden" name="receiver" th:value=${apln.applicant_username}>
+								<button type="submit" id="viewprofilebutton"
+									style="background: #369FEF; border-radius: 30px; width: 40px; height: 40px;">
+									<i class="fas fa-comments" style="font-size: 20px;"></i>
+								</button>
+								<strong>Chat</strong>
+							</form>
+							<form th:action="@{/recruiter/application/hire}" method="post"
+								style="display: inline-block;">
+								<input type="hidden" name="applicant_id"
+									th:value="${apln.applicant_username}"> <input
+									type="hidden" name="job_id" th:value="${apln.job_id}">
+								<button type="submit" id="viewprofilebutton"
+									style="background: #42DF0C; border-radius: 30px; width: 40px; height: 40px; margin-left: 10px;">
+									<i class="fa fa-check" aria-hidden="true"
+										style="font-size: 20px;"></i>
+								</button>
+								<strong>Hire</strong>
+							</form>
+							<form th:action="@{/recruiter/application/reject}" method="post"
+								style="display: inline-block;">
+								<input type="hidden" name="applicant_id"
+									th:value="${apln.applicant_username}"> <input
+									type="hidden" name="job_id" th:value="${apln.job_id}">
+								<button type="submit" id="viewprofilebutton"
+									style="border-radius: 30px; width: 40px; height: 40px; margin-left: 10px;">
+									<i class="fa fa-times" aria-hidden="true"
+										style="font-size: 20px;"></i>
+								</button>
+								<strong>Reject</strong>
+							</form>
+						</div>
+					</div></td>
+			</tr>
+		</table>
+		<br /> <br />
+
+	</div>
+</body>
+</html>
