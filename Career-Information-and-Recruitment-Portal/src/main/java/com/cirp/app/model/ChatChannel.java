@@ -9,10 +9,8 @@ public class ChatChannel {
 	private String id;
 	private String user1;
 	private String nameUser1;
-	private String profilePicUser1;
 	private String user2;
 	private String nameUser2;
-	private String profilePicUser2;
 	public ChatChannel() {
 		
 	}
@@ -21,10 +19,8 @@ public class ChatChannel {
 		this.id = id;
 		this.user1 = user1;
 		this.nameUser1 = nameUser1;
-		this.profilePicUser1 = profilePicUser1;
 		this.user2 = user2;
 		this.nameUser2 = nameUser2;
-		this.profilePicUser2 = profilePicUser2;
 	}
 	public String getId() {
 		return id;
@@ -44,12 +40,6 @@ public class ChatChannel {
 	public void setNameUser1(String nameUser1) {
 		this.nameUser1 = nameUser1;
 	}
-	public String getProfilePicUser1() {
-		return profilePicUser1;
-	}
-	public void setProfilePicUser1(String profilePicUser1) {
-		this.profilePicUser1 = profilePicUser1;
-	}
 	public String getUser2() {
 		return user2;
 	}
@@ -62,11 +52,4 @@ public class ChatChannel {
 	public void setNameUser2(String nameUser2) {
 		this.nameUser2 = nameUser2;
 	}
-	public String getProfilePicUser2() {
-		return profilePicUser2;
-	}
-	public void setProfilePicUser2(String profilePicUser2) {
-		this.profilePicUser2 = profilePicUser2;
-	}
-	
 }

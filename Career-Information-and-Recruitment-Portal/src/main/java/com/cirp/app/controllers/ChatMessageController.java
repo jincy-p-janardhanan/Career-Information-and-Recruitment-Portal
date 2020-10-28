@@ -49,8 +49,6 @@ public class ChatMessageController {
 		
 		channel.setNameUser1(user1.getName());
 		channel.setNameUser2(user2.getName());
-		channel.setProfilePicUser1(user1.getProfile_pic());
-		channel.setProfilePicUser2(user2.getProfile_pic());
 		
 		chatChannelRepo.save(channel);
 		return "redirect:/chat/channel/" + channelid;

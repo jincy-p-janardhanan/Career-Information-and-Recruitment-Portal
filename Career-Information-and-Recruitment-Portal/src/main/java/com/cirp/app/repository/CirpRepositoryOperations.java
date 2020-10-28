@@ -32,9 +32,10 @@ public interface CirpRepositoryOperations {
 	
 	List<Document> viewApplications(String matchquery);
 	
-	void requestRecommendation(String requester_id, String recommender_id);
-	void recommend(ObjectId reccomendation_id, String recc_msg);
-	void rejectRecommendationRequest(Recommendation reccomendation);
+	void requestRecommendation(Recommendation recommendation, Class<?> requester_class, Class<?> recommender_class);
+	void recommend(Recommendation reccommendation, Class<?> requester_class, Class<?> recommender_class);	
+	void rejectRecommendationRequest(Recommendation recommendation, Class<?> requester_class,
+			Class<?> recommender_class);
 	
 	<T> List<T> search(String search_text, String filter); //filter can be any one of 'Student', 'Alumni', 'College', 'Recruiter', 'Job'
 	
@@ -60,5 +61,4 @@ public interface CirpRepositoryOperations {
 	void hire(String applicant_id, String job_id, Class<?> userClass);
 	void rejectApplication(String applicant_id, String job_id, Class<?> userClass);
 	List<Document> jobSuggestions(String name, String aggregatefrom);
-	
 }

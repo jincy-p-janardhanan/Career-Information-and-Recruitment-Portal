@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,9 +23,9 @@ public final class College extends NonAdmin {
 	private List<String> alumni_pending;
 	private List<String> alumni_rejected;
 	private List<String> alumni;
-	private List<ObjectId> recc_req_recvd; // Recommendation requests received
-	private List<ObjectId> reccommeded; // Recommendations made by this user
-	private List<ObjectId> recc_rejected; // Recommendation requests rejected by this user
+	private List<Recommendation> recc_req_recvd; // Recommendation requests received
+	private List<Recommendation> reccommeded; // Recommendations made by this user
+	private List<Recommendation> recc_rejected; // Recommendation requests rejected by this user
 
 	public College(String username, String password, String name, String mobile, String email, String affil_univ,
 			ContactInfo contact) {
@@ -91,27 +90,27 @@ public final class College extends NonAdmin {
 		this.alumni = alumni;
 	}
 
-	public List<ObjectId> getRecc_req_recvd() {
+	public List<Recommendation> getRecc_req_recvd() {
 		return recc_req_recvd;
 	}
 
-	public void setRecc_req_recvd(List<ObjectId> recc_req_recvd) {
+	public void setRecc_req_recvd(List<Recommendation> recc_req_recvd) {
 		this.recc_req_recvd = recc_req_recvd;
 	}
 
-	public List<ObjectId> getReccommeded() {
+	public List<Recommendation> getReccommeded() {
 		return reccommeded;
 	}
 
-	public void setReccommeded(List<ObjectId> reccommeded) {
+	public void setReccommeded(List<Recommendation> reccommeded) {
 		this.reccommeded = reccommeded;
 	}
 
-	public List<ObjectId> getRecc_rejected() {
+	public List<Recommendation> getRecc_rejected() {
 		return recc_rejected;
 	}
 
-	public void setRecc_rejected(List<ObjectId> recc_rejected) {
+	public void setRecc_rejected(List<Recommendation> recc_rejected) {
 		this.recc_rejected = recc_rejected;
 	}
 }

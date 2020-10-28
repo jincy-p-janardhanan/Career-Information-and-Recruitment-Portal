@@ -211,10 +211,10 @@ a.wsp2e18e390:hover {
 								<div style="margin: 10px; display: block;"
 									id="container_eaea99e_padding">
 									<div style="text-align: left;">
-										<img th:if="${sender == channel.user1}" th:src="@{'/view-profile-pic/' + ${channel.profilePicUser2}}"
+										<img th:if="${sender == channel.user1}" th:src="@{'/view-profile-pic/' + ${channel.user2}}"
 											style="vertical-align: bottom; position: relative; float: left; width: 40px; height: 40px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
 											id="img_f39e300" alt="" title="" />
-										<img th:if="${sender == channel.user2}" th:src="@{'/view-profile-pic/' + ${channel.profilePicUser1}}"
+										<img th:if="${sender == channel.user2}" th:src="@{'/view-profile-pic/' + ${channel.user1}}"
 											style="vertical-align: bottom; position: relative; float: left; width: 40px; height: 40px; border-radius: 30px; background-size: cover; min-width: 40px; background: none;"
 											id="img_f39e300" alt="" title="" />
 										<div

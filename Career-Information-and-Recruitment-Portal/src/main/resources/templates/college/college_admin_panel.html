@@ -346,7 +346,7 @@ td {
 							Welcome <span sec:authentication="name"></span> <span></span> <img
 								class="img-circle"
 								style="display: table-cell; vertical-align: middle; text-align: center"
-								th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
+								th:src="@{'/view-profile-pic/'+ ${username}}" height="28"
 								width="28" />
 						</button>
 						<div class="dropdown-content">
@@ -362,7 +362,7 @@ td {
 							sec:authentication="name"></span> <span></span> <img
 							class="img-circle"
 							style="display: table-cell; vertical-align: middle; text-align: center"
-							th:src="@{'/view-profile-pic/'+ ${profile_pic}}" height="28"
+							th:src="@{'/view-profile-pic/'+ ${username}}" height="28"
 							width="28" /></a> <a th:href="@{/college/home}"><span>Profile</span></a>
 						<a th:href="@{/college/admin-panel}"><span>Admin Panel</span></a>
 						<a th:href="@{/logout}"><span>Logout</span></a> <a

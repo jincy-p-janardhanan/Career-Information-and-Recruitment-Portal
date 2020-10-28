@@ -1,17 +1,19 @@
 a {
-	color: #5D5D9E;
+	color:#ffff00;
+	text-decoration: none;
 }
-
-a:visited {
-	color: #5D5D9E;
+a:link{
+	color:#ffff00; 
 }
-
-a:active {
-	color: #5C615E;
-}
-
 a:hover {
-	color: #B2B3B4;
+	color:#ffff00;
+	cursor:pointer;
+}
+a:active {
+	color:#ffff00;
+}
+a:visited{
+	color:#ffff00;
 }
 
 a.wsp508c6e15 {

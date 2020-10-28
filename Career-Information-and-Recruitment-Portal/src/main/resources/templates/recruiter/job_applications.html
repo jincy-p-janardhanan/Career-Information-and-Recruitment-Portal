@@ -83,7 +83,7 @@
 				<td rowspan=2 id="profile-block"
 					style="background: #0f0f0f; min-height: 250px; overflow: hidden; margin: 0px; width: 25%; padding: 10px; font-size: 18pt; font-family: 'Open Sans'; text-align: center; color: #434343;">
 					<div id="profile_image"
-						th:style="'background-image: url('+ @{'/view-profile-pic/' + ${apln.profile_pic}} +');'"></div>
+						th:style="'background-image: url('+ @{'/view-profile-pic/' + ${apln.applicant_username}} +');'"></div>
 					<br /> <span style="color: white;"
 					th:text="${apln.applicant_name}"></span>
 					<div id="profile">

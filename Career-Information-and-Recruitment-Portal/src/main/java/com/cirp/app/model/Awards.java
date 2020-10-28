@@ -1,7 +1,5 @@
 package com.cirp.app.model;
 
-import java.time.Year;
-
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -26,12 +28,15 @@ import com.cirp.app.model.Personalisation;
 import com.cirp.app.model.Recommendation;
 import com.cirp.app.model.Recruiter;
 import com.cirp.app.model.Student;
+import com.mongodb.client.result.UpdateResult;
 
 @Repository
 public class CirpRepository implements CirpRepositoryOperations {
 
 	@Autowired
 	MongoTemplate mongoTemplate;
+	
+	private static final Logger logger = LoggerFactory.getLogger(CirpRepositoryOperations.class);
 
 	@Override
 	public void register(College college) {
@@ -152,7 +157,6 @@ public class CirpRepository implements CirpRepositoryOperations {
 					+ "applicant_username    :  '$applications.profile._id',"
 					+ "applicant_name        :  '$applications.profile.name',"
 					+ "profile_desc          :  '$applications.profile.desc',"
-					+ "profile_pic           :  '$applications.profile.profile_pic',"
 					+ "questions             :  {"
 						+ "$ifNull: ['$applications.questions', []] }"
 					+ "answers               :  {"
@@ -176,23 +180,51 @@ public class CirpRepository implements CirpRepositoryOperations {
 	}
 
 	@Override
-	public void requestRecommendation(String requester_id, String recommender_id) {
-
-		mongoTemplate.insert(new Recommendation(requester_id, recommender_id));
+	public void requestRecommendation(Recommendation recommendation, Class<?> requester_class,
+			Class<?> recommender_class) {
+		Query query = new Query().addCriteria(where("username").is(recommendation.getRequester_id()));
+		mongoTemplate.updateFirst(query, new Update().push("recommend_req", recommendation), requester_class);
+		query = new Query().addCriteria(where("username").is(recommendation.getRecommender_id()));
+		mongoTemplate.updateFirst(query, new Update().push("recc_req_recvd", recommendation), recommender_class);
 	}
 
 	@Override
-	public void recommend(ObjectId reccomendation_id, String recc_msg) {
-
-		mongoTemplate.update(Recommendation.class).matching(new Query(where("_id").is(reccomendation_id)))
-				.apply(new Update().set("status", "1").set("recc_msg", recc_msg));
-
+	public void recommend(Recommendation recommendation, Class<?> requester_class, Class<?> recommender_class) {
+		Query query1 = new Query().addCriteria(where("username").is(recommendation.getRequester_id()))
+				.addCriteria(where("recommend_req.recommender_id").is(recommendation.getRecommender_id()));
+		Query query2 = new Query().addCriteria(where("username").is(recommendation.getRecommender_id()))
+				.addCriteria(where("recc_req_recvd.requester_id").is(recommendation.getRequester_id()));
+		
+		UpdateResult r =mongoTemplate.updateFirst(query1, new Update().push("recommendations", recommendation), requester_class);
+		logger.info(r.toString());		
+		r = mongoTemplate.updateFirst(query2, new Update().push("reccommended", recommendation), recommender_class);
+		logger.info(r.toString());
+		
+		recommendation.setStatus(0);
+		recommendation.setRecc_msg(null);
+		r =mongoTemplate.updateFirst(query1, new Update().pull("recommend_req", recommendation), requester_class);
+		logger.info(r.toString());
+		r = mongoTemplate.updateFirst(query2, new Update().pull("recc_req_recvd", recommendation), recommender_class);
+		logger.info(r.toString());
+		
 	}
 
 	@Override
-	public void rejectRecommendationRequest(Recommendation reccomendation) {
-		// TODO Auto-generated method stub
-
+	public void rejectRecommendationRequest(Recommendation recommendation, Class<?> requester_class, Class<?> recommender_class) {
+		Query query1 = new Query().addCriteria(where("username").is(recommendation.getRequester_id()))
+				.addCriteria(where("recommend_req.recommender_id").is(recommendation.getRecommender_id()));
+		Query query2 = new Query().addCriteria(where("username").is(recommendation.getRecommender_id()))
+				.addCriteria(where("recc_req_recvd.requester_id").is(recommendation.getRequester_id()));
+		
+		UpdateResult r = mongoTemplate.updateFirst(query2, new Update().push("recc_rejected", recommendation), recommender_class);
+		logger.info(r.toString());
+		
+		recommendation.setStatus(0);
+		recommendation.setRecc_msg(null);
+		r =mongoTemplate.updateFirst(query1, new Update().pull("recommend_req", recommendation), requester_class);
+		logger.info(r.toString());
+		r = mongoTemplate.updateFirst(query2, new Update().pull("recc_req_recvd", recommendation), recommender_class);
+		logger.info(r.toString());
 	}
 
 	@SuppressWarnings("unchecked")

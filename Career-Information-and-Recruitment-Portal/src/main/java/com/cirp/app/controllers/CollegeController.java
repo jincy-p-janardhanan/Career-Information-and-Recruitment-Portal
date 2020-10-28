@@ -27,7 +27,8 @@ public class CollegeController {
 	
 	@GetMapping("/home")
 	public String profile(Model model, Authentication authentication) {
-		College college = repo.findById(authentication.getName());
+		String username = authentication.getName();
+		College college = repo.findById(username);
 		StringVal desc = new StringVal();
 		desc.setValue(college.getDesc());
 		String bg_img = college.getBg_img();
@@ -36,26 +37,28 @@ public class CollegeController {
 			bg_img = "default_background.png";
 		}
 		
-		model.addAttribute("profile_pic", college.getProfile_pic());
+		model.addAttribute("username", username);
 		model.addAttribute("bg_img", bg_img);
 		model.addAttribute("desc", desc);
 		model.addAttribute("name", college.getName().toUpperCase());
 		model.addAttribute("univ", college.getAffil_univ().toUpperCase());
 		model.addAttribute("contact", college.getContact());
+		model.addAttribute("requests", college.getRecc_req_recvd());
 		return "college/home_college";		
 	}
 	
 	@GetMapping("/admin-panel")
 	public String home(Model model, Authentication authentication) {
-		College college = repo.findById(authentication.getName());
+		String username = authentication.getName();
+		College college = repo.findById(username);
 		List<Alumnus> alumni_pending = new ArrayList<Alumnus>();
 		if(college.getAlumni_pending() !=null) {
 			for(String alumnus : college.getAlumni_pending()) {
 				alumni_pending.add(repo.findById(alumnus));
-				Alumnus a = repo.findById(alumnus);
 			}
 		}
-		model.addAttribute("profile_pic", college.getProfile_pic());
+		model.addAttribute("username", username);
+
 		model.addAttribute("alumni_pending", alumni_pending);
 		model.addAttribute("student", new Student());
 		return "college/college_admin_panel";

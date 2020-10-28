@@ -48,15 +48,15 @@ public class RecruiterController {
 		if (bg_img == null) {
 			bg_img = "default_background.png";
 		}
-
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
+		
 		model.addAttribute("bg_img", bg_img);
 		model.addAttribute("desc", desc);
 		model.addAttribute("name", recruiter.getName().toUpperCase());
 		model.addAttribute("location",
 				recruiter.getContact().getCity_or_town() + ", " + recruiter.getContact().getCountry());
 		model.addAttribute("contact", recruiter.getContact());
-
+		model.addAttribute("requests", recruiter.getRecc_req_recvd());
+		
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
 		model.addAttribute("channels", channels);
@@ -76,11 +76,13 @@ public class RecruiterController {
 				jobs.add(job);
 			}
 		}
+		
+		model.addAttribute("requests", recruiter.getRecc_req_recvd());
+		
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
 		model.addAttribute("channels", channels);
 		model.addAttribute("username", username);
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		model.addAttribute("jobs", jobs);
 		model.addAttribute("viewjob", new Job());
 		return "recruiter/manage_job";
@@ -116,8 +118,6 @@ public class RecruiterController {
 		job.setQuestions(Arrays.asList("Maybe some task or scenorio you would like to be solved by the candidate..."));
 		model.addAttribute("job", job);
 		String username = authentication.getName();
-		Recruiter recruiter = repo.findById(username);
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
@@ -130,16 +130,12 @@ public class RecruiterController {
 	public String addQuestion(final Job job, final BindingResult bindingResult, Model model,
 			Authentication authentication) {
 		job.getQuestions().add(new String());
-		Recruiter recruiter = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		return "recruiter/create_job";
 	}
 
 	@RequestMapping(value = "/create-job", params = { "delete-question" })
 	public String deleteQuestion(Model model, final Job job, final BindingResult bindingResult,
 			final HttpServletRequest req, Authentication authentication) {
-		Recruiter recruiter = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		final Integer question_no = Integer.valueOf(req.getParameter("delete-question"));
 		job.getQuestions().remove(question_no.intValue());
 		return "recruiter/create_job";

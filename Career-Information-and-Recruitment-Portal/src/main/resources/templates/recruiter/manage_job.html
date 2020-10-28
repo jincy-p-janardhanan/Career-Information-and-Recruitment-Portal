@@ -168,19 +168,21 @@ a:hover {
 											id="container_23b2962e">
 											<div style="margin: 0px; display: block;"
 												id="container_23b2962e_padding">
-												<a th:href="@{/recruiter/view-applications}"><span style="text-align: right;">
-													<img th:src="@{/css/assets/applicant.png}"
+												<a th:href="@{/recruiter/view-applications}"><span
+													style="text-align: right;"> <img
+														th:src="@{/css/assets/applicant.png}"
 														style="vertical-align: bottom; position: relative; display: inline-block; width: 20px; background: none;"
 														id="img_203e602b" alt="" title="" /> <span
 														style="font-size: 10pt; font-family: 'Open Sans'; color: #B2B2B2;">View
-														Applications</span>
+															Applications</span>
 												</span></a>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<br><br>
+							<br>
+							<br>
 							<div th:each="job: ${jobs}">
 								<div
 									style="vertical-align: top; position: relative; display: inline-block; width: 98%; min-height: 300px; background: none;"
@@ -217,39 +219,57 @@ a:hover {
 																	th:text="${job.desc}"></span>
 															</div>
 														</div>
-														<a th:href="@{'/recruiter/view-applications?job_id=' + ${job._id}}">
-														<button
-															th:style="'box-sizing: border-box; position: absolute; left: 72%; top: 88%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/applicant.png'} + '); background-position: center center; background-size: cover; border: none;'"
-															id="button_7a06fb91"></button></a>
-														
+														<a
+															th:href="@{'/recruiter/view-applications?job_id=' + ${job._id}}">
+															<button
+																th:style="'box-sizing: border-box; position: absolute; left: 72%; top: 88%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/applicant.png'} + '); background-position: center center; background-size: cover; border: none;'"
+																id="button_7a06fb91"></button>
+														</a>
+
 														<button onClick="popup()"
 															th:style="'box-sizing: border-box; position: absolute; left: 92%; top: 88%; width: 29px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/trash.png'} +'); background-position: center center; background-size: cover; border: none;'"
 															id="button_3dcb90c1"></button>
-														
+
 														<a th:href="@{'/recruiter/edit-job?job_id=' + ${job._id}}">
-														<button
-															th:style="'box-sizing: border-box; position: absolute; left: 86%; top: 89%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/edit_pencil.png'} +'); background-position: center center; background-size: cover; border: none;'"
-															id="button_1905419d"></button>
-														</a>
-														
-														<a th:href="@{'/recruiter/view-job?job_id=' + ${job._id}}">
-															<button	th:style="'box-sizing: border-box; position: absolute; left: 79%; top: 88%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/view___grey.png'} +'); background-position: center center; background-size: cover; border: none;'"
+															<button
+																th:style="'box-sizing: border-box; position: absolute; left: 86%; top: 89%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/edit_pencil.png'} +'); background-position: center center; background-size: cover; border: none;'"
+																id="button_1905419d"></button>
+														</a> <a
+															th:href="@{'/recruiter/view-job?job_id=' + ${job._id}}">
+															<button
+																th:style="'box-sizing: border-box; position: absolute; left: 79%; top: 88%; width: 30px; height: 30px; background-color: #FFFFFF; background-image: url('+ @{'/css/assets/view___grey.png'} +'); background-position: center center; background-size: cover; border: none;'"
 																id="button_25c626af"></button>
 														</a>
-														<div id="delete_confirm" class = "modal">
-															<div style="background:#0f0f0f; margin: 200px; width:30%; height: 100px; padding:20px;">
-																<span style="color:white; text-align:center;">Do you really want to delete this job?<br><br></span>
-																
-																<a style="padding: 10px; margin:20px; width:75px; background: #F23D3E; color:white;" th:href="@{'/recruiter/delete-job?job_id=' + ${job._id}}">Yes</a>
-																<a style="padding: 10px; margin:20px; width:75px; background: #42740C; color:white;" onClick="close_popup()">Cancel</a>											
-															</div>														
+														<div id="delete_confirm" class="modal">
+															<div
+																style="background: #0f0f0f; margin: 200px; width: 30%; height: 100px; padding: 20px;">
+																<span style="color: white; text-align: center;">Do
+																	you really want to delete this job?<br>
+																<br>
+																</span> <a
+																	style="padding: 10px; margin: 20px; width: 75px; background: #F23D3E; color: white;"
+																	th:href="@{'/recruiter/delete-job?job_id=' + ${job._id}}">Yes</a>
+																<a
+																	style="padding: 10px; margin: 20px; width: 75px; background: #42740C; color: white;"
+																	onClick="close_popup()">Cancel</a>
+															</div>
 														</div>
 														<script th:inline="javascript">
 															function popup() {
-																document.getElementById("delete_confirm").style.display = "block";
+																document
+																		.getElementById("delete_confirm").style.display = "block";
 															}
 															function close_popup() {
-																document.getElementById("delete_confirm").style.display = "none";
+																document
+																		.getElementById("delete_confirm").style.display = "none";
+															}
+															window.onclick = function(
+																	event) {
+																if (event.target == document
+																		.getElementById("delete_confirm")) {
+																	document
+																			.getElementById("delete_confirm").style.display = "none";
+																}													
 															}
 														</script>
 													</div>

@@ -17,7 +17,7 @@ a {
 	text-decoration: none
 }
 
-a:visited  {
+a:visited {
 	color: #b2b2b2;
 	text-decoration: none
 }
@@ -64,6 +64,25 @@ a:hover {
 		font-size: 10pt !important;
 	}
 }
+
+li {
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #36A5E9;
+}
+
+.profile {
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #282828;
+}
+
+.subheading {
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: #000000;
+	font-weight: bolder;
+}
 </style>
 </head>
 <body style="background-color: #FFFFFF; padding: 0; margin: 0;">
@@ -79,7 +98,7 @@ a:hover {
 					</header>
 					<div th:replace="admin/server_admin_panel.html :: navbar-admin"
 						style="color: #B2B2B2;"></div>
-				</div>				
+				</div>
 				<div sec:authorize="hasRole('ROLE_RECRUITER')">
 					<header th:insert="recruiter/home_recruiter.html :: header">
 					</header>
@@ -89,13 +108,16 @@ a:hover {
 				<div
 					sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')">
 					<header th:insert="student/home_student.html :: header"> </header>
-					<div th:replace="student/home_student.html :: navbar-student" th:style="a{color: #B2B2B2;}" ></div>
+					<div th:replace="student/home_student.html :: navbar-student"
+						th:style="a{color: #B2B2B2;}"></div>
 				</div>
+				<div th:if="${message}" th:text="${message}"
+					style="position: center; top: 6%; padding: 10px; text-align: center; width: auto; min-height: 20px; font-size: 10pt; font-family: 'Open Sans'; color: #ffffff; background: #986767;"></div>
 				<div style="margin: 10px; display: block;"
 					id="form_71a76e09_padding">
-					<div style="text-align: left; margin-top:40px; margin-left:50px;">
+					<div style="text-align: left; margin-top: 40px; margin-left: 50px;">
 						<div
-							th:style="'vertical-align: top; border-radius: 100px; position: relative; display: inline-block; width: 25%; height: 200px; width: 200px; background-image: url('+ @{'/view-profile-pic/' + ${student_profile_pic}} +'); background-position: top left; background-size: cover;'"
+							th:style="'vertical-align: top; border-radius: 100px; position: relative; display: inline-block; width: 25%; height: 200px; width: 200px; background-image: url('+ @{'/view-profile-pic/' + ${id}} +'); background-position: top left; background-size: cover;'"
 							id="container_2a07b59f">
 							<div style="margin: 10px; display: block;"
 								id="container_2a07b59f_padding">
@@ -109,7 +131,8 @@ a:hover {
 							id="container_1e6987e3">
 							<div style="margin: 10px; display: block;"
 								id="container_1e6987e3_padding">
-								<div style="text-align: left; margin-top:40px; margin-left:50px;">
+								<div
+									style="text-align: left; margin-top: 40px; margin-left: 50px;">
 									<h1
 										style="vertical-align: top; position: relative; display: inline-block; background: none;"
 										id="heading_30e6bc0e">
@@ -125,7 +148,7 @@ a:hover {
 											id="container_713f2bdf_padding">
 											<div style="text-align: left;">
 												<span
-													style="white-space:pre-wrap; font-size: 12pt; font-family: 'Open Sans'; color: #FFFFFF;"
+													style="white-space: pre-wrap; font-size: 12pt; font-family: 'Open Sans'; color: #FFFFFF;"
 													th:text="${student_course}"></span>
 											</div>
 										</div>
@@ -133,14 +156,18 @@ a:hover {
 								</div>
 							</div>
 						</div>
-						<div
+						<div 
+							sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')"
+							th:if="${username != id && isAlumnus}"
 							style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none;"
 							id="container_38d84016">
 							<div style="margin: 10px; display: block;"
 								id="container_38d84016_padding">
-								<div style="text-align: right; padding-top:50px; padding-right:20px;">
-									<a th:href="@{#}" th:if="${isAlumnus}" sec:authorize="hasRole('ROLE_STUDENT') or hasRole('ROLE_ALUMNUS')"
-										style="box-sizing: border-box; vertical-align: bottom; position: relative; margin:auto; display: inline-block; width: 180px; height: 30px; background-color: #54861B; border: 0px solid #404040; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;"
+								<div
+									style="text-align: right; padding-top: 50px; padding-right: 20px;">
+									<a
+										th:href="@{'/request-recommendation?recommender_id=' + ${id}}"
+										style="box-sizing: border-box; vertical-align: bottom; position: relative; margin: auto; display: inline-block; width: 180px; height: 30px; background-color: #54861B; border: 0px solid #404040; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;"
 										id="button_4be8a3e4">Request Recommendation</a>
 								</div>
 								<div style="clear: both"></div>
@@ -192,96 +219,8 @@ a:hover {
 						<div style="clear: both"></div>
 					</div>
 				</div>
-				
 				<div
-						style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; float: left; margin: 20px 0px 0px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
-						id="container_54e3dd05">
-						<div style="margin: 10px; display: block;"
-							id="container_54e3dd05_padding">
-							<div style="text-align: center;">
-								<div
-									style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #DDDDDD;"
-									id="container_bfe47d7">
-									<div style="margin: 10px; display: block;"
-										id="container_bfe47d7_padding">
-										<div style="text-align: left;">
-											<span
-												style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">PROFILE</span>
-											<a th:href="@{/student/update-personalisation}"><button
-													title="Click here to personalise your profile"
-													style="cursor: pointer;" id="button_475df8fc"></button></a>
-										</div>
-									</div>
-								</div>
-								<div th:if="${personalisation}" th:object="${personalisation}"
-									style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 62px; background: none;"
-									id="container_55e5f313">
-									<div style="margin: 10px; display: block;"
-										id="container_55e5f313_padding">
-										<div style="text-align: left;">
-											<div th:if="*{skills}"><span class="profile">SKILLS</span> 
-												<ul>
-													<th:block >
-														<li th:each="skill : *{skills}"
-															th:text="${skill}"></li>
-													</th:block>
-												</ul>
-											</div>
-											<div th:if="*{work}"><span class="profile">EXPERIENCE</span> 
-												<ul>
-													<th:block th:each="wrk : *{work}">		
-														<span class="subheading" th:text="${wrk.job}"></span>
-														<li th:if= "${wrk.company}" th:text="${wrk.company}"></li>
-														<li th:if= "${wrk.skills}" th:text="${wrk.skills}"></li>
-														<li th:if= "${wrk.st_date} and ${wrk.end_date}" th:text="${wrk.st_date}+'to'+${wrk.end_date}"></li>														
-													
-													</th:block>
-												</ul>
-											</div>  
-											<div th:if="*{education}"><span class="profile">EDUCATION</span> 
-												<ul>
-													<th:block th:each="edu : *{education}">		
-														<span class="subheading" th:text="${edu.course}"></span>
-														<li th:if= "${edu.institution}" th:text="${edu.institution}"></li>
-														<li th:if= "${edu.board}" th:text="${edu.board}"></li>
-														<li th:if= "${edu.year}" th:text="${edu.year}"></li>
-														
-													</th:block>
-												</ul>
-											</div>
-											<div th:if="*{project}"><span class="profile">PROJECT</span> 
-												<ul>
-													<th:block th:each="pro : *{project}">		
-														<span class="subheading" th:text="${pro.name}"></span>
-														<li th:if= "${pro.desc}" th:text="${pro.desc}"></li>
-														<li th:if= "${pro.tech}" th:text="${pro.tech}"></li>
-														
-													</th:block>
-												</ul>
-											</div>
-											<div th:if="*{communities}"><span class="profile">COMMUNITIES</span> 
-												<ul>
-													<th:block th:each="cmn : *{communities}">		
-														<span class="subheading" th:text="${cmn.name}"></span>
-														<li th:if= "${cmn.website}" th:text="${cmn.website}"></li>
-						
-													</th:block>
-												</ul>
-											</div>
-											<div th:if="*{awards}"><span class="profile">AWARDS</span> 
-												<ul>
-													<th:block th:each="awr : *{awards}">		
-														<span class="subheading" th:text="${awr.name}"></span>
-														<li th:if= "${awr.year}" th:text="${awr.year}"></li>														
-													</th:block>
-												</ul>
-											</div>											
-										</div>
-									</div>
-									</div>
-									</div>
-				<div
-					style="box-sizing: border-box; vertical-align: top; position: relative; display: inline-block; float: left; margin: 20px 0px 0px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
+					style="box-sizing: border-box; vertical-align: top; min-width: 300px; position: relative; float: left; margin: 20px 0px 20px 0px; width: 25%; background-color: #FFFFFF; border: 1px solid #DDDDDD;"
 					id="container_54e3dd05">
 					<div style="margin: 10px; display: block;"
 						id="container_54e3dd05_padding">
@@ -293,79 +232,90 @@ a:hover {
 									id="container_bfe47d7_padding">
 									<div style="text-align: left;">
 										<span
-											style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">CONTACT</span>
+											style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">PROFILE</span>
 									</div>
 								</div>
 							</div>
-							<div
+							<div th:if="${personalisation}" th:object="${personalisation}"
 								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 62px; background: none;"
 								id="container_55e5f313">
 								<div style="margin: 10px; display: block;"
 									id="container_55e5f313_padding">
 									<div style="text-align: left;">
-										<span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">WEBSITE</span><span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
-											th:text="${student_contact.website}"></span>
-									</div>
-								</div>
-							</div>
-							<div
-								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 64px; background: none;"
-								id="container_4cc8eb5f">
-								<div style="margin: 10px; display: block;"
-									id="container_4cc8eb5f_padding">
-									<div style="text-align: left;">
-										<span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">EMAIL</span><span
-											style="font-size: 12pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
-											th:text="${student_contact.public_email}"></span>
-									</div>
-								</div>
-							</div>
-							<div
-								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 65px; background-color: #FFFFFF;"
-								id="container_4873a8bf">
-								<div style="margin: 10px; display: block;"
-									id="container_4873a8bf_padding">
-									<div style="text-align: left;">
-										<span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">PHONE</span><span
-											style="font-size: 12pt; font-family: 'Open Sans'; color: #000000;"><br /></span><span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;"
-											th:text="${student_contact.landph}"></span>
-									</div>
-								</div>
-							</div>
-							<div
-								style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 140px; background-color: #FFFFFF;"
-								id="container_3044ba94">
-								<div style="margin: 10px; display: block;"
-									id="container_3044ba94_padding">
-									<div style="text-align: left;">
-										<span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #282828;">ADDRESS</span><span
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #000000;"><br /></span>
-										<div
-											style="font-size: 11pt; font-family: 'Open Sans'; color: #36A5E9;">
-											<span th:text="${student_contact.address_line1}"></span><br />
-											<span th:text="${student_contact.address_line2}"></span> <span
-												th:text="${student_contact.city_or_town}"></span><br />
-											<span th:text="${student_contact.district}"><br /></span>, <span
-												th:text="${student_contact.state}"><br /></span>, <span
-												th:text="${student_contact.country}"><br /></span> - <span
-												th:text="${student_contact.pincode}"><br /></span>
+										<div th:if="*{skills}">
+											<span class="profile">SKILLS</span>
+											<ul>
+												<th:block>
+													<li th:each="skill : *{skills}" th:text="${skill}"></li>
+												</th:block>
+											</ul>
+										</div>
+										<div th:if="*{work}">
+											<span class="profile">EXPERIENCE</span>
+											<ul>
+												<th:block th:each="wrk : *{work}">
+													<span class="subheading" th:text="${wrk.job}"></span>
+													<li th:if="${wrk.company}" th:text="${wrk.company}"></li>
+													<li th:text="${wrk.desc}"><br /></li>
+													<li th:if="${wrk.skills}" th:text="${wrk.skills}"></li>
+													<li th:if="${wrk.st_date} and ${wrk.end_date}"
+														th:text="${#dates.format(wrk.st_date, 'dd-MM-yyyy')}+'to'+${#dates.format(wrk.end_date, 'dd-MM-yyyy')}"></li>
+
+												</th:block>
+											</ul>
+										</div>
+										<div th:if="*{education}">
+											<span class="profile">EDUCATION</span>
+											<ul>
+												<th:block th:each="edu : *{education}">
+													<span class="subheading" th:text="${edu.course}"></span>
+													<li th:if="${edu.institute}" th:text="${edu.institute}"></li>
+													<li th:if="${edu.board}" th:text="${edu.board}"></li>
+													<li th:if="${edu.year}" th:text="${edu.year}"></li>
+
+												</th:block>
+											</ul>
+										</div>
+										<div th:if="*{project}">
+											<span class="profile">PROJECT</span>
+											<ul>
+												<th:block th:each="pro : *{project}">
+													<span class="subheading" th:text="${pro.name}"></span>
+													<li th:if="${pro.desc}" th:text="${pro.desc}"></li>
+													<li th:if="${pro.tech}" th:text="${pro.tech}"></li>
+
+												</th:block>
+											</ul>
+										</div>
+										<div th:if="*{communities}">
+											<span class="profile">COMMUNITIES</span>
+											<ul>
+												<th:block th:each="cmn : *{communities}">
+													<span class="subheading" th:text="${cmn.name}"></span>
+													<li th:if="${cmn.website}" th:text="${cmn.website}"></li>
+
+												</th:block>
+											</ul>
+										</div>
+										<div th:if="*{awards}">
+											<span class="profile">AWARDS</span>
+											<ul>
+												<th:block th:each="awr : *{awards}">
+													<span class="subheading" th:text="${awr.name}"></span>
+													<li th:if="${awr.year}" th:text="${awr.year}"></li>
+													<li th:if="${awr.website_of_org}"
+														th:text="${awr.website_of_org}"></li>
+												</th:block>
+											</ul>
 										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
+
 			</div>
-		</div>
-	</div>
 </body>
 </html>

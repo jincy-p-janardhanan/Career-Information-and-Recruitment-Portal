@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="generator" content="RocketCake">
-	<title></title>
-	<link rel="stylesheet" type="text/css" th:href="@{cs_it_info_html.css}">
+	<title>Computer Science and Information Technology</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/cs_it_info_html.css}">
 	<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -193,36 +193,11 @@ td {
 	box-shadow: 1px 1px 2px 2px #dddddd;
 }
 
-#profile_button {
-	box-sizing: border-box;
-	vertical-align: bottom;
-	border-radius: 100px;
-	position: relative;
-	display: inline-block;
-	width: 200px;
-	height: 200px;
-	background-color: #061332;
-	background-image: url([[@{'/view-profile-pic/' + ${profile_pic}}]]);
-	background-position: center left;	
-	background-size:cover;	
-	border: 0px;
-}
-
 .img-circle {
 	box-sizing: border-box;
 	border-radius: 100px;
 }
 
-#profile_button:hover {
-	background: url([[@{/css/assets/camera-circle.png}]]);
-	background-size: cover;
-}
-#backgroundimage {
-	display: block;
-	margin:0px;
-	background-image: url([[@{'/view-bg-img/' + ${bg_img}}]]);
-	background-size:cover;
-}
 </style>
 <script>
 	function openNav() {
@@ -242,7 +217,7 @@ td {
   <div id="container_597592f2">
     <div id="container_597592f2_padding" >
       <div class="textstyle1">
-        <img src="rc_images/cs_icon.png" id="img_44c6c9cc" alt="" title="" />
+        <img th:src="@{/css/assets/cs_icon.png}" id="img_44c6c9cc" alt="" title="" />
         <div id="container_552d7807">
           <div id="container_552d7807_padding" >
             <div class="textstyle2">
@@ -279,7 +254,7 @@ td {
 								</div>
 								<div id="container_74f6e22b">
 									<div id="container_74f6e22b_padding" >
-										<div class="textstyle1"><span class="textstyle4">Some top recruiters of Information technology engineers include:<br/></span>
+										<div class="textstyle1"><span class="textstyle4">Some top jobs for information technology engineers include:<br/></span>
 										<span class="textstyle5"><br/></span>
 											<div id="container_1e96eab0">
 											</div>
@@ -349,8 +324,8 @@ td {
 										<div id="container_7ecb5c5f">
 											<div id="container_7ecb5c5f_padding" >
 												<div class="textstyle1">
-													<img src="rc_images/top_recruiters_1024x307.png" id="img_24ad08ac" alt="" title="" />
-											<img src="rc_images/it_industry.jpg" id="img_4072b823" alt="" title="" />
+													<img th:src="@{/css/assets/top_recruiters_1024x307.png}" id="img_24ad08ac" alt="" title="" />
+											<img th:src="@{/css/assets/it_industry.jpg}" id="img_4072b823" alt="" title="" />
 													</div>
 												<div style="clear:both">
 												</div>

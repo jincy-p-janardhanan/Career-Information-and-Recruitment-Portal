@@ -20,8 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.College;
+import com.cirp.app.model.Job;
+import com.cirp.app.model.NonAdmin;
 import com.cirp.app.model.Recruiter;
 import com.cirp.app.model.Student;
+import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.EditProfile;
 import com.cirp.app.service.FileStorage;
 import com.cirp.app.service.FindClass;
@@ -35,6 +38,9 @@ public class FileController {
 	@Autowired
 	private FindClass find;
 
+	@Autowired
+	private CirpRepository repo;
+	
 	@PostMapping("/update-profile-pic")
 	public String updateProfilePic(@RequestParam("file") MultipartFile image, RedirectAttributes redirectAttributes,
 			Authentication authentication) {
@@ -44,12 +50,25 @@ public class FileController {
 		return getRedirectUrl(username);
 	}
 
-	@GetMapping("/view-profile-pic/{image:.+}")
-	public ResponseEntity<byte[]> viewProfilePic(@PathVariable("image") String image, Authentication authentication) throws IOException {
-		File img = new File(FileStorage.UPLOAD_PATH + "\\profile-pictures\\" + image);
-		return ResponseEntity.ok()
-				.contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img)))
-				.body(Files.readAllBytes(img.toPath()));
+	@GetMapping("/view-profile-pic/{id}")
+	public ResponseEntity<byte[]> viewProfilePic(@PathVariable("id") String id, Authentication authentication) throws IOException {
+
+		if(repo.findById(id) instanceof NonAdmin) {
+			NonAdmin user = repo.findById(id);
+			String image = user.getProfile_pic();
+			File img = new File(FileStorage.UPLOAD_PATH + "\\profile-pictures\\" + image);
+			return ResponseEntity.ok()
+					.contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img)))
+					.body(Files.readAllBytes(img.toPath()));
+		}
+		else {
+			Job job = repo.findById(id);
+			String image = job.getProfile_pic();
+			File img = new File(FileStorage.UPLOAD_PATH + "\\profile-pictures\\" + image);
+			return ResponseEntity.ok()
+					.contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img)))
+					.body(Files.readAllBytes(img.toPath()));
+		}
 	}
 
 	@PostMapping("/update-bg-img")

@@ -162,8 +162,10 @@ a {
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 0px;"><div id="profile_image"
-															th:style="'background-image: url('+ @{'/view-profile-pic/' + ${result.profile_pic}} +');'"></div></td>
+													<td style="padding: 0px;"><div th:if="${result instanceof T(org.bson.Document)}" id="profile_image"
+															th:style="'background-image: url('+ @{'/view-profile-pic/' + ${result._id}} +');'"></div>
+															<div th:if="${result instanceof T(com.cirp.app.model.User)}" id="profile_image"
+															th:style="'background-image: url('+ @{'/view-profile-pic/' + ${result.username}} +');'"></div></td>
 													<td><span th:text="${result.desc}" class="textstyle5"
 														style="display: inline-block; white-space: pre-wrap; text-overflow: ellipsis; height: 10em; overflow: hidden;"></span></td>
 

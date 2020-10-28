@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cirp.app.model.Admin;
 import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.Application;
+import com.cirp.app.model.ChatChannel;
 import com.cirp.app.model.College;
 import com.cirp.app.model.Job;
 import com.cirp.app.model.NonAdmin;
 import com.cirp.app.model.Recruiter;
 import com.cirp.app.model.Student;
+import com.cirp.app.repository.ChatChannelRepo;
 import com.cirp.app.repository.CirpRepository;
 import com.cirp.app.service.FindClass;
 
@@ -32,13 +34,22 @@ public class ViewProfilePublic {
 	@Autowired
 	FindClass find;
 	
+	@Autowired
+	ChatChannelRepo chatChannelRepo;
+	
 	@GetMapping
 	public String view(@RequestParam String id, Model model, Authentication authentication) {
-		if(repo.findById(authentication.getName()).getClass() != Admin.class) {
+		String username = authentication.getName();
+		if(repo.findById(username).getClass() != Admin.class) {
 			NonAdmin user = repo.findById(authentication.getName()); //logged in user
 			model.addAttribute("profile_pic", user.getProfile_pic());
 		}
 		
+		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
+		channels.addAll(chatChannelRepo.findByUser2(username));
+		model.addAttribute("channels", channels);
+		model.addAttribute("username", username);
+		model.addAttribute("id", id);
 		Class<?> user_class = find.findClass(id);
 		
 		if(user_class == College.class) {
@@ -79,8 +90,11 @@ public class ViewProfilePublic {
 			model.addAttribute("student_bg_img", bg_img);
 			model.addAttribute("student_desc", student.getDesc());
 			model.addAttribute("student_name", student.getName().toUpperCase());
-			model.addAttribute("student_course", student.getCourse() + ", " + student.getBranch());
-			model.addAttribute("student_personalisation", student.getPersonalisation());
+			College college = repo.findById(student.getCollege_id());
+			model.addAttribute("student_course", student.getCourse() + ", " + student.getBranch()+"\n"+college.getName());
+			model.addAttribute("personalisation", student.getPersonalisation());
+			model.addAttribute("isAlumnus", false);
+			model.addAttribute("recommendations", student.getRecommendations());
 			return "view/student";
 		} else if(user_class == Alumnus.class) {
 			Alumnus student = repo.findById(id);
@@ -94,8 +108,9 @@ public class ViewProfilePublic {
 			model.addAttribute("student_name", student.getName().toUpperCase());
 			College college = repo.findById(student.getCollege_id());
 			model.addAttribute("student_course", student.getCourse() + ", " + student.getBranch()+"\n"+college.getName());
-			model.addAttribute("student_personalisation", student.getPersonalisation());
+			model.addAttribute("personalisation", student.getPersonalisation());
 			model.addAttribute("isAlumnus", true);
+			model.addAttribute("recommendations", student.getRecommendations());
 			return "view/student";
 		} else if(user_class == Job.class) {
 			Job job = repo.findById(id);
@@ -104,7 +119,7 @@ public class ViewProfilePublic {
 			Application application = new Application();
 			List<String> answers = new ArrayList<String>();
 			if(job.getQuestions()!= null) {
-				for(String question: job.getQuestions())
+				for(@SuppressWarnings("unused") String question: job.getQuestions())
 					answers.add(new String());
 			}
 			Recruiter recruiter = repo.findById(job.getRecruiter_id());

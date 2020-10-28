@@ -195,7 +195,7 @@ a {
 		<div
 			style="position: absolute; border: solid 1px #dddddd; border-radius: 9px; top: 25%; left: 70%; width: 25%; margin-top: 100px; padding: 10px; box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.196078);">
 			<div id="profile_image"
-				th:style="'background-image: url('+ @{'/view-profile-pic/' + ${job.profile_pic}} +');'"></div>
+				th:style="'background-image: url('+ @{'/view-profile-pic/' + ${job._id}} +');'"></div>
 			<br />
 			<div id="title">
 				<span th:text="${recruiter_name}"></span> <span

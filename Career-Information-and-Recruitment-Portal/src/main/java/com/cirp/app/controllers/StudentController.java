@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cirp.app.model.Alumnus;
 import com.cirp.app.model.Application;
 import com.cirp.app.model.Awards;
 import com.cirp.app.model.ChatChannel;
@@ -60,7 +61,6 @@ public class StudentController {
 		if (bg_img == null) {
 			bg_img = "default_background.png";
 		}
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		model.addAttribute("bg_img", bg_img);
 		model.addAttribute("desc", desc);
 		model.addAttribute("name", student.getName().toUpperCase());
@@ -68,7 +68,11 @@ public class StudentController {
 				student.getCourse() + ". " + student.getBranch()+"\n"+ college.getName());
 		Personalisation p = student.getPersonalisation();		
 		model.addAttribute("personalisation", p);
-		
+		if(find.findClass(username) == Alumnus.class) {
+			Alumnus al = repo.findById(username);
+			model.addAttribute("requests", al.getRecc_req_recvd());
+		}
+		model.addAttribute("recommendations", student.getRecommendations());
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
 		model.addAttribute("channels", channels);
@@ -138,8 +142,7 @@ public class StudentController {
 		if(w == null) w = new ArrayList<>();
 		w.add(new WorkExperience());
 		p.setWork(w);
-
-		model.addAttribute("profile_pic", student.getProfile_pic());
+		
 		model.addAttribute("personalisation", p);
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
@@ -152,8 +155,6 @@ public class StudentController {
 	public String addProject(final Personalisation personalisation, final BindingResult bindingResult, Model model,
 			Authentication authentication) {
 		personalisation.getProject().add(new Project());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 
@@ -161,8 +162,6 @@ public class StudentController {
 	public String addWork(final Personalisation personalisation, final BindingResult bindingResult, Model model,
 			Authentication authentication) {
 		personalisation.getWork().add(new WorkExperience());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -170,8 +169,6 @@ public class StudentController {
 	public String addCommunity(final Personalisation personalisation, final BindingResult bindingResult, Model model,
 			Authentication authentication) {
 		personalisation.getCommunities().add(new Communities());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -179,8 +176,6 @@ public class StudentController {
 	public String addAward(final Personalisation personalisation, final BindingResult bindingResult, Model model,
 			Authentication authentication) {
 		personalisation.getAwards().add(new Awards());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -188,8 +183,6 @@ public class StudentController {
 	public String addEducation(final Personalisation personalisation, final BindingResult bindingResult, Model model,
 			Authentication authentication) {
 		personalisation.getEducation().add(new Education());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -198,8 +191,6 @@ public class StudentController {
 			Authentication authentication) {
 		final Integer index = Integer.valueOf(req.getParameter("remove-project"));
 		personalisation.getProject().remove(index.intValue());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 
@@ -208,8 +199,6 @@ public class StudentController {
 			Authentication authentication) {
 		final Integer index = Integer.valueOf(req.getParameter("remove-work"));
 		personalisation.getWork().remove(index.intValue());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -218,8 +207,6 @@ public class StudentController {
 			Authentication authentication) {
 		final Integer index = Integer.valueOf(req.getParameter("remove-community"));
 		personalisation.getCommunities().remove(index.intValue());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -228,8 +215,6 @@ public class StudentController {
 			Authentication authentication) {
 		final Integer index = Integer.valueOf(req.getParameter("remove-award"));
 		personalisation.getAwards().remove(index.intValue());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -238,8 +223,6 @@ public class StudentController {
 			Authentication authentication) {
 		final Integer index = Integer.valueOf(req.getParameter("remove-education"));
 		personalisation.getEducation().remove(index.intValue());
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
 		return "student/edit_personalisation";
 	}
 	
@@ -256,8 +239,7 @@ public class StudentController {
 		
 		List<Document> job_suggestions = repo.jobSuggestions(username, aggregatefrom);
 		model.addAttribute("job_suggestions", job_suggestions);
-		Student student = repo.findById(authentication.getName());
-		model.addAttribute("profile_pic", student.getProfile_pic());
+		
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
 		model.addAttribute("channels", channels);

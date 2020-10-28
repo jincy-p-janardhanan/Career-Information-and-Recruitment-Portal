@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,8 +35,8 @@ public class Student extends NonAdmin {
 	@NotBlank
 	private String college_id;
 	private Personalisation personalisation;
-	private List<ObjectId> recommend_req; // List of recommendation requests
-	private List<ObjectId> recommendations; // List of recommendations received
+	private List<Recommendation> recommend_req; // List of recommendation requests
+	private List<Recommendation> recommendations; // List of recommendations received
 
 	private List<String> applied_jobs;
 	private List<String> hired_jobs;
@@ -169,22 +168,6 @@ public class Student extends NonAdmin {
 		this.personalisation = personalisation;
 	}
 
-	public List<ObjectId> getRecommend_req() {
-		return recommend_req;
-	}
-
-	public void setRecommend_req(List<ObjectId> recommend_req) {
-		this.recommend_req = recommend_req;
-	}
-
-	public List<ObjectId> getRecommendations() {
-		return recommendations;
-	}
-
-	public void setRecommendations(List<ObjectId> recommendations) {
-		this.recommendations = recommendations;
-	}
-
 	public List<String> getApplied_jobs() {
 		return applied_jobs;
 	}
@@ -209,4 +192,19 @@ public class Student extends NonAdmin {
 		this.rejected_jobs = rejected_jobs;
 	}
 
+	public List<Recommendation> getRecommend_req() {
+		return recommend_req;
+	}
+
+	public void setRecommend_req(List<Recommendation> recommend_req) {
+		this.recommend_req = recommend_req;
+	}
+
+	public List<Recommendation> getRecommendations() {
+		return recommendations;
+	}
+
+	public void setRecommendations(List<Recommendation> recommendations) {
+		this.recommendations = recommendations;
+	}
 }

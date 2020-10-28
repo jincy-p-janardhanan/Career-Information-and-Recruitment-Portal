@@ -90,11 +90,13 @@ a {
 					<header th:insert="student/home_student.html :: header"> </header>
 					<div th:replace="student/home_student.html :: navbar-student"></div>
 				</div>
+				<div th:if="${message}" th:text="${message}"
+					style="position: center; top: 6%; padding: 10px; text-align: center; width: auto; min-height: 20px; font-size: 10pt; font-family: 'Open Sans'; color: #ffffff; background: #986767;"></div>
 				<div style="margin: 10px; display: block;"
 					id="form_71a76e09_padding">
 					<div style="text-align: left; padding-top: 40px;">
 						<div
-							th:style="'vertical-align: top; margin-left:50px; border-radius: 100px; position: relative; display: inline-block; width: 25%; height: 200px; width: 200px; background-image: url('+ @{'/view-profile-pic/' + ${recruiter_profile_pic}} +'); background-position: top left; background-size: cover;'"
+							th:style="'vertical-align: top; margin-left:50px; border-radius: 100px; position: relative; display: inline-block; width: 25%; height: 200px; width: 200px; background-image: url('+ @{'/view-profile-pic/' + ${id}} +'); background-position: top left; background-size: cover;'"
 							id="container_2a07b59f">
 							<div style="margin: 10px; display: block;"
 								id="container_2a07b59f_padding">
@@ -132,13 +134,13 @@ a {
 								</div>
 							</div>
 						</div>
-						<div
+						<div sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_ALUMNUS')"
 							style="vertical-align: top; position: relative; display: inline-block; width: 100%; min-height: 50px; background: none;"
 							id="container_38d84016">
 							<div style="margin: 10px; display: block;"
-								id="container_38d84016_padding">
+								id="container_38d84016_padding" >
 								<div style="text-align: right; padding-top:50px; padding-right:20px;">
-									<a th:href="@{#}" 
+									<a th:href="@{'/request-recommendation?recommender_id=' + ${id}}"
 										style="box-sizing: border-box; vertical-align: bottom; position: relative; margin:auto; display: inline-block; width: 180px; height: 30px; background-color: #54861B; border: 0px solid #404040; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;"
 										id="button_4be8a3e4">Request Recommendation</a>
 								</div>
