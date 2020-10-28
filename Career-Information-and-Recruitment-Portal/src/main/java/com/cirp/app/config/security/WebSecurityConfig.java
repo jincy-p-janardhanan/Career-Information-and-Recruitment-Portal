@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	       
 	       	.antMatchers("/", "/index", "/home", "/register", "/register-recruiter", 
 	       			"/register-college", "/register-alumnus", "/terms-and-conditions",
-	       			"/error", "/login" ,"/reset-password-request", "/update-password").permitAll()
+	       			"/error", "/login" ,"/reset-password-request", "/update-password", "/info/**").permitAll()
 	       	
 	       	//hasRole() allows to authorize users to access specific apis only
 	       	//Note: ROLE_ is not required while specifying the associated roles, when we use hasRole()

@@ -6,6 +6,27 @@
 <meta name="generator" content="RocketCake">
 <title>Home | Career Information and Recruitment Portal</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/index_html.css}">
+<script th:src="@{/js/jquery.min.js}"></script>
+<style>
+.fixeddiv {
+	width: 2px;
+	position: fixed;
+	left: 99%;
+	top: 70%;
+	padding: 10px;
+	text-align: center;
+	border-radius: 30px;
+	background: #F23D3E;
+	transition: .5s ease;
+}
+.fixeddiv:hover{
+	left: 85%;
+	top: 70%;
+	width:15%;
+}
+</style>
+<script type="text/javascript">
+</script>
 </head>
 <body>
 	<div class="textstyle1">
@@ -41,14 +62,14 @@
 					</div>
 					<a th:href="@{/login}" style="text-decoration: none"
 						id="button_22e4a421">
-							<div class="vcenterstyle1">
-								<div class="vcenterstyle2">
-									<div class="textstyle3">
-										<span class="textstyle4">Login</span>
-									</div>
-									<div class="textstyle1"></div>
+						<div class="vcenterstyle1">
+							<div class="vcenterstyle2">
+								<div class="textstyle3">
+									<span class="textstyle4">Login</span>
 								</div>
+								<div class="textstyle1"></div>
 							</div>
+						</div>
 					</a> <img src="css/assets/uihere.png" id="img_7c36b3fb" alt="" title="" />
 					<div id="text_27ce7d7c">
 						<div class="textstyle3">
@@ -130,10 +151,17 @@
 			</div>
 		</div>
 	</div>
-	<div class="fixed" style="z-index: 1; width: 15%; min-height:80px; position:fixed; left:85%; top:70%; padding:10px; text-align: center; border-radius:30px; background:#F23D3E;">
-		<span style="color:white; font-family:'Open Sans'; font-size: 12pt; text-decoration: underline;">General Info<br></span>
-		<a href="/csitinfo"><span style="font-family:'Open Sans'; font-size: 11pt;"><br>Computer Science & Information Technology</span></a>
-		<a href="/ecinfo"><span style="font-family:'Open Sans'; font-size: 11pt;"><br>Electronics & Communication Engineering</span></a>
-		<a href="/eeeinfo"><span style="font-family:'Open Sans'; font-size: 11pt;"><br>Electrical & Electronics Engineering</span></a>	</div>
+	<div class="fixeddiv">
+		<span
+			style="color: white; font-family: 'Open Sans'; font-size: 12pt; text-decoration: underline;">General
+			Info<br>
+		</span> <a href="/info/cs-it"><span
+			style="font-family: 'Open Sans'; font-size: 11pt;"><br>Computer
+				Science & Information Technology</span></a> <a href="/info/ec"><span
+			style="font-family: 'Open Sans'; font-size: 11pt;"><br>Electronics
+				& Communication Engineering</span></a> <a href="/info/eee"><span
+			style="font-family: 'Open Sans'; font-size: 11pt;"><br>Electrical
+				& Electronics Engineering</span></a>
+	</div>
 </body>
 </html>
