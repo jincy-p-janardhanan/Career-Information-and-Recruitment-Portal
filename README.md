@@ -1,8 +1,5 @@
 # Career Information and Recruitment Portal
 
-### Disclaimer: This is a web application project developed to meet academic curriculum requirements (semester 6 - mini project, B.Tech Information Technology, University of Calicut).
-
-## About
 This web application demonstrates use of Spring boot, Spring Security and MongoDB to build an effective platform for colleges, students, alumni and recruiters to connect with each other. Colleges can use this platform efficiently to help their students and alumni find more campus hiring opportunities. Recruiters can use this platform for hiring students and alumni. All job applications are custom sorted by default so that candidates that best match a job according to the skills on their profile stay on top. A chat feature is available for recruiters to communicate job/hiring related info to students or alumni. Students and alumni can use the various personalisation features and build an attractive profile. They can also enjoy personalised job suggestions based on the skills mentioned in their profile. There is also a recommendation feature which allows colleges, recruiters and alumni to recommend students and (other) alumni they know of. There are general info pages available for a few engineering branches to guide students in choosing their career.
 
 Four administrator accounts are configured by default for this application. All college and recruiter registrations on the platform has to be approved by the administrators before they can get full access to the platform. Similarly, the account of alumnus has to be approved by his/her college. Students cannot register themselves. Student accounts must be created by their colleges; hence, their accounts are approved by default.
@@ -29,6 +26,8 @@ from the downloaded folder.
 
 ### Pre-requisites
 To be able to run the application, you should have JRE (version 1.8 or higher) installed on your system.
+
+### Disclaimer: This is a web application project developed to meet academic curriculum requirements (semester 6 - mini project, B.Tech Information Technology, University of Calicut).
 
 ## Additional Notes
 
