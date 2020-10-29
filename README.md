@@ -1,3 +1,5 @@
+# Career Information and Recruitment Portal
+
 ### Disclaimer: This is a web application project developed to meet academic curriculum requirements (semester 6 - mini project, B.Tech Information Technology, University of Calicut).
 
 ## About
