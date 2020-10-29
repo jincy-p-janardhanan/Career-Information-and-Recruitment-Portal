@@ -29,6 +29,16 @@ from the downloaded folder.
 ### Pre-requisites
 To be able to run the application, you should have JRE (version 1.8 or higher) installed on your system.
 
+### Known Issues
+
+- None.
+
+## Cloud Deployments
+
+- App deployed on Heroku. Available at: https://career-info-n-recruitment.herokuapp.com/
+### Known Issues for Heroku Deployment
+- SMTP Gmail authentication failure, thus - cannot send emails. 
+
 ## Additional Notes
 
 - `application.properties` is not included in the source available here and is kept as a git-secret since it contains sensitive information like database and gmail passwords. To build the application from source, include a `application.properties` file in `src/main/resources` folder with the following content layout.
