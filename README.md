@@ -6,6 +6,10 @@ This web application demonstrates use of Spring boot, Spring Security and MongoD
 
 Four administrator accounts are configured by default for this application. All college and recruiter registrations on the platform has to be approved by the administrators before they can get full access to the platform. Similarly, the account of alumnus has to be approved by his/her college. Students cannot register themselves. Student accounts must be created by their colleges; hence, their accounts are approved by default.
 
+### Websites
+- Project website: https://jincy-p-janardhanan.github.io/Career-Information-and-Recruitment-Portal/
+- Deployment website: https://career-info-n-recruitment.herokuapp.com
+
 ## Languages, Frameworks, Database and Other Technologies
 - Java
 - Spring Boot
