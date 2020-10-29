@@ -1,6 +1,7 @@
 .gitsecret/keys/random_seed
 !*.secret
 src/main/resources/application.properties
+cirp properties key_0x0D8CB1CC_public.asc
 
 HELP.md
 target/
