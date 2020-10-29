@@ -61,6 +61,7 @@ spring.servlet.multipart.max-request-size=25MB
 ```
 
 - Since this is an academic project, comments have also been included for better understanding of a topic or area
+- The WYSIWYG tool RocketCake was used to generate most of the HTML and CSS files.
 
 
 ## Contributors
