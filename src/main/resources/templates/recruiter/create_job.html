@@ -189,15 +189,16 @@ textarea {
 									id="text_27dba1b5">
 									<div style="text-align: left;">
 										<span
-											style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">Create
-											Job</span>
+											style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;" th:text="${action} == 'update'?'Update Job':'Create Job'">
+										</span>
 									</div>
 								</div>
 								<form
 									style="position: absolute; left: 1%; top: 7%; width: 98%; min-height: 1130px; background: none;"
-									th:action="@{/recruiter/create-job}" th:Object="${job}"
+									th:action="${action}=='update' ?@{/recruiter/edit-job}:@{/recruiter/create-job}" th:Object="${job}"
 									enctype="application/x-www-form-urlencoded" method="POST"
 									id="form_53d4d74c">
+									<input type="hidden" th:value="*{_id}" id="_id" name="_id">
 									<div style="margin: 10px; display: block;"
 										id="form_53d4d74c_padding">
 										<div style="text-align: left;">
@@ -214,6 +215,7 @@ textarea {
 												placeholder="Make your title precise"
 												style="box-sizing: border-box; border-radius: 10px; position: absolute; left: 2%; top: 4%; width: 50%; height: 4%; background-color: #FFFFFF; border: 1px solid #DDDDDD; font-size: 10pt; font-family: 'Open Sans'; color: #434343;"
 												id="edit_77609974" />
+											
 											<div
 												style="position: absolute; left: 56%; top: 1%; background: none;"
 												id="text_67580ade">
@@ -287,7 +289,7 @@ textarea {
 													<span
 														style="font-size: 10pt; font-family: 'Open Sans'; color: #434343;">ATTACH
 														JOB TAGS</span>
-												</div>
+												</div>												
 											</div>
 											<input type="text" th:field="*{skills}"
 												placeholder="Attach relevent job tags like webdeveloper,Onlinemarketing etc."
@@ -321,9 +323,9 @@ textarea {
 												<tr>
 													<td></td>
 													<td>
-														<input th:unless="${update}" type="submit" value="POST JOB" style="border:none; border-radius: 9px; position: relative; width: 75px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
-												id="button_12f25c71">
-														<input th:if="${update}" type="submit" value="UPDATE JOB" style="border:none; border-radius: 9px; position: relative; width: 95px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
+														<input th:unless="${action} == 'update'" type="submit" value="POST JOB" style="border:none; border-radius: 9px; position: relative; width: 75px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
+												id="button_12f25c71">														
+														<input th:if="${action} == 'update'" type="submit" value="UPDATE JOB" style="border:none; border-radius: 9px; position: relative; width: 95px; height:40px; background-color: #42740C; font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF; font-weight: bold;"
 												id="button_12f25c71">
 													</td>
 													<td></td>

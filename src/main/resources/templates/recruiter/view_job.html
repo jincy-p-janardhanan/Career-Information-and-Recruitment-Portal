@@ -104,103 +104,24 @@ a:hover {
 		width: 90% !important;
 	}
 }
+.tags {
+	background: #434343;
+	border-radius: 9px;
+	margin-right: 10px;
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: yellow;
+	padding:5px;
+}
 </style>
 </head>
 <body style="background-color: #FFFFFF; padding: 0; margin: 0;">
 	<header th:insert="recruiter/home_recruiter.html :: header"
 		style="margin: 0px;"> </header>
 	<div th:replace="recruiter/home_recruiter.html :: navbar-recruiter"
-		th:style="a{color: #B2B2B2;}"></div>
-	<div style="text-align: left;">
+		th:style="a{color: #B2B2B2;}"></div>		
 		<div
-			style="box-sizing: border-box; position: absolute; left: 77%; top: 29%; width: 22%; min-height: 45px; background: none; border: 1px solid #86C630;"
-			id="container_68fe4326">
-			<div style="text-align: left;">
-				<img th:src="@{/css/assets/applicant.png}"
-					style="vertical-align: bottom; position: relative; display: inline-block; width: 18%; background: none;"
-					id="img_48458a" alt="" title="" />
-				<div
-					style="position: absolute; left: 21%; top: 0%; width: 80%; height: 100%; background-color: #86C630;"
-					id="button_6cea8c18">
-					<div style="display: table; width: 100%; height: 100%;">
-						<div style="display: table-cell; vertical-align: middle;">
-							<div style="text-align: center;">
-								<span
-									style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">VIEW
-									APPLICATIONS</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div
-			style="box-sizing: border-box; position: absolute; left: 77%; top: 43%; width: 22%; min-height: 135px; background: none; border: 1px solid #DDDDDD;"
-			id="container_4ff4b861">
-			<div style="text-align: left;">
-				<div
-					style="position: absolute; left: 3%; top: 3%; width: 94px; height: 33px; background: none;"
-					id="text_1669005b">
-					<div style="text-align: left;">
-						<span
-							style="font-size: 18pt; font-family: 'Open Sans'; color: #434343;">Tags</span>
-					</div>
-				</div>
-				<div
-					style="box-sizing: border-box; position: absolute; left: 3%; top: 33%; width: 95%; min-height: 1px; background: none; border: 1px solid #DDDDDD;"
-					id="container_56fc7028"></div>
-				<div
-					style="position: absolute; left: 5%; top: 42%; background-color: #36A5E9;"
-					id="text_2120d1ae">
-					<div style="text-align: left;">
-						<span
-							style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">#tag1</span>
-					</div>
-				</div>
-				<div
-					style="position: absolute; left: 24%; top: 42%; background-color: #434343;"
-					id="text_70c663b5">
-					<div style="text-align: left;">
-						<span
-							style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">#hashtag2</span>
-					</div>
-				</div>
-				<div
-					style="position: absolute; left: 57%; top: 42%; background-color: #F43D3C;"
-					id="text_38b2d1f2">
-					<div style="text-align: left;">
-						<span
-							style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">#tag_3</span>
-					</div>
-				</div>
-				<div
-					style="position: absolute; left: 80%; top: 42%; background-color: #62AA11;"
-					id="text_521a477f">
-					<div style="text-align: left;">
-						<span
-							style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">#tag_4</span>
-					</div>
-				</div>
-				<div
-					style="position: absolute; left: 5%; top: 72%; background-color: #FF9900;"
-					id="text_40bc1880">
-					<div style="text-align: left;">
-						<span
-							style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">#tag1</span>
-					</div>
-				</div>
-				<div
-					style="position: absolute; left: 24%; top: 72%; background-color: #663FFB;"
-					id="text_d75b7d1">
-					<div style="text-align: left;">
-						<span
-							style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">#tag1</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div
-			style="position: absolute; left: 77%; top: 75%; width: 22%; min-height: 290px; background-color: #434343;"
+			style="position: absolute; left: 77%; top: 25%; width: 22%; min-height: 290px; background-color: #434343;"
 			id="container_67ef04f1">
 			<div style="margin: 25px 10px 10px 10px; display: block;"
 				id="container_67ef04f1_padding">
@@ -221,8 +142,8 @@ a:hover {
 						<div style="display: table; width: 100%; height: 100%;">
 							<div style="display: table-cell; vertical-align: middle;">
 								<div style="text-align: center;">
-									<span
-										style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">CREATE</span>
+									<a th:href="@{/recruiter/create-job}"><span
+										style="font-size: 10pt; font-family: 'Open Sans'; color: #FFFFFF;">CREATE</span></a>
 								</div>
 							</div>
 						</div>
@@ -312,11 +233,18 @@ a:hover {
 									</div>
 								</div>
 								<br />
+								<div style="position: relative; display:inline-block; text-align: left; background: none; padding-top: 12px; font-size: 18pt; font-family: 'Open Sans'; color: #434343;"
+							id="text_37d2a949">																	
+								<div  th:if="${not #lists.isEmpty(job.skills)}">
+									<span class="tags" th:each="skill : ${job.skills}" th:text="${skill}"></span>								
+								</div>
+								
+								</div>								
 							</div>
 
 						</div>
 					</div>
-					<div style="position: relative; width: 100%; background: none;"
+					<div style="position: relative; width: 100%; margin-top:20px; background: none;"
 						id="container_1f608baf">
 						<div style="margin: 10px; display: block;"
 							id="container_1f608baf_padding">

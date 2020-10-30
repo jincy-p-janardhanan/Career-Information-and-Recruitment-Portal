@@ -84,6 +84,15 @@ a {
 	color: #ffffff;
 	background: #986767;
 }
+.tags {
+	background: #434343;
+	border-radius: 9px;
+	margin-right: 10px;
+	font-size: 11pt;
+	font-family: 'Open Sans';
+	color: yellow;
+	padding:5px;
+}
 </style>
 </head>
 <body>
@@ -128,6 +137,9 @@ a {
 								<span
 									style="white-space: pre-wrap; font-size: 11pt; font-family: 'Open Sans'; color: #434343;"
 									th:text="${job.desc}"></span>
+							</div>
+							<div  th:if="${not #lists.isEmpty(job.skills)}">
+								<span class="tags" th:each="skill : ${job.skills}" th:text="${skill}"></span>								
 							</div>
 						</div>
 						<br />

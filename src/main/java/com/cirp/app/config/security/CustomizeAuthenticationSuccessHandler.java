@@ -50,7 +50,11 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 				response.sendRedirect("/student/home");
 
 			} else if (grantedAuthority.getAuthority().equals("ROLE_PENDING")) {
+				
 				response.sendRedirect("/pending-approval");
+			} else if (grantedAuthority.getAuthority().equals("ROLE_REJECTED")) {
+				
+				response.sendRedirect("/login?error=true");
 			}
 		}
 

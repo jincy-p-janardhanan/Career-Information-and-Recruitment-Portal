@@ -48,10 +48,8 @@ public class ProfileController {
 			return "redirect:/college/home";
 		else if (user_class == Recruiter.class)
 			return "redirect:/recruiter/home";
-		else if (user_class == Student.class)
+		else if (user_class == Student.class || user_class == Alumnus.class)
 			return "redirect:/student/home";
-		else if (user_class == Alumnus.class)
-			return "redirect:/alumnus/home";
 		else
 			return "redirect:/error";
 	}

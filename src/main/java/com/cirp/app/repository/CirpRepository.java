@@ -87,8 +87,15 @@ public class CirpRepository implements CirpRepositoryOperations {
 
 	@Override
 	public void createJob(Job job, Recruiter recruiter) {
+		mongoTemplate.save(job);
+		logger.info("saved job with id" + job.get_id());
 		mongoTemplate.save(recruiter);
-		mongoTemplate.insert(job);
+	}
+	
+	@Override
+	public void editJob(Job job) {
+		mongoTemplate.save(job);
+		logger.info("saved job with id " + job.get_id());
 	}
 
 	@Override

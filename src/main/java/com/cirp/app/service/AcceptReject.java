@@ -96,7 +96,7 @@ public class AcceptReject {
 
 		// Get total number of admins and absolute value (positive) of approval count
 		NonAdmin user = repo.findById(username);
-		int approval_count = Math.abs(user.getApproval_count());
+		int approval_count = user.getApproval_count();
 
 		// Check if user is accepted or rejected by all admins
 		if (admin_count == approval_count) {
@@ -104,6 +104,16 @@ public class AcceptReject {
 			// Change status of user
 			repo.updateUserStatus(username, counter, user_class);
 			repo.updateUserRole(username, role, user_class);
+			// Send email to the user regarding approval or rejection
+			String to = user.getEmail();
+			sendmails.sendEmail(to, sub, content);
+		} 
+		
+		if (admin_count == Math.abs(approval_count)) {
+
+			// Change status of user
+			repo.updateUserStatus(username, counter, user_class);
+			repo.updateUserRole(username, "ROLE_REJECTED", user_class);
 			// Send email to the user regarding approval or rejection
 			String to = user.getEmail();
 			sendmails.sendEmail(to, sub, content);
