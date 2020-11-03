@@ -41,7 +41,6 @@ To be able to run the application, you should have JRE (version 1.8 or higher) i
 
 - App deployed on Heroku. Available at: https://career-info-n-recruitment.herokuapp.com/
 ### Known Issues for Heroku Deployment
-- SMTP Gmail authentication failure, thus - cannot send emails.
 - File upload fails - requires Amazon S3 (or other hosting services) to host uploaded images.
 
 ## Additional Notes
