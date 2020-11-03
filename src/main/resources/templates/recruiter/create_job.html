@@ -8,7 +8,7 @@
 <script
 	th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/bootstrap-tagsinput.js}"></script>
-<title>Create Job</title>
+<title th:if="${action}=='update' ?'Update Job':'Create Job'">Create Job</title>
 <style type="text/css">
 a {
 	color: #FFFFFF;
@@ -162,6 +162,35 @@ textarea {
 	}
 }
 </style>
+<script>
+	function openNav() {
+		document.getElementById("mySidebar").style.width = "250px";
+	}
+
+	function closeNav() {
+		document.getElementById("mySidebar").style.width = "0";
+	}
+	function viewChats() {
+		document.getElementById("all_chats_popup").style.display = "block";
+	}
+
+	function close_popup() {
+		document.getElementById("all_chats_popup").style.display = "none";
+		document.getElementById("recommend_others").style.display = "none";
+	}
+
+	window.onclick = function(event) {
+		if (event.target == document.getElementById("all_chats_popup")) {
+			document.getElementById("all_chats_popup").style.display = "none";
+		}
+		if (event.target == document.getElementById("recommend_others")) {
+			document.getElementById("recommend_others").style.display = "none";
+		}
+	}
+	function viewRecommendRequests() {
+		document.getElementById("recommend_others").style.display = "block";
+	}
+</script>
 </head>
 <body style="background-color: #FFFFFF; padding: 0; margin: 0;">
 	<div style="text-align: left;">
@@ -198,7 +227,7 @@ textarea {
 									th:action="${action}=='update' ?@{/recruiter/edit-job}:@{/recruiter/create-job}" th:Object="${job}"
 									enctype="application/x-www-form-urlencoded" method="POST"
 									id="form_53d4d74c">
-									<input type="hidden" th:value="*{_id}" id="_id" name="_id">
+									<input type="hidden" th:if="${action} == 'update'" th:value="*{_id}" id="_id" name="_id">
 									<div style="margin: 10px; display: block;"
 										id="form_53d4d74c_padding">
 										<div style="text-align: left;">
