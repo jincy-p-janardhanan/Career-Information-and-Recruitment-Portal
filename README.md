@@ -43,6 +43,10 @@ To be able to run the application, you should have JRE (version 1.8 or higher) i
 ### Known Issues for Heroku Deployment
 - File upload fails - requires Amazon S3 (or other hosting services) to host uploaded images.
 
+## Demo
+
+ Feel free to view a complete demo of our application at: https://drive.google.com/file/d/1GHfJgFGIVuGlzfqIt6tNYS6HUuCRl6fJ/view?usp=sharing
+
 ## Additional Notes
 
 - `application.properties` is not included in the source available here and is kept as a git-secret since it contains sensitive information like database and gmail passwords. To build the application from source, include a `application.properties` file in `src/main/resources` folder with the following content layout.
