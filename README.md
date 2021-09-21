@@ -40,7 +40,7 @@ To be able to run the application, you should have JRE (version 1.8 or higher) i
 ## Cloud Deployments
 
 - App deployed on Heroku. Available at: https://career-info-n-recruitment.herokuapp.com/
-- AWS S3 used free-tier used for file storage.
+- AWS S3 free-tier used for file storage.
 
 ## Demo
 
