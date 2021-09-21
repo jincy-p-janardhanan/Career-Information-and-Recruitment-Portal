@@ -40,8 +40,7 @@ To be able to run the application, you should have JRE (version 1.8 or higher) i
 ## Cloud Deployments
 
 - App deployed on Heroku. Available at: https://career-info-n-recruitment.herokuapp.com/
-### Known Issues for Heroku Deployment
-- File upload fails - requires Amazon S3 (or other hosting services) to host uploaded images.
+- AWS S3 used free-tier used for file storage.
 
 ## Demo
 
