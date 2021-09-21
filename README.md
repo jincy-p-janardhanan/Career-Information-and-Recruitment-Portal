@@ -77,6 +77,15 @@ spring.servlet.multipart.max-file-size=10MB
 spring.servlet.multipart.max-request-size=25MB
 
 ```
+- Also, to configure AWS S3 in your application, include the following in your environment variables
+
+```
+AWS_ACCESS_KEY_ID = your-aws-accessID
+AWS_SECRET_ACCESS_KEY = your-aws-secret-key
+AWS_REGION = your-aws-region
+S3_BUCKET_NAME = your-bucket-name
+```
+For more info, see AWS [official documentation](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html).
 
 - Since this is an academic project, comments have also been included for better understanding of a topic or area
 - The WYSIWYG tool RocketCake was used to generate most of the HTML and CSS files.
