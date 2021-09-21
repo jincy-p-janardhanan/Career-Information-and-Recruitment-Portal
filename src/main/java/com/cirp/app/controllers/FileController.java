@@ -45,7 +45,8 @@ public class FileController {
 	public String updateProfilePic(@RequestParam("file") MultipartFile image, RedirectAttributes redirectAttributes,
 			Authentication authentication) {
 		String username = authentication.getName();
-		String filename = FileStorage.storeFile(image, username, "\\profile-pictures\\");
+//		String filename = FileStorage.storeFile(image, username, "\\profile-pictures\\");
+		String filename = FileStorage.storeFile(image, username, "profile-pictures");
 		edit.updateProfilePic(filename, username);
 		return getRedirectUrl(username);
 	}
@@ -56,7 +57,8 @@ public class FileController {
 		if(repo.findById(id) instanceof NonAdmin) {
 			NonAdmin user = repo.findById(id);
 			String image = user.getProfile_pic();
-			File img = new File(FileStorage.UPLOAD_PATH + "\\profile-pictures\\" + image);
+//			File img = new File(FileStorage.UPLOAD_PATH + "\\profile-pictures\\" + image);
+			File img = FileStorage.retrieveFile(image, "profile-pictures");
 			return ResponseEntity.ok()
 					.contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img)))
 					.body(Files.readAllBytes(img.toPath()));
@@ -64,7 +66,8 @@ public class FileController {
 		else {
 			Job job = repo.findById(id);
 			String image = job.getProfile_pic();
-			File img = new File(FileStorage.UPLOAD_PATH + "\\profile-pictures\\" + image);
+//			File img = new File(FileStorage.UPLOAD_PATH + "\\profile-pictures\\" + image);
+			File img = FileStorage.retrieveFile(image, "profile-pictures");
 			return ResponseEntity.ok()
 					.contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img)))
 					.body(Files.readAllBytes(img.toPath()));
@@ -75,15 +78,16 @@ public class FileController {
 	public String updateBgImg(@RequestParam("file") MultipartFile image, RedirectAttributes redirectAttributes,
 			Authentication authentication) {
 		String username = authentication.getName();
-		String filename = FileStorage.storeFile(image, username, "\\backgrounds\\");
+//		String filename = FileStorage.storeFile(image, username, "\\backgrounds\\");
+		String filename = FileStorage.storeFile(image, username, "backgrounds");
 		edit.updateBgImg(filename, username);
 		return getRedirectUrl(username);
 	}
 
 	@GetMapping("/view-bg-img/{image:.+}")
 	public ResponseEntity<byte[]> viewBgImg(@PathVariable("image") String image) throws IOException {
-		File img = new File(FileStorage.UPLOAD_PATH + "\\backgrounds\\" + image);
-		
+//		File img = new File(FileStorage.UPLOAD_PATH + "\\backgrounds\\" + image);
+		File img = FileStorage.retrieveFile(image, "backgrounds");
 		return ResponseEntity.ok()
 				.contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img)))
 				.body(Files.readAllBytes(img.toPath()));
