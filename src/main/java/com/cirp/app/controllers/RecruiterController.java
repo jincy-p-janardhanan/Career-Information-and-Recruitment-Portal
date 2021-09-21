@@ -59,6 +59,7 @@ public class RecruiterController {
 		model.addAttribute("location",
 				recruiter.getContact().getCity_or_town() + ", " + recruiter.getContact().getCountry());
 		model.addAttribute("contact", recruiter.getContact());
+		model.addAttribute("requests", recruiter.getRecc_req_recvd());
 
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
@@ -107,7 +108,8 @@ public class RecruiterController {
 		model.addAttribute("profile_pic", recruiter.getProfile_pic());
 		Job job = repo.findById(job_id);
 		model.addAttribute("job", job);
-
+		
+		model.addAttribute("requests", recruiter.getRecc_req_recvd());
 		List<ChatChannel> channels = chatChannelRepo.findByUser1(username);
 		channels.addAll(chatChannelRepo.findByUser2(username));
 		model.addAttribute("channels", channels);
@@ -183,12 +185,12 @@ public class RecruiterController {
 	@RequestMapping(value = {"/create-job", "/edit-job"}, params = { "add-question" })
 	public String addQuestion(@RequestParam(name = "_id", required = false) String id, final Job job, final BindingResult bindingResult, Model model,
 			Authentication authentication) {
-		if(id!=null) {
-			job.set_id(id);
-			model.addAttribute("action", "update");
+		if(id == null) {
+			model.addAttribute("action", "create");			
 		}
 		else {
-			model.addAttribute("action", "create");
+			job.set_id(id);
+			model.addAttribute("action", "update");
 		}
 		job.getQuestions().add(new String());
 
@@ -208,12 +210,12 @@ public class RecruiterController {
 			final HttpServletRequest req, Authentication authentication) {
 		
 		final Integer question_no = Integer.valueOf(req.getParameter("delete-question"));
-		if(id!=null) {
-			job.set_id(id);
-			model.addAttribute("action", "update");
+		if(id == null) {
+			model.addAttribute("action", "create");			
 		}
 		else {
-			model.addAttribute("action", "create");
+			job.set_id(id);
+			model.addAttribute("action", "update");
 		}
 		job.getQuestions().remove(question_no.intValue());
 		
@@ -243,9 +245,9 @@ public class RecruiterController {
 			job.setProfile_pic("default_job.png");
 		}
 		logger.info("Received job id : " + id);
-		if (id == null) {
-			id = new ObjectId().toString();
-			logger.info("generated new job id");
+		if (id == null || id.equals("")) {
+			id = ObjectId.get().toString();
+			logger.info("generated new job id: " + id);
 		}
 
 		job.set_id(id);
@@ -263,4 +265,5 @@ public class RecruiterController {
 				"Successfully created new job opening for " + job.getName() + "!");
 		return "redirect:/recruiter/manage-jobs";
 	}
+	
 }

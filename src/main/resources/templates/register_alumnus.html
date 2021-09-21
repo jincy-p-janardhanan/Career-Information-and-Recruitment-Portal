@@ -7,7 +7,9 @@
 	Portal</title>
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/register_alumnus_html.css}">
-	
+<link rel="stylesheet" type="text/css"
+	href="css/register_college_html.css">
+</head>
 <style>
 a.wsp508c6e15 {
 	font-family: 'Open Sans';
@@ -87,17 +89,22 @@ a.wsp508c6e15:hover {
 						<div class="textstyle1">
 							<span class="textstyle3">Register as Alumnus</span>
 						</div>
+						<div th:if="${message}" th:text="${message}" class="message"></div>
 					</div>
+					
 					<form th:action="@{/register-alumnus}"
 						enctype="application/x-www-form-urlencoded" th:Object="${alumnus}"
 						method="POST" id="form_1452d9e0">
+						
 						<div id="form_1452d9e0_padding">
 							<div class="textstyle1">
 								<div th:insert="college/college_admin_panel.html :: header">
 								</div>
 								<div th:replace="college/college_admin_panel.html :: student-up2-branch"></div>
+								
 								<div id="text_6409f847">
 									<div class="textstyle1">
+								
 										<span class="textstyle4">Name of College</span>
 									</div>
 								</div>

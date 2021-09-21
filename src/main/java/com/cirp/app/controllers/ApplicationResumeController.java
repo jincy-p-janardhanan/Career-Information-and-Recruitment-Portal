@@ -40,7 +40,7 @@ public class ApplicationResumeController {
 		User user = repo.findById(applicant_id);
 		Job job = repo.findById(job_id);
 		redirectAttributes.addFlashAttribute("message", user.getName()+" has been hired for "+job.getName() +"!");
-		return "redirect:/recruiter/view-all-applications";
+		return "redirect:/recruiter/view-applications";
 	}
 	
 	@PostMapping("/reject")
@@ -59,6 +59,6 @@ public class ApplicationResumeController {
 		User user = repo.findById(applicant_id);
 		Job job = repo.findById(job_id);
 		redirectAttributes.addFlashAttribute("message", user.getName()+"'s application for "+job.getName() +" was rejected.");
-		return "redirect:/recruiter/view-all-applications";
+		return "redirect:/recruiter/view-applications";
 	}
 }

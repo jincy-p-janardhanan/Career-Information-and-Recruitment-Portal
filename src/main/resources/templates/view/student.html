@@ -218,19 +218,36 @@ li {
 						</div>
 						<table th:if="${recommendations}">
 							<tr>
-								<td colspan=2>
-									<span style="font-family: 'Open Sans'; font-size:18pt; color: #434343;">RECOMMENDATIONS</span>
+								<td colspan=2><span
+									style="font-family: 'Open Sans'; font-size: 18pt; color: #434343;">RECOMMENDATIONS</span>
 								</td>
 							</tr>
 							<tr th:each="r:${recommendations}">
 								<td>
-									<div th:style="'height:90px; width:90px; border-radius:100px; background-size:cover; background-image: url('+ @{'/view-profile-pic/' + ${r.recommender_id}} +');'"></div>
+									<div
+										th:style="'height:90px; width:90px; border-radius:100px; background-size:cover; background-image: url('+ @{'/view-profile-pic/' + ${r.recommender_id}} +');'"></div>
 								</td>
-								<td  style="text-align:left;">
-									<span style="font-family: 'Open Sans'; font-size:11pt; color: #434343;">
-										<i class="fas fa-quote-left" style="font-size:22pt; color:#36A5E9; margin-right:10px;"></i><span th:text="${r.recc_msg}"></span></span>
+								<td style="text-align: left;">
+									<table>
+										<tr>
+											<td class="recc"><span
+												style="font-family: 'Open Sans'; font-size: 11pt; color: #434343;">
+													<a
+													th:href="@{'/view?id=' + ${r.recommender_id}}"><span
+														style="float: left; font-size: 14pt; font-weight: bold;"
+														th:text="${r.recommender_name}"></span></a>
+											</span></td>
+										</tr>
+										<tr>
+											<td><span
+												style="font-family: 'Open Sans'; font-size: 11pt; color: #434343;">
+													<i class="fas fa-quote-left"
+													style="font-size: 22pt; color: #36A5E9; margin-right:10px;"></i><span
+													th:text="${r.recc_msg}"></span>
+											</span></td>
+										</tr>
+									</table>
 								</td>
-								
 							</tr>
 						</table>
 					</div>
@@ -331,7 +348,8 @@ li {
 						</div>
 					</div>
 				</div>
-
 			</div>
+		</div>
+	</div>
 </body>
 </html>

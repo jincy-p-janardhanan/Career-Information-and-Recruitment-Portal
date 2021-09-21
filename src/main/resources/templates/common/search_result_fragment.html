@@ -162,8 +162,11 @@ a {
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 0px;"><div th:if="${result instanceof T(org.bson.Document)}" id="profile_image"
+													<td style="padding: 0px;">
+													
+													<div th:if="${result instanceof T(org.bson.Document)}" id="profile_image"
 															th:style="'background-image: url('+ @{'/view-profile-pic/' + ${result._id}} +');'"></div>
+															
 															<div th:if="${result instanceof T(com.cirp.app.model.User)}" id="profile_image"
 															th:style="'background-image: url('+ @{'/view-profile-pic/' + ${result.username}} +');'"></div></td>
 													<td><span th:text="${result.desc}" class="textstyle5"
@@ -180,7 +183,7 @@ a {
 															</button>
 															</a>
 															
-															<a th:if="${result instanceof T(com.cirp.app.model.User)}" th:href="@{'/view?id='+ ${result?.username}}"><button id="viewprofilebutton">
+															<a th:if="${result instanceof T(com.cirp.app.model.User)}" th:href="@{'/view?id='+ ${result?.username}}"><button id="viewprofilebutton" style="background-color: #00ff00;">
 																<i class="fa fa-eye" style="font-size: 20px;"></i> VIEW
 																PROFILE
 															</button>

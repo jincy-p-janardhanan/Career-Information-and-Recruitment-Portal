@@ -528,8 +528,7 @@ public class CirpRepository implements CirpRepositoryOperations {
 				
 		Document execution_results  = mongoTemplate.executeCommand(aggregate_command);
 		List<Document> aggregation_results = execution_results.get("cursor", Document.class)
-				.getList("firstBatch", Document.class);
-		System.out.println(aggregation_results);	
+				.getList("firstBatch", Document.class);	
 		//@formatter:on
 		return aggregation_results;
 	}
