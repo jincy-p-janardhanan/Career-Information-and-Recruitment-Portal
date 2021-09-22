@@ -109,7 +109,8 @@ public class AcceptReject {
 			sendmails.sendEmail(to, sub, content);
 		} 
 		
-		if (admin_count == Math.abs(approval_count)) {
+		else {
+			if (admin_count == Math.abs(approval_count)) {
 
 			// Change status of user
 			repo.updateUserStatus(username, counter, user_class);
@@ -117,6 +118,7 @@ public class AcceptReject {
 			// Send email to the user regarding approval or rejection
 			String to = user.getEmail();
 			sendmails.sendEmail(to, sub, content);
+			}
 		}
 	}
 }
