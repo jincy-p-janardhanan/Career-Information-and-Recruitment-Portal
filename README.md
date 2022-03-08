@@ -1,3 +1,5 @@
+    ⚠ This repository and deployment is no longer maintained!
+    
 # Career Information and Recruitment Portal
 
 **Disclaimer: This is a web application project developed to meet academic curriculum requirements (semester 6 - mini project, B.Tech Information Technology, University of Calicut).**
@@ -38,7 +40,7 @@ To be able to run the application, you should have JRE (version 1.8 or higher) i
 - None.
 
 ## Cloud Deployments
-
+  
 - App deployed on Heroku. Available at: https://career-info-n-recruitment.herokuapp.com/
 - AWS S3 free-tier used for file storage.
 
